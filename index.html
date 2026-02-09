@@ -1,86 +1,496 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Parth Chaudhari | Veterinarian</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Professional profile of Parth Chaudhari — internationally trained veterinarian, currently working in Canada and preparing for NAVLE." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Parth Chaudhari | Veterinarian" />
+  <meta property="og:description" content="Internationally trained veterinarian. Clinical experience in large animal practice and current small animal clinical work in Canada. NAVLE candidate." />
+  <meta property="og:type" content="website" />
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    :root{
+      --bg: #0b1020;
+      --panel: rgba(255,255,255,.06);
+      --panel-2: rgba(255,255,255,.09);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --muted2: rgba(255,255,255,.55);
+      --line: rgba(255,255,255,.10);
+      --accent: #7dd3fc;     /* sky */
+      --accent2:#a78bfa;     /* violet */
+      --good:#34d399;
+      --warn:#fbbf24;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius: 20px;
+      --radius2: 28px;
+      --max: 1040px;
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height: 100%; }
+    body{
+      margin:0;
+      color:var(--text);
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 700px at 10% 10%, rgba(125,211,252,.18), transparent 60%),
+        radial-gradient(900px 600px at 90% 15%, rgba(167,139,250,.16), transparent 62%),
+        radial-gradient(900px 600px at 70% 90%, rgba(52,211,153,.10), transparent 60%),
+        linear-gradient(180deg, #070a12 0%, #0b1020 40%, #070a12 100%);
+      overflow-x:hidden;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ text-decoration: underline; text-underline-offset: 4px; }
+
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 28px 18px 60px; }
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; padding: 10px 4px 22px;
+      position: sticky; top: 0;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(11,16,32,.88) 0%, rgba(11,16,32,.62) 70%, transparent 100%);
+      z-index: 10;
+    }
+    .brand{
+      display:flex; gap:12px; align-items:center;
+      min-width: 220px;
+    }
+    .mark{
+      width: 40px; height: 40px; border-radius: 14px;
+      background:
+        radial-gradient(14px 14px at 30% 35%, rgba(125,211,252,.9), transparent 60%),
+        radial-gradient(18px 18px at 70% 60%, rgba(167,139,250,.85), transparent 62%),
+        linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.04));
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 24px rgba(0,0,0,.35);
+    }
+    .brand h1{
+      font-size: 15px; line-height: 1.2; margin:0;
+      letter-spacing: .2px;
+    }
+    .brand p{ margin:0; color: var(--muted2); font-size: 12px; }
+
+    .nav{
+      display:flex; gap: 6px; flex-wrap: wrap; justify-content:flex-end;
+    }
+    .nav a{
+      font-size: 13px; color: var(--muted);
+      padding: 8px 10px; border-radius: 12px;
+      border: 1px solid transparent;
+    }
+    .nav a:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.08);
+      text-decoration:none;
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.4fr .9fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 10px;
+    }
+    @media (max-width: 920px){
+      .hero{ grid-template-columns: 1fr; }
+      .brand{ min-width: unset; }
+      .nav{ justify-content:flex-start; }
+      .topbar{ position: relative; }
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.045));
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .pad{ padding: 22px; }
+
+    .headline{
+      padding: 26px 22px 18px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background:
+        radial-gradient(900px 300px at 25% 0%, rgba(125,211,252,.14), transparent 60%),
+        radial-gradient(900px 300px at 75% 0%, rgba(167,139,250,.12), transparent 62%);
+    }
+    .headline .kicker{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: var(--good);
+      box-shadow: 0 0 0 4px rgba(52,211,153,.12);
+    }
+    .headline h2{
+      margin: 12px 0 10px;
+      font-size: 34px; line-height: 1.1;
+      letter-spacing: -.4px;
+    }
+    .headline p{
+      margin:0;
+      color: var(--muted);
+      font-size: 15.5px;
+      max-width: 62ch;
+    }
+
+    .actions{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top: 16px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 13px;
+      text-decoration:none;
+      transition: transform .08s ease, background .12s ease, border-color .12s ease;
+      cursor:pointer;
+    }
+    .btn:hover{ text-decoration:none; background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.18); }
+    .btn:active{ transform: translateY(1px); }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(125,211,252,.22), rgba(167,139,250,.18));
+      border-color: rgba(125,211,252,.26);
+    }
+    .btn.primary:hover{ background: linear-gradient(135deg, rgba(125,211,252,.28), rgba(167,139,250,.22)); }
+    .btn .icon{ width: 16px; height:16px; display:inline-block; }
+
+    .grid{
+      display:grid; gap: 14px;
+      grid-template-columns: repeat(12, 1fr);
+      margin-top: 14px;
+    }
+    .col-7{ grid-column: span 7; }
+    .col-5{ grid-column: span 5; }
+    .col-6{ grid-column: span 6; }
+    .col-4{ grid-column: span 4; }
+    .col-12{ grid-column: span 12; }
+    @media (max-width: 920px){
+      .col-7,.col-5,.col-6,.col-4{ grid-column: span 12; }
+    }
+
+    .section-title{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      margin: 0 0 10px;
+    }
+    .section-title h3{
+      margin:0;
+      font-size: 16px;
+      letter-spacing: .2px;
+    }
+    .section-title small{ color: var(--muted2); }
+
+    .list{
       margin: 0;
-      background: #f7f7f7;
-      color: #222;
-      line-height: 1.6;
+      padding: 0;
+      list-style: none;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
     }
-    header {
-      background: #1f3a5f;
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
+    .item{
+      padding: 12px 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.08);
     }
-    section {
-      max-width: 900px;
-      margin: auto;
-      padding: 40px 20px;
-      background: white;
-      margin-top: 20px;
+    .item strong{ display:block; font-size: 14px; }
+    .item span{ color: var(--muted); font-size: 13px; }
+
+    .chips{
+      display:flex; gap:8px; flex-wrap:wrap;
+      margin-top: 12px;
     }
-    h1, h2 {
-      color: #1f3a5f;
+    .chip{
+      font-size: 12px;
+      color: var(--muted);
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
     }
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-      color: #666;
+
+    .quote{
+      position: relative;
+      padding: 18px 16px;
+      border-radius: 18px;
+      background: rgba(125,211,252,.07);
+      border: 1px solid rgba(125,211,252,.12);
+      color: var(--muted);
+      font-size: 13.5px;
+      margin-top: 14px;
     }
+    .quote:before{
+      content:"";
+      position:absolute;
+      inset: -1px;
+      border-radius: 18px;
+      background: radial-gradient(140px 60px at 20% 0%, rgba(125,211,252,.20), transparent 70%);
+      pointer-events:none;
+      opacity:.7;
+    }
+    .quote b{ color: var(--text); font-weight: 700; }
+
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
+      margin: 18px 0 0;
+    }
+
+    .footer{
+      margin-top: 28px;
+      color: var(--muted2);
+      font-size: 12.5px;
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+      padding: 6px 2px;
+    }
+
+    /* Small utility */
+    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
   </style>
 </head>
 
 <body>
+  <div class="wrap">
 
-<header>
-  <h1>Dr. Parth Chaudhari</h1>
-  <p>Veterinarian | International Graduate | NAVLE Candidate</p>
-</header>
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark" aria-hidden="true"></div>
+        <div>
+          <h1>Parth Chaudhari</h1>
+          <p>Veterinarian • Canada (current) • NAVLE candidate</p>
+        </div>
+      </div>
 
-<section>
-  <h2>About Me</h2>
-  <p>
-    I am an internationally trained veterinarian with over four years of clinical experience in large animal practice
-    and current hands-on work in small animal clinical settings in Canada. I am presently working as a veterinary
-    assistant and technician while progressing toward full veterinary licensure in North America.
-  </p>
-  <p>
-    My professional interests include internal medicine, emergency and critical care, and evidence-based clinical
-    decision-making. I am actively preparing for the North American Veterinary Licensing Examination (NAVLE).
-  </p>
-</section>
+      <nav class="nav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#focus">Focus</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
 
-<section>
-  <h2>Professional Experience</h2>
-  <ul>
-    <li>Veterinary Assistant & Technician — Canada</li>
-    <li>Large Animal Veterinarian — India</li>
-  </ul>
-</section>
+    <main class="hero card" id="top">
+      <div class="headline">
+        <div class="kicker">
+          <span class="pill"><span class="dot" aria-hidden="true"></span>Available for opportunities</span>
+          <span class="pill">Evidence-based • Calm under pressure</span>
+          <span class="pill">Large animal background → Small animal practice</span>
+        </div>
 
-<section>
-  <h2>Education & Licensure</h2>
-  <ul>
-    <li>Bachelor of Veterinary Science (BVSc)</li>
-    <li>NAVLE Candidate</li>
-  </ul>
-</section>
+        <h2>Clinical, structured, and precise veterinary work.</h2>
+        <p>
+          Internationally trained veterinarian with <b>4+ years</b> of large animal clinical experience and current hands-on work in
+          small animal clinical settings in Canada. Building toward full North American licensure with focused NAVLE preparation.
+        </p>
 
-<section>
-  <h2>Contact</h2>
-  <p>Email: <strong>parth@parthchaudhari.com</strong></p>
-</section>
+        <div class="actions">
+          <a class="btn primary" href="#contact">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 7.5l8 5 8-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M4 7.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            Contact
+          </a>
 
-<footer>
-  © 2026 Parth Chaudhari
-</footer>
+          <!-- OPTIONAL: If you add a CV PDF later, place it in your repo as "Parth_Chaudhari_CV.pdf" and uncomment below -->
+          <!--
+          <a class="btn" href="Parth_Chaudhari_CV.pdf" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 3h7l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M14 3v4a2 2 0 0 0 2 2h4" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M8 13h8M8 17h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            Download CV
+          </a>
+          -->
 
+          <button class="btn" type="button" id="copyEmailBtn" aria-label="Copy email address">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9 9h10v10H9V9z" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+            Copy email
+          </button>
+        </div>
+
+        <div class="quote" role="note">
+          <b>Working style:</b> I prefer clear problem lists, disciplined differentials, and practical decision trees—fast when needed,
+          precise always. (Also: table tennis keeps my reflexes honest.)
+        </div>
+      </div>
+
+      <div class="pad">
+        <div class="grid">
+
+          <section class="col-12 card pad" style="background: rgba(255,255,255,.035); box-shadow:none;">
+            <div class="section-title">
+              <h3 id="about">About</h3>
+              <small>Professional bio</small>
+            </div>
+            <p style="margin:0;color:var(--muted);">
+              I am an internationally trained veterinarian with over four years of clinical experience in large animal medicine and current hands-on work in
+              small animal clinical practice in Canada. I am presently employed as a veterinary assistant and technician while progressing toward full veterinary
+              licensure in North America.
+              <br><br>
+              My professional interests include internal medicine, emergency and critical care, and evidence-based clinical decision-making. I am actively preparing
+              for the North American Veterinary Licensing Examination (NAVLE) and continuously consolidating my clinical knowledge in companion animal medicine.
+            </p>
+
+            <div class="chips" aria-label="Highlights">
+              <span class="chip">Large animal: field medicine & herd health</span>
+              <span class="chip">Small animal: clinical support & patient care</span>
+              <span class="chip">Emergency mindset: triage & stabilization</span>
+              <span class="chip">Communication: clear, calm, concise</span>
+            </div>
+          </section>
+
+          <section class="col-12 card pad" style="background: rgba(255,255,255,.035); box-shadow:none;">
+            <div class="section-title">
+              <h3 id="experience">Professional Experience</h3>
+              <small>Snapshot</small>
+            </div>
+            <ul class="list">
+              <li class="item">
+                <strong>Veterinary Assistant & Technician — Canada</strong>
+                <span>Small animal clinical setting • hands-on patient care • diagnostics support • client communication</span>
+              </li>
+              <li class="item">
+                <strong>Large Animal Veterinarian — India</strong>
+                <span>Field practice • herd health • common production-animal conditions • treatment planning</span>
+              </li>
+            </ul>
+          </section>
+
+          <section class="col-12 card pad" style="background: rgba(255,255,255,.035); box-shadow:none;">
+            <div class="section-title">
+              <h3 id="education">Education & Licensure</h3>
+              <small>Credentials</small>
+            </div>
+            <ul class="list">
+              <li class="item">
+                <strong>Bachelor of Veterinary Science (BVSc)</strong>
+                <span>Veterinary degree (international graduate)</span>
+              </li>
+              <li class="item">
+                <strong>NAVLE Candidate</strong>
+                <span>Focused preparation toward North American licensure</span>
+              </li>
+            </ul>
+
+            <div class="divider"></div>
+
+            <p style="margin:14px 0 0;color:var(--muted2);font-size:13px;">
+              Note: If you want, you can add a “Certifications/Exams” bullet here (e.g., BCSE passed, etc.) once you decide what to publicly display.
+            </p>
+          </section>
+
+          <section class="col-12 card pad" style="background: rgba(255,255,255,.035); box-shadow:none;">
+            <div class="section-title">
+              <h3 id="focus">Current Focus</h3>
+              <small>How I’m building</small>
+            </div>
+            <ul class="list">
+              <li class="item">
+                <strong>Clinical reasoning</strong>
+                <span>Structured differentials, decision trees, and evidence-based workflows.</span>
+              </li>
+              <li class="item">
+                <strong>Emergency & critical care fundamentals</strong>
+                <span>Triage sequencing, stabilization logic, and practical protocols.</span>
+              </li>
+              <li class="item">
+                <strong>Communication</strong>
+                <span>Clear explanations, calm tone, and reliable follow-through.</span>
+              </li>
+            </ul>
+          </section>
+
+          <section class="col-12 card pad" style="background: rgba(255,255,255,.035); box-shadow:none;">
+            <div class="section-title">
+              <h3 id="contact">Contact</h3>
+              <small>Fastest way to reach me</small>
+            </div>
+
+            <div class="item" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+              <div>
+                <strong>Email</strong>
+                <span class="mono" id="emailText">parth@parthchaudhari.com</span>
+              </div>
+              <a class="btn" href="mailto:parth@parthchaudhari.com" aria-label="Email Parth">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 7.5l8 5 8-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M4 7.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+                Email
+              </a>
+            </div>
+
+            <p style="margin:14px 0 0;color:var(--muted2);font-size:13px;">
+              Tip: add additional contact links (LinkedIn, CV PDF) when you’re ready—keep it minimal until then.
+            </p>
+          </section>
+
+        </div>
+
+        <div class="footer">
+          <span>© <span id="year"></span> Parth Chaudhari</span>
+          <span class="mono">parthchaudhari.com</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // copy email
+    const email = "parth@parthchaudhari.com";
+    const btn = document.getElementById("copyEmailBtn");
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(email);
+        const old = btn.innerHTML;
+        btn.textContent = "Copied ✔";
+        setTimeout(() => (btn.innerHTML = old), 1200);
+      } catch (e) {
+        // fallback
+        const el = document.createElement("textarea");
+        el.value = email;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
+        btn.textContent = "Copied ✔";
+        setTimeout(() => (btn.textContent = "Copy email"), 1200);
+      }
+    });
+  </script>
 </body>
 </html>
