@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Parth Chaudhari | Veterinarian</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root {
+  --primary:#0f2a44;
+  --secondary:#1e4f7a;
+  --bg:#f4f7fb;
+  --card:#ffffff;
+  --text:#1f2933;
+  --muted:#6b7280;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height:1.7;
+}
+
+header {
+  background: linear-gradient(135deg,var(--primary),var(--secondary));
+  color:#fff;
+  padding:70px 20px 90px;
+  text-align:center;
+}
+
+header h1 {
+  margin:0;
+  font-size:42px;
+  letter-spacing:0.4px;
+}
+
+header p {
+  margin-top:12px;
+  font-size:17px;
+  opacity:0.95;
+}
+
+nav {
+  position:sticky;
+  top:0;
+  background:#ffffff;
+  z-index:10;
+  border-bottom:1px solid #e5e7eb;
+}
+
+nav ul {
+  display:flex;
+  justify-content:center;
+  gap:28px;
+  list-style:none;
+  margin:0;
+  padding:14px 10px;
+}
+
+nav a {
+  text-decoration:none;
+  color:var(--primary);
+  font-weight:600;
+  font-size:14px;
+}
+
+nav a:hover {
+  text-decoration:underline;
+}
+
+section {
+  max-width:1000px;
+  margin:auto;
+  padding:80px 24px;
+}
+
+.card {
+  background:var(--card);
+  border-radius:16px;
+  padding:45px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.08);
+}
+
+h2 {
+  color:var(--primary);
+  font-size:30px;
+  margin-top:0;
+}
+
+h3 {
+  color:var(--primary);
+  margin-bottom:6px;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:30px;
+}
+
+ul {
+  padding-left:18px;
+}
+
+li {
+  margin-bottom:10px;
+}
+
+.badge {
+  display:inline-block;
+  background:#e6f0fa;
+  color:var(--primary);
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:13px;
+  margin:4px 6px 0 0;
+}
+
+footer {
+  background:#eef2f7;
+  text-align:center;
+  padding:24px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+@media(max-width:600px){
+  header h1{font-size:32px;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Parth Chaudhari</h1>
+  <p>Veterinarian • International Graduate • NAVLE Candidate</p>
+</header>
+
+<nav>
+<ul>
+  <li><a href="#about">About</a></li>
+  <li><a href="#experience">Experience</a></li>
+  <li><a href="#education">Education</a></li>
+  <li><a href="#skills">Skills</a></li>
+  <li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+
+<section id="about">
+<div class="card">
+<h2>About Me</h2>
+<p>
+I am an internationally trained veterinarian with over four years of clinical experience in large animal medicine
+and current hands-on work in small animal clinical practice in Canada. I am presently working as a veterinary
+assistant and technician while progressing toward full veterinary licensure in North America.
+</p>
+<p>
+My professional interests include internal medicine, emergency and critical care, and evidence-based clinical
+decision-making. I am actively preparing for the North American Veterinary Licensing Examination (NAVLE).
+</p>
+</div>
+</section>
+
+<section id="experience">
+<div class="card">
+<h2>Professional Experience</h2>
+
+<h3>Veterinary Assistant & Technician — Canada</h3>
+<p><strong>Waterloo West Animal Hospital</strong> | Oct 2023 – Present</p>
+<ul>
+<li>Assist veterinarians in examinations, diagnostics, treatments, and surgeries</li>
+<li>Perform in-house laboratory testing including blood work and urinalysis</li>
+<li>Maintain accurate medical records using Cornerstone software</li>
+<li>Ensure patient comfort, safety, and infection control</li>
+</ul>
+
+<h3>Veterinarian — Large Animal Practice</h3>
+<p><strong>Sabar Dairy Cooperative Society</strong> | Sep 2017 – Jul 2022</p>
+<ul>
+<li>Provided field-based veterinary care to dairy animals</li>
+<li>Managed medical, surgical, and reproductive conditions</li>
+<li>Performed obstetrics, dentistry, and euthanasia</li>
+<li>Implemented vaccination and disease-prevention protocols</li>
+</ul>
+</div>
+</section>
+
+<section id="education">
+<div class="card">
+<h2>Education & Licensure</h2>
+<ul>
+<li><strong>Bachelor of Veterinary Science & Animal Husbandry</strong> — Anand Agricultural University (2012–2017)</li>
+<li><strong>Health Care Administration & Service Management</strong> — Conestoga College (2022–2023)</li>
+<li><strong>NAVLE Candidate</strong></li>
+</ul>
+</div>
+</section>
+
+<section id="skills">
+<div class="card">
+<h2>Core Skills</h2>
+<div>
+<span class="badge">Clinical Diagnosis</span>
+<span class="badge">Animal Handling</span>
+<span class="badge">Laboratory Analysis</span>
+<span class="badge">Surgical Assistance</span>
+<span class="badge">Radiology Support</span>
+<span class="badge">Client Education</span>
+<span class="badge">Cornerstone Software</span>
+<span class="badge">Team Collaboration</span>
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="card">
+<h2>Contact</h2>
+<p><strong>Email:</strong> parth@parthchaudhari.com</p>
+<p><strong>Phone:</strong> +1 226-978-0850</p>
+<p><strong>Location:</strong> Waterloo, Ontario, Canada</p>
+</div>
+</section>
+
+<footer>
+© 2026 Parth Chaudhari • parthchaudhari.com
+</footer>
+
+</body>
+</html>
