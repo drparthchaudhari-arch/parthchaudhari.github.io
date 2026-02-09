@@ -1,8 +1,135 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Education | Parth Chaudhari</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --primary:#0f1f3c;
+      --secondary:#1a3a52;
+      --accent:#00b4d8;
+      --accent-light:#90e0ef;
+      --card:#ffffff;
+      --text:#0f1f3c;
+      --border:#e9ecef;
+      --shadow-md:0 8px 20px rgba(0,0,0,0.12);
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",sans-serif;
+      background:linear-gradient(180deg,#f8f9fb 0%,#f0f4f8 100%);
+      color:var(--text);
+      line-height:1.8;
+      letter-spacing:0.3px;
+    }
+    header {
+      background:linear-gradient(135deg,#0f1f3c 0%,#1a3a52 50%,#00897b 100%);
+      color:#fff;
+      padding:100px 20px 120px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    header h1 {
+      margin:0;
+      font-size:48px;
+      font-weight:700;
+      letter-spacing:-0.5px;
+    }
+    nav {
+      display:flex;
+      gap:32px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:24px;
+    }
+    nav a {
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      font-size:15px;
+      position:relative;
+      transition:color .3s ease;
+    }
+    nav a::after {
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-8px;
+      width:0;
+      height:3px;
+      background:linear-gradient(90deg,var(--accent),var(--accent-light));
+      transition:width .35s ease;
+      border-radius:2px;
+    }
+    nav a:hover { color:var(--accent); }
+    nav a:hover::after { width:100%; }
+    .container {
+      max-width:1100px;
+      margin:60px auto;
+      padding:60px 40px;
+      background:var(--card);
+      border-radius:20px;
+      box-shadow:var(--shadow-md);
+      border:1px solid var(--border);
+    }
+    h2 {
+      color:var(--primary);
+      font-size:28px;
+      font-weight:700;
+      margin:0 0 32px 0;
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    ul {
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+    li {
+      padding:18px 0 18px 28px;
+      position:relative;
+      color:var(--text);
+      font-size:15px;
+      line-height:1.8;
+      border-bottom:1px solid var(--border);
+    }
+    li:last-child { border-bottom:none; }
+    li::before {
+      content:"✓";
+      position:absolute;
+      left:0;
+      color:var(--accent);
+      font-weight:bold;
+      font-size:18px;
+    }
+    li strong { color:var(--secondary); font-weight:600; }
+    footer {
+      background:linear-gradient(180deg,var(--primary) 0%,var(--secondary) 100%);
+      text-align:center;
+      padding:40px 24px;
+      font-size:14px;
+      color:#ffffff;
+      margin-top:60px;
+    }
+    @media(max-width:768px){
+      header { padding:70px 20px 80px; }
+      header h1 { font-size:36px; }
+      .container { padding:40px 28px; margin:40px 20px; }
+      nav { gap:20px; }
+    }
+    @media(max-width:480px){
+      header h1 { font-size:28px; }
+      .container { padding:28px 20px; }
+      nav { gap:12px; }
+      h2 { font-size:22px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -18,14 +145,16 @@
 </header>
 
 <div class="container">
+  <h2>Academic Qualifications</h2>
   <ul>
     <li><strong>Bachelor of Veterinary Science & Animal Husbandry</strong> — Anand Agricultural University (2012–2017)</li>
     <li><strong>Health Care Administration & Service Management</strong> — Conestoga College (2022–2023)</li>
-    <li><strong>NAVLE Candidate</strong></li>
+    <li><strong>NAVLE Candidate</strong> — North American Veterinary Licensing Examination</li>
   </ul>
 </div>
 
 <footer>© 2026 Parth Chaudhari</footer>
 
 </body>
+</html>
 </html>
