@@ -37,89 +37,33 @@ body {
   letter-spacing:0.3px;
 }
 
-/* ---------- HERO ---------- */
-header {
-  background: linear-gradient(135deg,#0f1f3c 0%,#1a3a52 40%,#006b94 100%);
+/* ---------- HERO (photo-based) ---------- */
+.hero {
+  height:78vh;
+  min-height:520px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   color:#fff;
-  padding:120px 20px 140px;
-  text-align:center;
   position:relative;
-  overflow:hidden;
+  background-size:cover;
+  background-position:center center;
 }
-
-header::before {
+.hero::after {
   content:"";
   position:absolute;
-  top:-30%;
-  right:-10%;
-  width:600px;
-  height:600px;
-  background:radial-gradient(circle,rgba(100,213,255,0.15) 0%,transparent 70%);
-  animation:float 8s ease-in-out infinite;
+  inset:0;
+  background:linear-gradient(180deg,rgba(15,31,60,0.45) 0%, rgba(10,20,36,0.55) 100%);
 }
+.hero-inner { position:relative; z-index:2; text-align:center; max-width:1000px; padding:24px; }
+.hero-inner h1 { margin:0; font-size:56px; font-weight:800; letter-spacing:-1px; color:#fff; }
+.hero-inner p { margin-top:18px; font-size:18px; opacity:0.95; font-weight:500; }
+.hero-ctas { margin-top:26px; display:flex; gap:16px; justify-content:center; }
+.btn { display:inline-block; padding:12px 20px; border-radius:8px; background:linear-gradient(90deg,var(--accent),var(--accent-light)); color:#fff; text-decoration:none; font-weight:700; }
+.btn-outline { background:transparent; border:2px solid rgba(255,255,255,0.85); color:#fff; }
 
-header::after {
-  content:"";
-  position:absolute;
-  bottom:-20%;
-  left:-15%;
-  width:500px;
-  height:500px;
-  background:radial-gradient(circle,rgba(6,167,125,0.08) 0%,transparent 70%);
-  animation:float 10s ease-in-out infinite reverse;
-}
-
-@keyframes float {
-  0%,100% { transform:translateY(0px) rotate(0deg); }
-  50% { transform:translateY(-30px) rotate(3deg); }
-}
-
-@keyframes floating {
-  0%,100% { transform:translateY(0px) translateX(0px); }
-  25% { transform:translateY(-15px) translateX(10px); }
-  50% { transform:translateY(-30px) translateX(0px); }
-  75% { transform:translateY(-15px) translateX(-10px); }
-}
-
-@keyframes bounce {
-  0%,100% { transform:translateY(0px); }
-  50% { transform:translateY(-20px); }
-}
-
-@keyframes sway {
-  0%,100% { transform:translateX(0px) rotate(0deg); }
-  50% { transform:translateX(15px) rotate(5deg); }
-}
-
-@keyframes fadeInDown {
-  from { opacity:0; transform:translateY(-30px); }
-  to { opacity:1; transform:translateY(0); }
-}
-
-header h1 {
-  margin:0;
-  font-size:56px;
-  font-weight:800;
-  letter-spacing:-1px;
-  animation:fadeInDown 1s ease-out;
-  position:relative;
-  z-index:2;
-  background:linear-gradient(120deg,#fff 0%,#64d5ff 100%);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-
-header p {
-  margin-top:20px;
-  font-size:19px;
-  opacity:0.95;
-  position:relative;
-  z-index:2;
-  animation:fadeInDown 1.2s ease-out;
-  font-weight:500;
-  letter-spacing:0.5px;
-}
+/* keep existing header fallback styles for smaller screens */
+@keyframes fadeInDown { from { opacity:0; transform:translateY(-30px); } to { opacity:1; transform:translateY(0); } }
 
 /* ---------- NAV ---------- */
 nav {
@@ -394,40 +338,21 @@ footer a:hover {
   footer { padding:40px 20px; font-size:14px; }
 }
 
-/* ---------- FLOATING ANIMALS ---------- */
-.animal {
-  position:fixed;
-  font-size:3.5rem;
-  opacity:0.15;
-  pointer-events:none;
-  z-index:1;
-}
-
-.cat { animation:floating 8s ease-in-out infinite; }
-.dog { animation:bounce 6s ease-in-out infinite; }
-.exotic { animation:sway 7s ease-in-out infinite; }
-
-.animal-1 { top:10%; left:5%; animation-delay:0s; }
-.animal-2 { top:20%; right:8%; animation-delay:1s; }
-.animal-3 { top:40%; left:10%; animation-delay:2s; }
-.animal-4 { top:55%; right:5%; animation-delay:1.5s; }
-.animal-5 { top:70%; left:8%; animation-delay:2.5s; }
-.animal-6 { top:80%; right:10%; animation-delay:0.5s; }
+/* Floating animals removed for a more professional hero layout */
 </style>
 </head>
 
 <body>
 
-<div class="animal cat animal-1">🐱</div>
-<div class="animal dog animal-2">🐕</div>
-<div class="animal exotic animal-3">🦎</div>
-<div class="animal cat animal-4">😺</div>
-<div class="animal dog animal-5">🐶</div>
-<div class="animal exotic animal-6">🦜</div>
-
-<header>
-  <h1>Parth Chaudhari</h1>
-  <p>Veterinarian • International Graduate • NAVLE Candidate</p>
+<header class="hero" style="background-image:var(--hero-url, url('https://images.unsplash.com/photo-1502784444185-1bd0c6b1cd02?q=80&w=1600&auto=format&fit=crop'))">
+  <div class="hero-inner">
+    <h1>Parth Chaudhari</h1>
+    <p>Veterinarian • Internationally Trained • NAVLE Candidate</p>
+    <div class="hero-ctas">
+      <a class="btn" href="#about">About</a>
+      <a class="btn btn-outline" href="#contact">Contact</a>
+    </div>
+  </div>
 </header>
 
 <nav>
@@ -444,13 +369,10 @@ footer a:hover {
 <div class="card">
 <h2>About Me</h2>
 <p>
-I am an internationally trained veterinarian with over four years of clinical experience in large animal medicine
-and current hands-on work in small animal clinical practice in Canada. I am presently working as a veterinary
-assistant and technician while progressing toward full veterinary licensure in North America.
+I am an internationally trained veterinarian with more than four years of clinical experience in large-animal medicine and current clinical practice experience in small-animal medicine in Canada. I am employed as a veterinary assistant and technician while completing the requirements for licensure in North America.
 </p>
 <p>
-My professional interests include internal medicine, emergency and critical care, and evidence-based clinical
-decision-making. I am actively preparing for the North American Veterinary Licensing Examination (NAVLE).
+My clinical interests include internal medicine, emergency and critical care, and the application of evidence-based practice to improve patient outcomes. I am preparing for the North American Veterinary Licensing Examination (NAVLE) and remain committed to ongoing professional development.
 </p>
 </div>
 </section>
@@ -516,7 +438,10 @@ decision-making. I am actively preparing for the North American Veterinary Licen
 </section>
 
 <footer>
-© 2026 Parth Chaudhari • parthchaudhari.com
+  <div style="max-width:1100px;margin:auto;padding:28px 24px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+    <div>© 2026 Parth Chaudhari</div>
+    <div><a href="mailto:parth@parthchaudhari.com" style="color:rgba(255,255,255,0.9);text-decoration:none;font-weight:600;">parth@parthchaudhari.com</a></div>
+  </div>
 </footer>
 
 <script>

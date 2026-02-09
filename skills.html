@@ -170,47 +170,12 @@
       h2 { font-size:22px; }
       .skills-grid { grid-template-columns:1fr; }
     }
-    /* ---------- FLOATING ANIMALS ---------- */
-    .animal {
-      position:fixed;
-      font-size:3.5rem;
-      opacity:0.15;
-      pointer-events:none;
-      z-index:1;
-    }
-    .cat { animation:floating 8s ease-in-out infinite; }
-    .dog { animation:bounce 6s ease-in-out infinite; }
-    .exotic { animation:sway 7s ease-in-out infinite; }
-    @keyframes floating {
-      0%,100% { transform:translateY(0px) translateX(0px); }
-      25% { transform:translateY(-15px) translateX(10px); }
-      50% { transform:translateY(-30px) translateX(0px); }
-      75% { transform:translateY(-15px) translateX(-10px); }
-    }
-    @keyframes bounce {
-      0%,100% { transform:translateY(0px); }
-      50% { transform:translateY(-20px); }
-    }
-    @keyframes sway {
-      0%,100% { transform:translateX(0px) rotate(0deg); }
-      50% { transform:translateX(15px) rotate(5deg); }
-    }
-    .animal-1 { top:10%; left:5%; animation-delay:0s; }
-    .animal-2 { top:20%; right:8%; animation-delay:1s; }
-    .animal-3 { top:40%; left:10%; animation-delay:2s; }
-    .animal-4 { top:55%; right:5%; animation-delay:1.5s; }
-    .animal-5 { top:70%; left:8%; animation-delay:2.5s; }
-    .animal-6 { top:80%; right:10%; animation-delay:0.5s; }
+    /* Floating animals removed */
   </style>
 </head>
 <body>
 
-<div class="animal cat animal-1">🐱</div>
-<div class="animal dog animal-2">🐕</div>
-<div class="animal exotic animal-3">🦎</div>
-<div class="animal cat animal-4">😺</div>
-<div class="animal dog animal-5">🐶</div>
-<div class="animal exotic animal-6">🦜</div>
+
 
 <header>
   <h1>Core Skills</h1>
@@ -233,27 +198,32 @@
       <h3>Animal Handling & Restraint</h3>
     </div>
     <div class="skill-card">
-      <h3>Laboratory Analysis</h3>
+      <h3>Laboratory Analysis & Sample Processing</h3>
     </div>
     <div class="skill-card">
-      <h3>Surgical Assistance</h3>
+      <h3>Surgical Assistance & Perioperative Care</h3>
     </div>
     <div class="skill-card">
-      <h3>Radiology Support</h3>
+      <h3>Radiology Support & Image Acquisition</h3>
     </div>
     <div class="skill-card">
-      <h3>Client Education</h3>
+      <h3>Client Communication & Education</h3>
     </div>
     <div class="skill-card">
-      <h3>Cornerstone Software</h3>
+      <h3>Practice Management (Cornerstone)</h3>
     </div>
     <div class="skill-card">
-      <h3>Team Collaboration</h3>
+      <h3>Interdisciplinary Team Collaboration</h3>
     </div>
   </div>
 </div>
 
-<footer>© 2026 Parth Chaudhari</footer>
+<footer>
+  <div style="max-width:1100px;margin:auto;padding:20px 24px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+    <div>© 2026 Parth Chaudhari</div>
+    <div><a href="mailto:parth@parthchaudhari.com" style="color:rgba(255,255,255,0.9);text-decoration:none;font-weight:600;">parth@parthchaudhari.com</a></div>
+  </div>
+</footer>
 
 </body>
 </html>
