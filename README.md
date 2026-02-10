@@ -13,6 +13,9 @@ Personal website and games portal for Parth Chaudhari.
 - `tic-tac-toe.html`: standalone Tic Tac Toe game page.
 - `index1.html`: redirect wrapper for VetStrands.
 - `assets/screenshots/`: preview images used by the games gallery.
+- `assets/images/profile/`: profile photos used on the info page.
+- `docs/`: project documentation and integration guides.
+- `archive/`: legacy copies kept for reference and cleanup.
 - `dist/`: built VetStrands app served as static assets.
 - `src/`: VetStrands source (React + TypeScript + Vite).
 
