@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Games | Parth Chaudhari</title>
+    <meta name="description" content="Launch the Parth Games platform with 5 games, levels, hints, and multiplayer support.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -16,8 +17,9 @@
             --dark: #1a1a2e;
             --darker: #16213e;
             --white: #ffffff;
+            --muted: rgba(255, 255, 255, 0.75);
             --card: rgba(255, 255, 255, 0.06);
-            --card-border: rgba(255, 255, 255, 0.18);
+            --card-border: rgba(255, 255, 255, 0.16);
             --transition: all 0.25s ease;
         }
 
@@ -34,172 +36,171 @@
             background: radial-gradient(circle at 12% 10%, #1e3859 0%, transparent 42%),
                         radial-gradient(circle at 82% 85%, #1c2747 0%, transparent 44%),
                         linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
-        }
-
-        .games-header {
-            text-align: center;
-            padding: 2.4rem 1.25rem 1.4rem;
-            background: rgba(0, 0, 0, 0.2);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--secondary);
-            text-decoration: none;
-            margin-bottom: 0.9rem;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .back-link:hover {
-            gap: 0.8rem;
-        }
-
-        .games-header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 0.4rem;
-        }
-
-        .games-header h1 span {
-            color: var(--secondary);
-        }
-
-        .games-header p {
-            color: rgba(255, 255, 255, 0.75);
-            max-width: 700px;
-            margin: 0 auto;
-            font-size: 1rem;
+            padding: 1.2rem;
         }
 
         .games-container {
-            max-width: 1250px;
+            width: min(980px, 100%);
             margin: 0 auto;
-            padding: 1.6rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.2rem;
-        }
-
-        .game-tile {
-            display: block;
-            text-decoration: none;
-            color: inherit;
+            background: rgba(0, 0, 0, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 18px;
-            overflow: hidden;
-            background: var(--card);
-            border: 1px solid var(--card-border);
+            padding: 1.4rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
             transition: var(--transition);
-            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.24);
         }
 
-        .game-tile:hover {
-            transform: translateY(-4px);
-            border-color: rgba(50, 224, 196, 0.6);
-            box-shadow: 0 22px 40px rgba(0, 0, 0, 0.34);
+        .btn-back {
+            color: var(--secondary);
+            margin-bottom: 1.1rem;
         }
 
-        .game-thumb {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-            display: block;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-            background: rgba(0, 0, 0, 0.25);
+        .btn-back:hover {
+            transform: translateX(-2px);
         }
 
-        .game-meta {
-            padding: 0.9rem 1rem 1rem;
-        }
-
-        .game-name {
-            font-size: 1.05rem;
-            font-weight: 700;
-            line-height: 1.35;
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.9rem);
             margin-bottom: 0.35rem;
         }
 
-        .game-open {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            color: var(--secondary);
-            font-weight: 600;
-            font-size: 0.9rem;
+        .lead {
+            color: var(--muted);
+            max-width: 760px;
+            line-height: 1.6;
         }
 
-        .games-footer {
+        .game-launch {
             text-align: center;
-            padding: 0.6rem 1rem 1.5rem;
-            color: rgba(255, 255, 255, 0.55);
-            font-size: 0.9rem;
+            margin: 2rem 0;
+        }
+
+        .game-launch .btn-primary {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .game-launch .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .game-preview h2 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.2rem 0 0;
+        }
+
+        .preview-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .preview-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .preview-card i {
+            font-size: 2rem;
+            color: #6366f1;
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .preview-card p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .footer-note {
+            margin-top: 1.4rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.86rem;
+            text-align: center;
         }
 
         @media (max-width: 700px) {
             .games-container {
-                grid-template-columns: 1fr;
                 padding: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <header class="games-header">
-        <a href="index.html" class="back-link">
+    <main class="games-container">
+        <a href="index.html" class="btn btn-back">
             <i class="fas fa-arrow-left"></i>
             Back to Home
         </a>
-        <h1><span>Games</span> Gallery</h1>
-        <p>Only game screenshots and names are shown below. Click any game card to open that game in a new tab.</p>
-    </header>
 
-    <main class="games-container" aria-label="Game gallery">
-        <a class="game-tile" href="index1.html" target="_blank" rel="noopener noreferrer">
-            <img class="game-thumb" src="assets/screenshots/vetstrands.svg" alt="VetStrands game screenshot">
-            <div class="game-meta">
-                <h2 class="game-name">VetStrands Word Puzzle</h2>
-                <span class="game-open">Click to Open <i class="fas fa-up-right-from-square"></i></span>
-            </div>
-        </a>
+        <h1>Games</h1>
+        <p class="lead">Play all games from one platform with levels, hints, score tracking, and multiplayer lobby support.</p>
 
-        <a class="game-tile" href="memory-match.html" target="_blank" rel="noopener noreferrer">
-            <img class="game-thumb" src="assets/screenshots/memory-match.svg" alt="Memory Match game screenshot">
-            <div class="game-meta">
-                <h2 class="game-name">Memory Match</h2>
-                <span class="game-open">Click to Open <i class="fas fa-up-right-from-square"></i></span>
-            </div>
-        </a>
+        <div class="game-launch">
+            <a href="games/index.html" class="btn btn-primary">
+                <i class="fas fa-gamepad"></i>
+                Launch Game Platform
+            </a>
+        </div>
 
-        <a class="game-tile" href="snake.html" target="_blank" rel="noopener noreferrer">
-            <img class="game-thumb" src="assets/screenshots/snake.svg" alt="Snake game screenshot">
-            <div class="game-meta">
-                <h2 class="game-name">Snake</h2>
-                <span class="game-open">Click to Open <i class="fas fa-up-right-from-square"></i></span>
+        <section class="game-preview" aria-label="Available games">
+            <h2>Available Games</h2>
+            <div class="preview-grid">
+                <article class="preview-card">
+                    <i class="fas fa-font"></i>
+                    <h3>WordVet</h3>
+                    <p>Find hidden words</p>
+                </article>
+                <article class="preview-card">
+                    <i class="fas fa-times"></i>
+                    <h3>Tic Tac Toe Pro</h3>
+                    <p>AI, local, and lobby play</p>
+                </article>
+                <article class="preview-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>Memory Match</h3>
+                    <p>Match cards quickly</p>
+                </article>
+                <article class="preview-card">
+                    <i class="fas fa-snake"></i>
+                    <h3>Snake Challenge</h3>
+                    <p>Arcade survival</p>
+                </article>
+                <article class="preview-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>IQ Challenge</h3>
+                    <p>Math, logic, and patterns</p>
+                </article>
             </div>
-        </a>
+        </section>
 
-        <a class="game-tile" href="tic-tac-toe.html" target="_blank" rel="noopener noreferrer">
-            <img class="game-thumb" src="assets/screenshots/tic-tac-toe.svg" alt="Tic Tac Toe game screenshot">
-            <div class="game-meta">
-                <h2 class="game-name">Tic Tac Toe Levels</h2>
-                <span class="game-open">Click to Open <i class="fas fa-up-right-from-square"></i></span>
-            </div>
-        </a>
-
-        <a class="game-tile" href="iq.html" target="_blank" rel="noopener noreferrer">
-            <img class="game-thumb" src="assets/screenshots/iq-challenge.svg" alt="Personal IQ Challenge game screenshot">
-            <div class="game-meta">
-                <h2 class="game-name">Personal IQ Challenge</h2>
-                <span class="game-open">Click to Open <i class="fas fa-up-right-from-square"></i></span>
-            </div>
-        </a>
+        <p class="footer-note">Platform build: 5 games, 15+ level progression, multiplayer-ready lobby flow.</p>
     </main>
-
-    <footer class="games-footer">
-        <p>&copy; 2026 Parth Chaudhari | Every game opens separately in a new tab</p>
-    </footer>
 </body>
 </html>

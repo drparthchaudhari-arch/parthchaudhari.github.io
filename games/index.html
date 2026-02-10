@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parth Games - Play Online Games</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/games.css">
+    <link rel="stylesheet" href="styles/lobby.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <i class="fas fa-gamepad"></i>
+                <span>Parth Games</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="active"><i class="fas fa-home"></i> Home</a>
+                <a href="#games"><i class="fas fa-dice"></i> Games</a>
+                <a href="#multiplayer"><i class="fas fa-users"></i> Multiplayer</a>
+                <a href="#leaderboard"><i class="fas fa-trophy"></i> Leaderboard</a>
+            </div>
+            <div class="nav-stats">
+                <div class="stat-item">
+                    <i class="fas fa-star"></i>
+                    <span id="total-score">0</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-fire"></i>
+                    <span id="streak">0</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Play Amazing Games</h1>
+                    <p>Challenge yourself with word puzzles, strategy games, and more. Play solo or invite friends!</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="showSection('games')">
+                            <i class="fas fa-play"></i> Play Now
+                        </button>
+                        <button class="btn btn-secondary" onclick="showSection('multiplayer')">
+                            <i class="fas fa-users"></i> Play with Friends
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-gamepad"></i>
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">Games</span>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-layer-group"></i>
+                        <span class="stat-number">75+</span>
+                        <span class="stat-label">Levels</span>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <span class="stat-number">∞</span>
+                        <span class="stat-label">Multiplayer</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Games Section -->
+        <section id="games" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-dice"></i> Choose Your Game</h2>
+                <p>Select a game to start playing. Each game has multiple levels and difficulty options.</p>
+            </div>
+            
+            <div class="games-grid">
+                <!-- WordVet Card -->
+                <div class="game-card" data-game="wordvet">
+                    <div class="game-icon">
+                        <i class="fas fa-font"></i>
+                    </div>
+                    <div class="game-info">
+                        <h3>WordVet</h3>
+                        <p>Find hidden words in a grid. Mix of normal and veterinary terms!</p>
+                        <div class="game-meta">
+                            <span class="badge"><i class="fas fa-layer-group"></i> 15+ Levels</span>
+                            <span class="badge"><i class="fas fa-brain"></i> Puzzle</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-play" onclick="startGame('wordvet')">
+                        <i class="fas fa-play"></i> Play
+                    </button>
+                </div>
+
+                <!-- Tic Tac Toe Card -->
+                <div class="game-card" data-game="tictactoe">
+                    <div class="game-icon">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <div class="game-info">
+                        <h3>Tic Tac Toe Pro</h3>
+                        <p>Classic game with levels, AI difficulty, and multiplayer mode!</p>
+                        <div class="game-meta">
+                            <span class="badge"><i class="fas fa-layer-group"></i> 15+ Levels</span>
+                            <span class="badge"><i class="fas fa-users"></i> Multiplayer</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-play" onclick="startGame('tictactoe')">
+                        <i class="fas fa-play"></i> Play
+                    </button>
+                </div>
+
+                <!-- Memory Match Card -->
+                <div class="game-card" data-game="memory">
+                    <div class="game-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="game-info">
+                        <h3>Memory Match</h3>
+                        <p>Test your memory by matching pairs. Increasing difficulty with each level!</p>
+                        <div class="game-meta">
+                            <span class="badge"><i class="fas fa-layer-group"></i> 15+ Levels</span>
+                            <span class="badge"><i class="fas fa-clock"></i> Timed</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-play" onclick="startGame('memory')">
+                        <i class="fas fa-play"></i> Play
+                    </button>
+                </div>
+
+                <!-- Snake Card -->
+                <div class="game-card" data-game="snake">
+                    <div class="game-icon">
+                        <i class="fas fa-snake"></i>
+                    </div>
+                    <div class="game-info">
+                        <h3>Snake Challenge</h3>
+                        <p>Classic snake game with power-ups, obstacles, and level progression!</p>
+                        <div class="game-meta">
+                            <span class="badge"><i class="fas fa-layer-group"></i> 15+ Levels</span>
+                            <span class="badge"><i class="fas fa-bolt"></i> Arcade</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-play" onclick="startGame('snake')">
+                        <i class="fas fa-play"></i> Play
+                    </button>
+                </div>
+
+                <!-- IQ Challenge Card -->
+                <div class="game-card" data-game="iq">
+                    <div class="game-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="game-info">
+                        <h3>IQ Challenge</h3>
+                        <p>Test your intelligence with math, logic, and pattern puzzles!</p>
+                        <div class="game-meta">
+                            <span class="badge"><i class="fas fa-layer-group"></i> 15+ Levels</span>
+                            <span class="badge"><i class="fas fa-graduation-cap"></i> Educational</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-play" onclick="startGame('iq')">
+                        <i class="fas fa-play"></i> Play
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Multiplayer Section -->
+        <section id="multiplayer" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-users"></i> Play with Friends</h2>
+                <p>Create a lobby and invite friends to play together!</p>
+            </div>
+            
+            <div class="multiplayer-container">
+                <div class="lobby-options">
+                    <div class="option-card">
+                        <i class="fas fa-plus-circle"></i>
+                        <h3>Create Lobby</h3>
+                        <p>Create a new game room and invite friends</p>
+                        <button class="btn btn-primary" onclick="createLobby()">
+                            <i class="fas fa-plus"></i> Create
+                        </button>
+                    </div>
+                    <div class="option-card">
+                        <i class="fas fa-door-open"></i>
+                        <h3>Join Lobby</h3>
+                        <p>Enter a lobby code to join a friend's game</p>
+                        <div class="join-input">
+                            <input type="text" id="lobby-code" placeholder="Enter code (e.g., 123456)" inputmode="numeric" pattern="[0-9]*" maxlength="6">
+                            <button class="btn btn-primary" onclick="joinLobby()">
+                                <i class="fas fa-arrow-right"></i> Join
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="active-lobbies" id="active-lobbies">
+                    <h3><i class="fas fa-list"></i> Active Lobbies</h3>
+                    <div class="lobby-list" id="lobby-list">
+                        <!-- Lobbies will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leaderboard Section -->
+        <section id="leaderboard" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-trophy"></i> Leaderboard</h2>
+                <p>See how you rank against other players!</p>
+            </div>
+            
+            <div class="leaderboard-container">
+                <div class="leaderboard-tabs">
+                    <button class="tab-btn active" data-tab="all">All Games</button>
+                    <button class="tab-btn" data-tab="wordvet">WordVet</button>
+                    <button class="tab-btn" data-tab="tictactoe">Tic Tac Toe</button>
+                    <button class="tab-btn" data-tab="memory">Memory</button>
+                    <button class="tab-btn" data-tab="snake">Snake</button>
+                    <button class="tab-btn" data-tab="iq">IQ Challenge</button>
+                </div>
+                
+                <div class="leaderboard-table">
+                    <div class="table-header">
+                        <span class="rank">Rank</span>
+                        <span class="player">Player</span>
+                        <span class="score">Score</span>
+                        <span class="level">Level</span>
+                    </div>
+                    <div class="table-body" id="leaderboard-body">
+                        <!-- Leaderboard entries will be populated -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Container (Hidden by default) -->
+        <div id="game-container" class="game-container hidden">
+            <!-- Game Header -->
+            <div class="game-header">
+                <button class="btn btn-back" onclick="exitGame()">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <div class="game-title">
+                    <span id="current-game-name">Game Name</span>
+                    <span class="level-indicator">Level <span id="current-level">1</span>/15</span>
+                </div>
+                <div class="game-controls">
+                    <button class="btn btn-control" id="pause-btn" onclick="togglePause()">
+                        <i class="fas fa-pause"></i>
+                    </button>
+                    <button class="btn btn-control" id="hint-btn" onclick="useHint()">
+                        <i class="fas fa-lightbulb"></i>
+                        <span class="hint-count" id="hint-count">3</span>
+                    </button>
+                    <button class="btn btn-control" id="restart-btn" onclick="restartLevel()">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Game Stats Bar -->
+            <div class="game-stats-bar">
+                <div class="stat">
+                    <i class="fas fa-clock"></i>
+                    <span id="game-timer">00:00</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-star"></i>
+                    <span id="game-score">0</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-fire"></i>
+                    <span id="game-streak">0</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="level-progress"></div>
+                </div>
+            </div>
+
+            <!-- Game Area -->
+            <div class="game-area" id="game-area">
+                <!-- Game content will be loaded here -->
+            </div>
+
+            <!-- Word List Panel (for WordVet) -->
+            <div class="word-list-panel hidden" id="word-list-panel">
+                <div class="panel-header">
+                    <h4><i class="fas fa-list"></i> Words to Find</h4>
+                    <button class="btn btn-toggle" onclick="toggleWordList()">
+                        <i class="fas fa-eye-slash"></i>
+                    </button>
+                </div>
+                <div class="word-list" id="word-list">
+                    <!-- Words will be populated -->
+                </div>
+            </div>
+
+            <!-- Pause Menu -->
+            <div class="pause-menu hidden" id="pause-menu">
+                <div class="pause-content">
+                    <h2><i class="fas fa-pause-circle"></i> Paused</h2>
+                    <div class="pause-buttons">
+                        <button class="btn btn-primary" onclick="togglePause()">
+                            <i class="fas fa-play"></i> Resume
+                        </button>
+                        <button class="btn btn-secondary" onclick="restartLevel()">
+                            <i class="fas fa-redo"></i> Restart Level
+                        </button>
+                        <button class="btn btn-danger" onclick="exitGame()">
+                            <i class="fas fa-sign-out-alt"></i> Exit Game
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Level Complete Modal -->
+            <div class="modal hidden" id="level-complete-modal">
+                <div class="modal-content">
+                    <div class="modal-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h2>Level Complete!</h2>
+                    <div class="level-stats">
+                        <div class="level-stat">
+                            <span class="label">Score</span>
+                            <span class="value" id="level-score">0</span>
+                        </div>
+                        <div class="level-stat">
+                            <span class="label">Time</span>
+                            <span class="value" id="level-time">00:00</span>
+                        </div>
+                        <div class="level-stat">
+                            <span class="label">Hints Used</span>
+                            <span class="value" id="level-hints">0</span>
+                        </div>
+                    </div>
+                    <div class="modal-buttons">
+                        <button class="btn btn-primary" onclick="nextLevel()">
+                            <i class="fas fa-arrow-right"></i> Next Level
+                        </button>
+                        <button class="btn btn-secondary" onclick="replayLevel()">
+                            <i class="fas fa-redo"></i> Replay
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Over Modal -->
+            <div class="modal hidden" id="game-over-modal">
+                <div class="modal-content">
+                    <div class="modal-icon fail">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2>Game Over</h2>
+                    <p id="game-over-message">Better luck next time!</p>
+                    <div class="modal-buttons">
+                        <button class="btn btn-primary" onclick="restartLevel()">
+                            <i class="fas fa-redo"></i> Try Again
+                        </button>
+                        <button class="btn btn-secondary" onclick="exitGame()">
+                            <i class="fas fa-sign-out-alt"></i> Exit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lobby Modal -->
+        <div class="modal hidden" id="lobby-modal">
+            <div class="modal-content lobby-content">
+                <div class="lobby-header">
+                    <h2><i class="fas fa-users"></i> Game Lobby</h2>
+                    <div class="lobby-code-display">
+                        <span>Code: <strong id="lobby-code-display">123456</strong></span>
+                        <button class="btn btn-copy" onclick="copyLobbyCode()">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="lobby-players" id="lobby-players">
+                    <!-- Players will be populated -->
+                </div>
+                <div class="lobby-chat" id="lobby-chat">
+                    <!-- Chat messages will be populated -->
+                </div>
+                <div class="lobby-input">
+                    <input type="text" id="chat-input" placeholder="Type a message...">
+                    <button class="btn btn-send" onclick="sendChatMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="lobby-actions">
+                    <button class="btn btn-secondary" onclick="leaveLobby()">
+                        <i class="fas fa-sign-out-alt"></i> Leave
+                    </button>
+                    <button class="btn btn-primary" id="start-game-btn" onclick="startMultiplayerGame()">
+                        <i class="fas fa-play"></i> Start Game
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/games/wordvet.js"></script>
+    <script src="js/games/tictactoe.js"></script>
+    <script src="js/games/memory.js"></script>
+    <script src="js/games/snake.js"></script>
+    <script src="js/games/iq.js"></script>
+    <script src="js/lobby.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
