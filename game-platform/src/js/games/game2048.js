@@ -10,8 +10,16 @@ const Game2048 = {
     targetTile: 2048,
     gameActive: true,
     hasWon: false,
+    keydownHandler: null,
+    touchStartHandler: null,
+    touchEndHandler: null,
+    touchSurface: null,
+    touchStartX: 0,
+    touchStartY: 0,
+    resizeHandler: null,
     
     init(container, level) {
+        this.cleanup();
         this.level = level;
         this.setDifficulty(level);
         this.score = 0;
@@ -41,6 +49,8 @@ const Game2048 = {
     },
     
     render(container) {
+        const tileSize = this.getTileSize();
+
         container.innerHTML = `
             <div class="game-2048">
                 <div class="game-2048-header">
@@ -60,7 +70,7 @@ const Game2048 = {
                 </div>
                 
                 <div class="game-2048-grid" id="grid-2048" 
-                     style="grid-template-columns: repeat(${this.gridSize}, 1fr);">
+                     style="grid-template-columns: repeat(${this.gridSize}, 1fr); --tile-size: ${tileSize}px;">
                     ${this.renderGrid()}
                 </div>
                 
@@ -73,7 +83,15 @@ const Game2048 = {
         `;
         
         // Add keyboard controls
-        document.addEventListener('keydown', (e) => this.handleInput(e));
+        if (!this.keydownHandler) {
+            this.keydownHandler = (e) => this.handleInput(e);
+        }
+        document.addEventListener('keydown', this.keydownHandler);
+
+        if (!this.resizeHandler) {
+            this.resizeHandler = () => this.updateGridSizing();
+        }
+        window.addEventListener('resize', this.resizeHandler);
         
         // Add touch controls
         this.setupTouchControls(container);
@@ -95,22 +113,21 @@ const Game2048 = {
     },
     
     setupTouchControls(container) {
-        let touchStartX = 0;
-        let touchStartY = 0;
-        
-        container.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-        }, { passive: true });
-        
-        container.addEventListener('touchend', (e) => {
+        this.touchSurface = container;
+
+        this.touchStartHandler = (e) => {
+            this.touchStartX = e.touches[0].clientX;
+            this.touchStartY = e.touches[0].clientY;
+        };
+
+        this.touchEndHandler = (e) => {
             if (!this.gameActive) return;
             
             const touchEndX = e.changedTouches[0].clientX;
             const touchEndY = e.changedTouches[0].clientY;
             
-            const dx = touchEndX - touchStartX;
-            const dy = touchEndY - touchStartY;
+            const dx = touchEndX - this.touchStartX;
+            const dy = touchEndY - this.touchStartY;
             
             const minSwipe = 50;
             
@@ -125,7 +142,10 @@ const Game2048 = {
                     else this.move('up');
                 }
             }
-        }, { passive: true });
+        };
+
+        container.addEventListener('touchstart', this.touchStartHandler, { passive: true });
+        container.addEventListener('touchend', this.touchEndHandler, { passive: true });
     },
     
     handleInput(e) {
@@ -299,6 +319,25 @@ const Game2048 = {
     updateDisplay() {
         document.getElementById('grid-2048').innerHTML = this.renderGrid();
         document.getElementById('score-2048').textContent = this.score.toLocaleString();
+        this.updateGridSizing();
+    },
+
+    updateGridSizing() {
+        const gridEl = document.getElementById('grid-2048');
+        if (!gridEl) return;
+        gridEl.style.setProperty('--tile-size', `${this.getTileSize()}px`);
+    },
+
+    getTileSize() {
+        const viewportWidth = Math.min(window.innerWidth || 1200, 1200);
+        const panelPadding = 56;
+        const sideGaps = 16;
+        const availableWidth = Math.max(320, viewportWidth - panelPadding - sideGaps);
+        const rawSize = Math.floor((availableWidth - ((this.gridSize - 1) * 8) - 16) / this.gridSize);
+
+        if (this.gridSize <= 4) return Math.max(64, Math.min(80, rawSize));
+        if (this.gridSize === 5) return Math.max(52, Math.min(72, rawSize));
+        return Math.max(42, Math.min(60, rawSize));
     },
     
     getBestScore() {
@@ -320,6 +359,7 @@ const Game2048 = {
     },
     
     gameOver() {
+        this.gameActive = false;
         this.saveBestScore();
         gameOver(`Game Over! Your score: ${this.score.toLocaleString()}`);
     },
@@ -356,5 +396,28 @@ const Game2048 = {
             
             setTimeout(() => hint.remove(), 1500);
         }
+    },
+
+    cleanup() {
+        this.gameActive = false;
+
+        if (this.keydownHandler) {
+            document.removeEventListener('keydown', this.keydownHandler);
+        }
+
+        if (this.touchSurface && this.touchStartHandler) {
+            this.touchSurface.removeEventListener('touchstart', this.touchStartHandler);
+        }
+        if (this.touchSurface && this.touchEndHandler) {
+            this.touchSurface.removeEventListener('touchend', this.touchEndHandler);
+        }
+        if (this.resizeHandler) {
+            window.removeEventListener('resize', this.resizeHandler);
+        }
+
+        this.touchSurface = null;
+        this.touchStartHandler = null;
+        this.touchEndHandler = null;
+        this.resizeHandler = null;
     }
 };

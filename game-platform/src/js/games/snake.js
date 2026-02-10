@@ -16,8 +16,14 @@ const SnakeGame = {
     gameLoop: null,
     gameSpeed: 150,
     level: 1,
+    keydownHandler: null,
+    touchStartHandler: null,
+    touchEndHandler: null,
+    touchStartX: 0,
+    touchStartY: 0,
     
     init(container, level) {
+        this.cleanup();
         this.level = level;
         this.setDifficulty(level);
         this.snake = [{ x: 5, y: 5 }];
@@ -66,23 +72,23 @@ const SnakeGame = {
         this.ctx = this.canvas.getContext('2d');
         
         // Keyboard controls
-        document.addEventListener('keydown', (e) => this.handleKeyPress(e));
-        
+        if (!this.keydownHandler) {
+            this.keydownHandler = (e) => this.handleKeyPress(e);
+        }
+        document.addEventListener('keydown', this.keydownHandler);
+
         // Touch controls for mobile
-        let touchStartX = 0;
-        let touchStartY = 0;
-        
-        this.canvas.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-        }, { passive: true });
-        
-        this.canvas.addEventListener('touchend', (e) => {
+        this.touchStartHandler = (e) => {
+            this.touchStartX = e.touches[0].clientX;
+            this.touchStartY = e.touches[0].clientY;
+        };
+
+        this.touchEndHandler = (e) => {
             const touchEndX = e.changedTouches[0].clientX;
             const touchEndY = e.changedTouches[0].clientY;
             
-            const dx = touchEndX - touchStartX;
-            const dy = touchEndY - touchStartY;
+            const dx = touchEndX - this.touchStartX;
+            const dy = touchEndY - this.touchStartY;
             
             if (Math.abs(dx) > Math.abs(dy)) {
                 if (dx > 0 && this.direction.x === 0) this.nextDirection = { x: 1, y: 0 };
@@ -91,7 +97,10 @@ const SnakeGame = {
                 if (dy > 0 && this.direction.y === 0) this.nextDirection = { x: 0, y: 1 };
                 else if (dy < 0 && this.direction.y === 0) this.nextDirection = { x: 0, y: -1 };
             }
-        }, { passive: true });
+        };
+
+        this.canvas.addEventListener('touchstart', this.touchStartHandler, { passive: true });
+        this.canvas.addEventListener('touchend', this.touchEndHandler, { passive: true });
     },
     
     generateObstacles() {
@@ -148,6 +157,7 @@ const SnakeGame = {
     
     stopGame() {
         clearInterval(this.gameLoop);
+        this.gameLoop = null;
     },
     
     update() {
@@ -289,5 +299,23 @@ const SnakeGame = {
         this.ctx.fillText(hint, this.canvas.width / 2, this.canvas.height / 2);
         
         setTimeout(() => this.draw(), 1500);
+    },
+
+    cleanup() {
+        this.stopGame();
+
+        if (this.keydownHandler) {
+            document.removeEventListener('keydown', this.keydownHandler);
+        }
+
+        if (this.canvas && this.touchStartHandler) {
+            this.canvas.removeEventListener('touchstart', this.touchStartHandler);
+        }
+        if (this.canvas && this.touchEndHandler) {
+            this.canvas.removeEventListener('touchend', this.touchEndHandler);
+        }
+
+        this.touchStartHandler = null;
+        this.touchEndHandler = null;
     }
 };

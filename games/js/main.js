@@ -41,6 +41,15 @@ function setupNavigation() {
 }
 
 function showSection(sectionId) {
+    const gameContainer = document.getElementById('game-container');
+    if (gameContainer && !gameContainer.classList.contains('hidden')) {
+        stopTimer();
+        cleanupGame(GameState.currentGame);
+        resetGameOverlays();
+        gameContainer.classList.add('hidden');
+        GameState.currentGame = null;
+    }
+
     const sections = document.querySelectorAll('.section');
     sections.forEach(section => {
         section.classList.remove('active');
@@ -140,35 +149,31 @@ function startGame(gameName) {
     // Initialize the specific game
     const gameArea = document.getElementById('game-area');
     gameArea.innerHTML = '';
-    
-    switch(gameName) {
-        case 'wordvet':
-            WordVet.init(gameArea, GameState.currentLevel);
-            break;
-        case 'sudoku':
-            Sudoku.init(gameArea, GameState.currentLevel);
-            break;
-        case 'tictactoe':
-            TicTacToe.init(gameArea, GameState.currentLevel);
-            break;
-        case 'memory':
-            MemoryGame.init(gameArea, GameState.currentLevel);
-            break;
-        case 'snake':
-            SnakeGame.init(gameArea, GameState.currentLevel);
-            break;
-        case 'game2048':
-            Game2048.init(gameArea, GameState.currentLevel);
-            break;
-        case 'hangman':
-            Hangman.init(gameArea, GameState.currentLevel);
-            break;
-        case 'wordguess':
-            WordGuess.init(gameArea, GameState.currentLevel);
-            break;
-        case 'iq':
-            IQChallenge.init(gameArea, GameState.currentLevel);
-            break;
+
+    const gameInitializers = {
+        wordvet: () => WordVet.init(gameArea, GameState.currentLevel),
+        sudoku: () => Sudoku.init(gameArea, GameState.currentLevel),
+        tictactoe: () => TicTacToe.init(gameArea, GameState.currentLevel),
+        memory: () => MemoryGame.init(gameArea, GameState.currentLevel),
+        snake: () => SnakeGame.init(gameArea, GameState.currentLevel),
+        game2048: () => Game2048.init(gameArea, GameState.currentLevel),
+        hangman: () => Hangman.init(gameArea, GameState.currentLevel),
+        wordguess: () => WordGuess.init(gameArea, GameState.currentLevel),
+        iq: () => IQChallenge.init(gameArea, GameState.currentLevel)
+    };
+
+    const initGame = gameInitializers[gameName];
+    if (!initGame) {
+        gameArea.innerHTML = `<p style="text-align:center;color:var(--text-secondary);">This game is not available yet.</p>`;
+        return;
+    }
+
+    try {
+        initGame();
+    } catch (error) {
+        console.error(`Failed to initialize game "${gameName}"`, error);
+        gameArea.innerHTML = `<p style="text-align:center;color:var(--danger);">Game failed to load. Please refresh and try again.</p>`;
+        return;
     }
     
     // Start timer

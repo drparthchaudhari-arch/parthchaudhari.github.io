@@ -11,6 +11,7 @@ const Hangman = {
     category: 'animals',
     hints: 3,
     gameActive: true,
+    keydownHandler: null,
     
     // Word categories
     categories: {
@@ -83,6 +84,7 @@ const Hangman = {
     ],
     
     init(container, level) {
+        this.cleanup();
         this.level = level;
         this.guessedLetters = [];
         this.wrongGuesses = 0;
@@ -132,7 +134,10 @@ const Hangman = {
         `;
         
         // Add keyboard listener
-        document.addEventListener('keydown', (e) => this.handleKeyPress(e));
+        if (!this.keydownHandler) {
+            this.keydownHandler = (e) => this.handleKeyPress(e);
+        }
+        document.addEventListener('keydown', this.keydownHandler);
     },
     
     renderWord() {
@@ -270,5 +275,13 @@ const Hangman = {
         
         this.hints--;
         updateGameScore(-30);
+    },
+
+    cleanup() {
+        this.gameActive = false;
+
+        if (this.keydownHandler) {
+            document.removeEventListener('keydown', this.keydownHandler);
+        }
     }
 };

@@ -12,6 +12,8 @@ const WordVet = {
     currentWord: '',
     hintShown: false,
     hintCells: [],
+    mouseUpHandler: null,
+    touchEndHandler: null,
     
     // Word Lists
     normalWords: [
@@ -65,6 +67,7 @@ const WordVet = {
     ],
     
     init(container, level) {
+        this.cleanup();
         this.foundWords = [];
         this.selectedCells = [];
         this.currentWord = '';
@@ -231,9 +234,16 @@ const WordVet = {
             cell.addEventListener('touchstart', (e) => this.handleStart(e), { passive: false });
             cell.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
         });
-        
-        document.addEventListener('mouseup', () => this.handleEnd());
-        document.addEventListener('touchend', () => this.handleEnd());
+
+        if (!this.mouseUpHandler) {
+            this.mouseUpHandler = () => this.handleEnd();
+        }
+        if (!this.touchEndHandler) {
+            this.touchEndHandler = () => this.handleEnd();
+        }
+
+        document.addEventListener('mouseup', this.mouseUpHandler);
+        document.addEventListener('touchend', this.touchEndHandler);
     },
     
     handleStart(e) {
@@ -415,6 +425,18 @@ const WordVet = {
                     }
                 }
             }
+        }
+    },
+
+    cleanup() {
+        this.isDragging = false;
+        this.currentWord = '';
+
+        if (this.mouseUpHandler) {
+            document.removeEventListener('mouseup', this.mouseUpHandler);
+        }
+        if (this.touchEndHandler) {
+            document.removeEventListener('touchend', this.touchEndHandler);
         }
     }
 };

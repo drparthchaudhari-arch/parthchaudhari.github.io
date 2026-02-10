@@ -15,6 +15,8 @@ const Sudoku = {
     timer: 0,
     notes: {}, // cell notes
     gameActive: true,
+    keydownHandler: null,
+    timerInterval: null,
     
     // Difficulty settings
     difficulties: {
@@ -25,6 +27,7 @@ const Sudoku = {
     },
     
     init(container, level) {
+        this.cleanup();
         this.level = level;
         this.setDifficulty(level);
         this.mistakes = 0;
@@ -195,7 +198,10 @@ const Sudoku = {
         `;
         
         // Add keyboard listener
-        document.addEventListener('keydown', (e) => this.handleKeyPress(e));
+        if (!this.keydownHandler) {
+            this.keydownHandler = (e) => this.handleKeyPress(e);
+        }
+        document.addEventListener('keydown', this.keydownHandler);
     },
     
     renderGrid() {
@@ -416,7 +422,7 @@ const Sudoku = {
     
     gameComplete() {
         this.gameActive = false;
-        stopTimer();
+        this.stopTimer();
         
         const timeBonus = Math.max(0, 300 - this.timer);
         const hintBonus = this.hints * 50;
@@ -427,7 +433,7 @@ const Sudoku = {
     
     gameOver() {
         this.gameActive = false;
-        stopTimer();
+        this.stopTimer();
         gameOver(`Too many mistakes! The puzzle was ${this.difficulties[this.difficulty].name}.`);
     },
     
@@ -442,10 +448,21 @@ const Sudoku = {
     stopTimer() {
         if (this.timerInterval) {
             clearInterval(this.timerInterval);
+            this.timerInterval = null;
         }
     },
     
     showHint() {
         this.useHint();
+    },
+
+    cleanup() {
+        this.stopTimer();
+        this.gameActive = false;
+        this.selectedCell = null;
+
+        if (this.keydownHandler) {
+            document.removeEventListener('keydown', this.keydownHandler);
+        }
     }
 };

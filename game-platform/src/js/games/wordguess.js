@@ -12,6 +12,7 @@ const WordGuess = {
     maxGuesses: 6,
     gameActive: true,
     hints: 3,
+    keydownHandler: null,
     
     // Word lists by length
     wordLists: {
@@ -32,6 +33,7 @@ const WordGuess = {
     letterStatus: {},
     
     init(container, level) {
+        this.cleanup();
         this.level = level;
         this.setDifficulty(level);
         this.currentRow = 0;
@@ -78,7 +80,10 @@ const WordGuess = {
         `;
         
         // Add keyboard listener
-        document.addEventListener('keydown', (e) => this.handleKeyPress(e));
+        if (!this.keydownHandler) {
+            this.keydownHandler = (e) => this.handleKeyPress(e);
+        }
+        document.addEventListener('keydown', this.keydownHandler);
     },
     
     renderGrid() {
@@ -295,5 +300,13 @@ const WordGuess = {
         // Update stats display
         document.querySelector('.wordguess-stats').innerHTML = 
             `<span class="stat"><i class="fas fa-lightbulb"></i> ${this.hints}</span>`;
+    },
+
+    cleanup() {
+        this.gameActive = false;
+
+        if (this.keydownHandler) {
+            document.removeEventListener('keydown', this.keydownHandler);
+        }
     }
 };

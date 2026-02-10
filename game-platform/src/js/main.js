@@ -41,6 +41,15 @@ function setupNavigation() {
 }
 
 function showSection(sectionId) {
+    const gameContainer = document.getElementById('game-container');
+    if (gameContainer && !gameContainer.classList.contains('hidden')) {
+        stopTimer();
+        cleanupGame(GameState.currentGame);
+        resetGameOverlays();
+        gameContainer.classList.add('hidden');
+        GameState.currentGame = null;
+    }
+
     const sections = document.querySelectorAll('.section');
     sections.forEach(section => {
         section.classList.remove('active');
@@ -52,6 +61,40 @@ function showSection(sectionId) {
     }
 }
 
+function getGameController(gameName) {
+    switch (gameName) {
+        case 'wordvet': return WordVet;
+        case 'sudoku': return Sudoku;
+        case 'tictactoe': return TicTacToe;
+        case 'memory': return MemoryGame;
+        case 'snake': return SnakeGame;
+        case 'game2048': return Game2048;
+        case 'hangman': return Hangman;
+        case 'wordguess': return WordGuess;
+        case 'iq': return IQChallenge;
+        default: return null;
+    }
+}
+
+function cleanupGame(gameName = GameState.currentGame) {
+    const controller = getGameController(gameName);
+    if (controller && typeof controller.cleanup === 'function') {
+        try {
+            controller.cleanup();
+        } catch (error) {
+            console.warn(`Cleanup failed for ${gameName}:`, error);
+        }
+    }
+}
+
+function resetGameOverlays() {
+    document.getElementById('pause-menu').classList.add('hidden');
+    document.getElementById('level-complete-modal').classList.add('hidden');
+    document.getElementById('game-over-modal').classList.add('hidden');
+    document.getElementById('pause-btn').innerHTML = '<i class="fas fa-pause"></i>';
+    GameState.isPaused = false;
+}
+
 // Update Navigation Stats
 function updateNavStats() {
     document.getElementById('total-score').textContent = GameState.totalScore.toLocaleString();
@@ -60,6 +103,8 @@ function updateNavStats() {
 
 // Start Game
 function startGame(gameName) {
+    cleanupGame(GameState.currentGame);
+
     GameState.currentGame = gameName;
     GameState.currentLevel = GameState.gameProgress[gameName] || 1;
     GameState.score = 0;
@@ -71,6 +116,7 @@ function startGame(gameName) {
     // Hide main content, show game container
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.getElementById('game-container').classList.remove('hidden');
+    resetGameOverlays();
     
     // Set game title
     const gameNames = {
@@ -103,35 +149,31 @@ function startGame(gameName) {
     // Initialize the specific game
     const gameArea = document.getElementById('game-area');
     gameArea.innerHTML = '';
-    
-    switch(gameName) {
-        case 'wordvet':
-            WordVet.init(gameArea, GameState.currentLevel);
-            break;
-        case 'sudoku':
-            Sudoku.init(gameArea, GameState.currentLevel);
-            break;
-        case 'tictactoe':
-            TicTacToe.init(gameArea, GameState.currentLevel);
-            break;
-        case 'memory':
-            MemoryGame.init(gameArea, GameState.currentLevel);
-            break;
-        case 'snake':
-            SnakeGame.init(gameArea, GameState.currentLevel);
-            break;
-        case 'game2048':
-            Game2048.init(gameArea, GameState.currentLevel);
-            break;
-        case 'hangman':
-            Hangman.init(gameArea, GameState.currentLevel);
-            break;
-        case 'wordguess':
-            WordGuess.init(gameArea, GameState.currentLevel);
-            break;
-        case 'iq':
-            IQChallenge.init(gameArea, GameState.currentLevel);
-            break;
+
+    const gameInitializers = {
+        wordvet: () => WordVet.init(gameArea, GameState.currentLevel),
+        sudoku: () => Sudoku.init(gameArea, GameState.currentLevel),
+        tictactoe: () => TicTacToe.init(gameArea, GameState.currentLevel),
+        memory: () => MemoryGame.init(gameArea, GameState.currentLevel),
+        snake: () => SnakeGame.init(gameArea, GameState.currentLevel),
+        game2048: () => Game2048.init(gameArea, GameState.currentLevel),
+        hangman: () => Hangman.init(gameArea, GameState.currentLevel),
+        wordguess: () => WordGuess.init(gameArea, GameState.currentLevel),
+        iq: () => IQChallenge.init(gameArea, GameState.currentLevel)
+    };
+
+    const initGame = gameInitializers[gameName];
+    if (!initGame) {
+        gameArea.innerHTML = `<p style="text-align:center;color:var(--text-secondary);">This game is not available yet.</p>`;
+        return;
+    }
+
+    try {
+        initGame();
+    } catch (error) {
+        console.error(`Failed to initialize game "${gameName}"`, error);
+        gameArea.innerHTML = `<p style="text-align:center;color:var(--danger);">Game failed to load. Please refresh and try again.</p>`;
+        return;
     }
     
     // Start timer
@@ -228,10 +270,8 @@ function restartLevel() {
     GameState.score = 0;
     GameState.streak = 0;
     GameState.hints = 3;
-    GameState.isPaused = false;
-    
-    document.getElementById('pause-menu').classList.add('hidden');
-    document.getElementById('pause-btn').innerHTML = '<i class="fas fa-pause"></i>';
+    resetGameOverlays();
+
     document.getElementById('game-score').textContent = '0';
     document.getElementById('game-streak').textContent = '0';
     document.getElementById('hint-count').textContent = '3';
@@ -242,6 +282,8 @@ function restartLevel() {
 // Exit Game
 function exitGame() {
     stopTimer();
+    cleanupGame(GameState.currentGame);
+    resetGameOverlays();
     
     // Save progress
     if (GameState.score > 0) {
@@ -260,6 +302,7 @@ function exitGame() {
     
     // Clear game area
     document.getElementById('game-area').innerHTML = '';
+    GameState.currentGame = null;
 }
 
 // Level Complete
