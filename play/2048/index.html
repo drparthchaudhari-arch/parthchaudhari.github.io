@@ -3,33 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2048 Puzzle Launch | ParthChaudhari Play</title>
-    <meta name="description" content="Launch 2048 Puzzle in full-viewport mode with fast return to the arcade dashboard.">
+    <title>2048 Launch | ParthChaudhari Play</title>
+    <meta name="description" content="Launch 2048 in full-viewport mode with fast return to the arcade dashboard.">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="2048 Puzzle Launch | ParthChaudhari Play">
-    <meta property="og:description" content="Play 2048 Puzzle inside the portal wrapper with navigation and fullscreen support.">
-    <link rel="stylesheet" href="../../assets/css/tokens.css">
-    <link rel="stylesheet" href="../../assets/css/portal.css">
-    <script src="../../assets/js/theme-toggle.js" defer></script>
-    <script src="../../assets/js/fullscreen.js" defer></script>
+    <meta property="og:title" content="2048 Launch | ParthChaudhari Play">
+    <meta property="og:description" content="Play 2048 inside the portal wrapper with navigation and fullscreen support.">
+    <meta property="og:url" content="https://parthchaudhari.com/play/2048/">
+    <link rel="canonical" href="https://parthchaudhari.com/play/2048/">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/fullscreen.js" defer></script>
 </head>
 <body class="pc-page pc-page--gameframe">
     <header class="pc-game-nav" aria-label="Game controls">
-        <a class="pc-btn pc-btn-secondary" href="/play/">&larr; Back to Arcade</a>
+        <a class="pc-btn pc-btn-secondary" href="/play/" aria-label="Exit game and return to arcade">&larr; Exit Game</a>
         <div class="pc-game-nav__center">
-            <p class="pc-game-title">2048 Puzzle</p>
-            <button type="button" class="pc-nav-toggle" data-pc-mode-toggle>
+            <p class="pc-game-title">2048</p>
+            <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle play mode">
                 <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Play</span>
             </button>
         </div>
-        <button type="button" class="pc-btn" data-pc-fullscreen data-pc-target="[data-pc-fullscreen-target]">Fullscreen</button>
+        <button type="button" class="pc-btn" data-pc-fullscreen data-pc-target="[data-pc-fullscreen-target]" aria-label="Toggle fullscreen mode">Fullscreen</button>
     </header>
 
-    <main class="pc-game-stage" data-pc-fullscreen-target>
+    <main class="pc-game-stage" data-pc-fullscreen-target role="main">
         <iframe
             class="pc-game-iframe"
-            src="/games/2048/index.html"
-            title="2048 Puzzle game"
+            src="/games/2048.html"
+            title="2048 game"
             allow="fullscreen; autoplay"
             sandbox="allow-scripts allow-same-origin"
             loading="eager"

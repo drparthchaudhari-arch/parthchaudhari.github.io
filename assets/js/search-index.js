@@ -23,42 +23,42 @@ window.PC_SEARCH_INDEX = [
     {
         title: 'WordVet',
         category: 'Games',
-        url: '/games/',
+        url: '/play/wordvet/',
         description: 'Vocabulary-focused veterinary word search game.',
         keywords: ['wordvet', 'vocabulary', 'terms', 'study', 'navle']
     },
     {
         title: 'Sudoku Master',
         category: 'Games',
-        url: '/games/',
+        url: '/play/sudoku/',
         description: 'Logic puzzle game with multiple difficulty levels.',
         keywords: ['sudoku', 'logic', 'grid', 'puzzle']
     },
     {
         title: 'Tic Tac Toe',
         category: 'Games',
-        url: '/games/',
+        url: '/play/tictactoe/',
         description: 'Quick strategy game for pattern recognition.',
         keywords: ['tic tac toe', 'strategy', 'x o']
     },
     {
         title: 'Memory Match',
         category: 'Games',
-        url: '/games/',
+        url: '/play/memory-match/',
         description: 'Memory training through matching cards.',
         keywords: ['memory', 'match', 'cards', 'focus']
     },
     {
         title: '2048 Challenge',
         category: 'Games',
-        url: '/games/',
+        url: '/play/2048/',
         description: 'Number merge game for concentration and planning.',
         keywords: ['2048', 'numbers', 'merge']
     },
     {
         title: 'IQ Challenge',
         category: 'Games',
-        url: '/games/',
+        url: '/play/iq-challenge/',
         description: 'Reasoning-focused puzzle sequence in the games hub.',
         keywords: ['iq', 'reasoning', 'challenge', 'puzzle']
     },

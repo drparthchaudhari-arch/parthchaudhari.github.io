@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://parthchaudhari.com/</loc><priority>1.0</priority></url>
+  <url><loc>https://parthchaudhari.com/info.html</loc><priority>0.9</priority></url>
+  <url><loc>https://parthchaudhari.com/play/</loc><priority>0.9</priority></url>
+  <url><loc>https://parthchaudhari.com/play/wordvet/</loc><priority>0.8</priority></url>
+  <url><loc>https://parthchaudhari.com/play/sudoku/</loc><priority>0.7</priority></url>
+  <url><loc>https://parthchaudhari.com/play/memory-match/</loc><priority>0.7</priority></url>
+  <url><loc>https://parthchaudhari.com/play/2048/</loc><priority>0.7</priority></url>
+  <url><loc>https://parthchaudhari.com/play/tictactoe/</loc><priority>0.7</priority></url>
+  <url><loc>https://parthchaudhari.com/play/iq-challenge/</loc><priority>0.7</priority></url>
+  <url><loc>https://parthchaudhari.com/bridge/</loc><priority>0.9</priority></url>
+  <url><loc>https://parthchaudhari.com/bridge/case-studies/</loc><priority>0.8</priority></url>
+  <url><loc>https://parthchaudhari.com/bridge/case-studies/canine-chf.html</loc><priority>0.8</priority></url>
+  <url><loc>https://parthchaudhari.com/bridge/case-studies/chf-dog.html</loc><priority>0.6</priority></url>
+  <url><loc>https://parthchaudhari.com/bridge/case-studies/feline-hyperthyroid.html</loc><priority>0.8</priority></url>
+  <url><loc>https://parthchaudhari.com/bridge/case-studies/bovine-mastitis.html</loc><priority>0.8</priority></url>
+  <url><loc>https://parthchaudhari.com/search.html</loc><priority>0.7</priority></url>
+</urlset>

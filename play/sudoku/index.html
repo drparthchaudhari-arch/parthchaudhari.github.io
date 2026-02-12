@@ -8,27 +8,29 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Sudoku Launch | ParthChaudhari Play">
     <meta property="og:description" content="Play Sudoku inside the portal wrapper with navigation and fullscreen support.">
-    <link rel="stylesheet" href="../../assets/css/tokens.css">
-    <link rel="stylesheet" href="../../assets/css/portal.css">
-    <script src="../../assets/js/theme-toggle.js" defer></script>
-    <script src="../../assets/js/fullscreen.js" defer></script>
+    <meta property="og:url" content="https://parthchaudhari.com/play/sudoku/">
+    <link rel="canonical" href="https://parthchaudhari.com/play/sudoku/">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/fullscreen.js" defer></script>
 </head>
 <body class="pc-page pc-page--gameframe">
     <header class="pc-game-nav" aria-label="Game controls">
-        <a class="pc-btn pc-btn-secondary" href="/play/">&larr; Back to Arcade</a>
+        <a class="pc-btn pc-btn-secondary" href="/play/" aria-label="Exit game and return to arcade">&larr; Exit Game</a>
         <div class="pc-game-nav__center">
             <p class="pc-game-title">Sudoku</p>
-            <button type="button" class="pc-nav-toggle" data-pc-mode-toggle>
+            <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle play mode">
                 <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Play</span>
             </button>
         </div>
-        <button type="button" class="pc-btn" data-pc-fullscreen data-pc-target="[data-pc-fullscreen-target]">Fullscreen</button>
+        <button type="button" class="pc-btn" data-pc-fullscreen data-pc-target="[data-pc-fullscreen-target]" aria-label="Toggle fullscreen mode">Fullscreen</button>
     </header>
 
-    <main class="pc-game-stage" data-pc-fullscreen-target>
+    <main class="pc-game-stage" data-pc-fullscreen-target role="main">
         <iframe
             class="pc-game-iframe"
-            src="/games/sudoku/index.html"
+            src="/games/sudoku.html"
             title="Sudoku game"
             allow="fullscreen; autoplay"
             sandbox="allow-scripts allow-same-origin"
