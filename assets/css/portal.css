@@ -1607,30 +1607,156 @@
     padding-bottom: 2rem;
 }
 
+.pc-page--account .pc-account-shell {
+    position: relative;
+    isolation: isolate;
+}
+
+.pc-page--account .pc-account-shell::before {
+    content: '';
+    position: absolute;
+    top: 0.6rem;
+    right: -2rem;
+    width: clamp(180px, 22vw, 340px);
+    aspect-ratio: 1 / 1;
+    border-radius: 999px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--pc-accent) 22%, transparent), transparent 70%);
+    filter: blur(8px);
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.pc-account-hero {
+    margin-bottom: 1rem;
+}
+
+.pc-account-hero__surface {
+    border: 1px solid var(--pc-border);
+    border-radius: var(--pc-radius-lg);
+    padding: clamp(1.05rem, 2.3vw, 1.8rem);
+    background:
+        linear-gradient(125deg, color-mix(in srgb, var(--pc-surface) 90%, transparent), color-mix(in srgb, var(--pc-primary) 8%, var(--pc-surface))),
+        radial-gradient(circle at 85% 18%, color-mix(in srgb, var(--pc-accent) 20%, transparent), transparent 46%);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.pc-account-hero__surface::after {
+    content: '';
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    right: -90px;
+    bottom: -90px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--pc-border) 70%, transparent);
+    pointer-events: none;
+}
+
+.pc-account-hero__surface .pc-fork-title {
+    margin-top: 0.75rem;
+    margin-bottom: 0.7rem;
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+}
+
+.pc-account-hero__chips {
+    margin-top: 0.95rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.pc-account-hero__chips .pc-chip {
+    border-color: color-mix(in srgb, var(--pc-border) 75%, transparent);
+    background: color-mix(in srgb, var(--pc-surface) 82%, transparent);
+}
+
 .pc-account-grid {
     display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
     gap: 1rem;
+    align-items: start;
 }
 
 .pc-account-card {
     border: 1px solid var(--pc-border);
     border-radius: var(--pc-radius-lg);
-    background: color-mix(in srgb, var(--pc-surface) 92%, transparent);
-    padding: clamp(1rem, 1.6vw, 1.4rem);
+    background: color-mix(in srgb, var(--pc-surface) 94%, transparent);
+    padding: clamp(1.05rem, 1.8vw, 1.5rem);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
 }
 
 .pc-account-card h2,
 .pc-account-card h3 {
-    margin-top: 0;
+    margin: 0;
+}
+
+.pc-account-card--privacy {
+    grid-column: 1 / -1;
+}
+
+.pc-account-card--sync {
+    position: relative;
+    overflow: hidden;
+}
+
+.pc-account-card--sync::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 4px;
+    background: color-mix(in srgb, var(--pc-primary) 70%, transparent);
+}
+
+.pc-sync-state--unconfigured::before {
+    background: color-mix(in srgb, var(--pc-accent) 72%, transparent);
+}
+
+.pc-sync-state--logged-in::before {
+    background: color-mix(in srgb, #169b62 80%, transparent);
+}
+
+.pc-account-metric-grid {
+    margin-top: 0.85rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+}
+
+.pc-account-metric {
+    border: 1px solid var(--pc-border);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--pc-surface-strong) 86%, transparent);
+    padding: 0.72rem 0.8rem;
+}
+
+.pc-account-metric__label {
+    margin: 0;
+    color: var(--pc-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.pc-account-metric__value {
+    margin: 0.34rem 0 0;
+    color: var(--pc-text);
+    font-family: var(--pc-font-display);
+    font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+    line-height: 1.06;
+    font-weight: 700;
 }
 
 .pc-account-status {
-    margin: 0.5rem 0 0;
+    margin: 0.62rem 0 0;
     color: var(--pc-text-muted);
 }
 
 .pc-account-actions {
-    margin-top: 1rem;
+    margin-top: 1.05rem;
     display: flex;
     flex-wrap: wrap;
     gap: 0.65rem;
@@ -1647,27 +1773,48 @@
     border-radius: 12px;
     border: 1px solid var(--pc-border);
     padding: 0.55rem 0.7rem;
-    background: color-mix(in srgb, var(--pc-surface) 88%, transparent);
+    background: color-mix(in srgb, var(--pc-surface) 92%, transparent);
     color: var(--pc-text);
 }
 
 .pc-account-message {
-    margin-top: 0.7rem;
-    min-height: 1.25rem;
+    margin-top: 0.8rem;
+    min-height: 0;
+    border: 1px solid color-mix(in srgb, var(--pc-border) 68%, transparent);
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--pc-surface-strong) 82%, transparent);
+    padding: 0.55rem 0.7rem;
     color: var(--pc-text-muted);
 }
 
+.pc-account-message:empty {
+    display: none;
+}
+
 .pc-account-message.pc-is-error {
-    color: var(--pc-danger, #b42318);
+    color: #b42318;
+    border-color: color-mix(in srgb, #b42318 48%, var(--pc-border));
+    background: color-mix(in srgb, #b42318 10%, var(--pc-surface));
 }
 
 .pc-account-message.pc-is-success {
-    color: var(--pc-success, #169b62);
+    color: #169b62;
+    border-color: color-mix(in srgb, #169b62 44%, var(--pc-border));
+    background: color-mix(in srgb, #169b62 10%, var(--pc-surface));
 }
 
 .pc-account-note {
     color: var(--pc-text-muted);
-    margin-top: 0.5rem;
+    margin-top: 0.58rem;
+    line-height: 1.62;
+}
+
+.pc-account-note code {
+    border: 1px solid var(--pc-border);
+    border-radius: 8px;
+    padding: 0.08rem 0.35rem;
+    background: color-mix(in srgb, var(--pc-surface-strong) 84%, transparent);
+    font-size: 0.82rem;
 }
 
 .pc-table-wrap {
@@ -1768,6 +1915,10 @@
     .pc-skill-card-grid {
         grid-template-columns: 1fr 1fr;
     }
+
+    .pc-account-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 900px) {
@@ -1838,6 +1989,19 @@
 
     .pc-plan-presets {
         grid-template-columns: 1fr;
+    }
+
+    .pc-account-hero__surface {
+        padding: 1rem;
+    }
+
+    .pc-account-metric-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pc-account-actions .pc-btn,
+    .pc-account-actions a.pc-btn {
+        flex: 1 1 100%;
     }
 
     .pc-game-card--featured .pc-game-thumb {

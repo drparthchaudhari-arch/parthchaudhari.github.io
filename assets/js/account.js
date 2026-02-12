@@ -68,12 +68,34 @@
         var streakNode = getById('pc-local-streak');
 
         if (casesNode) {
-            casesNode.textContent = 'Cases completed: ' + stats.casesCompleted;
+            if (casesNode.getAttribute('data-pc-value-only') === 'true') {
+                casesNode.textContent = String(stats.casesCompleted);
+                casesNode.setAttribute('aria-label', 'Cases completed: ' + stats.casesCompleted);
+            } else {
+                casesNode.textContent = 'Cases completed: ' + stats.casesCompleted;
+            }
         }
 
         if (streakNode) {
-            streakNode.textContent = 'Current streak: ' + stats.currentStreak + ' day' + (stats.currentStreak === 1 ? '' : 's');
+            if (streakNode.getAttribute('data-pc-value-only') === 'true') {
+                streakNode.textContent = stats.currentStreak + ' day' + (stats.currentStreak === 1 ? '' : 's');
+                streakNode.setAttribute('aria-label', 'Current streak: ' + stats.currentStreak + ' days');
+            } else {
+                streakNode.textContent = 'Current streak: ' + stats.currentStreak + ' day' + (stats.currentStreak === 1 ? '' : 's');
+            }
         }
+    }
+
+    function setSyncVisualState(stateName) {
+        var section = getById('pc-sync-section');
+        if (!section) {
+            return;
+        }
+
+        section.classList.remove('pc-sync-state--unconfigured');
+        section.classList.remove('pc-sync-state--logged-out');
+        section.classList.remove('pc-sync-state--logged-in');
+        section.classList.add(stateName);
     }
 
     function toDownloadFile(content, fileName, mimeType) {
@@ -133,6 +155,7 @@
         }
 
         if (!syncConfigured) {
+            setSyncVisualState('pc-sync-state--unconfigured');
             section.hidden = false;
             notConfigured.hidden = false;
             loggedOut.hidden = true;
@@ -146,11 +169,13 @@
         notConfigured.hidden = true;
 
         if (!user) {
+            setSyncVisualState('pc-sync-state--logged-out');
             loggedOut.hidden = false;
             loggedIn.hidden = true;
             return;
         }
 
+        setSyncVisualState('pc-sync-state--logged-in');
         loggedOut.hidden = true;
         loggedIn.hidden = false;
 

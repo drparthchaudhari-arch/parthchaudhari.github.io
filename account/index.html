@@ -20,7 +20,7 @@
     <script src="/assets/js/sync.js" defer></script>
     <script src="/assets/js/account.js" defer></script>
 </head>
-<body class="pc-page pc-page--study">
+<body class="pc-page pc-page--study pc-page--account">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
         <div class="pc-portal-nav__inner">
@@ -44,17 +44,32 @@
     </nav>
 
     <main id="pc-main" class="pc-account-shell" role="main" data-page="account">
-        <section class="pc-bridge-hero" id="pc-account-root">
-            <p class="pc-kicker">Account</p>
-            <h1 class="pc-fork-title">Your Learning Data</h1>
-            <p class="pc-fork-copy">Anonymous mode stays enabled by default. Use this page to export local data, import backups, and optionally enable cross-device sync.</p>
+        <section class="pc-account-hero" id="pc-account-root">
+            <div class="pc-account-hero__surface">
+                <p class="pc-kicker">Account</p>
+                <h1 class="pc-fork-title">Your Learning Data</h1>
+                <p class="pc-fork-copy">Anonymous mode is always available. Export local data, import backups, and optionally turn on cross-device sync.</p>
+                <div class="pc-account-hero__chips" aria-label="Account highlights">
+                    <span class="pc-chip">Anonymous First</span>
+                    <span class="pc-chip">Optional Sync</span>
+                    <span class="pc-chip">Export Anytime</span>
+                </div>
+            </div>
         </section>
 
         <section class="pc-account-grid" aria-label="Account settings">
-            <article class="pc-account-card" aria-labelledby="pc-local-data-title">
+            <article class="pc-account-card pc-account-card--local" aria-labelledby="pc-local-data-title">
                 <h2 id="pc-local-data-title">Local Data Status</h2>
-                <p id="pc-local-cases" class="pc-account-status">Cases completed: 0</p>
-                <p id="pc-local-streak" class="pc-account-status">Current streak: 0 days</p>
+                <div class="pc-account-metric-grid" role="list">
+                    <div class="pc-account-metric" role="listitem">
+                        <p class="pc-account-metric__label">Cases Completed</p>
+                        <p id="pc-local-cases" class="pc-account-metric__value" data-pc-value-only="true">0</p>
+                    </div>
+                    <div class="pc-account-metric" role="listitem">
+                        <p class="pc-account-metric__label">Current Streak</p>
+                        <p id="pc-local-streak" class="pc-account-metric__value" data-pc-value-only="true">0 days</p>
+                    </div>
+                </div>
                 <div class="pc-account-actions">
                     <button type="button" id="pc-export-button" class="pc-btn">Export My Data (JSON download)</button>
                     <button type="button" id="pc-import-button" class="pc-btn pc-btn--secondary">Import Data (JSON upload)</button>
@@ -62,8 +77,9 @@
                 </div>
             </article>
 
-            <article id="pc-sync-section" class="pc-account-card" aria-labelledby="pc-sync-title">
+            <article id="pc-sync-section" class="pc-account-card pc-account-card--sync" aria-labelledby="pc-sync-title">
                 <h2 id="pc-sync-title">Cross-Device Sync</h2>
+                <p class="pc-account-note">Use magic-link login to sync your learning progress across devices.</p>
 
                 <div id="pc-sync-not-configured" class="pc-account-note" hidden>
                     Sync not configured yet. Follow the setup guide in <code>/docs/supabase-setup.md</code>.
@@ -92,7 +108,7 @@
                 <p id="pc-account-message" class="pc-account-message" aria-live="polite"></p>
             </article>
 
-            <article class="pc-account-card" aria-labelledby="pc-privacy-title">
+            <article class="pc-account-card pc-account-card--privacy" aria-labelledby="pc-privacy-title">
                 <h2 id="pc-privacy-title">Data Privacy</h2>
                 <p class="pc-account-note">Your data is stored securely. You can export or delete it anytime.</p>
                 <div class="pc-account-actions">
