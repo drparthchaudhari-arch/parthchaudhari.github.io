@@ -10,7 +10,7 @@
     };
 
     var POPULAR_LINKS = [
-        { label: 'WordVet Study Tool', url: '/study/wordvet/' },
+        { label: 'WordWeb Study Tool', url: '/study/wordweb/' },
         { label: 'CHF Case', url: '/bridge/case-studies/chf-dog.html' },
         { label: 'Study Plan', url: '/study/' }
     ];
@@ -275,7 +275,7 @@
         elements.results.innerHTML =
             '<section class="pc-search-empty">' +
                 '<h3>No results</h3>' +
-                '<p>No matches for <strong>' + escapeHtml(query) + '</strong>. Try broader terms like cardio, endocrine, or wordvet topics.</p>' +
+                '<p>No matches for <strong>' + escapeHtml(query) + '</strong>. Try broader terms like cardio, endocrine, or wordweb topics.</p>' +
             '</section>';
 
         state.resultLinks = [];

@@ -336,10 +336,10 @@
 }
 
 /* ============================================
-   WORDVET GAME STYLES
+   VOCAB GRID STYLES
    ============================================ */
 
-.wordvet-game {
+.vocab-grid-game {
     display: flex;
     flex-direction: column;
     align-items: center;

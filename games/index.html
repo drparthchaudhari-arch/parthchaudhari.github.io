@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#0f0f23">
     <title>VetLudics by Parth Chaudhari | Veterinary Puzzle Games</title>
-    <meta name="description" content="Play veterinary puzzle games for reinforcement. WordVet topics are now available in the Study portal.">
+    <meta name="description" content="Play veterinary puzzle games for reinforcement and use the Study portal for full NAVLE topic review.">
     <meta name="keywords" content="veterinary education games, vet student puzzle game, veterinary puzzle, casual learning games">
     <meta name="author" content="Parth Chaudhari">
     <meta name="robots" content="index, follow">
@@ -14,14 +14,14 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://parthchaudhari.com/games/">
     <meta property="og:title" content="VetLudics by Parth Chaudhari - Veterinary Puzzle Reinforcement">
-    <meta property="og:description" content="Play puzzle games for veterinary reinforcement and use the WordVet NAVLE topic library in Study.">
+    <meta property="og:description" content="Play puzzle games for veterinary reinforcement and use the Study portal for NAVLE topic review.">
     <meta property="og:image" content="https://parthchaudhari.com/games/og-image.jpg">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://parthchaudhari.com/games/">
     <meta property="twitter:title" content="VetLudics by Parth Chaudhari - Veterinary Puzzle Reinforcement">
-    <meta property="twitter:description" content="Puzzle games for veterinary reinforcement. WordVet topics live in the Study portal.">
+    <meta property="twitter:description" content="Puzzle games for veterinary reinforcement. Use Study for full NAVLE topic review.">
     <meta property="twitter:image" content="https://parthchaudhari.com/games/og-image.jpg">
     
     <!-- Canonical URL -->
@@ -295,12 +295,12 @@
             <div class="hero">
                 <div class="hero-content">
                     <h1>VetLudics: Veterinary Puzzle Learning Hub</h1>
-                    <p>Use this hub for replayable puzzle reinforcement. For NAVLE topic review, use the WordVet study tool in the Study portal.</p>
+                    <p>Use this hub for replayable puzzle reinforcement. For full NAVLE topic review, use the Study portal.</p>
                     <div class="hero-buttons">
                         <button class="btn btn-primary" onclick="showSection('games')">
                             <i class="fas fa-play"></i> Start Puzzle Games
                         </button>
-                        <a class="btn btn-secondary" href="/study/wordvet/"><i class="fas fa-book"></i> Open WordVet Topics</a>
+                        <a class="btn btn-secondary" href="/study/"><i class="fas fa-book"></i> Open Study Planner</a>
                     </div>
                     <div class="audience-pill-row" aria-label="Audience segments">
                         <span class="audience-pill">Vet Students</span>
@@ -341,14 +341,14 @@
         <section id="games" class="section">
             <div class="section-header">
                 <h2><i class="fas fa-dice"></i> Choose Your Learning and Play Track</h2>
-                <p>WordVet topics are now in Study. Use these games for diagnostic logic, memory, and pattern reinforcement.</p>
+                <p>Use these games for diagnostic logic, memory, and pattern reinforcement.</p>
             </div>
 
             <section class="pc-clinical-context" aria-label="Clinical context">
                 <h3>Studying for NAVLE?</h3>
-                <p>Open WordVet topics first, then reinforce with case studies and puzzle drills:</p>
+                <p>Open Study first, then reinforce with case studies and puzzle drills:</p>
                 <div class="pc-panel-actions">
-                    <a href="/study/wordvet/" class="pc-btn">WordVet Topic Library</a>
+                    <a href="/study/" class="pc-btn">Study Planner</a>
                     <a href="/bridge/case-studies/chf-dog.html" class="pc-btn">CHF Case Study</a>
                     <a href="/bridge/" class="pc-btn pc-btn-secondary">All Cases</a>
                 </div>
@@ -489,7 +489,7 @@
                     <h3>0-60 Days: Quick Wins</h3>
                     <ul>
                         <li>NAVLE Sprint Mode with timed blueprint-tagged rounds.</li>
-                        <li>WordVet topic cards and clinical context snippets.</li>
+                        <li>NAVLE topic cards and clinical context snippets.</li>
                         <li>First client education mini-game release.</li>
                         <li>Cohort code support and weekly challenge loop.</li>
                     </ul>
@@ -649,17 +649,6 @@
             <!-- Game Area -->
             <div class="game-area" id="game-area">
                 <!-- Game content will be loaded here -->
-            </div>
-
-            <!-- Word List Panel (for WordVet) -->
-            <div class="word-list-panel hidden" id="word-list-panel">
-                <div class="panel-header">
-                    <h4><i class="fas fa-list"></i> Words to Find</h4>
-                    <button class="btn btn-toggle" onclick="toggleWordList()">
-                        <i class="fas fa-eye-slash"></i>
-                    </button>
-                </div>
-                <div class="word-list" id="word-list"></div>
             </div>
 
             <!-- Pause Menu -->

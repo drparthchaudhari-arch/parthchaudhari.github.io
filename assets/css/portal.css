@@ -1390,7 +1390,7 @@
     border-right: 1px solid var(--pc-border);
 }
 
-.pc-game-thumb--wordvet {
+.pc-game-thumb--studycore {
     background: color-mix(in srgb, var(--pc-accent) 38%, var(--pc-primary));
 }
 

@@ -4,82 +4,143 @@
     var PLAN_PRESETS = {
         '6week': {
             label: '6-Week Intensive',
-            dailyTaskTarget: 5
+            dailyTaskTarget: 8
         },
         '10week': {
             label: '10-Week Standard',
-            dailyTaskTarget: 4
+            dailyTaskTarget: 6
         },
         custom: {
             label: 'Custom Plan',
-            dailyTaskTarget: 3
+            dailyTaskTarget: 5
         }
     };
 
     var TOPICS = [
         {
-            id: 'cardiology',
-            title: 'Cardiology',
-            description: 'CHF reasoning and cardiology vocabulary loops.',
+            id: 'species_bovine',
+            title: 'Species: Bovine',
+            description: 'Cardio, GI, neuro, respiratory, repro, and herd-level bovine disease patterns.',
             items: [
-                { id: 'chf_case', title: 'Read CHF Case Study', type: 'case', url: '/bridge/case-studies/chf-dog.html', estimatedTime: '30min' },
-                { id: 'wordvet_cardio', title: 'Review WordVet Cardiology Topics', type: 'resource', url: '/study/wordvet/', estimatedTime: '15min' },
-                { id: 'chf_radiographs', title: 'Review CHF Radiograph Findings', type: 'resource', url: '/bridge/case-studies/chf-dog.html', estimatedTime: '20min' }
+                { id: 'bovine_master_list', title: 'Review Bovine Master Bullet List', type: 'resource', url: '/study/wordweb/#species-bovine', estimatedTime: '35min' },
+                { id: 'bovine_key_differentials', title: 'Memorize Bovine High-Yield Differentials', type: 'resource', url: '/study/wordweb/#species-bovine', estimatedTime: '20min' },
+                { id: 'bovine_case_mastitis', title: 'Apply to Bovine Mastitis Case', type: 'case', url: '/bridge/case-studies/bovine-mastitis.html', estimatedTime: '25min' }
             ]
         },
         {
-            id: 'endocrine',
-            title: 'Endocrine',
-            description: 'DKA and hyperthyroid differential framing.',
+            id: 'species_equine',
+            title: 'Species: Equine',
+            description: 'Colic, laminitis, respiratory, neuro, endocrine, and foal emergency anchors.',
             items: [
-                { id: 'dka_case', title: 'Read Canine DKA Case', type: 'case', url: '/bridge/case-studies/dka-dog.html', estimatedTime: '30min' },
-                { id: 'hyperthyroid_case', title: 'Read Feline Hyperthyroid Case', type: 'case', url: '/bridge/case-studies/feline-hyperthyroid.html', estimatedTime: '30min' },
-                { id: 'endocrine_wordvet', title: 'Review WordVet Endocrine Topics', type: 'resource', url: '/study/wordvet/', estimatedTime: '15min' }
+                { id: 'equine_master_list', title: 'Review Equine Master Bullet List', type: 'resource', url: '/study/wordweb/#species-equine', estimatedTime: '35min' },
+                { id: 'equine_colic_algorithm', title: 'Drill Equine Colic Decision Points', type: 'resource', url: '/study/wordweb/#diagnostic-templates', estimatedTime: '20min' },
+                { id: 'equine_neuro_resp_patterns', title: 'Review Equine Neuro and Respiratory Patterns', type: 'resource', url: '/study/wordweb/#species-equine', estimatedTime: '20min' }
             ]
         },
         {
-            id: 'emergency',
-            title: 'Emergency',
-            description: 'Stabilization-first priorities for acute cases.',
+            id: 'species_canine',
+            title: 'Species: Canine',
+            description: 'Core canine cardiology, endocrine, GI, neuro, respiratory, and skin disease clusters.',
             items: [
-                { id: 'dka_stabilization', title: 'Review DKA Stabilization Priorities', type: 'resource', url: '/bridge/case-studies/dka-dog.html', estimatedTime: '20min' },
-                { id: 'sudoku_logic', title: 'Play Sudoku: Logic for Diagnostics', type: 'game', url: '/play/sudoku/', estimatedTime: '15min' }
+                { id: 'canine_master_list', title: 'Review Canine Master Bullet List', type: 'resource', url: '/study/wordweb/#species-canine', estimatedTime: '35min' },
+                { id: 'canine_case_chf', title: 'Apply to Canine CHF Case', type: 'case', url: '/bridge/case-studies/chf-dog.html', estimatedTime: '30min' },
+                { id: 'canine_case_dka', title: 'Apply to Canine DKA Case', type: 'case', url: '/bridge/case-studies/dka-dog.html', estimatedTime: '30min' },
+                { id: 'canine_top20_recall', title: 'Run Canine Top-20 Rapid Recall', type: 'resource', url: '/study/wordweb/#top-checklists', estimatedTime: '15min' }
             ]
         },
         {
-            id: 'production',
-            title: 'Production',
-            description: 'Herd-level and milk quality decision making.',
+            id: 'species_feline',
+            title: 'Species: Feline',
+            description: 'CKD, hyperthyroid, diabetes, FLUTD, HCM, and feline inflammatory disease integration.',
             items: [
-                { id: 'mastitis_case', title: 'Read Bovine Mastitis Case', type: 'case', url: '/bridge/case-studies/bovine-mastitis.html', estimatedTime: '25min' },
-                { id: 'mastitis_treatment', title: 'Review Mastitis Treatment Pathway', type: 'resource', url: '/bridge/case-studies/bovine-mastitis.html', estimatedTime: '20min' }
+                { id: 'feline_master_list', title: 'Review Feline Master Bullet List', type: 'resource', url: '/study/wordweb/#species-feline', estimatedTime: '30min' },
+                { id: 'feline_case_hyperthyroid', title: 'Apply to Feline Hyperthyroid Case', type: 'case', url: '/bridge/case-studies/feline-hyperthyroid.html', estimatedTime: '30min' },
+                { id: 'feline_obstruction_protocol', title: 'Drill Feline Urethral Obstruction Protocol', type: 'resource', url: '/study/wordweb/#treatment-algorithms', estimatedTime: '20min' }
             ]
         },
         {
-            id: 'anatomy',
-            title: 'Anatomy',
-            description: 'Visual recall and structure reinforcement.',
+            id: 'species_small_ruminant',
+            title: 'Species: Small Ruminants',
+            description: 'Haemonchus, enterotoxemia, pregnancy toxemia, CLA/CAE/OPP, and abortion panels.',
             items: [
-                { id: 'memory_anatomy', title: 'Play Memory Match Anatomy Loop', type: 'game', url: '/play/memory-match/', estimatedTime: '15min' },
-                { id: 'anatomy_review', title: 'Review Case Anatomy Notes', type: 'resource', url: '/bridge/case-studies/', estimatedTime: '20min' }
+                { id: 'small_ruminant_master_list', title: 'Review Small Ruminant Bullet List', type: 'resource', url: '/study/wordweb/#species-small-ruminant', estimatedTime: '25min' },
+                { id: 'small_ruminant_abortions', title: 'Review Small Ruminant Abortion Causes', type: 'resource', url: '/study/wordweb/#systems-reproductive', estimatedTime: '20min' },
+                { id: 'small_ruminant_parasite_drill', title: 'Drill Haemonchus and Parasite Control', type: 'resource', url: '/study/wordweb/#species-small-ruminant', estimatedTime: '20min' }
             ]
         },
         {
-            id: 'pharmacology',
-            title: 'Pharmacology',
-            description: 'Medication sequence and treatment prioritization.',
+            id: 'species_porcine',
+            title: 'Species: Porcine',
+            description: 'PRRS/PCV2 respiratory-reproductive blocks and swine GI/infectious disease priorities.',
             items: [
-                { id: 'pharm_2048', title: 'Play 2048 Prioritization Drill', type: 'game', url: '/play/2048/', estimatedTime: '15min' },
-                { id: 'pharm_case_review', title: 'Review Drug Classes in Cases', type: 'resource', url: '/bridge/case-studies/', estimatedTime: '20min' }
+                { id: 'porcine_master_list', title: 'Review Porcine Bullet List', type: 'resource', url: '/study/wordweb/#species-porcine', estimatedTime: '25min' },
+                { id: 'porcine_reportables', title: 'Review ASF and Classical Swine Fever Rules', type: 'resource', url: '/study/wordweb/#ethics', estimatedTime: '15min' },
+                { id: 'porcine_prrs_pathway', title: 'Review PRRS and Respiratory-Repro Pathways', type: 'resource', url: '/study/wordweb/#species-porcine', estimatedTime: '20min' }
             ]
         },
         {
-            id: 'surgery',
-            title: 'Surgery',
-            description: 'Decision sequencing and procedural planning.',
+            id: 'species_poultry_aquatics',
+            title: 'Species: Poultry and Aquatics',
+            description: 'Reportables, production diseases, water-quality medicine, and zoonotic fish risks.',
             items: [
-                { id: 'surgery_logic', title: 'Play Tic-Tac-Toe Strategy Drill', type: 'game', url: '/play/tictactoe/', estimatedTime: '15min' },
-                { id: 'surgery_checklist', title: 'Review Surgical Checklist Framework', type: 'resource', url: '/bridge/case-studies/', estimatedTime: '20min' }
+                { id: 'poultry_master_list', title: 'Review Poultry Bullet List', type: 'resource', url: '/study/wordweb/#species-poultry', estimatedTime: '25min' },
+                { id: 'aquatics_master_list', title: 'Review Aquatics Bullet List', type: 'resource', url: '/study/wordweb/#species-aquatics', estimatedTime: '20min' },
+                { id: 'poultry_reportables', title: 'Drill Poultry Reportable Diseases', type: 'resource', url: '/study/wordweb/#species-poultry', estimatedTime: '20min' }
+            ]
+        },
+        {
+            id: 'systems_core',
+            title: 'Systems: Cardio to Integument',
+            description: 'Cross-species system integration from cardiovascular through integumentary medicine.',
+            items: [
+                { id: 'systems_cardio', title: 'Cardiovascular System Pass', type: 'resource', url: '/study/wordweb/#systems-cardiovascular', estimatedTime: '20min' },
+                { id: 'systems_resp', title: 'Respiratory System Pass', type: 'resource', url: '/study/wordweb/#systems-respiratory', estimatedTime: '20min' },
+                { id: 'systems_gi', title: 'GI System Pass', type: 'resource', url: '/study/wordweb/#systems-gastrointestinal', estimatedTime: '20min' },
+                { id: 'systems_urinary', title: 'Urinary System Pass', type: 'resource', url: '/study/wordweb/#systems-urinary', estimatedTime: '20min' },
+                { id: 'systems_repro', title: 'Reproductive System Pass', type: 'resource', url: '/study/wordweb/#systems-reproductive', estimatedTime: '20min' },
+                { id: 'systems_neuro', title: 'Nervous System Pass', type: 'resource', url: '/study/wordweb/#systems-nervous', estimatedTime: '20min' },
+                { id: 'systems_msk', title: 'Musculoskeletal System Pass', type: 'resource', url: '/study/wordweb/#systems-musculoskeletal', estimatedTime: '20min' },
+                { id: 'systems_skin', title: 'Integumentary System Pass', type: 'resource', url: '/study/wordweb/#systems-integumentary', estimatedTime: '20min' },
+                { id: 'systems_cross_link_review', title: 'Cross-Link Systems with Species Differentials', type: 'resource', url: '/study/wordweb/#how-to-use', estimatedTime: '20min' }
+            ]
+        },
+        {
+            id: 'critical_care',
+            title: 'High-Yield: Emergency and Critical Care',
+            description: 'Shock, CPCR, toxicosis, fluids/electrolytes, anesthesia, transfusion, and imaging/pathology drills.',
+            items: [
+                { id: 'high_yield_emergency', title: 'Emergency and Critical Care Drill', type: 'resource', url: '/study/wordweb/#high-yield-emergency', estimatedTime: '35min' },
+                { id: 'fluids_electrolytes', title: 'Fluids and Electrolytes Drill', type: 'resource', url: '/study/wordweb/#fluids-electrolytes', estimatedTime: '25min' },
+                { id: 'anesthesia_drill', title: 'Anesthesia and Sedation Drill', type: 'resource', url: '/study/wordweb/#anesthesia', estimatedTime: '25min' },
+                { id: 'transfusion_drill', title: 'Transfusion Medicine Drill', type: 'resource', url: '/study/wordweb/#transfusion', estimatedTime: '20min' },
+                { id: 'imaging_pathology_drill', title: 'Imaging and Pathology Pattern Drill', type: 'resource', url: '/study/wordweb/#imaging', estimatedTime: '25min' },
+                { id: 'clinical_pathology_drill', title: 'CBC/Chem/UA Pattern Drill', type: 'resource', url: '/study/wordweb/#pathology', estimatedTime: '25min' }
+            ]
+        },
+        {
+            id: 'ethics_and_exam',
+            title: 'Ethics, Public Health, and Exam Strategy',
+            description: 'VCPR, legal and public-health duties, formulas, checklists, and test-taking frameworks.',
+            items: [
+                { id: 'ethics_public_health', title: 'Ethics and Public Health Review', type: 'resource', url: '/study/wordweb/#ethics', estimatedTime: '30min' },
+                { id: 'top_checklists', title: 'Must-Know Disease Checklists', type: 'resource', url: '/study/wordweb/#top-checklists', estimatedTime: '25min' },
+                { id: 'diagnostic_templates', title: 'Diagnostic Template Drill', type: 'resource', url: '/study/wordweb/#diagnostic-templates', estimatedTime: '20min' },
+                { id: 'treatment_algorithms', title: 'Treatment Algorithm Drill', type: 'resource', url: '/study/wordweb/#treatment-algorithms', estimatedTime: '25min' },
+                { id: 'high_yield_drug_review', title: 'High-Yield Drug and Contraindication Review', type: 'resource', url: '/study/wordweb/#high-yield-drugs', estimatedTime: '30min' },
+                { id: 'test_strategy_review', title: 'NAVLE Test Strategy and Final Checklist', type: 'resource', url: '/study/wordweb/#test-strategy', estimatedTime: '20min' },
+                { id: 'pattern_recognition_review', title: 'Pattern Recognition and Commonly Confused Concepts', type: 'resource', url: '/study/wordweb/#pattern-recognition', estimatedTime: '25min' }
+            ]
+        },
+        {
+            id: 'reference_and_calculations',
+            title: 'Reference Pack: Doses, Normals, Formulas',
+            description: 'Quick-reference anchors for emergency doses, normal parameters, formulas, and abbreviations.',
+            items: [
+                { id: 'emergency_dose_sheet', title: 'Emergency Dose Quick Sheet', type: 'resource', url: '/study/wordweb/#emergency-doses', estimatedTime: '15min' },
+                { id: 'normal_parameters_sheet', title: 'Normal Parameters by Species', type: 'resource', url: '/study/wordweb/#normal-parameters', estimatedTime: '15min' },
+                { id: 'clinical_formula_sheet', title: 'Clinical Formula and Calculation Drill', type: 'resource', url: '/study/wordweb/#clinical-formulas', estimatedTime: '20min' },
+                { id: 'abbreviation_sheet', title: 'Clinical and Prescription Abbreviation Drill', type: 'resource', url: '/study/wordweb/#abbreviations', estimatedTime: '15min' },
+                { id: 'breed_predisposition_sheet', title: 'Breed Predisposition Rapid Review', type: 'resource', url: '/study/wordweb/#breed-predispositions', estimatedTime: '20min' }
             ]
         }
     ];

@@ -3,7 +3,7 @@ const searchIndex = [
   { title: "Canine DKA Case Study", url: "/bridge/case-studies/dka-dog.html", type: "case", keywords: "diabetes endocrine emergency labrador ketosis" },
   { title: "Feline Hyperthyroidism", url: "/bridge/case-studies/feline-hyperthyroid.html", type: "case", keywords: "endocrine cat thyroid weight loss t4 senior" },
   { title: "Bovine Mastitis", url: "/bridge/case-studies/bovine-mastitis.html", type: "case", keywords: "production dairy cow udder milk culture holstein" },
-  { title: "WordVet NAVLE Study Tool", url: "/study/wordvet/", type: "resource", keywords: "wordvet navle study guide species systems emergency ethics" },
+  { title: "WordWeb NAVLE Study Tool", url: "/study/wordweb/", type: "resource", keywords: "wordweb navle study guide species systems emergency ethics" },
   { title: "Sudoku Master", url: "/play/sudoku/", type: "game", keywords: "logic puzzle numbers math" },
   { title: "Memory Match", url: "/play/memory-match/", type: "game", keywords: "visual cards matching memory anatomy" },
   { title: "2048 Puzzle", url: "/play/2048/", type: "game", keywords: "puzzle merge numbers logic" },

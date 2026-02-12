@@ -159,7 +159,6 @@ function resetActivityTimer() {
 
 function getGameController(gameName) {
     switch (gameName) {
-        case 'wordvet': return WordVet;
         case 'sudoku': return Sudoku;
         case 'tictactoe': return TicTacToe;
         case 'memory': return MemoryGame;
@@ -214,7 +213,6 @@ function startGame(gameName) {
     
     // Set game title
     const gameNames = {
-        'wordvet': 'WordVet',
         'sudoku': 'Sudoku Master',
         'tictactoe': 'Tic Tac Toe Pro',
         'memory': 'Memory Match',
@@ -229,20 +227,11 @@ function startGame(gameName) {
     // Update hint count
     document.getElementById('hint-count').textContent = GameState.hints;
     
-    // Show/hide word list panel for WordVet
-    const wordListPanel = document.getElementById('word-list-panel');
-    if (gameName === 'wordvet') {
-        wordListPanel.classList.remove('hidden');
-    } else {
-        wordListPanel.classList.add('hidden');
-    }
-    
     // Initialize the specific game
     const gameArea = document.getElementById('game-area');
     gameArea.innerHTML = '';
 
     const gameInitializers = {
-        wordvet: () => WordVet.init(gameArea, GameState.currentLevel),
         sudoku: () => Sudoku.init(gameArea, GameState.currentLevel),
         tictactoe: () => TicTacToe.init(gameArea, GameState.currentLevel),
         memory: () => MemoryGame.init(gameArea, GameState.currentLevel),
@@ -324,9 +313,6 @@ function useHint() {
         
         // Call game's hint function
         switch(GameState.currentGame) {
-            case 'wordvet':
-                WordVet.showHint();
-                break;
             case 'sudoku':
                 Sudoku.showHint();
                 break;
@@ -470,22 +456,6 @@ function showGameComplete() {
     noteEl.textContent = "Congratulations! You've completed all 15 levels!";
 
     modal.classList.remove('hidden');
-}
-
-// Toggle Word List (for WordVet)
-function toggleWordList() {
-    const wordList = document.getElementById('word-list');
-    const btn = document.querySelector('.btn-toggle i');
-    
-    if (wordList.classList.contains('hidden')) {
-        wordList.classList.remove('hidden');
-        btn.classList.remove('fa-eye');
-        btn.classList.add('fa-eye-slash');
-    } else {
-        wordList.classList.add('hidden');
-        btn.classList.remove('fa-eye-slash');
-        btn.classList.add('fa-eye');
-    }
 }
 
 // Update Game Score

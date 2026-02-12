@@ -30,8 +30,8 @@
         var correctLabel = form.getAttribute('data-correct-label') || 'Correct option';
         var explanation = form.getAttribute('data-explanation') || '';
         var teaching = form.getAttribute('data-teaching') || '';
-        var studyLink = form.getAttribute('data-study-link') || '/study/wordvet/';
-        var studyLabel = form.getAttribute('data-study-label') || 'Open WordVet NAVLE Topic List';
+        var studyLink = form.getAttribute('data-study-link') || '/study/wordweb/';
+        var studyLabel = form.getAttribute('data-study-label') || 'Open WordWeb NAVLE Topic List';
 
         if (caseKey && safeGet(caseKey) === 'completed' && completedBadge) {
             completedBadge.hidden = false;
