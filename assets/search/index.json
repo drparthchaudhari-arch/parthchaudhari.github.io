@@ -1,0 +1,86 @@
+[
+  {
+    "title": "Canine CHF Case",
+    "url": "/bridge/case-studies/chf-dog.html",
+    "type": "case",
+    "tags": ["cardiology", "dog", "heart failure", "cough", "radiographs"],
+    "date": "2024-01-15"
+  },
+  {
+    "title": "Canine DKA Case",
+    "url": "/bridge/case-studies/dka-dog.html",
+    "type": "case",
+    "tags": ["endocrine", "emergency", "dog", "dka", "stabilization"],
+    "date": "2024-01-16"
+  },
+  {
+    "title": "Feline Hyperthyroidism Case",
+    "url": "/bridge/case-studies/feline-hyperthyroid.html",
+    "type": "case",
+    "tags": ["endocrine", "cat", "thyroid", "weight loss", "t4"],
+    "date": "2024-01-17"
+  },
+  {
+    "title": "Bovine Mastitis Case",
+    "url": "/bridge/case-studies/bovine-mastitis.html",
+    "type": "case",
+    "tags": ["production", "dairy", "mastitis", "culture", "cow"],
+    "date": "2024-01-18"
+  },
+  {
+    "title": "WordVet Game",
+    "url": "/play/wordvet/",
+    "type": "game",
+    "tags": ["vocabulary", "cardiology", "words", "navle"],
+    "date": "2024-01-10"
+  },
+  {
+    "title": "Sudoku Game",
+    "url": "/play/sudoku/",
+    "type": "game",
+    "tags": ["logic", "diagnostics", "pattern", "problem solving"],
+    "date": "2024-01-11"
+  },
+  {
+    "title": "Memory Match Game",
+    "url": "/play/memory-match/",
+    "type": "game",
+    "tags": ["memory", "anatomy", "visual", "recall"],
+    "date": "2024-01-12"
+  },
+  {
+    "title": "2048 Game",
+    "url": "/play/2048/",
+    "type": "game",
+    "tags": ["logic", "prioritization", "numbers", "strategy"],
+    "date": "2024-01-13"
+  },
+  {
+    "title": "IQ Challenge Game",
+    "url": "/play/iq-challenge/",
+    "type": "game",
+    "tags": ["challenge", "critical thinking", "problem solving"],
+    "date": "2024-01-14"
+  },
+  {
+    "title": "Clinical Case Directory",
+    "url": "/bridge/case-studies/",
+    "type": "resource",
+    "tags": ["cases", "clinical reasoning", "navle", "study"],
+    "date": "2024-01-19"
+  },
+  {
+    "title": "NAVLE Study Planner",
+    "url": "/study/",
+    "type": "resource",
+    "tags": ["study plan", "navle", "schedule", "progress"],
+    "date": "2024-01-20"
+  },
+  {
+    "title": "Professional Profile",
+    "url": "/info.html",
+    "type": "profile",
+    "tags": ["veterinarian", "experience", "navle", "BVSc&AH"],
+    "date": "2024-01-05"
+  }
+]

@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search | Parth Chaudhari Portal</title>
-    <meta name="description" content="Search case studies, veterinary games, and learning resources across parthchaudhari.com.">
+    <title>Search | Parth Chaudhari</title>
+    <meta name="description" content="Search cases, games, resources, and profile content with filter chips and keyboard navigation.">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Search | Parth Chaudhari Portal">
-    <meta property="og:description" content="Find bridge case studies, WordVet links, and veterinary learning resources.">
+    <meta property="og:title" content="Search | Parth Chaudhari">
+    <meta property="og:description" content="Find clinical cases, games, and study resources quickly.">
     <meta property="og:url" content="https://parthchaudhari.com/search.html">
     <link rel="canonical" href="https://parthchaudhari.com/search.html">
     <link rel="stylesheet" href="assets/css/tokens.css">
@@ -24,6 +24,7 @@
                 <a class="pc-nav-link" href="/play/">Play</a>
                 <a class="pc-nav-link" href="/bridge/">Bridge</a>
                 <a class="pc-nav-link pc-is-active" href="/search.html">Search</a>
+                <a class="pc-nav-link" href="/study/">Study Plan</a>
                 <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
                     <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
                 </button>
@@ -44,13 +45,21 @@
         <section class="pc-search-panel" aria-label="Search tools">
             <form id="pc-search-form" class="pc-search-form" role="search">
                 <label class="pc-search-label" for="search-input">Search keyword</label>
-                <input id="search-input" class="pc-search-input" type="search" placeholder="Try: cardio, wordvet, endocrine" autocomplete="off">
+                <input id="search-input" class="pc-search-input" type="search" placeholder="Try: cardio, wordvet, endocrine" autocomplete="off" aria-controls="search-results">
             </form>
-            <p id="pc-search-summary" class="pc-search-summary" aria-live="polite">Type a keyword to search cases, games, and resources.</p>
-            <div id="search-results" class="pc-search-results"></div>
+            <div class="pc-search-filters" role="toolbar" aria-label="Search filters">
+                <button type="button" class="pc-filter-chip pc-is-active" data-pc-filter="all" aria-pressed="true">All</button>
+                <button type="button" class="pc-filter-chip" data-pc-filter="case" aria-pressed="false">Cases</button>
+                <button type="button" class="pc-filter-chip" data-pc-filter="game" aria-pressed="false">Games</button>
+                <button type="button" class="pc-filter-chip" data-pc-filter="resource" aria-pressed="false">Resources</button>
+                <button type="button" class="pc-filter-chip" data-pc-filter="profile" aria-pressed="false">Profile</button>
+            </div>
+            <p id="pc-search-summary" class="pc-search-summary" aria-live="polite">Type to search. Use arrow keys to navigate results, then press Enter to open.</p>
+            <div id="search-results" class="pc-search-results" aria-live="polite"></div>
         </section>
     </main>
     <script src="/assets/js/search-index.js"></script>
+    <script src="/assets/js/search.js"></script>
     <script src="/assets/js/search-handler.js"></script>
 </body>
 </html>

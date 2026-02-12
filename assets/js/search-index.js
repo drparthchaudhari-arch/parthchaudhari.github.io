@@ -9,6 +9,7 @@ const searchIndex = [
   { title: "2048 Puzzle", url: "/play/2048/", type: "game", keywords: "puzzle merge numbers logic" },
   { title: "Tic Tac Toe Pro", url: "/play/tictactoe/", type: "game", keywords: "strategy ai multiplayer" },
   { title: "IQ Challenge", url: "/play/iq-challenge/", type: "game", keywords: "math logic patterns challenge" },
-  { title: "Professional Profile", url: "/info.html", type: "profile", keywords: "veterinarian experience navle dvm" },
-  { title: "Case Studies", url: "/bridge/case-studies/", type: "resource", keywords: "clinical cases education navle prep" }
+  { title: "Professional Profile", url: "/info.html", type: "profile", keywords: "veterinarian experience navle BVSc&AH" },
+  { title: "Case Studies", url: "/bridge/case-studies/", type: "resource", keywords: "clinical cases education navle prep" },
+  { title: "NAVLE Study Planner", url: "/study/", type: "resource", keywords: "study planner schedule streak progress navle" }
 ];

@@ -24,6 +24,7 @@
                 <a class="pc-nav-link pc-is-active" href="/play/">Play</a>
                 <a class="pc-nav-link" href="/bridge/">Bridge</a>
                 <a class="pc-nav-link" href="/search.html">Search</a>
+                <a class="pc-nav-link" href="/study/">Study Plan</a>
                 <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
                     <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Play</span>
                 </button>
@@ -49,10 +50,12 @@
         </section>
 
         <section class="pc-featured-game" aria-label="Featured game">
-            <article class="pc-game-card pc-game-card--featured">
+            <article class="pc-game-card pc-game-card--featured" data-pc-game-card data-pc-game-id="wordvet">
                 <div class="pc-game-thumb pc-game-thumb--wordvet">WordVet</div>
                 <div class="pc-game-body">
                     <span class="pc-badge">Clinical Vocabulary</span>
+                    <a class="pc-study-link-badge" href="/bridge/case-studies/chf-dog.html">Study Cardiology Cases</a>
+                    <span class="pc-played-badge" data-pc-played-badge hidden>Played Today</span>
                     <h1>Featured: WordVet</h1>
                     <p class="pc-play-subtitle">Reinforce clinical concepts from <a href="/bridge/case-studies/">case studies</a>.</p>
                     <p>Start each study block with terminology recall loops mapped to cardiology, endocrine, and emergency case content.</p>
@@ -66,10 +69,12 @@
         </section>
 
         <section class="pc-game-grid" aria-label="Game list">
-            <article class="pc-game-card">
+            <article class="pc-game-card" data-pc-game-card data-pc-game-id="sudoku">
                 <div class="pc-game-thumb pc-game-thumb--sudoku">Sudoku</div>
                 <div class="pc-game-body">
                     <span class="pc-badge">Logic</span>
+                    <a class="pc-study-link-badge" href="/bridge/case-studies/dka-dog.html">Logic for Diagnostics</a>
+                    <span class="pc-played-badge" data-pc-played-badge hidden>Played Today</span>
                     <h2>Sudoku</h2>
                     <p class="pc-difficulty">Difficulty: ●●●●○</p>
                     <div class="pc-panel-actions">
@@ -79,10 +84,11 @@
                 </div>
             </article>
 
-            <article class="pc-game-card">
+            <article class="pc-game-card" data-pc-game-card data-pc-game-id="memory-match">
                 <div class="pc-game-thumb pc-game-thumb--memory">Memory Match</div>
                 <div class="pc-game-body">
                     <span class="pc-badge">Anatomy</span>
+                    <span class="pc-played-badge" data-pc-played-badge hidden>Played Today</span>
                     <h2>Memory Match</h2>
                     <p class="pc-difficulty">Difficulty: ●●○○○</p>
                     <div class="pc-panel-actions">
@@ -92,10 +98,11 @@
                 </div>
             </article>
 
-            <article class="pc-game-card">
+            <article class="pc-game-card" data-pc-game-card data-pc-game-id="2048">
                 <div class="pc-game-thumb pc-game-thumb--2048">2048</div>
                 <div class="pc-game-body">
                     <span class="pc-badge">Pharm</span>
+                    <span class="pc-played-badge" data-pc-played-badge hidden>Played Today</span>
                     <h2>2048</h2>
                     <p class="pc-difficulty">Difficulty: ●●●○○</p>
                     <div class="pc-panel-actions">
@@ -105,10 +112,11 @@
                 </div>
             </article>
 
-            <article class="pc-game-card">
+            <article class="pc-game-card" data-pc-game-card data-pc-game-id="tictactoe">
                 <div class="pc-game-thumb pc-game-thumb--ttt">TicTacToe</div>
                 <div class="pc-game-body">
                     <span class="pc-badge">Surgery</span>
+                    <span class="pc-played-badge" data-pc-played-badge hidden>Played Today</span>
                     <h2>Tic-Tac-Toe</h2>
                     <p class="pc-difficulty">Difficulty: ●●○○○</p>
                     <div class="pc-panel-actions">
@@ -118,10 +126,11 @@
                 </div>
             </article>
 
-            <article class="pc-game-card">
+            <article class="pc-game-card" data-pc-game-card data-pc-game-id="iq-challenge">
                 <div class="pc-game-thumb pc-game-thumb--iq">IQ Challenge</div>
                 <div class="pc-game-body">
                     <span class="pc-badge">Emergency</span>
+                    <span class="pc-played-badge" data-pc-played-badge hidden>Played Today</span>
                     <h2>IQ Challenge</h2>
                     <p class="pc-difficulty">Difficulty: ●●●●○</p>
                     <div class="pc-panel-actions">
@@ -132,5 +141,6 @@
             </article>
         </section>
     </main>
+    <script src="/assets/js/portal.js"></script>
 </body>
 </html>

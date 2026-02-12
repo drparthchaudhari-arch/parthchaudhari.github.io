@@ -15,7 +15,8 @@
 
 .pc-page--bridge,
 .pc-page--search,
-.pc-page--play {
+.pc-page--play,
+.pc-page--study {
     padding-top: calc(4.75rem + env(safe-area-inset-top));
     padding-left: max(1rem, env(safe-area-inset-left));
     padding-right: max(1rem, env(safe-area-inset-right));
@@ -139,6 +140,7 @@
 .pc-games-quickbar__link:focus-visible,
 .pc-games-quickbar__toggle:focus-visible,
 .pc-link-chip:focus-visible,
+.pc-filter-chip:focus-visible,
 .pc-search-input:focus-visible {
     outline: 3px solid var(--pc-focus);
     outline-offset: 2px;
@@ -460,6 +462,29 @@
     color: var(--pc-text-muted);
 }
 
+.pc-study-link-badge,
+.pc-played-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    border-radius: 999px;
+    border: 1px solid var(--pc-border);
+    padding: 0.2rem 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.pc-study-link-badge {
+    text-decoration: none;
+    color: var(--pc-primary);
+    background: color-mix(in srgb, var(--pc-primary) 12%, var(--pc-surface));
+}
+
+.pc-played-badge {
+    color: var(--pc-text);
+    background: color-mix(in srgb, var(--pc-accent) 18%, var(--pc-surface));
+}
+
 .pc-page--games {
     padding-left: max(0.7rem, env(safe-area-inset-left));
     padding-right: max(0.7rem, env(safe-area-inset-right));
@@ -768,6 +793,7 @@
 }
 
 .pc-search-input {
+    width: 100%;
     min-height: 44px;
     border: 1px solid var(--pc-border);
     border-radius: 12px;
@@ -782,9 +808,58 @@
     color: var(--pc-text-muted);
 }
 
+.pc-search-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.8rem;
+}
+
+.pc-filter-chip {
+    min-height: 36px;
+    border-radius: 999px;
+    border: 1px solid var(--pc-border);
+    padding: 0.35rem 0.7rem;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--pc-text);
+    background: color-mix(in srgb, var(--pc-surface-strong) 90%, transparent);
+    cursor: pointer;
+}
+
+.pc-filter-chip.pc-is-active {
+    border-color: var(--pc-primary);
+    background: color-mix(in srgb, var(--pc-primary) 16%, var(--pc-surface));
+}
+
 .pc-search-results {
     display: grid;
     gap: 0.8rem;
+}
+
+.pc-search-empty {
+    border: 1px solid var(--pc-border);
+    border-radius: 12px;
+    background: var(--pc-surface-strong);
+    padding: 0.85rem;
+}
+
+.pc-search-empty h3 {
+    margin: 0 0 0.4rem;
+    color: var(--pc-primary);
+}
+
+.pc-search-empty p {
+    margin: 0;
+    color: var(--pc-text-muted);
+    line-height: 1.6;
+}
+
+.pc-search-popular-links {
+    margin-top: 0.8rem;
+    display: flex;
+    gap: 0.55rem;
+    flex-wrap: wrap;
 }
 
 .pc-search-group {
@@ -810,7 +885,11 @@
 }
 
 .pc-result-item a {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 700;
     color: var(--pc-primary);
+    text-decoration: none;
 }
 
 .pc-result-item p {
@@ -820,6 +899,229 @@
 
 .pc-result-keywords {
     font-size: 0.82rem;
+}
+
+.pc-search-hit {
+    border-radius: 6px;
+    padding: 0.05rem 0.2rem;
+    background: color-mix(in srgb, var(--pc-accent) 35%, #fff);
+    color: inherit;
+}
+
+.pc-result-item--active {
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--pc-primary) 12%, var(--pc-surface));
+    padding: 0.45rem;
+}
+
+.pc-study-shell {
+    width: min(1100px, 100%);
+    margin: 0 auto;
+    padding-bottom: 2rem;
+}
+
+.pc-study-layout {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 1rem;
+}
+
+.pc-study-panel {
+    border: 1px solid var(--pc-border);
+    border-radius: var(--pc-radius-md);
+    background: var(--pc-surface);
+    padding: 1rem;
+}
+
+.pc-study-panel h2 {
+    margin: 0 0 0.7rem;
+    color: var(--pc-primary);
+}
+
+.pc-plan-presets {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.55rem;
+    margin-top: 0.9rem;
+}
+
+.pc-plan-chip {
+    min-height: 44px;
+    border-radius: 12px;
+    border: 1px solid var(--pc-border);
+    background: color-mix(in srgb, var(--pc-surface-strong) 90%, transparent);
+    color: var(--pc-text);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.pc-plan-chip.pc-is-active {
+    border-color: var(--pc-primary);
+    background: color-mix(in srgb, var(--pc-primary) 16%, var(--pc-surface));
+}
+
+.pc-study-topic-grid {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.pc-study-topic {
+    border: 1px solid var(--pc-border);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--pc-surface-strong) 88%, transparent);
+    padding: 0.85rem;
+}
+
+.pc-study-topic > label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.pc-study-topic > label input[type='checkbox'] {
+    margin: 0;
+}
+
+.pc-study-topic h3 {
+    margin: 0 0 0.35rem;
+}
+
+.pc-study-topic-meta {
+    margin: 0 0 0.75rem;
+    color: var(--pc-text-muted);
+    font-size: 0.84rem;
+}
+
+.pc-study-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.45rem;
+}
+
+.pc-study-item {
+    border: 1px solid var(--pc-border);
+    border-radius: 10px;
+    background: var(--pc-surface);
+    padding: 0.55rem 0.6rem;
+}
+
+.pc-study-item label {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.55rem;
+    align-items: flex-start;
+}
+
+.pc-study-item input[type='checkbox'] {
+    margin-top: 0.18rem;
+}
+
+.pc-study-item-title {
+    display: block;
+    color: var(--pc-text);
+    font-weight: 700;
+}
+
+.pc-study-item-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.28rem;
+    color: var(--pc-text-muted);
+    font-size: 0.82rem;
+}
+
+.pc-study-item-meta a {
+    color: var(--pc-primary);
+    font-weight: 600;
+}
+
+.pc-study-progress {
+    border: 1px solid var(--pc-border);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--pc-surface-strong) 90%, transparent);
+    padding: 0.85rem;
+}
+
+.pc-study-progress-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.pc-study-progress-top p {
+    margin: 0;
+    color: var(--pc-text-muted);
+}
+
+.pc-study-progress-bar {
+    margin-top: 0.6rem;
+    width: 100%;
+    height: 12px;
+    border-radius: 999px;
+    border: 1px solid var(--pc-border);
+    overflow: hidden;
+    background: var(--pc-surface);
+}
+
+.pc-study-progress-fill {
+    width: 0;
+    height: 100%;
+    background: var(--pc-primary);
+    transition: width 0.2s ease;
+}
+
+.pc-study-streak {
+    margin-top: 0.65rem;
+    color: var(--pc-text);
+    font-weight: 700;
+}
+
+.pc-study-today {
+    margin-top: 0.9rem;
+}
+
+.pc-study-today h3 {
+    margin: 0 0 0.55rem;
+}
+
+.pc-study-today-list {
+    margin: 0;
+    padding-left: 1.1rem;
+    color: var(--pc-text-muted);
+    line-height: 1.6;
+}
+
+.pc-study-today-list a {
+    color: var(--pc-primary);
+    font-weight: 600;
+}
+
+.pc-study-break {
+    margin-top: 0.85rem;
+    border: 1px solid var(--pc-border);
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--pc-accent) 18%, var(--pc-surface));
+    padding: 0.75rem;
+}
+
+.pc-study-break p {
+    margin: 0 0 0.5rem;
+}
+
+.pc-study-break[hidden] {
+    display: none;
+}
+
+.pc-study-actions {
+    margin-top: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
 }
 
 .pc-info-shell {
@@ -1305,6 +1607,10 @@
         grid-template-columns: 1fr 1fr;
     }
 
+    .pc-study-layout {
+        grid-template-columns: 1fr;
+    }
+
     .pc-skill-card-grid {
         grid-template-columns: 1fr 1fr;
     }
@@ -1344,7 +1650,8 @@
     .pc-page--info,
     .pc-page--bridge,
     .pc-page--search,
-    .pc-page--play {
+    .pc-page--play,
+    .pc-page--study {
         padding-top: calc(8.6rem + env(safe-area-inset-top));
     }
 
@@ -1372,6 +1679,10 @@
     .pc-game-grid,
     .pc-arcade-stats,
     .pc-game-card--featured {
+        grid-template-columns: 1fr;
+    }
+
+    .pc-plan-presets {
         grid-template-columns: 1fr;
     }
 

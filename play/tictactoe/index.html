@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="/assets/css/tokens.css">
   <link rel="stylesheet" href="/assets/css/portal.css">
 </head>
-<body class="pc-page pc-page--gameframe" data-mode="play" data-theme="light">
+<body class="pc-page pc-page--gameframe" data-mode="play" data-theme="light" data-pc-game-id="tictactoe">
   <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
   <nav class="pc-game-nav" aria-label="Game launch controls">
     <a href="/" class="pc-game-nav__back">&larr; Home</a>
@@ -34,7 +34,7 @@
   </nav>
 
   <main id="pc-main" class="pc-game-stage" data-pc-fullscreen-target role="main">
-    <iframe src="/games/tictactoe/index.html"
+    <iframe src="/games/tic-tac-toe.html"
             class="pc-game-iframe"
             allow="fullscreen; autoplay"
             sandbox="allow-scripts allow-same-origin allow-popups"
@@ -43,5 +43,6 @@
 
   <script src="/assets/js/theme-toggle.js"></script>
   <script src="/assets/js/fullscreen.js"></script>
+  <script src="/assets/js/portal.js"></script>
 </body>
 </html>
