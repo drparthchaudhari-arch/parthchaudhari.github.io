@@ -3825,11 +3825,79 @@
     color: var(--pc-text-muted);
 }
 
+#payment-gate .pc-modal__surface {
+    width: min(860px, 100%);
+}
+
+.pc-pricing-grid {
+    margin-top: 0.85rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+}
+
+.pc-pricing-card {
+    border: 1px solid var(--pc-border);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--pc-surface-strong) 88%, transparent);
+    padding: 0.9rem;
+    position: relative;
+}
+
+.pc-pricing-card h3 {
+    margin: 0;
+    color: var(--pc-text);
+    font-size: 1.1rem;
+}
+
+.pc-price {
+    margin: 0.45rem 0 0.55rem;
+    color: var(--pc-primary) !important;
+    font-size: clamp(1.7rem, 4vw, 2.2rem);
+    font-weight: 800;
+    line-height: 1;
+}
+
+.pc-price span {
+    margin-left: 0.2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--pc-text-muted);
+}
+
+.pc-pricing-card ul {
+    margin: 0 0 0.75rem;
+    padding-left: 1.15rem;
+    display: grid;
+    gap: 0.4rem;
+    color: var(--pc-text);
+}
+
+.pc-pricing-card button {
+    width: 100%;
+}
+
+.pc-pricing--featured {
+    border-color: color-mix(in srgb, var(--pc-coral) 60%, var(--pc-border));
+    background:
+        linear-gradient(155deg, color-mix(in srgb, var(--pc-coral) 11%, var(--pc-bg-secondary)), var(--pc-bg-secondary));
+    box-shadow: 0 16px 32px color-mix(in srgb, var(--pc-coral) 20%, transparent);
+}
+
+.pc-pricing--featured .pc-badge {
+    margin-bottom: 0.5rem;
+}
+
+.pc-pricing-card .pc-btn[disabled] {
+    opacity: 0.65;
+}
+
 @media (max-width: 900px) {
     .pc-calculator-grid,
     .pc-topic-cards,
     .pc-algorithm-rail,
-    .pc-stat-grid--results {
+    .pc-stat-grid--results,
+    .pc-pricing-grid {
         grid-template-columns: 1fr;
     }
 }

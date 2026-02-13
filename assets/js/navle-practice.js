@@ -3,8 +3,33 @@
 
     var STORAGE_KEY = 'pc_navle_practice_session_v1';
     var PAID_FLAG_KEY = 'pc_navle_paid';
+    var FREE_COUNT_KEY = 'pc_free_questions_today';
+    var FREE_DATE_KEY = 'pc_free_questions_date';
+    var LOGGED_COUNT_KEY = 'pc_logged_questions_today';
+    var LOGGED_DATE_KEY = 'pc_logged_questions_date';
+    var ANON_DAILY_LIMIT = 5;
+    var LOGGED_DAILY_LIMIT = 7;
 
     var QUESTIONS = [
+        {
+            id: 'navle_001',
+            topic: 'cardiology',
+            difficulty: 'intermediate',
+            stem: 'An 8-year-old Golden Retriever presents with cough, exercise intolerance, and grade IV/VI murmur. Radiographs show cardiomegaly. What is the most appropriate next diagnostic test?',
+            options: {
+                A: 'Thoracic radiographs (lateral and DV)',
+                B: 'Echocardiogram with Doppler',
+                C: 'NT-proBNP blood test',
+                D: 'Electrocardiogram'
+            },
+            correct: 'A',
+            explanation: 'While echocardiography provides detailed structure assessment, radiographs are the most appropriate initial test to confirm pulmonary congestion.',
+            why_wrong: {
+                B: 'Echo is excellent but radiographs confirm the clinical syndrome first.',
+                C: "NT-proBNP indicates stretch but doesn't confirm active failure.",
+                D: 'ECG is for arrhythmias, not function assessment.'
+            }
+        },
         {
             id: 'q1',
             stem: 'A 9-year-old Cavalier King Charles Spaniel has acute dyspnea, crackles, and radiographic pulmonary edema. What is the best immediate medication priority?',
@@ -252,10 +277,21 @@
         questionMap: {},
         showingFeedback: false,
         isAuthenticated: false,
-        isPaid: false
+        isPaid: false,
+        currentUser: null,
+        serverProfile: null,
+        dailyUsage: {
+            todayKey: '',
+            freeUsed: 0,
+            loggedUsed: 0,
+            loggedSource: 'local'
+        }
     };
 
     function getTodayString() {
+        if (window.PCStorage && typeof window.PCStorage.getTodayKey === 'function') {
+            return window.PCStorage.getTodayKey();
+        }
         return new Date().toISOString().slice(0, 10);
     }
 
@@ -295,8 +331,7 @@
             order: shuffle(ids),
             answeredCount: 0,
             correctCount: 0,
-            cursor: 0,
-            accountUnlock: false
+            cursor: 0
         };
     }
 
@@ -317,7 +352,6 @@
         parsed.answeredCount = toPositiveInt(parsed.answeredCount, 0);
         parsed.correctCount = toPositiveInt(parsed.correctCount, 0);
         parsed.cursor = toPositiveInt(parsed.cursor, parsed.answeredCount);
-        parsed.accountUnlock = !!parsed.accountUnlock;
 
         if (parsed.cursor < parsed.answeredCount) {
             parsed.cursor = parsed.answeredCount;
@@ -338,13 +372,273 @@
         }
     }
 
-    function readPaidState(currentUser) {
+    function getSupabaseClientForPractice() {
+        if (typeof window.getSupabaseClient === 'function') {
+            return window.getSupabaseClient();
+        }
+        return null;
+    }
+
+    function readDailyUsageFromLocal(countKey, dateKey, todayKey) {
+        var count = 0;
+        var storedDate = '';
+
+        try {
+            count = toPositiveInt(localStorage.getItem(countKey), 0);
+            storedDate = String(localStorage.getItem(dateKey) || '');
+        } catch (error) {
+            count = 0;
+            storedDate = '';
+        }
+
+        if (storedDate !== todayKey) {
+            count = 0;
+            try {
+                localStorage.setItem(dateKey, todayKey);
+                localStorage.setItem(countKey, '0');
+            } catch (error) {
+                // Local storage writes are best effort.
+            }
+        }
+
+        return count;
+    }
+
+    function writeDailyUsageToLocal(countKey, dateKey, todayKey, count) {
+        try {
+            localStorage.setItem(dateKey, todayKey);
+            localStorage.setItem(countKey, String(toPositiveInt(count, 0)));
+        } catch (error) {
+            // Local storage writes are best effort.
+        }
+    }
+
+    function loadAnonymousDailyUsage(todayKey) {
+        state.dailyUsage.freeUsed = readDailyUsageFromLocal(FREE_COUNT_KEY, FREE_DATE_KEY, todayKey);
+    }
+
+    function loadLoggedDailyUsageFromLocal(todayKey) {
+        state.dailyUsage.loggedUsed = readDailyUsageFromLocal(LOGGED_COUNT_KEY, LOGGED_DATE_KEY, todayKey);
+        state.dailyUsage.loggedSource = 'local';
+    }
+
+    async function loadLoggedDailyUsageFromSupabase(todayKey) {
+        var client = getSupabaseClientForPractice();
+        var user = state.currentUser;
+
+        if (!client || !user || typeof client.from !== 'function') {
+            state.serverProfile = null;
+            loadLoggedDailyUsageFromLocal(todayKey);
+            return;
+        }
+
+        try {
+            var response = await client
+                .from('profiles')
+                .select('questions_today,last_question_date,subscription_status,subscription_expires_at')
+                .eq('id', user.id)
+                .maybeSingle();
+
+            if (response.error) {
+                throw response.error;
+            }
+
+            var row = response.data;
+            if (!row) {
+                var insertPayload = {
+                    id: user.id,
+                    email: user.email || (user.id + '@local.invalid'),
+                    display_name: user.email ? String(user.email).split('@')[0] : 'Learner',
+                    questions_today: 0,
+                    last_question_date: todayKey,
+                    subscription_status: 'free',
+                    subscription_expires_at: null
+                };
+
+                var upsertResponse = await client
+                    .from('profiles')
+                    .upsert(insertPayload, { onConflict: 'id' });
+
+                if (upsertResponse.error) {
+                    throw upsertResponse.error;
+                }
+
+                state.dailyUsage.loggedUsed = 0;
+                state.dailyUsage.loggedSource = 'supabase';
+                state.serverProfile = {
+                    subscription_status: 'free',
+                    subscription_expires_at: null
+                };
+                return;
+            }
+
+            var questionsToday = toPositiveInt(row.questions_today, 0);
+            var lastQuestionDate = String(row.last_question_date || '');
+
+            if (lastQuestionDate !== todayKey) {
+                var resetResponse = await client
+                    .from('profiles')
+                    .update({
+                        questions_today: 0,
+                        last_question_date: todayKey
+                    })
+                    .eq('id', user.id);
+
+                if (resetResponse.error) {
+                    throw resetResponse.error;
+                }
+
+                questionsToday = 0;
+            }
+
+            state.dailyUsage.loggedUsed = questionsToday;
+            state.dailyUsage.loggedSource = 'supabase';
+            state.serverProfile = {
+                subscription_status: row.subscription_status || 'free',
+                subscription_expires_at: row.subscription_expires_at || null
+            };
+        } catch (error) {
+            state.serverProfile = null;
+            loadLoggedDailyUsageFromLocal(todayKey);
+        }
+    }
+
+    async function refreshDailyUsageState() {
+        var todayKey = getTodayString();
+        state.dailyUsage.todayKey = todayKey;
+        state.serverProfile = null;
+
+        loadAnonymousDailyUsage(todayKey);
+
+        if (state.isAuthenticated && !state.isPaid) {
+            await loadLoggedDailyUsageFromSupabase(todayKey);
+            return;
+        }
+
+        state.dailyUsage.loggedUsed = 0;
+        state.dailyUsage.loggedSource = 'local';
+    }
+
+    function persistAnonymousDailyUsage() {
+        writeDailyUsageToLocal(FREE_COUNT_KEY, FREE_DATE_KEY, state.dailyUsage.todayKey, state.dailyUsage.freeUsed);
+    }
+
+    function persistLoggedDailyUsageLocal() {
+        writeDailyUsageToLocal(LOGGED_COUNT_KEY, LOGGED_DATE_KEY, state.dailyUsage.todayKey, state.dailyUsage.loggedUsed);
+    }
+
+    async function persistLoggedDailyUsageSupabase() {
+        var client = getSupabaseClientForPractice();
+        var user = state.currentUser;
+
+        if (!client || !user || typeof client.from !== 'function') {
+            throw new Error('Supabase client unavailable');
+        }
+
+        var response = await client
+            .from('profiles')
+            .update({
+                questions_today: toPositiveInt(state.dailyUsage.loggedUsed, 0),
+                last_question_date: state.dailyUsage.todayKey
+            })
+            .eq('id', user.id);
+
+        if (response.error) {
+            throw response.error;
+        }
+    }
+
+    async function incrementDailyUsageCounter() {
+        if (state.isPaid) {
+            return;
+        }
+
+        if (!state.dailyUsage.todayKey || state.dailyUsage.todayKey !== getTodayString()) {
+            await refreshDailyUsageState();
+        }
+
+        if (!state.isAuthenticated) {
+            state.dailyUsage.freeUsed += 1;
+            persistAnonymousDailyUsage();
+            return;
+        }
+
+        state.dailyUsage.loggedUsed += 1;
+
+        if (state.dailyUsage.loggedSource === 'supabase') {
+            try {
+                await persistLoggedDailyUsageSupabase();
+                return;
+            } catch (error) {
+                state.dailyUsage.loggedSource = 'local';
+            }
+        }
+
+        persistLoggedDailyUsageLocal();
+    }
+
+    async function trackAnswerAnalytics(questionId, selectedOption, wasCorrect) {
+        if (!state.isAuthenticated || !state.currentUser) {
+            return;
+        }
+
+        var client = getSupabaseClientForPractice();
+        if (!client || typeof client.from !== 'function') {
+            return;
+        }
+
+        try {
+            var response = await client
+                .from('answers')
+                .insert({
+                    user_id: state.currentUser.id,
+                    question_id: String(questionId || ''),
+                    selected_option: String(selectedOption || ''),
+                    was_correct: !!wasCorrect
+                });
+
+            if (response.error) {
+                throw response.error;
+            }
+        } catch (error) {
+            // Analytics failures should never block practice flow.
+        }
+    }
+
+    function isProfilePremium(profile) {
+        if (!profile) {
+            return false;
+        }
+
+        var status = String(profile.subscription_status || '').toLowerCase().trim();
+        var premiumStatuses = ['premium', 'active', 'paid', 'pro'];
+        if (premiumStatuses.indexOf(status) === -1) {
+            return false;
+        }
+
+        if (!profile.subscription_expires_at) {
+            return true;
+        }
+
+        var expiresAt = new Date(profile.subscription_expires_at);
+        if (Number.isNaN(expiresAt.getTime())) {
+            return false;
+        }
+
+        return expiresAt.getTime() > Date.now();
+    }
+
+    function readPaidState(currentUser, profile) {
         try {
             if (localStorage.getItem(PAID_FLAG_KEY) === 'true') {
                 return true;
             }
         } catch (error) {
             // Ignore localStorage read failures.
+        }
+
+        if (isProfilePremium(profile)) {
+            return true;
         }
 
         if (!currentUser) {
@@ -360,11 +654,23 @@
             return QUESTIONS.length;
         }
 
-        if (state.isAuthenticated || state.session.accountUnlock) {
-            return Math.min(12, QUESTIONS.length);
+        if (state.isAuthenticated) {
+            return Math.min(LOGGED_DAILY_LIMIT, QUESTIONS.length);
         }
 
-        return Math.min(5, QUESTIONS.length);
+        return Math.min(ANON_DAILY_LIMIT, QUESTIONS.length);
+    }
+
+    function getUsedCountForCurrentTier() {
+        if (state.isPaid) {
+            return toPositiveInt(state.session ? state.session.answeredCount : 0, 0);
+        }
+
+        if (state.isAuthenticated) {
+            return toPositiveInt(state.dailyUsage.loggedUsed, 0);
+        }
+
+        return toPositiveInt(state.dailyUsage.freeUsed, 0);
     }
 
     function getCurrentQuestion() {
@@ -399,7 +705,7 @@
 
     function closeAllModals() {
         closeModal('question-gate');
-        closeModal('premium-gate');
+        closeModal('payment-gate');
     }
 
     function setGateMessage(message, isError) {
@@ -425,15 +731,15 @@
 
     function updateHud(feedbackView) {
         var maxAllowed = getMaxAllowedQuestions();
-        var answered = state.session.answeredCount;
+        var usedCount = getUsedCountForCurrentTier();
 
         var displayNumber;
         if (feedbackView) {
-            displayNumber = Math.min(Math.max(answered, 1), maxAllowed);
-        } else if (answered >= maxAllowed) {
+            displayNumber = Math.min(Math.max(usedCount, 1), maxAllowed);
+        } else if (usedCount >= maxAllowed) {
             displayNumber = maxAllowed;
         } else {
-            displayNumber = Math.min(answered + 1, maxAllowed);
+            displayNumber = Math.min(usedCount + 1, maxAllowed);
         }
 
         var progress = maxAllowed ? (displayNumber / maxAllowed) * 100 : 0;
@@ -497,13 +803,13 @@
 
         updateHud(true);
 
-        if (!state.isPaid && maxAllowed <= 5 && !state.session.accountUnlock && !state.isAuthenticated) {
+        if (!state.isPaid && !state.isAuthenticated) {
             openModal('question-gate');
             return;
         }
 
         if (!state.isPaid) {
-            openModal('premium-gate');
+            openModal('payment-gate');
         }
     }
 
@@ -512,7 +818,8 @@
         setGateMessage('', false);
 
         var maxAllowed = getMaxAllowedQuestions();
-        if (state.session.answeredCount >= maxAllowed) {
+        var usedCount = getUsedCountForCurrentTier();
+        if (!state.isPaid && usedCount >= maxAllowed) {
             renderLockedState(maxAllowed);
             return;
         }
@@ -544,7 +851,7 @@
         }
     }
 
-    function showExplanation(isCorrect, question) {
+    function showExplanation(isCorrect, question, selectedChoice) {
         var panel = document.getElementById('practice-explanation');
         var title = document.getElementById('practice-feedback-title');
         var text = document.getElementById('practice-feedback-text');
@@ -558,10 +865,14 @@
         panel.classList.remove('pc-answer--incorrect');
         panel.classList.add(isCorrect ? 'pc-answer--correct' : 'pc-answer--incorrect');
         title.textContent = isCorrect ? 'Correct' : 'Incorrect';
-        text.textContent = question.explanation;
+        var feedback = question.explanation;
+        if (!isCorrect && question.why_wrong && question.why_wrong[selectedChoice]) {
+            feedback += ' Why this option is less appropriate: ' + question.why_wrong[selectedChoice];
+        }
+        text.textContent = feedback;
     }
 
-    function onChooseAnswer(event) {
+    async function onChooseAnswer(event) {
         if (state.showingFeedback) {
             return;
         }
@@ -576,7 +887,7 @@
 
         var isCorrect = selected === question.correct;
         styleOptions(selected, question.correct);
-        showExplanation(isCorrect, question);
+        showExplanation(isCorrect, question, selected);
 
         state.session.answeredCount += 1;
         if (isCorrect) {
@@ -584,6 +895,13 @@
         }
         state.session.cursor += 1;
         saveSession();
+
+        try {
+            await incrementDailyUsageCounter();
+        } catch (error) {
+            // Usage tracking fallback should not block practice UI.
+        }
+        trackAnswerAnalytics(question.id, selected, isCorrect);
 
         state.showingFeedback = true;
         updateHud(true);
@@ -594,13 +912,14 @@
         }
 
         var maxAllowed = getMaxAllowedQuestions();
-        if (state.session.answeredCount >= maxAllowed && !state.isPaid) {
+        var usedCount = getUsedCountForCurrentTier();
+        if (!state.isPaid && usedCount >= maxAllowed) {
             nextButton.hidden = true;
-            if (maxAllowed <= 5 && !state.session.accountUnlock && !state.isAuthenticated) {
+            if (!state.isAuthenticated) {
                 openModal('question-gate');
                 return;
             }
-            openModal('premium-gate');
+            openModal('payment-gate');
             return;
         }
 
@@ -616,11 +935,12 @@
         state.showingFeedback = false;
 
         var maxAllowed = getMaxAllowedQuestions();
-        if (state.session.answeredCount >= maxAllowed && !state.isPaid) {
-            if (maxAllowed <= 5 && !state.session.accountUnlock && !state.isAuthenticated) {
+        var usedCount = getUsedCountForCurrentTier();
+        if (!state.isPaid && usedCount >= maxAllowed) {
+            if (!state.isAuthenticated) {
                 openModal('question-gate');
             } else {
-                openModal('premium-gate');
+                openModal('payment-gate');
             }
             return;
         }
@@ -648,14 +968,12 @@
 
         setGateMessage('Sending magic link...', false);
 
-        var unlocked = false;
         if (window.pcSync && typeof window.pcSync.sendMagicLink === 'function') {
             try {
                 var redirectTarget = window.location.origin + '/study/navle/practice/';
                 var result = await window.pcSync.sendMagicLink(email, { redirectTo: redirectTarget });
                 if (result && result.ok) {
-                    unlocked = true;
-                    setGateMessage('Magic link sent. 7 more questions unlocked.', false);
+                    setGateMessage('Magic link sent. Check your email to log in and unlock 7 more questions.', false);
                 } else {
                     setGateMessage('Could not send magic link right now. Please try again.', true);
                 }
@@ -663,17 +981,7 @@
                 setGateMessage('Could not send magic link right now. Please try again.', true);
             }
         } else {
-            unlocked = true;
-            setGateMessage('Sync service unavailable. 7 more questions unlocked locally.', false);
-        }
-
-        if (unlocked) {
-            state.session.accountUnlock = true;
-            saveSession();
-            window.setTimeout(function () {
-                closeModal('question-gate');
-                renderQuestion();
-            }, 500);
+            setGateMessage('Sync service unavailable. Please log in from the account page when available.', true);
         }
 
         if (submitButton) {
@@ -681,28 +989,25 @@
         }
     }
 
-    function updateAuthStateAndRerender(snapshot) {
+    async function updateAuthStateAndRerender(snapshot) {
         var user = snapshot && snapshot.user ? snapshot.user : null;
 
         if (!user && window.pcSync && typeof window.pcSync.getCurrentUser === 'function') {
             user = window.pcSync.getCurrentUser();
         }
 
+        state.currentUser = user || null;
         state.isAuthenticated = !!user;
-        state.isPaid = readPaidState(user);
 
-        if (state.isAuthenticated) {
-            state.session.accountUnlock = true;
-            saveSession();
-        }
-
+        await refreshDailyUsageState();
+        state.isPaid = readPaidState(user, state.serverProfile);
         renderQuestion();
     }
 
     function bindEvents() {
         var nextButton = document.getElementById('practice-next');
         var gateButton = document.getElementById('gate-submit');
-        var premiumClose = document.getElementById('premium-close');
+        var upgradeButton = document.getElementById('upgrade-btn');
 
         if (nextButton) {
             nextButton.addEventListener('click', onNextQuestion);
@@ -715,26 +1020,35 @@
             });
         }
 
-        if (premiumClose) {
-            premiumClose.addEventListener('click', function () {
-                closeModal('premium-gate');
+        if (upgradeButton) {
+            upgradeButton.addEventListener('click', function () {
+                closeModal('payment-gate');
+                window.location.href = '/account/?plan=premium';
             });
         }
 
         if (window.pcSync && typeof window.pcSync.onAuthStateChange === 'function') {
-            window.pcSync.onAuthStateChange(updateAuthStateAndRerender);
+            window.pcSync.onAuthStateChange(function (snapshot) {
+                updateAuthStateAndRerender(snapshot).catch(function () {
+                    // Auth refresh failures should not break the page.
+                });
+            });
         }
     }
 
     function initAuthRefresh() {
         if (window.pcSync && typeof window.pcSync.refreshCurrentUser === 'function') {
             window.pcSync.refreshCurrentUser().finally(function () {
-                updateAuthStateAndRerender();
+                updateAuthStateAndRerender().catch(function () {
+                    // Initial auth refresh failures should not break the page.
+                });
             });
             return;
         }
 
-        updateAuthStateAndRerender();
+        updateAuthStateAndRerender().catch(function () {
+            // Initial auth refresh failures should not break the page.
+        });
     }
 
     function init() {

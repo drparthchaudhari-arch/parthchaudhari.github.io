@@ -51,6 +51,14 @@ create policy "Leaderboard readable by all" on leaderboard for select to anon, a
 create policy "Users can update own leaderboard" on leaderboard for all using ( auth.uid() = user_id );
 ```
 
+### Phase 7 NAVLE Freemium Schema
+Run `supabase/migrations/20260213_navle_freemium.sql` after the base schema above. It adds:
+- `profiles.questions_today`
+- `profiles.last_question_date`
+- `profiles.subscription_status`
+- `profiles.subscription_expires_at`
+- `answers` table for per-question analytics (with RLS policies)
+
 ## Step 3: Configure Auth
 - Authentication -> Providers -> Enable Email
 - Turn OFF "Confirm email" (optional)

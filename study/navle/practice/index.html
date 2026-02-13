@@ -93,14 +93,36 @@
       </div>
     </div>
 
-    <div id="premium-gate" class="pc-modal" hidden aria-modal="true" role="dialog" aria-labelledby="premium-gate-title">
+    <div id="payment-gate" class="pc-modal" hidden aria-modal="true" role="dialog" aria-labelledby="payment-gate-title">
         <div class="pc-modal__surface">
-            <h2 id="premium-gate-title">Unlimited NAVLE Practice</h2>
-            <p>You've finished today's free + account question set.</p>
-            <p>Upgrade to <strong>$9/month</strong> for unlimited question bank access and full exam simulator unlock.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn" href="/account/">Upgrade from Account</a>
-                <button id="premium-close" type="button" class="pc-btn pc-btn--secondary">Close</button>
+            <h2 id="payment-gate-title">Ready for Unlimited Access?</h2>
+
+            <div class="pc-pricing-grid">
+                <div class="pc-pricing-card">
+                    <h3>Free</h3>
+                    <p class="pc-price">$0</p>
+                    <ul>
+                        <li>12 questions/day</li>
+                        <li>All clinical tools</li>
+                        <li>Case studies</li>
+                    </ul>
+                    <button class="pc-btn pc-btn--secondary" type="button" disabled>Current Plan</button>
+                </div>
+
+                <div class="pc-pricing-card pc-pricing--featured">
+                    <span class="pc-badge">Best Value</span>
+                    <h3>Premium</h3>
+                    <p class="pc-price">$9<span>/month</span></p>
+                    <ul>
+                        <li>Unlimited questions</li>
+                        <li>3 full exam simulators</li>
+                        <li>Detailed analytics</li>
+                        <li>Progress tracking</li>
+                    </ul>
+                    <button class="pc-btn pc-btn--coral" id="upgrade-btn" type="button">
+                        Upgrade Now
+                    </button>
+                </div>
             </div>
         </div>
     </div>
