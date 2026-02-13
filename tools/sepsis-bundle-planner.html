@@ -46,6 +46,14 @@
         <section class="pc-bridge-section" aria-labelledby="sbp-form-title">
             <h2 id="sbp-form-title" class="pc-bridge-title">Sepsis Inputs</h2>
             <form id="sbp-form" class="pc-calculator-grid" novalidate>
+                <label class="pc-calculator-field" for="sbp-species">
+                    <span>Species</span>
+                    <select id="sbp-species" class="pc-input">
+                        <option value="dog">Dog</option>
+                        <option value="cat">Cat</option>
+                    </select>
+                </label>
+
                 <label class="pc-calculator-field" for="sbp-weight">
                     <span>Weight (kg)</span>
                     <input id="sbp-weight" class="pc-input" type="number" min="0.5" step="0.1" value="10" required>

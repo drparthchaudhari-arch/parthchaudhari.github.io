@@ -423,7 +423,9 @@
     }
 
     function calculate(event) {
-        event.preventDefault();
+        if (event && typeof event.preventDefault === 'function') {
+            event.preventDefault();
+        }
 
         var drugId = String(document.getElementById('cri-drug').value || 'morphine');
         var weightKg = toNumber(document.getElementById('cri-weight').value);
@@ -568,7 +570,13 @@
         applyDrugPreset();
 
         form.addEventListener('submit', calculate);
-        drugSelect.addEventListener('change', applyDrugPreset);
+        drugSelect.addEventListener('change', function () {
+            applyDrugPreset();
+            calculate();
+        });
+        form.addEventListener('input', calculate);
+        form.addEventListener('change', calculate);
+        calculate();
     }
 
     if (document.readyState === 'loading') {

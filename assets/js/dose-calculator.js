@@ -157,6 +157,11 @@
                     var categoryLabel = drug.category ? (' - ' + drug.category) : '';
                     return '<option value="' + drug.name + '">' + drug.name + categoryLabel + '</option>';
                 }).join('');
+
+            if (drugsData.length) {
+                select.value = drugsData[0].name;
+                updateConcentrations();
+            }
         } catch (error) {
             console.error('Failed to load drugs:', error);
             var selectNode = byId('drug-select');
@@ -260,6 +265,7 @@
 
         form.addEventListener('submit', calculateDose);
         drugSelect.addEventListener('change', updateConcentrations);
+        form.addEventListener('change', calculateDose);
     }
 
     window.updateConcentrations = updateConcentrations;

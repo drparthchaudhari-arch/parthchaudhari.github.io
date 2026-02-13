@@ -250,10 +250,9 @@
 
         applyPrefillFromQuery();
         form.addEventListener('submit', calculate);
-
-        if (integrationContext.autoRun) {
-            calculate();
-        }
+        form.addEventListener('input', calculate);
+        form.addEventListener('change', calculate);
+        calculate();
     }
 
     if (document.readyState === 'loading') {

@@ -116,7 +116,9 @@
     }
 
     function generate(event) {
-        event.preventDefault();
+        if (event && typeof event.preventDefault === 'function') {
+            event.preventDefault();
+        }
 
         var insulinType = String(document.getElementById('gc-insulin-type').value || 'other');
         var insulinDose = toNumber(document.getElementById('gc-insulin-dose').value);
@@ -175,6 +177,8 @@
         }
 
         form.addEventListener('submit', generate);
+        form.addEventListener('change', generate);
+        generate();
     }
 
     if (document.readyState === 'loading') {
