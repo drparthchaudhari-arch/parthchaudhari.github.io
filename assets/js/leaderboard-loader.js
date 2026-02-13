@@ -46,11 +46,11 @@
                 var rank = index + 1;
                 return [
                     '<tr class="pc-leaderboard-row ' + (index < 3 ? 'pc-leaderboard-top' : '') + '">',
-                    '<td class="pc-leaderboard-rank">#' + rank + '</td>',
-                    '<td class="pc-leaderboard-name">' + escapeHtml(row.display_name || 'Anonymous') + '</td>',
-                    '<td class="pc-leaderboard-completions">' + Number(row.total_completions || 0) + '</td>',
-                    '<td class="pc-leaderboard-streak">' + Number(row.current_streak || 0) + ' days</td>',
-                    '<td class="pc-leaderboard-score">' + Number(row.weekly_score || 0) + '</td>',
+                    '<td class="pc-leaderboard-rank" data-label="Rank">#' + rank + '</td>',
+                    '<td class="pc-leaderboard-name" data-label="Display Name">' + escapeHtml(row.display_name || 'Anonymous') + '</td>',
+                    '<td class="pc-leaderboard-completions" data-label="Cases Completed">' + Number(row.total_completions || 0) + '</td>',
+                    '<td class="pc-leaderboard-streak" data-label="Current Streak">' + Number(row.current_streak || 0) + ' days</td>',
+                    '<td class="pc-leaderboard-score" data-label="Weekly Score">' + Number(row.weekly_score || 0) + '</td>',
                     '</tr>'
                 ].join('');
             }).join('');

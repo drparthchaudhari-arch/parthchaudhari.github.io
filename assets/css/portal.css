@@ -2087,6 +2087,7 @@
     font-family: var(--pc-font-body);
     font-size: var(--pc-text-base);
     line-height: 1.6;
+    overflow-x: clip;
 }
 
 .pc-page a:not(.pc-btn):not(.pc-nav-link):not(.pc-logo) {
@@ -2954,6 +2955,17 @@
 
 /* Mobile */
 @media (max-width: 768px) {
+    .pc-page--home,
+    .pc-page--info,
+    .pc-page--bridge,
+    .pc-page--search,
+    .pc-page--play,
+    .pc-page--study {
+        padding-top: calc(6.2rem + env(safe-area-inset-top));
+        padding-left: max(0.75rem, env(safe-area-inset-left));
+        padding-right: max(0.75rem, env(safe-area-inset-right));
+    }
+
     .pc-nav,
     .pc-portal-nav__inner {
         padding: var(--pc-space-sm);
@@ -2964,12 +2976,30 @@
     .pc-nav-group,
     .pc-nav__links {
         width: 100%;
-        justify-content: center;
+        justify-content: flex-start;
         gap: var(--pc-space-sm);
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: thin;
+        padding-bottom: 0.1rem;
+    }
+
+    .pc-nav-link,
+    .pc-nav-toggle {
+        flex: 0 0 auto;
+        white-space: nowrap;
     }
 
     .pc-case-title {
         font-size: var(--pc-text-2xl);
+    }
+
+    .pc-case-article.pc-card {
+        padding: var(--pc-space-md);
+    }
+
+    .pc-case-section {
+        padding: var(--pc-space-md);
     }
 
     .pc-signalment-card ul,
@@ -2993,11 +3023,98 @@
         padding: var(--pc-space-sm);
     }
 
+    .pc-leaderboard-table {
+        min-width: 0;
+    }
+
+    .pc-leaderboard-table thead {
+        display: none;
+    }
+
+    .pc-leaderboard-table tbody,
+    .pc-leaderboard-table tr,
+    .pc-leaderboard-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .pc-leaderboard-table tr {
+        border-bottom: 1px solid var(--pc-border);
+        padding: var(--pc-space-sm);
+    }
+
+    .pc-leaderboard-table tr:last-child {
+        border-bottom: 0;
+    }
+
+    .pc-leaderboard-table td {
+        border-bottom: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: var(--pc-space-md);
+        padding: var(--pc-space-xs) var(--pc-space-sm);
+        text-align: right;
+    }
+
+    .pc-leaderboard-table td::before {
+        content: attr(data-label);
+        color: var(--pc-text-muted);
+        font-size: var(--pc-text-xs);
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        text-align: left;
+        flex: 1 1 auto;
+    }
+
     .pc-diagnose-box {
         padding: var(--pc-space-md);
     }
 
+    .pc-diagnose-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .pc-diagnose-actions .pc-completed-badge {
+        align-self: flex-start;
+    }
+
     .pc-btn {
         width: 100%;
+    }
+
+    .pc-input,
+    .pc-account-input,
+    .pc-search-input {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pc-logo {
+        width: 100%;
+        justify-content: flex-start;
+        font-size: var(--pc-text-lg);
+        padding: var(--pc-space-xs) var(--pc-space-sm);
+    }
+
+    .pc-portal-nav {
+        padding-left: max(0.5rem, env(safe-area-inset-left));
+        padding-right: max(0.5rem, env(safe-area-inset-right));
+    }
+
+    .pc-account-card,
+    .pc-study-panel,
+    .pc-case-article,
+    .pc-bridge-hero {
+        padding: var(--pc-space-md);
+    }
+
+    .pc-fork-title,
+    .pc-study-title,
+    .pc-case-title {
+        line-height: 1.15;
     }
 }
