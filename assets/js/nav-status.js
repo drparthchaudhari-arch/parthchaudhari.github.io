@@ -11,12 +11,12 @@
     var desktopViewDefaultViewport = '';
     var NAV_ITEMS = [
         { id: 'home', label: 'Home', href: '/' },
+        { id: 'clinical-tools', label: 'Clinical Tools', href: '/tools/' },
         {
             id: 'study',
             label: 'Study',
             href: '/study/',
             children: [
-                { label: 'Clinical Tools', href: '/tools/' },
                 { label: 'NAVLE Practice', href: '/study/navle/practice/' },
                 { label: 'Reference', href: '/reference/' },
                 { label: 'NAVLE Topics', href: '/study/wordweb/' },
@@ -107,11 +107,13 @@
             return 'home';
         }
 
+        if (path === '/tools' || path.indexOf('/tools/') === 0) {
+            return 'clinical-tools';
+        }
+
         if (
             path === '/study' ||
             path.indexOf('/study/') === 0 ||
-            path === '/tools' ||
-            path.indexOf('/tools/') === 0 ||
             path === '/reference' ||
             path.indexOf('/reference/') === 0 ||
             path === '/today' ||
