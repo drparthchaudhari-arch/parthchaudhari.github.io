@@ -121,7 +121,56 @@
                     summary: 'Rule-in/rule-out systemic instability in dyspneic patients.',
                     params: {}
                 }
-            ]
+            ],
+            assessment: {
+                passScorePercent: 80,
+                items: [
+                    {
+                        id: 'chf_initial_test',
+                        step: 1,
+                        label: 'Initial diagnostic priority',
+                        prompt: 'Which test is the most appropriate next step to confirm active CHF pattern?',
+                        inputType: 'choice',
+                        choices: [
+                            { id: 'radiographs', label: 'Thoracic radiographs' },
+                            { id: 'echocardiogram', label: 'Echocardiogram with Doppler' },
+                            { id: 'ntprobnp', label: 'NT-proBNP blood test' }
+                        ],
+                        expectedChoice: 'radiographs',
+                        weight: 40,
+                        triggerTool: 'chf_stage',
+                        teachablePoint: 'Radiographs confirm congestion pattern before deeper structural workup.'
+                    },
+                    {
+                        id: 'chf_stage_pattern',
+                        step: 2,
+                        label: 'Likely stage classification',
+                        prompt: 'When signs and pulmonary edema are present, which stage pattern is most likely?',
+                        inputType: 'choice',
+                        choices: [
+                            { id: 'stage_c', label: 'Stage C pattern' },
+                            { id: 'stage_b2', label: 'Stage B2 pattern' },
+                            { id: 'indeterminate', label: 'Early/indeterminate pattern' }
+                        ],
+                        expectedChoice: 'stage_c',
+                        weight: 35,
+                        triggerTool: 'chf_stage',
+                        teachablePoint: 'Symptomatic congestive signs align with stage C pattern logic.'
+                    },
+                    {
+                        id: 'chf_recheck_days',
+                        step: 3,
+                        label: 'Early recheck timing',
+                        prompt: 'Enter a typical recheck window in days after stabilization.',
+                        expected: 5,
+                        tolerance: 2,
+                        weight: 25,
+                        unit: 'days',
+                        triggerTool: 'chf_stage',
+                        teachablePoint: 'Early rechecks refine dose response and perfusion/renal safety.'
+                    }
+                ]
+            }
         },
         'feline-hyperthyroid.html': {
             caseId: 'hyperthyroid_feline_001',
@@ -157,7 +206,56 @@
                     summary: 'Case-linked study guide for cardiovascular complications.',
                     params: {}
                 }
-            ]
+            ],
+            assessment: {
+                passScorePercent: 80,
+                items: [
+                    {
+                        id: 'hyper_confirm_test',
+                        step: 1,
+                        label: 'Confirmatory test',
+                        prompt: 'Which first-line confirmatory test is highest yield in this typical case?',
+                        inputType: 'choice',
+                        choices: [
+                            { id: 'total_t4', label: 'Total T4 concentration' },
+                            { id: 't3_suppress', label: 'T3 suppression test' },
+                            { id: 'scintigraphy', label: 'Thyroid scintigraphy' }
+                        ],
+                        expectedChoice: 'total_t4',
+                        weight: 40,
+                        triggerTool: 'normal_values',
+                        teachablePoint: 'Total T4 is confirmatory in most classic feline presentations.'
+                    },
+                    {
+                        id: 'hyper_hr_case',
+                        step: 2,
+                        label: 'Case heart-rate anchor',
+                        prompt: 'Enter the approximate resting heart rate from this case findings.',
+                        expected: 220,
+                        tolerance: 20,
+                        weight: 30,
+                        unit: 'bpm',
+                        triggerTool: 'topic_guide',
+                        teachablePoint: 'Tachycardia severity supports endocrine-cardiovascular risk prioritization.'
+                    },
+                    {
+                        id: 'hyper_monitor_priority',
+                        step: 3,
+                        label: 'Monitoring priority',
+                        prompt: 'Which follow-up priority is emphasized early in this case?',
+                        inputType: 'choice',
+                        choices: [
+                            { id: 'bp_retina', label: 'Blood pressure and retinal status' },
+                            { id: 'derm_only', label: 'Coat quality only' },
+                            { id: 'fecal_only', label: 'Fecal trend only' }
+                        ],
+                        expectedChoice: 'bp_retina',
+                        weight: 30,
+                        triggerTool: 'topic_guide',
+                        teachablePoint: 'Hypertension surveillance is a key early safety checkpoint.'
+                    }
+                ]
+            }
         },
         'bovine-mastitis.html': {
             caseId: 'mastitis_bovine_001',
@@ -192,7 +290,56 @@
                     summary: 'Reference interpretation pitfalls while awaiting culture data.',
                     params: {}
                 }
-            ]
+            ],
+            assessment: {
+                passScorePercent: 80,
+                items: [
+                    {
+                        id: 'mastitis_sample',
+                        step: 1,
+                        label: 'Best diagnostic sample',
+                        prompt: 'What is the most appropriate first diagnostic sample in this case?',
+                        inputType: 'choice',
+                        choices: [
+                            { id: 'sterile_milk', label: 'Sterile milk culture from affected quarter' },
+                            { id: 'blood_culture', label: 'Blood culture' },
+                            { id: 'ultrasound_only', label: 'Ultrasound imaging only' }
+                        ],
+                        expectedChoice: 'sterile_milk',
+                        weight: 40,
+                        triggerTool: 'lab_protocols',
+                        teachablePoint: 'Quarter-level sterile culture drives targeted therapy decisions.'
+                    },
+                    {
+                        id: 'mastitis_temp',
+                        step: 2,
+                        label: 'Case temperature anchor',
+                        prompt: 'Enter the temperature documented in this case.',
+                        expected: 39.8,
+                        tolerance: 0.3,
+                        weight: 30,
+                        unit: 'C',
+                        triggerTool: 'unit_converter',
+                        teachablePoint: 'Pyrexia severity helps frame local versus systemic burden.'
+                    },
+                    {
+                        id: 'mastitis_herd_factor',
+                        step: 3,
+                        label: 'Herd-level risk factor',
+                        prompt: 'Which management factor is flagged as part of recurrence risk?',
+                        inputType: 'choice',
+                        choices: [
+                            { id: 'wet_bedding', label: 'Wet bedding and variable teat hygiene' },
+                            { id: 'high_fiber_only', label: 'High-fiber ration only' },
+                            { id: 'exercise_shortage', label: 'Low paddock exercise only' }
+                        ],
+                        expectedChoice: 'wet_bedding',
+                        weight: 30,
+                        triggerTool: 'discharge',
+                        teachablePoint: 'Environmental hygiene correction is core to durable control.'
+                    }
+                ]
+            }
         }
     };
 
@@ -333,7 +480,7 @@
 
         var intro = document.createElement('p');
         intro.className = 'pc-case-intel__summary';
-        intro.textContent = 'Validate each step in sequence. A step unlocks when the answer is within tolerance.';
+        intro.textContent = 'Validate each step in sequence. A step unlocks when the answer is correct or within tolerance.';
         card.appendChild(intro);
 
         var status = document.createElement('p');
@@ -376,7 +523,7 @@
         }
 
         function setLocked(row, isLocked) {
-            var input = row.querySelector('input');
+            var input = row.querySelector('input, select');
             var button = row.querySelector('button');
             row.classList.toggle('pc-case-step--locked', !!isLocked);
 
@@ -402,6 +549,7 @@
                 var row = document.createElement('div');
                 row.className = 'pc-case-step';
                 row.setAttribute('data-step-row', item.id);
+                var itemInputType = String(item.inputType || 'number').trim().toLowerCase();
 
                 var stepTitle = document.createElement('p');
                 stepTitle.className = 'pc-case-step__title';
@@ -421,11 +569,31 @@
                 var controls = document.createElement('div');
                 controls.className = 'pc-case-step__controls';
 
-                var input = document.createElement('input');
-                input.className = 'pc-input';
-                input.type = 'number';
-                input.step = 'any';
-                input.placeholder = 'Expected near ' + item.expected + (item.unit ? ' ' + item.unit : '');
+                var input;
+                if (itemInputType === 'choice' && Array.isArray(item.choices) && item.choices.length) {
+                    input = document.createElement('select');
+                    input.className = 'pc-input';
+
+                    var defaultOption = document.createElement('option');
+                    defaultOption.value = '';
+                    defaultOption.textContent = 'Select an option';
+                    input.appendChild(defaultOption);
+
+                    var optionIndex;
+                    for (optionIndex = 0; optionIndex < item.choices.length; optionIndex += 1) {
+                        var choice = item.choices[optionIndex] || {};
+                        var option = document.createElement('option');
+                        option.value = String(choice.id || '');
+                        option.textContent = String(choice.label || choice.id || '');
+                        input.appendChild(option);
+                    }
+                } else {
+                    input = document.createElement('input');
+                    input.className = 'pc-input';
+                    input.type = 'number';
+                    input.step = 'any';
+                    input.placeholder = 'Expected near ' + item.expected + (item.unit ? ' ' + item.unit : '');
+                }
                 controls.appendChild(input);
 
                 var button = document.createElement('button');
@@ -453,25 +621,71 @@
                 }
 
                 button.addEventListener('click', function () {
-                    var value = toNumber(input.value);
-                    if (!Number.isFinite(value)) {
-                        feedback.textContent = 'Enter a numeric value before validating.';
-                        feedback.classList.remove('pc-case-step__feedback--ok');
-                        feedback.classList.add('pc-case-step__feedback--warn');
-                        return;
+                    var isCorrect = false;
+                    var enteredValue = '';
+                    var expectedValue = '';
+                    var tolerance = null;
+                    var feedbackMessage = '';
+                    var choiceLabel = '';
+
+                    if (itemInputType === 'choice') {
+                        enteredValue = String(input.value || '').trim();
+                        expectedValue = String(item.expectedChoice || '').trim();
+
+                        if (!enteredValue) {
+                            feedback.textContent = 'Select one option before validating.';
+                            feedback.classList.remove('pc-case-step__feedback--ok');
+                            feedback.classList.add('pc-case-step__feedback--warn');
+                            return;
+                        }
+
+                        isCorrect = enteredValue === expectedValue;
+
+                        var cIndex;
+                        for (cIndex = 0; cIndex < (item.choices || []).length; cIndex += 1) {
+                            if (String(item.choices[cIndex].id || '') === expectedValue) {
+                                choiceLabel = String(item.choices[cIndex].label || expectedValue);
+                                break;
+                            }
+                        }
+
+                        feedbackMessage = isCorrect
+                            ? 'Correct selection.'
+                            : 'Not the best selection. Expected: ' + (choiceLabel || expectedValue) + '.';
+
+                        answers[item.id] = {
+                            selectedChoice: enteredValue,
+                            expectedChoice: expectedValue,
+                            isCorrect: isCorrect,
+                            attemptedAt: new Date().toISOString()
+                        };
+                    } else {
+                        var value = toNumber(input.value);
+                        if (!Number.isFinite(value)) {
+                            feedback.textContent = 'Enter a numeric value before validating.';
+                            feedback.classList.remove('pc-case-step__feedback--ok');
+                            feedback.classList.add('pc-case-step__feedback--warn');
+                            return;
+                        }
+
+                        tolerance = Number.isFinite(Number(item.tolerance)) ? Number(item.tolerance) : 0;
+                        var diff = Math.abs(value - item.expected);
+                        isCorrect = diff <= tolerance;
+                        enteredValue = value;
+                        expectedValue = item.expected;
+
+                        feedbackMessage = isCorrect
+                            ? ('Correct within tolerance. Diff: ' + diff.toFixed(2) + (item.unit ? ' ' + item.unit : '') + '.')
+                            : ('Outside tolerance. Expected ~' + item.expected + (item.unit ? ' ' + item.unit : '') + ' (±' + tolerance + ').');
+
+                        answers[item.id] = {
+                            value: value,
+                            expected: item.expected,
+                            tolerance: tolerance,
+                            isCorrect: isCorrect,
+                            attemptedAt: new Date().toISOString()
+                        };
                     }
-
-                    var tolerance = Number.isFinite(Number(item.tolerance)) ? Number(item.tolerance) : 0;
-                    var diff = Math.abs(value - item.expected);
-                    var isCorrect = diff <= tolerance;
-
-                    answers[item.id] = {
-                        value: value,
-                        expected: item.expected,
-                        tolerance: tolerance,
-                        isCorrect: isCorrect,
-                        attemptedAt: new Date().toISOString()
-                    };
 
                     row.classList.remove('pc-case-step--correct');
                     row.classList.remove('pc-case-step--retry');
@@ -481,13 +695,12 @@
                     if (isCorrect) {
                         row.classList.add('pc-case-step--correct');
                         feedback.classList.add('pc-case-step__feedback--ok');
-                        feedback.textContent = 'Correct within tolerance. Diff: ' + diff.toFixed(2) + (item.unit ? ' ' + item.unit : '') + '.';
+                        feedback.textContent = feedbackMessage;
                         unlockStep(index + 1);
                     } else {
                         row.classList.add('pc-case-step--retry');
                         feedback.classList.add('pc-case-step__feedback--warn');
-                        feedback.textContent = 'Outside tolerance. Expected ~' + item.expected + (item.unit ? ' ' + item.unit : '') +
-                            ' (±' + tolerance + ').';
+                        feedback.textContent = feedbackMessage;
                     }
 
                     updateStatus({
@@ -506,8 +719,9 @@
                             details: {
                                 stepId: item.id,
                                 stepLabel: item.label,
-                                entered: value,
-                                expected: item.expected,
+                                inputType: itemInputType,
+                                entered: enteredValue,
+                                expected: expectedValue,
                                 tolerance: tolerance,
                                 withinTolerance: isCorrect,
                                 scorePercent: score.percent
