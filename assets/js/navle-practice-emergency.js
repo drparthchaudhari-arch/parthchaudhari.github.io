@@ -7,6 +7,7 @@
     var PAID_FLAG_KEY = 'pc_navle_paid';
     var FREE_BANK_URL = '/content/navle/questions.json';
     var PAID_STOCK_BANK_URL = '/content/navle/questions-paid-stock.json';
+    var PAYMENT_PAGE_URL = '/account/?plan=premium';
     var PREMIUM_STATUSES = ['premium', 'active', 'paid', 'pro'];
     var FREE_DAILY_LIMIT = 5;
     var FREE_BANK_MAX = 50;
@@ -267,7 +268,7 @@
 
         var container = byId('question-container');
         if (container) {
-            container.innerHTML = '<p class="pc-calculator-note">Daily free limit reached. Create a free account to unlock all remaining questions.</p>';
+            container.innerHTML = '<p class="pc-calculator-note">Daily free limit reached. Buy Full Version for unlimited question access.</p>';
         }
         setProgress(FREE_DAILY_LIMIT - 1);
         showGateModal();
@@ -489,6 +490,31 @@
         if (modal) {
             modal.style.display = 'grid';
         }
+
+        var message = byId('gate-message');
+        if (message) {
+            message.classList.remove('pc-is-error');
+            message.classList.remove('pc-is-success');
+        }
+
+        var buyButton = byId('gate-buy-btn');
+        if (buyButton && typeof buyButton.focus === 'function') {
+            buyButton.focus();
+        }
+    }
+
+    function hideGateModal() {
+        var modal = byId('gate-modal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    function goToPaymentPage(event) {
+        if (event) {
+            event.preventDefault();
+        }
+        window.location.href = PAYMENT_PAGE_URL;
     }
 
     async function sendMagicLinkFromGate() {
@@ -547,13 +573,48 @@
     }
 
     function bindGateEvents() {
+        var modal = byId('gate-modal');
         var submit = byId('gate-submit');
+        var closeButton = byId('gate-close-btn');
+        var dismissButton = byId('gate-dismiss-btn');
+        var buyButton = byId('gate-buy-btn');
+
         if (submit) {
             submit.addEventListener('click', function (event) {
                 event.preventDefault();
                 sendMagicLinkFromGate();
             });
         }
+
+        if (closeButton) {
+            closeButton.addEventListener('click', function () {
+                hideGateModal();
+            });
+        }
+
+        if (dismissButton) {
+            dismissButton.addEventListener('click', function () {
+                hideGateModal();
+            });
+        }
+
+        if (buyButton) {
+            buyButton.addEventListener('click', goToPaymentPage);
+        }
+
+        if (modal) {
+            modal.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    hideGateModal();
+                }
+            });
+        }
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                hideGateModal();
+            }
+        });
     }
 
     async function hydrateFromServerIfLoggedIn() {

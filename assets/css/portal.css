@@ -4236,6 +4236,48 @@
     padding: 1rem;
 }
 
+.pc-modal__surface--practice {
+    position: relative;
+    padding-top: 2.25rem;
+}
+
+.pc-modal__close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.65rem;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--pc-border);
+    border-radius: 999px;
+    background: var(--pc-bg-tertiary);
+    color: var(--pc-text);
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.pc-modal__close:hover,
+.pc-modal__close:focus-visible {
+    border-color: var(--pc-primary);
+}
+
+.pc-modal__actions {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.pc-modal__actions .pc-btn {
+    flex: 1 1 190px;
+}
+
+.pc-modal__divider {
+    border: 0;
+    border-top: 1px solid var(--pc-border);
+    margin: 0.85rem 0;
+}
+
 .pc-modal__surface h2 {
     margin: 0 0 0.6rem;
     color: var(--pc-primary);

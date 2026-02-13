@@ -19,7 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
     <script src="/assets/js/supabase-config.js" defer></script>
     <script src="/assets/js/sync.js?v=20260213d" defer></script>
-    <script src="/assets/js/navle-practice-emergency.js?v=20260213d" defer></script>
+    <script src="/assets/js/navle-practice-emergency.js?v=20260213e" defer></script>
 </head>
 <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
@@ -64,11 +64,19 @@
     </main>
 
     <div id="gate-modal" class="pc-modal" style="display:none;" aria-modal="true" role="dialog" aria-labelledby="gate-modal-title">
-        <div class="pc-modal__surface">
-            <h2 id="gate-modal-title">🎉 Great Progress!</h2>
+        <div class="pc-modal__surface pc-modal__surface--practice">
+            <button id="gate-close-btn" class="pc-modal__close" type="button" aria-label="Close popup">×</button>
+            <h2 id="gate-modal-title">Daily Free Limit Reached</h2>
             <p>You've completed 5 free questions today.</p>
-            <p>Create a free account to unlock all remaining questions in today's bank.</p>
+            <p>Upgrade to Premium for unlimited NAVLE questions and full exam simulators.</p>
 
+            <div class="pc-modal__actions">
+                <a id="gate-buy-btn" class="pc-btn pc-btn--coral" href="/account/?plan=premium">Buy Full Version</a>
+                <button id="gate-dismiss-btn" class="pc-btn pc-btn--secondary" type="button">Close</button>
+            </div>
+
+            <hr class="pc-modal__divider">
+            <p class="pc-text-small">Optional: sign in with email to sync your progress across devices.</p>
             <label for="gate-email" class="pc-search-label">Email</label>
             <input type="email" id="gate-email" class="pc-input" placeholder="your@email.com">
             <button id="gate-submit" class="pc-btn pc-btn--primary" type="button">Send Magic Link</button>
