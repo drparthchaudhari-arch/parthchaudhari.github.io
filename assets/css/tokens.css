@@ -1,92 +1,134 @@
 :root {
+    /* Light Mode (Default) */
+    --pc-bg-primary: #F7F7F2;
+    --pc-bg-secondary: #FFFFFF;
+    --pc-bg-tertiary: #E8E8E0;
+    --pc-text-primary: #121826;
+    --pc-text-secondary: #4A5568;
+    --pc-text-muted: #718096;
+    --pc-border: #CBD5E0;
+
+    /* Brand Colors (constant) */
     --pc-teal: #0B4F6C;
+    --pc-teal-light: #147A8C;
+    --pc-teal-dark: #06384A;
     --pc-coral: #FF6B35;
+    --pc-coral-light: #FF8F6B;
+    --pc-coral-dark: #E55A2B;
     --pc-mint: #00F5D4;
+    --pc-mint-dark: #00D4B8;
     --pc-bone: #F7F7F2;
     --pc-navy: #121826;
 
-    --pc-radius-sm: 10px;
-    --pc-radius-md: 16px;
-    --pc-radius-lg: 24px;
+    /* Semantic */
+    --pc-success: #48BB78;
+    --pc-warning: #ED8936;
+    --pc-error: #E53E3E;
+    --pc-info: #4299E1;
 
-    --pc-font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
-    --pc-font-body: 'Inter', 'Segoe UI', sans-serif;
+    /* Spacing Scale */
+    --pc-space-xs: 0.25rem;
+    --pc-space-sm: 0.5rem;
+    --pc-space-md: 1rem;
+    --pc-space-lg: 1.5rem;
+    --pc-space-xl: 2rem;
+    --pc-space-2xl: 3rem;
+    --pc-space-3xl: 4rem;
 
-    --pc-bg: var(--pc-bone);
-    --pc-surface: #ffffff;
-    --pc-surface-strong: #f0f4f6;
-    --pc-text: #16202b;
-    --pc-text-muted: #485868;
+    /* Typography */
+    --pc-font-heading: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --pc-font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --pc-font-mono: 'SF Mono', Monaco, monospace;
+    --pc-font-display: var(--pc-font-heading);
+
+    --pc-text-xs: 0.75rem;
+    --pc-text-sm: 0.875rem;
+    --pc-text-base: 1rem;
+    --pc-text-lg: 1.125rem;
+    --pc-text-xl: 1.25rem;
+    --pc-text-2xl: 1.5rem;
+    --pc-text-3xl: 2rem;
+    --pc-text-4xl: 2.5rem;
+
+    /* Shadows */
+    --pc-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --pc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --pc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --pc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    /* Radii */
+    --pc-radius-sm: 0.25rem;
+    --pc-radius-md: 0.5rem;
+    --pc-radius-lg: 0.75rem;
+    --pc-radius-xl: 1rem;
+    --pc-radius-full: 9999px;
+
+    /* Transitions */
+    --pc-transition-fast: 150ms ease;
+    --pc-transition-base: 250ms ease;
+    --pc-transition-slow: 350ms ease;
+
+    /* Compatibility aliases for existing components */
+    --pc-bg: var(--pc-bg-primary);
+    --pc-surface: var(--pc-bg-secondary);
+    --pc-surface-strong: var(--pc-bg-tertiary);
+    --pc-text: var(--pc-text-primary);
     --pc-primary: var(--pc-teal);
     --pc-accent: var(--pc-coral);
-    --pc-border: rgba(11, 79, 108, 0.2);
     --pc-focus: var(--pc-mint);
     --pc-cta-bg: var(--pc-teal);
-    --pc-cta-text: #ffffff;
+    --pc-cta-text: #FFFFFF;
     --pc-cta-alt-bg: var(--pc-coral);
-    --pc-cta-alt-text: #111111;
+    --pc-cta-alt-text: #FFFFFF;
 }
 
-[data-mode='pro'][data-theme='light'] {
-    --pc-bg: var(--pc-bone);
-    --pc-surface: #ffffff;
-    --pc-surface-strong: #edf2f4;
-    --pc-text: #13222f;
-    --pc-text-muted: #425463;
+[data-theme="dark"] {
+    --pc-bg-primary: #121826;
+    --pc-bg-secondary: #1A202C;
+    --pc-bg-tertiary: #2D3748;
+    --pc-text-primary: #F7F7F2;
+    --pc-text-secondary: #A0AEC0;
+    --pc-text-muted: #718096;
+    --pc-border: #4A5568;
+
+    /* Adjust brand colors for dark mode visibility */
+    --pc-teal: #4FD1C5;
+    --pc-coral: #FF8F6B;
+    --pc-mint: #00F5D4;
+
+    --pc-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --pc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+    --pc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+    --pc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.45);
+
+    /* Compatibility aliases */
+    --pc-bg: var(--pc-bg-primary);
+    --pc-surface: var(--pc-bg-secondary);
+    --pc-surface-strong: var(--pc-bg-tertiary);
+    --pc-text: var(--pc-text-primary);
     --pc-primary: var(--pc-teal);
     --pc-accent: var(--pc-coral);
-    --pc-border: rgba(11, 79, 108, 0.22);
-    --pc-focus: var(--pc-coral);
+    --pc-focus: var(--pc-mint);
     --pc-cta-bg: var(--pc-teal);
-    --pc-cta-text: #ffffff;
+    --pc-cta-text: #121826;
     --pc-cta-alt-bg: var(--pc-coral);
-    --pc-cta-alt-text: #111111;
+    --pc-cta-alt-text: #121826;
 }
 
-[data-mode='pro'][data-theme='dark'] {
-    --pc-bg: #0f1724;
-    --pc-surface: #182437;
-    --pc-surface-strong: #22324a;
-    --pc-text: #e9f2f5;
-    --pc-text-muted: #b0c1d0;
-    --pc-primary: #4ca7c9;
-    --pc-accent: #ff8a5e;
-    --pc-border: rgba(76, 167, 201, 0.35);
-    --pc-focus: var(--pc-mint);
-    --pc-cta-bg: #4ca7c9;
-    --pc-cta-text: #0d1622;
-    --pc-cta-alt-bg: #ff8a5e;
-    --pc-cta-alt-text: #111111;
+/* Preserve dual-mode behavior with distinct accent emphasis */
+[data-mode="pro"] {
+    --pc-primary: var(--pc-teal);
+    --pc-accent: var(--pc-coral);
+    --pc-cta-bg: var(--pc-teal);
 }
 
-[data-mode='play'][data-theme='light'] {
-    --pc-bg: #eaf4f8;
-    --pc-surface: #ffffff;
-    --pc-surface-strong: #d9ecf3;
-    --pc-text: #102130;
-    --pc-text-muted: #33586b;
+[data-mode="play"] {
     --pc-primary: var(--pc-teal);
     --pc-accent: var(--pc-mint);
-    --pc-border: rgba(11, 79, 108, 0.25);
-    --pc-focus: var(--pc-mint);
-    --pc-cta-bg: var(--pc-mint);
-    --pc-cta-text: #0f1a25;
-    --pc-cta-alt-bg: var(--pc-teal);
-    --pc-cta-alt-text: #ffffff;
+    --pc-cta-bg: var(--pc-coral);
 }
 
-[data-mode='play'][data-theme='dark'] {
-    --pc-bg: var(--pc-navy);
-    --pc-surface: #1b2538;
-    --pc-surface-strong: #24324a;
-    --pc-text: #ecf7f6;
-    --pc-text-muted: #b8d2d6;
-    --pc-primary: var(--pc-teal);
-    --pc-accent: var(--pc-mint);
-    --pc-border: rgba(0, 245, 212, 0.24);
-    --pc-focus: var(--pc-coral);
-    --pc-cta-bg: var(--pc-mint);
-    --pc-cta-text: #07121a;
-    --pc-cta-alt-bg: var(--pc-teal);
-    --pc-cta-alt-text: #ffffff;
+[data-mode="play"][data-theme="dark"] {
+    --pc-cta-bg: var(--pc-coral-light);
+    --pc-cta-text: #121826;
 }

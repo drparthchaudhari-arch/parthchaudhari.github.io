@@ -372,8 +372,8 @@
             var topicItems = getItemsForTopic(topic.id);
             var enabled = isTopicEnabled(topic.id);
 
-            html += '<article class="pc-study-topic">';
-            html += '<label>';
+            html += '<article class="pc-study-topic pc-study-plan-card">';
+            html += '<label class="pc-topic-checkbox">';
             html += '<input type="checkbox" data-pc-topic-toggle data-topic-id="' + topic.id + '" ' + (enabled ? 'checked' : '') + '>';
             html += '<strong>' + escapeHtml(topic.title) + '</strong>';
             html += '</label>';
@@ -386,7 +386,7 @@
                 var checked = item.completed === true;
 
                 html += '<li class="pc-study-item">';
-                html += '<label>';
+                html += '<label class="pc-topic-checkbox' + (checked ? ' pc-topic-checkbox--completed' : '') + '">';
                 html += '<input type="checkbox" data-pc-item-toggle data-item-id="' + item.id + '" ' + (checked ? 'checked' : '') + ' ' + (disabled ? 'disabled' : '') + '>';
                 html += '<span>';
                 html += '<span class="pc-study-item-title">' + escapeHtml(item.title) + '</span>';

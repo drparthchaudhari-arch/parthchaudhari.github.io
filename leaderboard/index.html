@@ -40,16 +40,16 @@
         </div>
     </nav>
 
-    <main id="pc-main" class="pc-leaderboard-shell" role="main" data-page="leaderboard">
-        <section id="pc-leaderboard-root" class="pc-bridge-hero">
+    <main id="pc-main" class="pc-leaderboard-shell pc-leaderboard-page" role="main" data-page="leaderboard">
+        <section id="pc-leaderboard-root" class="pc-bridge-hero pc-leaderboard-header">
             <p class="pc-kicker">Leaderboard</p>
-            <h1 class="pc-fork-title">Top Learners This Week</h1>
-            <p class="pc-fork-copy">Scores update when you complete case studies.</p>
+            <h1 class="pc-leaderboard-title">Top Learners This Week</h1>
+            <p class="pc-leaderboard-subtitle">Scores update when you complete case studies.</p>
         </section>
 
-        <section class="pc-account-card" aria-label="Top 10 leaderboard table">
-            <div class="pc-table-wrap">
-                <table class="pc-leaderboard-table">
+        <section class="pc-account-card pc-leaderboard" aria-label="Top 10 leaderboard table">
+            <div class="pc-table-wrap pc-leaderboard-table-container">
+                <table class="pc-table pc-leaderboard-table">
                     <thead>
                         <tr>
                             <th>Rank</th>
@@ -62,11 +62,11 @@
                     <tbody id="pc-leaderboard-body"></tbody>
                 </table>
             </div>
-            <div id="pc-leaderboard-empty" class="pc-empty-state" hidden>Loading...</div>
+            <div id="pc-leaderboard-empty" class="pc-empty-state pc-leaderboard-empty" hidden>Loading...</div>
         </section>
 
-        <section class="pc-account-card">
-            <h2>Your Rank</h2>
+        <section class="pc-account-card pc-card">
+            <h2 class="pc-account-section__title">Your Rank</h2>
             <div id="pc-user-rank" class="pc-account-status"></div>
         </section>
     </main>

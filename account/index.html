@@ -40,9 +40,9 @@
         </div>
     </nav>
 
-    <main id="pc-main" class="pc-account-shell" role="main" data-page="account">
-        <section class="pc-account-hero" id="pc-account-root">
-            <div class="pc-account-hero__surface">
+    <main id="pc-main" class="pc-account-shell pc-account-page" role="main" data-page="account">
+        <section class="pc-account-hero pc-account-section" id="pc-account-root">
+            <div class="pc-account-hero__surface pc-card">
                 <p class="pc-kicker">Account</p>
                 <h1 class="pc-fork-title">Your Learning Data</h1>
                 <p class="pc-fork-copy">Anonymous mode is always available. Export local data, import backups, and optionally turn on cross-device sync.</p>
@@ -54,28 +54,28 @@
             </div>
         </section>
 
-        <section class="pc-account-grid" aria-label="Account settings">
-            <article class="pc-account-card pc-account-card--local" aria-labelledby="pc-local-data-title">
-                <h2 id="pc-local-data-title">Local Data Status</h2>
+        <section class="pc-account-grid pc-account-section" aria-label="Account settings">
+            <article class="pc-account-card pc-account-card--local pc-account-section" aria-labelledby="pc-local-data-title">
+                <h2 id="pc-local-data-title" class="pc-account-section__title">Local Data Status</h2>
                 <div id="pc-local-data" class="pc-account-metric-grid" role="list"></div>
                 <div class="pc-account-actions">
-                    <button type="button" id="pc-export-btn" class="pc-btn">Export My Data</button>
+                    <button type="button" id="pc-export-btn" class="pc-btn pc-btn--primary">Export My Data</button>
                     <input type="file" id="pc-import-file" accept=".json" hidden>
                     <button type="button" id="pc-import-btn" class="pc-btn pc-btn--secondary">Import Data</button>
                 </div>
             </article>
 
-            <article id="pc-sync-section" class="pc-account-card pc-account-card--sync" aria-labelledby="pc-sync-title">
-                <h2 id="pc-sync-title">Cross-Device Sync</h2>
+            <article id="pc-sync-section" class="pc-account-card pc-account-card--sync pc-account-section" aria-labelledby="pc-sync-title">
+                <h2 id="pc-sync-title" class="pc-account-section__title">Cross-Device Sync</h2>
                 <p class="pc-account-note">Use magic-link login to sync your learning progress across devices.</p>
 
-                <div id="pc-logged-out-section">
+                <div id="pc-logged-out-section" class="pc-auth-form">
                     <div class="pc-account-field">
                         <label for="pc-email-input">Email</label>
-                        <input id="pc-email-input" class="pc-account-input" type="email" autocomplete="email" placeholder="your@email.com">
+                        <input id="pc-email-input" class="pc-account-input pc-input" type="email" autocomplete="email" placeholder="your@email.com">
                     </div>
                     <div class="pc-account-actions">
-                        <button id="pc-send-link-btn" type="button" class="pc-btn">Send Magic Link</button>
+                        <button id="pc-send-link-btn" type="button" class="pc-btn pc-btn--primary">Send Magic Link</button>
                     </div>
                     <p class="pc-account-note">We'll email you a login link. No password needed.</p>
                 </div>
@@ -84,7 +84,7 @@
                     <p class="pc-account-status">Sync is active for your account.</p>
                     <p id="pc-last-sync" class="pc-account-status">Last synced: Never</p>
                     <div class="pc-account-actions">
-                        <button id="pc-sync-btn" type="button" class="pc-btn">Sync Now</button>
+                        <button id="pc-sync-btn" type="button" class="pc-btn pc-btn--primary">Sync Now</button>
                         <button id="pc-logout-btn" type="button" class="pc-btn pc-btn--secondary">Log Out</button>
                     </div>
                 </div>
@@ -92,11 +92,11 @@
                 <div id="pc-account-status" class="pc-account-message" aria-live="polite"></div>
             </article>
 
-            <article class="pc-account-card pc-account-card--privacy" aria-labelledby="pc-privacy-title">
-                <h2 id="pc-privacy-title">Data Privacy</h2>
+            <article class="pc-account-card pc-account-card--privacy pc-account-section" aria-labelledby="pc-privacy-title">
+                <h2 id="pc-privacy-title" class="pc-account-section__title">Data Privacy</h2>
                 <p class="pc-account-note">Your data is stored securely. You can export or delete it anytime.</p>
                 <div class="pc-account-actions">
-                    <a class="pc-btn pc-btn--secondary" href="/privacy/">Open Privacy Policy</a>
+                    <a class="pc-btn pc-btn--ghost" href="/privacy/">Open Privacy Policy</a>
                 </div>
             </article>
         </section>

@@ -50,6 +50,8 @@
         button.addEventListener('click', function () {
             var selected = form.querySelector('input[name="pc_diagnosis"]:checked');
             feedback.hidden = false;
+            feedback.classList.remove('pc-answer--correct');
+            feedback.classList.remove('pc-answer--incorrect');
 
             if (!selected) {
                 feedback.innerHTML = '<p><strong>Select one option.</strong> Choose A, B, or C and check again.</p>';
@@ -60,6 +62,12 @@
             var intro = selected.value === correctOption
                 ? '<p><strong>Correct answer: ' + correctLabel + '</strong></p>'
                 : '<p><strong>Correct answer: ' + correctLabel + '</strong> You selected ' + selectedText + '.</p>';
+
+            if (selected.value === correctOption) {
+                feedback.classList.add('pc-answer--correct');
+            } else {
+                feedback.classList.add('pc-answer--incorrect');
+            }
 
             feedback.innerHTML = intro +
                 '<p>' + explanation + '</p>' +
