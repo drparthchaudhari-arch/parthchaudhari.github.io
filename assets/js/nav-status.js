@@ -17,6 +17,7 @@
     var RETENTION_30D_EMIT_KEY = 'pc_retention_30d_emit_day_v1';
     var ANALYTICS_BUFFER_KEY = 'pc_analytics_buffer_v1';
     var ANALYTICS_BUFFER_LIMIT = 80;
+    var SERVICE_WORKER_URL = '/service-worker.js';
     var NAV_ITEMS = [
         { id: 'home', label: 'Home', href: '/' },
         { id: 'pricing', label: 'Pricing', href: '/pricing/' },
@@ -1016,6 +1017,57 @@
         }
     }
 
+    function canRegisterServiceWorker() {
+        if (!('serviceWorker' in navigator)) {
+            return false;
+        }
+
+        if (window.location.protocol === 'https:') {
+            return true;
+        }
+
+        return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    }
+
+    function registerServiceWorker() {
+        if (!canRegisterServiceWorker()) {
+            return;
+        }
+
+        navigator.serviceWorker.register(SERVICE_WORKER_URL, { scope: '/' })
+            .then(function (registration) {
+                if (!registration) {
+                    return;
+                }
+
+                if (registration.waiting) {
+                    registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+                }
+
+                registration.addEventListener('updatefound', function () {
+                    var worker = registration.installing;
+                    if (!worker) {
+                        return;
+                    }
+
+                    worker.addEventListener('statechange', function () {
+                        if (worker.state === 'installed' && navigator.serviceWorker.controller) {
+                            worker.postMessage({ type: 'SKIP_WAITING' });
+                        }
+                    });
+                });
+
+                window.setTimeout(function () {
+                    registration.update().catch(function () {
+                        // Best effort update check.
+                    });
+                }, 45000);
+            })
+            .catch(function () {
+                // Ignore registration failures.
+            });
+    }
+
     function clamp(value, min, max) {
         if (value < min) {
             return min;
@@ -1325,6 +1377,10 @@
         scheduleNonCritical(function () {
             loadRouteEnhancements();
         }, 200);
+
+        scheduleNonCritical(function () {
+            registerServiceWorker();
+        }, 260);
 
         window.addEventListener('storage', function (event) {
             if (event.key === AUTH_STATE_KEY) {
