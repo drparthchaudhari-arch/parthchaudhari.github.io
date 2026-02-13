@@ -450,7 +450,7 @@
     position: relative;
     border: 1px solid color-mix(in srgb, var(--pc-primary) 32%, var(--pc-border));
     border-radius: var(--pc-radius-lg);
-    padding: clamp(1rem, 2vw, 1.35rem);
+    padding: clamp(1rem, 2vw, 1.5rem);
     background:
         linear-gradient(160deg, color-mix(in srgb, var(--pc-surface) 94%, transparent), color-mix(in srgb, var(--pc-surface-strong) 88%, transparent));
     box-shadow:
@@ -460,8 +460,9 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 0.9rem;
-    min-height: 420px;
-    transition: transform var(--pc-transition-base), box-shadow var(--pc-transition-base), border-color var(--pc-transition-base);
+    min-height: 430px;
+    isolation: isolate;
+    transition: transform var(--pc-transition-base), box-shadow var(--pc-transition-base), border-color var(--pc-transition-base), min-height var(--pc-transition-base);
 }
 
 .pc-home-tier-card:hover,
@@ -471,6 +472,8 @@
     box-shadow:
         0 24px 52px rgba(2, 12, 27, 0.2),
         inset 0 1px 0 color-mix(in srgb, #fff 60%, transparent);
+    min-height: 760px;
+    z-index: 2;
 }
 
 .pc-home-tier-card:focus-visible {
@@ -511,14 +514,50 @@
     font-size: 0.94rem;
 }
 
+.pc-home-tier-pellets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.38rem;
+    margin-top: 0.75rem;
+}
+
+.pc-home-tier-pellet {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    border: 1px solid var(--pc-border);
+    border-radius: 999px;
+    padding: 0.14rem 0.55rem;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.pc-home-tier-pellet--clinic {
+    border-color: color-mix(in srgb, #0f8f7a 60%, var(--pc-border));
+    background: color-mix(in srgb, #0f8f7a 16%, var(--pc-surface));
+}
+
+.pc-home-tier-pellet--student {
+    border-color: color-mix(in srgb, #f97316 62%, var(--pc-border));
+    background: color-mix(in srgb, #f97316 17%, var(--pc-surface));
+}
+
+.pc-home-tier-pellet--professional {
+    border-color: color-mix(in srgb, #0ea5e9 58%, var(--pc-border));
+    background: color-mix(in srgb, #0ea5e9 16%, var(--pc-surface));
+}
+
 .pc-home-tier-inside {
     border: 1px solid color-mix(in srgb, var(--pc-border) 80%, transparent);
     border-radius: 14px;
-    background: color-mix(in srgb, var(--pc-surface) 90%, transparent);
+    background:
+        linear-gradient(160deg, color-mix(in srgb, var(--pc-surface) 92%, transparent), color-mix(in srgb, var(--pc-surface-strong) 88%, transparent));
     padding: 0.8rem;
     max-height: 0;
     opacity: 0;
-    overflow: hidden;
+    overflow: auto;
     transform: translateY(8px);
     pointer-events: none;
     transition:
@@ -530,7 +569,7 @@
 .pc-home-tier-card:hover .pc-home-tier-inside,
 .pc-home-tier-card:focus .pc-home-tier-inside,
 .pc-home-tier-card:focus-within .pc-home-tier-inside {
-    max-height: 460px;
+    max-height: 920px;
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
@@ -551,15 +590,36 @@
     gap: 0.35rem;
 }
 
+.pc-home-tier-links--two-col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.34rem 0.58rem;
+}
+
 .pc-home-tier-links a {
     color: color-mix(in srgb, var(--pc-primary) 84%, var(--pc-text));
     text-decoration: none;
     font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
 }
 
 .pc-home-tier-links a:hover,
 .pc-home-tier-links a:focus-visible {
     color: var(--pc-primary);
+}
+
+.pc-home-tier-links a::after {
+    content: '→';
+    font-size: 0.8rem;
+    opacity: 0.55;
+    transition: transform 0.16s ease, opacity 0.16s ease;
+}
+
+.pc-home-tier-links a:hover::after,
+.pc-home-tier-links a:focus-visible::after {
+    transform: translateX(2px);
+    opacity: 0.95;
 }
 
 .pc-home-window-links a::after {
@@ -2453,6 +2513,11 @@
     .pc-home-tier-grid {
         grid-template-columns: 1fr 1fr;
     }
+
+    .pc-home-tier-card:hover,
+    .pc-home-tier-card:focus-within {
+        min-height: 700px;
+    }
 }
 
 @media (hover: none), (max-width: 900px) {
@@ -2468,8 +2533,18 @@
         transform: none;
     }
 
+    .pc-home-tier-card:hover,
+    .pc-home-tier-card:focus-within {
+        min-height: auto;
+        z-index: auto;
+    }
+
+    .pc-home-tier-links--two-col {
+        grid-template-columns: 1fr;
+    }
+
     .pc-home-tier-inside {
-        max-height: 620px;
+        max-height: 1400px;
         opacity: 1;
         transform: none;
         pointer-events: auto;
