@@ -9,7 +9,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            touch-action: none;
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             user-select: none;
@@ -34,6 +33,7 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+            touch-action: pan-y pinch-zoom;
         }
 
         #particles {
@@ -89,6 +89,19 @@
                 grid-template-columns: 1fr;
                 max-width: 600px;
                 margin: 0 auto;
+            }
+
+            /* Show the board first on mobile, then controls below. */
+            .game-board-container {
+                order: 1;
+            }
+
+            .main-layout > .panel:first-of-type {
+                order: 2;
+            }
+
+            .main-layout > .panel:last-of-type {
+                order: 3;
             }
         }
 
