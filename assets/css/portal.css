@@ -1320,6 +1320,12 @@
     font-size: 0.92rem;
 }
 
+.pc-footer-note a {
+    color: var(--pc-primary);
+    font-weight: 700;
+    text-decoration: none;
+}
+
 .pc-footer-note + .pc-footer-note {
     margin-top: 0.45rem;
 }
@@ -1653,6 +1659,21 @@
     margin: 0;
     color: var(--pc-text-muted);
     line-height: 1.6;
+}
+
+.pc-cta-banner {
+    margin-top: 0.95rem;
+    border: 1px solid var(--pc-border);
+    border-radius: 14px;
+    padding: 0.85rem;
+    background: color-mix(in srgb, var(--pc-primary) 10%, var(--pc-surface));
+}
+
+.pc-cta-banner__text {
+    margin: 0;
+    color: var(--pc-text);
+    line-height: 1.6;
+    font-weight: 600;
 }
 
 .pc-tag-list {

@@ -1,0 +1,153 @@
+# Phase 2 Page Outlines and Draft Lead Copy
+
+## Cluster 1: NAVLE Emergency & Critical Care
+
+### /navle-emergency-critical-care/
+- H1: NAVLE Emergency and Critical Care: Triage, Stabilize, Treat
+- Draft lead copy: This pillar page is built for veterinary learners who need a practical emergency framework that is both exam-ready and clinically useful. Start with triage logic, move to stabilization priorities, and then apply treatment sequencing using the linked support pages.
+- Outline: Core Workflow | How to Use This Pillar Efficiently | Support Guides in This Cluster | Recommended Next Steps | Sources and Review Notes
+
+### /gdv-approach/
+- H1: GDV Approach in Dogs: Triage to Surgical Stabilization
+- Draft lead copy: GDV is a high-consequence emergency where delays in stabilization can rapidly worsen perfusion and tissue injury. This guide helps you prioritize decompression, perfusion support, and surgical readiness in a repeatable sequence.
+- Outline: Rapid Algorithm | Diagnostic Flow | Treatment Flow | Exam Traps | Practice Prompts | Related Content | Sources and Review Notes
+
+### /shock-types-veterinary/
+- H1: Veterinary Shock Types: Practical Triage and Treatment Flow
+- Draft lead copy: Shock questions often test whether you can separate perfusion failure patterns and act before complete diagnostic certainty. This guide focuses on the practical differences that change treatment in the first hour.
+- Outline: Rapid Algorithm | Diagnostic Flow | Treatment Flow | Exam Traps | Practice Prompts | Related Content | Sources and Review Notes
+
+### /sepsis-sirs-veterinary/
+- H1: Sepsis and SIRS in Veterinary Patients: Hour-One Priorities
+- Draft lead copy: Sepsis questions reward structured timing: early recognition, perfusion support, and source control planning. This page gives a practical sequence for first-hour decisions and common exam pitfalls.
+- Outline: Rapid Algorithm | Diagnostic Flow | Treatment Flow | Exam Traps | Practice Prompts | Related Content | Sources and Review Notes
+
+### /dka-approach-veterinary/
+- H1: DKA Approach in Dogs and Cats: Stabilization Before Insulin
+- Draft lead copy: DKA management is a sequencing problem: fluids first, electrolyte safety, then controlled insulin strategy. This guide emphasizes decision order and reassessment points that frequently appear in NAVLE-style questions.
+- Outline: Rapid Algorithm | Diagnostic Flow | Treatment Flow | Exam Traps | Practice Prompts | Related Content | Sources and Review Notes
+
+### /heatstroke-veterinary/
+- H1: Heatstroke in Dogs and Cats: Controlled Cooling and Critical Monitoring
+- Draft lead copy: Heatstroke is a time-sensitive emergency where overcorrection can be as risky as under-treatment. This guide focuses on controlled cooling, perfusion support, and complication surveillance priorities.
+- Outline: Rapid Algorithm | Diagnostic Flow | Treatment Flow | Exam Traps | Practice Prompts | Related Content | Sources and Review Notes
+
+### /transfusion-basics-veterinary/
+- H1: Veterinary Transfusion Basics: Product Choice, Monitoring, and Reactions
+- Draft lead copy: Transfusion questions test decision matching: product selection, dosing strategy, and reaction monitoring. This guide gives a practical framework that supports both exam logic and safe bedside execution.
+- Outline: Rapid Algorithm | Diagnostic Flow | Treatment Flow | Exam Traps | Practice Prompts | Related Content | Sources and Review Notes
+
+### /rodenticide-bleeding-veterinary/
+- H1: Rodenticide Bleeding in Dogs and Cats: Triage and Stabilization Plan
+- Draft lead copy: Rodenticide cases often require action before full confirmation because hemorrhage risk can escalate quickly. This guide focuses on bleeding risk triage, stabilization, and practical follow-up planning.
+- Outline: Rapid Algorithm | Diagnostic Flow | Treatment Flow | Exam Traps | Practice Prompts | Related Content | Sources and Review Notes
+
+### /pleural-effusion-differentials-veterinary/
+- H1: Pleural Effusion Differentials in Dogs and Cats: Practical Triage Framework
+- Draft lead copy: Pleural effusion presentations require rapid respiratory prioritization before complete etiologic workup. This guide helps you organize differential reasoning while protecting ventilation and perfusion.
+- Outline: Rapid Algorithm | Diagnostic Flow | Treatment Flow | Exam Traps | Practice Prompts | Related Content | Sources and Review Notes
+
+## Cluster 2: Cardiology (Dog/Cat)
+
+### /canine-feline-chf/
+- H1: Canine and Feline CHF: Recognition, Workup, Staging, and Monitoring
+- Draft lead copy: This cardiology pillar organizes CHF reasoning into a practical path: recognize likely failure patterns, perform focused workup, stage severity, and monitor response over time. Use linked support pages for rhythm, murmurs, hypertension, and medication logic.
+- Outline: Core Workflow | How to Use This Pillar Efficiently | Support Guides in This Cluster | Recommended Next Steps | Sources and Review Notes
+
+### /chf-staging-overview/
+- H1: CHF Staging Overview for Dogs and Cats
+- Draft lead copy: Staging drives both treatment and follow-up cadence. This overview emphasizes pattern-based staging decisions and how to avoid over- or under-staging when presentation details are incomplete.
+- Outline: Rapid Algorithm | Diagnostic Flow | Treatment Flow | Exam Traps | Practice Prompts | Related Content | Sources and Review Notes
+
+### /murmur-approach-dog-cat/
+- H1: Dog and Cat Murmur Approach: Triage and Workup Logic
+- Draft lead copy: A murmur is a finding, not a diagnosis. This guide helps you classify urgency, connect murmur characteristics with likely disease categories, and choose the next best diagnostic step.
+- Outline: Rapid Algorithm | Diagnostic Flow | Treatment Flow | Exam Traps | Practice Prompts | Related Content | Sources and Review Notes
+
+### /ecg-rhythm-id-af-svt-vt/
+- H1: ECG Rhythm Identification: AF, SVT, and VT in Veterinary Cases
+- Draft lead copy: Arrhythmia questions often hinge on pattern recognition and immediate risk prioritization. This guide focuses on AF, SVT, and VT differentiation with practical clinical implications.
+- Outline: Rapid Algorithm | Diagnostic Flow | Treatment Flow | Exam Traps | Practice Prompts | Related Content | Sources and Review Notes
+
+### /systemic-hypertension-target-organ-damage/
+- H1: Systemic Hypertension and Target Organ Damage in Dogs and Cats
+- Draft lead copy: Systemic hypertension is frequently underdiagnosed until target organ injury is evident. This guide focuses on risk stratification, diagnosis confirmation, and practical follow-up planning.
+- Outline: Rapid Algorithm | Diagnostic Flow | Treatment Flow | Exam Traps | Practice Prompts | Related Content | Sources and Review Notes
+
+### /dcm-basics-dog-cat/
+- H1: Dilated Cardiomyopathy Basics in Dogs and Cats
+- Draft lead copy: DCM questions often combine signalment clues with rhythm and perfusion interpretation. This guide helps you recognize common patterns and build a logical workup and monitoring plan.
+- Outline: Rapid Algorithm | Diagnostic Flow | Treatment Flow | Exam Traps | Practice Prompts | Related Content | Sources and Review Notes
+
+### /pleural-effusion-vs-pulmonary-edema/
+- H1: Pleural Effusion vs Pulmonary Edema: Veterinary Triage Differences
+- Draft lead copy: Respiratory distress decisions depend on whether pathology sits in the pleural space or lung parenchyma. This guide helps you separate patterns quickly and avoid mismatched first-line interventions.
+- Outline: Rapid Algorithm | Diagnostic Flow | Treatment Flow | Exam Traps | Practice Prompts | Related Content | Sources and Review Notes
+
+### /pimobendan-diuretics-overview/
+- H1: Pimobendan and Diuretics in CHF: Educational Overview
+- Draft lead copy: Medication questions are often about indication matching and monitoring, not memorizing isolated dose facts. This overview keeps focus on treatment goals, reassessment, and safety checkpoints.
+- Outline: Rapid Algorithm | Diagnostic Flow | Treatment Flow | Exam Traps | Practice Prompts | Related Content | Sources and Review Notes
+
+### /syncope-differentials-dog-cat/
+- H1: Syncope Differentials in Dogs and Cats: Practical Triage Algorithm
+- Draft lead copy: Syncope cases require fast discrimination between high-risk cardiogenic causes and other transient collapse mimics. This guide provides a structured differential framework with triage priorities.
+- Outline: Rapid Algorithm | Diagnostic Flow | Treatment Flow | Exam Traps | Practice Prompts | Related Content | Sources and Review Notes
+
+## Cluster 3: Core Clinical Calculators + How-to
+
+### /veterinary-calculators-guide/
+- H1: Veterinary Calculators Guide: Dose, Fluids, CRI, and Acid-Base Workflows
+- Draft lead copy: This pillar page organizes the core calculation concepts that repeatedly appear in clinics and NAVLE preparation. Each support page links formula logic to practical interpretation and safety checks.
+- Outline: Core Workflow | How to Use This Pillar Efficiently | Support Guides in This Cluster | Recommended Next Steps | Sources and Review Notes
+
+### /mgkg-dosing-guide/
+- H1: mg/kg Dosing Guide for Veterinary Medication Math
+- Draft lead copy: This guide is for students and clinicians who need reliable mg/kg dosing math during prescribing and exam prep. It keeps focus on unit consistency, concentration conversion, and safety checks.
+- Outline: What This Guide Does | How to Use This Guide in Study Blocks | Inputs and Outputs | Formula Summary (High Level) | Example Calculation | Common Pitfalls and Safety Checks | Related Content | Sources and Review Notes
+
+### /cri-setup-guide/
+- H1: CRI Setup Guide for Veterinary Continuous Infusions
+- Draft lead copy: CRI questions blend calculation with setup reliability. This guide helps you connect concentration planning, infusion rate targets, and monitoring safety in one workflow.
+- Outline: What This Guide Does | How to Use This Guide in Study Blocks | Inputs and Outputs | Formula Summary (High Level) | Example Calculation | Common Pitfalls and Safety Checks | Related Content | Sources and Review Notes
+
+### /fluid-deficit-guide/
+- H1: Fluid Deficit Guide: Veterinary Dehydration Replacement Planning
+- Draft lead copy: Fluid deficit calculations are easy to over-simplify. This guide shows how to convert dehydration percentage into replacement volume while keeping reassessment central.
+- Outline: What This Guide Does | How to Use This Guide in Study Blocks | Inputs and Outputs | Formula Summary (High Level) | Example Calculation | Common Pitfalls and Safety Checks | Related Content | Sources and Review Notes
+
+### /maintenance-fluids-guide/
+- H1: Maintenance Fluids Guide for Veterinary Inpatients
+- Draft lead copy: Maintenance fluids should match physiologic need without masking decline or causing overload. This guide clarifies baseline rate selection and adjustment triggers.
+- Outline: What This Guide Does | How to Use This Guide in Study Blocks | Inputs and Outputs | Formula Summary (High Level) | Example Calculation | Common Pitfalls and Safety Checks | Related Content | Sources and Review Notes
+
+### /anion-gap-interpretation/
+- H1: Anion Gap Interpretation Guide for Veterinary Acid-Base Cases
+- Draft lead copy: Anion gap can sharpen metabolic acidosis interpretation when used in context. This guide covers calculation logic, interpretation boundaries, and practical integration in emergency workflows.
+- Outline: What This Guide Does | How to Use This Guide in Study Blocks | Inputs and Outputs | Formula Summary (High Level) | Example Calculation | Common Pitfalls and Safety Checks | Related Content | Sources and Review Notes
+
+### /osmolality-basics-veterinary/
+- H1: Osmolality Basics for Veterinary Clinical Interpretation
+- Draft lead copy: Osmolality concepts appear in endocrine and critical care decision-making, especially when dehydration and hyperglycemia coexist. This guide keeps the framework practical and clinically grounded.
+- Outline: What This Guide Does | How to Use This Guide in Study Blocks | Inputs and Outputs | Formula Summary (High Level) | Example Calculation | Common Pitfalls and Safety Checks | Related Content | Sources and Review Notes
+
+### /dextrose-correction-guide/
+- H1: Dextrose Correction Guide for Veterinary Patients
+- Draft lead copy: Dextrose correction decisions are often time-sensitive and error-prone. This guide links concentration math to practical monitoring and safe correction pacing.
+- Outline: What This Guide Does | How to Use This Guide in Study Blocks | Inputs and Outputs | Formula Summary (High Level) | Example Calculation | Common Pitfalls and Safety Checks | Related Content | Sources and Review Notes
+
+### /body-condition-score-guide/
+- H1: Body Condition Score Guide for Dogs and Cats
+- Draft lead copy: Body condition scoring becomes clinically useful when linked to trend tracking and nutrition plans. This guide shows how to turn BCS findings into actionable feeding and monitoring targets.
+- Outline: What This Guide Does | How to Use This Guide in Study Blocks | Inputs and Outputs | Formula Summary (High Level) | Example Calculation | Common Pitfalls and Safety Checks | Related Content | Sources and Review Notes
+
+### /toxic-dose-calculations-guide/
+- H1: Toxic Dose Calculations Guide for Veterinary Triage
+- Draft lead copy: Toxicity math should support triage urgency, not create false certainty. This guide explains exposure calculation workflow and interpretation boundaries in real case contexts.
+- Outline: What This Guide Does | How to Use This Guide in Study Blocks | Inputs and Outputs | Formula Summary (High Level) | Example Calculation | Common Pitfalls and Safety Checks | Related Content | Sources and Review Notes
+
+### /lab-interpretation-caveats/
+- H1: Veterinary Lab Interpretation Caveats: Context Before Conclusion
+- Draft lead copy: Laboratory data is powerful when interpreted in context and risky when read in isolation. This guide summarizes practical caveats, species differences, and escalation triggers.
+- Outline: What This Guide Does | How to Use This Guide in Study Blocks | Inputs and Outputs | Formula Summary (High Level) | Example Calculation | Common Pitfalls and Safety Checks | Related Content | Sources and Review Notes
+

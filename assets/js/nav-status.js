@@ -18,6 +18,7 @@
             children: [
                 { label: 'All Veterinary Tools', href: '/tools/' },
                 { label: 'Veterinary Calculators', href: '/veterinary-calculators/' },
+                { label: 'Calculators Guide', href: '/veterinary-calculators-guide/' },
                 { label: 'Emergency Triage Algorithms', href: '/emergency-triage-algorithms/' },
                 { label: 'Dose Calculator', href: '/tools/dose-calculator.html' }
             ]
@@ -30,6 +31,8 @@
                 { label: 'NAVLE Study Hub', href: '/study/navle/' },
                 { label: 'Practice Questions', href: '/study/navle/practice/' },
                 { label: 'NAVLE Practice Questions', href: '/navle-practice-questions/' },
+                { label: 'Emergency and Critical Care', href: '/navle-emergency-critical-care/' },
+                { label: 'Canine and Feline CHF', href: '/canine-feline-chf/' },
                 { label: 'Topic Guides', href: '/study/navle/topics/' },
                 { label: 'Comprehensive Guide', href: '/study/navle/comprehensive/' }
             ]
@@ -62,10 +65,55 @@
             children: [
                 { label: 'About and Credentials', href: '/about.html' },
                 { label: 'Editorial Policy', href: '/editorial-policy/' },
+                { label: 'Sources and Limitations', href: '/sources-and-limitations/' },
                 { label: 'Contact', href: '/contact.html' }
             ]
         }
     ];
+
+    var TOOL_LANDING_PATHS = [
+        '/veterinary-calculators-guide',
+        '/mgkg-dosing-guide',
+        '/cri-setup-guide',
+        '/fluid-deficit-guide',
+        '/maintenance-fluids-guide',
+        '/anion-gap-interpretation',
+        '/osmolality-basics-veterinary',
+        '/dextrose-correction-guide',
+        '/body-condition-score-guide',
+        '/toxic-dose-calculations-guide',
+        '/lab-interpretation-caveats'
+    ];
+
+    var STUDY_LANDING_PATHS = [
+        '/navle-emergency-critical-care',
+        '/gdv-approach',
+        '/shock-types-veterinary',
+        '/sepsis-sirs-veterinary',
+        '/dka-approach-veterinary',
+        '/heatstroke-veterinary',
+        '/transfusion-basics-veterinary',
+        '/rodenticide-bleeding-veterinary',
+        '/pleural-effusion-differentials-veterinary',
+        '/canine-feline-chf',
+        '/chf-staging-overview',
+        '/murmur-approach-dog-cat',
+        '/ecg-rhythm-id-af-svt-vt',
+        '/systemic-hypertension-target-organ-damage',
+        '/dcm-basics-dog-cat',
+        '/pleural-effusion-vs-pulmonary-edema',
+        '/pimobendan-diuretics-overview',
+        '/syncope-differentials-dog-cat'
+    ];
+
+    function startsWithAny(path, prefixes) {
+        for (var i = 0; i < prefixes.length; i += 1) {
+            if (path === prefixes[i] || path.indexOf(prefixes[i] + '/') === 0) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     function isLoggedInFromCache() {
         try {
@@ -127,7 +175,8 @@
             path === '/veterinary-calculators' ||
             path.indexOf('/veterinary-calculators/') === 0 ||
             path === '/emergency-triage-algorithms' ||
-            path.indexOf('/emergency-triage-algorithms/') === 0
+            path.indexOf('/emergency-triage-algorithms/') === 0 ||
+            startsWithAny(path, TOOL_LANDING_PATHS)
         ) {
             return 'tools';
         }
@@ -136,7 +185,8 @@
             path === '/study' ||
             path.indexOf('/study/') === 0 ||
             path === '/navle-practice-questions' ||
-            path.indexOf('/navle-practice-questions/') === 0
+            path.indexOf('/navle-practice-questions/') === 0 ||
+            startsWithAny(path, STUDY_LANDING_PATHS)
         ) {
             return 'navle-study';
         }
@@ -174,7 +224,9 @@
             path === '/contact' ||
             path === '/contact.html' ||
             path === '/editorial-policy' ||
-            path.indexOf('/editorial-policy/') === 0
+            path.indexOf('/editorial-policy/') === 0 ||
+            path === '/sources-and-limitations' ||
+            path.indexOf('/sources-and-limitations/') === 0
         ) {
             return 'about';
         }
@@ -377,9 +429,11 @@
             '<div class="pc-footer-links">' +
             '<a href="/about.html">About & Credentials</a>' +
             '<a href="/editorial-policy/">Editorial Policy</a>' +
+            '<a href="/sources-and-limitations/">Sources & Limitations</a>' +
             '<a href="/pricing/">Pricing</a>' +
             '<a href="/contact.html">Contact</a>' +
             '</div>' +
+            '<p class="pc-footer-note"><strong>About the author:</strong> Parth Chaudhari (BVSc&AH), veterinary educator and NAVLE candidate. <a href="/about.html">View credentials</a>.</p>' +
             '<p class="pc-footer-note">Last reviewed dates appear on key clinical pages and are updated during scheduled content reviews.</p>' +
             '<p class="pc-footer-note">Educational use only. ' + SITE_BRAND + ' does not provide patient-specific diagnosis or treatment advice.</p>';
 
@@ -393,7 +447,8 @@
             path === '/veterinary-calculators' ||
             path.indexOf('/veterinary-calculators/') === 0 ||
             path === '/emergency-triage-algorithms' ||
-            path.indexOf('/emergency-triage-algorithms/') === 0
+            path.indexOf('/emergency-triage-algorithms/') === 0 ||
+            startsWithAny(path, TOOL_LANDING_PATHS)
         ) {
             return { label: 'Tools', href: '/tools/' };
         }
@@ -402,7 +457,8 @@
             path === '/study' ||
             path.indexOf('/study/') === 0 ||
             path === '/navle-practice-questions' ||
-            path.indexOf('/navle-practice-questions/') === 0
+            path.indexOf('/navle-practice-questions/') === 0 ||
+            startsWithAny(path, STUDY_LANDING_PATHS)
         ) {
             return { label: 'NAVLE Study', href: '/study/navle/' };
         }
@@ -425,6 +481,22 @@
             path.indexOf('/cardiology-chf-algorithm/') === 0
         ) {
             return { label: 'Case Studies', href: '/bridge/case-studies/' };
+        }
+
+        if (
+            path === '/about' ||
+            path.indexOf('/about/') === 0 ||
+            path === '/about.html' ||
+            path === '/info' ||
+            path === '/info.html' ||
+            path === '/contact' ||
+            path === '/contact.html' ||
+            path === '/editorial-policy' ||
+            path.indexOf('/editorial-policy/') === 0 ||
+            path === '/sources-and-limitations' ||
+            path.indexOf('/sources-and-limitations/') === 0
+        ) {
+            return { label: 'About', href: '/about.html' };
         }
 
         return null;
