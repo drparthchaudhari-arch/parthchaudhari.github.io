@@ -4,6 +4,7 @@
     var ENCOUNTERS_KEY = 'pc_phase4_encounters_v1';
     var ACTIVE_CASE_MAP_KEY = 'pc_phase4_active_case_map_v1';
     var OFFLINE_QUEUE_KEY = 'pc_phase4_offline_queue_v1';
+    var BACKGROUND_SYNC_TAG = 'pc-phase4-sync';
     var MAX_CALCULATIONS_PER_ENCOUNTER = 250;
     var MAX_EVENTS_PER_ENCOUNTER = 500;
     var MAX_OFFLINE_QUEUE = 100;
@@ -95,6 +96,45 @@
 
     function setOfflineQueue(queue) {
         return safeSet(OFFLINE_QUEUE_KEY, Array.isArray(queue) ? queue : []);
+    }
+
+    function canUseBackgroundSync() {
+        return typeof navigator !== 'undefined' &&
+            'serviceWorker' in navigator &&
+            typeof window !== 'undefined' &&
+            window.isSecureContext === true;
+    }
+
+    function requestQueueSync() {
+        if (!canUseBackgroundSync()) {
+            return Promise.resolve({
+                ok: false,
+                reason: 'background_sync_unavailable'
+            });
+        }
+
+        return navigator.serviceWorker.ready
+            .then(function (registration) {
+                if (!registration || !registration.sync || typeof registration.sync.register !== 'function') {
+                    return {
+                        ok: false,
+                        reason: 'sync_manager_unavailable'
+                    };
+                }
+
+                return registration.sync.register(BACKGROUND_SYNC_TAG)
+                    .then(function () {
+                        return {
+                            ok: true
+                        };
+                    });
+            })
+            .catch(function () {
+                return {
+                    ok: false,
+                    reason: 'sync_register_failed'
+                };
+            });
     }
 
     function parseQuery() {
@@ -200,6 +240,9 @@
         }
 
         setOfflineQueue(queue);
+        requestQueueSync().catch(function () {
+            // Best effort background sync registration.
+        });
         return queue.length;
     }
 
@@ -1018,6 +1061,19 @@
                 // Best effort.
             });
         });
+
+        if (canUseBackgroundSync()) {
+            navigator.serviceWorker.addEventListener('message', function (event) {
+                var data = event && event.data ? event.data : null;
+                if (!data || data.type !== 'pc-phase4-sync-request') {
+                    return;
+                }
+
+                flushQueue().catch(function () {
+                    // Best effort sync on worker request.
+                });
+            });
+        }
     }
 
     window.pcIntegration = {

@@ -3,6 +3,7 @@
 const CACHE_VERSION = 'pc-phase4-offline-v1';
 const RUNTIME_CACHE = 'pc-phase4-runtime-v1';
 const APP_SHELL_CACHE = 'pc-phase4-shell-v1';
+const BACKGROUND_SYNC_TAG = 'pc-phase4-sync';
 
 const PRECACHE_URLS = [
     '/',
@@ -144,5 +145,26 @@ self.addEventListener('message', (event) => {
 
     if (event.data && event.data.type === 'SKIP_WAITING') {
         self.skipWaiting();
+    }
+});
+
+async function notifyClientsForSync() {
+    const allClients = await clients.matchAll({ type: 'window', includeUncontrolled: true });
+    for (let i = 0; i < allClients.length; i += 1) {
+        try {
+            allClients[i].postMessage({ type: 'pc-phase4-sync-request' });
+        } catch (error) {
+            // Ignore per-client failures.
+        }
+    }
+}
+
+self.addEventListener('sync', (event) => {
+    if (!event || !event.tag) {
+        return;
+    }
+
+    if (event.tag === BACKGROUND_SYNC_TAG) {
+        event.waitUntil(notifyClientsForSync());
     }
 });
