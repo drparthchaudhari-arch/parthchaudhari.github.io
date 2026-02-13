@@ -1,6 +1,18 @@
 (function () {
     'use strict';
 
+    var REFERENCE_BASELINE = [
+        'ACVIM cardiology consensus guideline references',
+        'Normal lab values',
+        'RECOVER CPR guidelines'
+    ];
+
+    var integrationContext = {
+        caseId: '',
+        encounterId: '',
+        autoRun: false
+    };
+
     function setText(id, text) {
         var node = document.getElementById(id);
         if (node) {
@@ -8,10 +20,83 @@
         }
     }
 
-    function render(event) {
-        if (event) {
+    function parseQuery() {
+        try {
+            return new URLSearchParams(window.location.search || '');
+        } catch (error) {
+            return new URLSearchParams('');
+        }
+    }
+
+    function isTruthyParam(value) {
+        var normalized = String(value || '').trim().toLowerCase();
+        return normalized === '1' || normalized === 'true' || normalized === 'yes' || normalized === 'on';
+    }
+
+    function setCheckboxFromParam(id, value) {
+        var node = document.getElementById(id);
+        if (!node) {
+            return false;
+        }
+
+        if (!value) {
+            return false;
+        }
+
+        node.checked = isTruthyParam(value);
+        return true;
+    }
+
+    function applyPrefillFromQuery() {
+        var params = parseQuery();
+        var prefilled = false;
+
+        prefilled = setCheckboxFromParam('chf-signs', params.get('signs') || params.get('clinicalSigns')) || prefilled;
+        prefilled = setCheckboxFromParam('chf-edema', params.get('edema')) || prefilled;
+        prefilled = setCheckboxFromParam('chf-remodeling', params.get('remodeling')) || prefilled;
+
+        integrationContext.caseId = String(params.get('case') || params.get('caseId') || '').trim().toLowerCase();
+        integrationContext.encounterId = String(params.get('encounter') || '').trim().toLowerCase();
+        integrationContext.autoRun = String(params.get('auto') || '').trim() === '1';
+
+        var note = document.getElementById('chf-context-note');
+        if (note) {
+            if (integrationContext.caseId || integrationContext.encounterId || prefilled) {
+                note.hidden = false;
+                note.textContent =
+                    'Case-linked prefill active' +
+                    (integrationContext.caseId ? ' for ' + integrationContext.caseId : '') +
+                    (integrationContext.encounterId ? ' | encounter: ' + integrationContext.encounterId : '') +
+                    '.';
+            } else {
+                note.hidden = true;
+            }
+        }
+    }
+
+    function logCalculation(inputs, outputs) {
+        if (!window.pcIntegration || typeof window.pcIntegration.logCalculation !== 'function') {
+            return;
+        }
+
+        window.pcIntegration.logCalculation({
+            caseId: integrationContext.caseId,
+            encounterId: integrationContext.encounterId,
+            caseTitle: document.title,
+            calculatorId: 'chf_staging_planner',
+            calculatorLabel: 'CHF Staging Planner',
+            source: 'tool_chf_staging',
+            inputs: inputs,
+            outputs: outputs,
+            references: REFERENCE_BASELINE
+        });
+    }
+
+    function render(event, options) {
+        if (event && typeof event.preventDefault === 'function') {
             event.preventDefault();
         }
+        var opts = options && typeof options === 'object' ? options : {};
 
         var clinicalSigns = document.getElementById('chf-signs').checked;
         var edema = document.getElementById('chf-edema').checked;
@@ -39,6 +124,21 @@
         setText('chf-next', next);
         setText('chf-recheck', recheck);
         setText('chf-note', 'Educational staging support only. Final stage assignment requires full cardiology workup and clinician judgment.');
+
+        if (!opts.skipLog) {
+            logCalculation(
+                {
+                    clinicalSigns: clinicalSigns,
+                    edema: edema,
+                    remodeling: remodeling
+                },
+                {
+                    stage: stage,
+                    nextStep: next,
+                    recheckTiming: recheck
+                }
+            );
+        }
     }
 
     function init() {
@@ -46,9 +146,15 @@
         if (!form) {
             return;
         }
-        form.addEventListener('submit', render);
-        form.addEventListener('change', render);
-        render();
+
+        applyPrefillFromQuery();
+        form.addEventListener('submit', function (event) {
+            render(event, { skipLog: false });
+        });
+        form.addEventListener('change', function () {
+            render(null, { skipLog: true });
+        });
+        render(null, { skipLog: !integrationContext.autoRun });
     }
 
     if (document.readyState === 'loading') {

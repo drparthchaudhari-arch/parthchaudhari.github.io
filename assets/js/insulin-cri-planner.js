@@ -1,6 +1,18 @@
 (function () {
     'use strict';
 
+    var REFERENCE_BASELINE = [
+        'DailyMed drug labels',
+        'Normal lab values',
+        'RECOVER CPR guidelines'
+    ];
+
+    var integrationContext = {
+        caseId: '',
+        encounterId: '',
+        autoRun: false
+    };
+
     function toNumber(value) {
         var parsed = Number(value);
         return Number.isFinite(parsed) ? parsed : NaN;
@@ -20,9 +32,60 @@
         }
     }
 
-    function calculate(event) {
-        event.preventDefault();
+    function parseQuery() {
+        try {
+            return new URLSearchParams(window.location.search || '');
+        } catch (error) {
+            return new URLSearchParams('');
+        }
+    }
 
+    function setInputValue(id, value, allowZero) {
+        var node = document.getElementById(id);
+        var numeric = toNumber(value);
+
+        if (!node || !Number.isFinite(numeric)) {
+            return false;
+        }
+
+        if (!allowZero && numeric <= 0) {
+            return false;
+        }
+
+        node.value = String(numeric);
+        return true;
+    }
+
+    function applyPrefillFromQuery() {
+        var params = parseQuery();
+        var prefilled = false;
+
+        prefilled = setInputValue('icp-weight', params.get('weight'), false) || prefilled;
+        prefilled = setInputValue('icp-dose', params.get('dose'), false) || prefilled;
+        prefilled = setInputValue('icp-bag-volume', params.get('bag'), false) || prefilled;
+        prefilled = setInputValue('icp-insulin-units', params.get('units'), false) || prefilled;
+        prefilled = setInputValue('icp-bg', params.get('bg'), false) || prefilled;
+
+        integrationContext.caseId = String(params.get('case') || params.get('caseId') || '').trim().toLowerCase();
+        integrationContext.encounterId = String(params.get('encounter') || '').trim().toLowerCase();
+        integrationContext.autoRun = String(params.get('auto') || '').trim() === '1';
+
+        var note = document.getElementById('icp-context-note');
+        if (note) {
+            if (integrationContext.caseId || integrationContext.encounterId || prefilled) {
+                note.hidden = false;
+                note.textContent =
+                    'Case-linked prefill active' +
+                    (integrationContext.caseId ? ' for ' + integrationContext.caseId : '') +
+                    (integrationContext.encounterId ? ' | encounter: ' + integrationContext.encounterId : '') +
+                    '.';
+            } else {
+                note.hidden = true;
+            }
+        }
+    }
+
+    function readInputs() {
         var weight = toNumber(document.getElementById('icp-weight').value);
         var dose = toNumber(document.getElementById('icp-dose').value);
         var bagVolume = toNumber(document.getElementById('icp-bag-volume').value);
@@ -33,9 +96,29 @@
             !Number.isFinite(dose) || dose <= 0 ||
             !Number.isFinite(bagVolume) || bagVolume <= 0 ||
             !Number.isFinite(insulinUnits) || insulinUnits <= 0) {
-            setText('icp-note', 'Enter valid positive values for weight, dose, bag volume, and insulin units.');
-            return;
+            return null;
         }
+
+        return {
+            weight: weight,
+            dose: dose,
+            bagVolume: bagVolume,
+            insulinUnits: insulinUnits,
+            bg: bg
+        };
+    }
+
+    function renderCalculation(input) {
+        if (!input) {
+            return null;
+        }
+
+        var weight = input.weight;
+        var dose = input.dose;
+        var bagVolume = input.bagVolume;
+        var insulinUnits = input.insulinUnits;
+        var bg = input.bg;
+
 
         var concentration = insulinUnits / bagVolume;
         var requiredUnitsPerHour = weight * dose;
@@ -65,6 +148,62 @@
 
         notes.push('Recheck BG/electrolytes every 2-4 hours and adjust CRI/dextrose together.');
         setText('icp-note', notes.join(' '));
+
+        return {
+            concentration: concentration,
+            requiredUnitsPerHour: requiredUnitsPerHour,
+            infusionRateMlHr: infusionRateMlHr,
+            dextroseLow: dextroseLow,
+            dextroseHigh: dextroseHigh
+        };
+    }
+
+    function logCalculation(input, output) {
+        if (!window.pcIntegration || typeof window.pcIntegration.logCalculation !== 'function') {
+            return;
+        }
+
+        window.pcIntegration.logCalculation({
+            caseId: integrationContext.caseId,
+            encounterId: integrationContext.encounterId,
+            caseTitle: document.title,
+            calculatorId: 'insulin_cri_planner',
+            calculatorLabel: 'Insulin CRI Planner',
+            source: 'tool_insulin_cri',
+            inputs: {
+                weightKg: input.weight,
+                doseUkgHr: input.dose,
+                bagVolumeMl: input.bagVolume,
+                insulinUnitsAdded: input.insulinUnits,
+                currentBgMgDl: Number.isFinite(input.bg) ? input.bg : null
+            },
+            outputs: {
+                concentrationUml: output.concentration,
+                unitsPerHour: output.requiredUnitsPerHour,
+                infusionRateMlHr: output.infusionRateMlHr,
+                dextroseSupportRangeGhr: [output.dextroseLow, output.dextroseHigh]
+            },
+            references: REFERENCE_BASELINE
+        });
+    }
+
+    function calculate(event) {
+        if (event && typeof event.preventDefault === 'function') {
+            event.preventDefault();
+        }
+
+        var input = readInputs();
+        if (!input) {
+            setText('icp-note', 'Enter valid positive values for weight, dose, bag volume, and insulin units.');
+            return;
+        }
+
+        var output = renderCalculation(input);
+        if (!output) {
+            return;
+        }
+
+        logCalculation(input, output);
     }
 
     function init() {
@@ -72,7 +211,13 @@
         if (!form) {
             return;
         }
+
+        applyPrefillFromQuery();
         form.addEventListener('submit', calculate);
+
+        if (integrationContext.autoRun) {
+            calculate();
+        }
     }
 
     if (document.readyState === 'loading') {
