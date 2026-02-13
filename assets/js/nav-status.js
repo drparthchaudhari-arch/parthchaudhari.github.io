@@ -19,75 +19,12 @@
     var ANALYTICS_BUFFER_LIMIT = 80;
     var NAV_ITEMS = [
         { id: 'home', label: 'Home', href: '/' },
-        {
-            id: 'tools-reference',
-            label: 'Tools & References',
-            href: '/tools/',
-            children: [
-                {
-                    label: 'Tools',
-                    href: '/tools/',
-                    children: [
-                        { label: 'All Veterinary Tools', href: '/tools/' },
-                        { label: 'Veterinary Calculators', href: '/veterinary-calculators/' },
-                        { label: 'Calculators Guide', href: '/veterinary-calculators-guide/' },
-                        { label: 'Emergency Triage Algorithms', href: '/emergency-triage-algorithms/' },
-                        { label: 'Dose Calculator', href: '/tools/dose-calculator.html' }
-                    ]
-                },
-                {
-                    label: 'References',
-                    href: '/reference/',
-                    children: [
-                        { label: 'Reference Library', href: '/reference/' },
-                        { label: 'Normal Values', href: '/reference/normal-values.html' },
-                        { label: 'Dog and Cat Normal Values', href: '/dog-cat-normal-values/' },
-                        { label: 'Toxicity Reference', href: '/reference/toxicities.html' },
-                        { label: 'Sources and Limitations', href: '/sources-and-limitations/' }
-                    ]
-                }
-            ]
-        },
-        {
-            id: 'navle-hub',
-            label: 'NAVLE Hub',
-            href: '/study/navle/',
-            children: [
-                {
-                    label: 'NAVLE Study',
-                    href: '/study/navle/',
-                    children: [
-                        { label: 'Study Hub', href: '/study/navle/' },
-                        {
-                            label: 'Case Studies',
-                            href: '/clinical-case-studies/',
-                            children: [
-                                { label: 'Practice Questions', href: '/study/navle/practice/' },
-                                { label: 'Emergency and Critical Care', href: '/navle-emergency-critical-care/' },
-                                { label: 'Case Studies Hub', href: '/clinical-case-studies/' },
-                                { label: 'Clinical Case Directory', href: '/bridge/case-studies/' },
-                                { label: 'Cardiology CHF Algorithm', href: '/cardiology-chf-algorithm/' }
-                            ]
-                        },
-                        {
-                            label: 'Topics',
-                            href: '/study/navle/topics/',
-                            children: [
-                                { label: 'Canine and Feline CHF', href: '/canine-feline-chf/' },
-                                { label: 'Topic + Comprehensive Guides', href: '/study/navle/comprehensive/' }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
         { id: 'pricing', label: 'Pricing', href: '/pricing/' },
         {
             id: 'about',
             label: 'About',
             href: '/about.html',
             children: [
-                { label: 'About and Credentials', href: '/about.html' },
                 { label: 'Editorial Policy', href: '/editorial-policy/' },
                 { label: 'Contact', href: '/contact.html' }
             ]
@@ -215,43 +152,6 @@
 
         if (path === '/') {
             return 'home';
-        }
-
-        if (
-            path === '/tools' ||
-            path.indexOf('/tools/') === 0 ||
-            path === '/veterinary-calculators' ||
-            path.indexOf('/veterinary-calculators/') === 0 ||
-            path === '/emergency-triage-algorithms' ||
-            path.indexOf('/emergency-triage-algorithms/') === 0 ||
-            path === '/sources-and-limitations' ||
-            path.indexOf('/sources-and-limitations/') === 0 ||
-            startsWithAny(path, TOOL_LANDING_PATHS)
-        ) {
-            return 'tools-reference';
-        }
-
-        if (
-            path === '/study' ||
-            path.indexOf('/study/') === 0 ||
-            path === '/bridge' ||
-            path.indexOf('/bridge/') === 0 ||
-            path === '/clinical-case-studies' ||
-            path.indexOf('/clinical-case-studies/') === 0 ||
-            path === '/cardiology-chf-algorithm' ||
-            path.indexOf('/cardiology-chf-algorithm/') === 0 ||
-            startsWithAny(path, STUDY_LANDING_PATHS)
-        ) {
-            return 'navle-hub';
-        }
-
-        if (
-            path === '/reference' ||
-            path.indexOf('/reference/') === 0 ||
-            path === '/dog-cat-normal-values' ||
-            path.indexOf('/dog-cat-normal-values/') === 0
-        ) {
-            return 'tools-reference';
         }
 
         if (path === '/pricing' || path.indexOf('/pricing/') === 0) {
