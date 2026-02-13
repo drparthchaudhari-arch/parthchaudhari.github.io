@@ -44,8 +44,8 @@
             ? ca + (0.8 * (3.5 - albumin))
             : NaN;
 
-        var osmolality = Number.isFinite(na) && Number.isFinite(k) && Number.isFinite(glucose) && Number.isFinite(bun)
-            ? (2 * (na + k)) + (glucose / 18) + (bun / 2.8)
+        var osmolality = Number.isFinite(na) && Number.isFinite(glucose) && Number.isFinite(bun)
+            ? (2 * na) + (glucose / 18) + (bun / 2.8)
             : NaN;
 
         setText('ab-gap', format(anionGap, 1));
@@ -70,6 +70,10 @@
 
         if (Number.isFinite(osmolality) && osmolality > 320) {
             notes.push('Marked hyperosmolar state estimate.');
+        }
+
+        if (Number.isFinite(osmolality)) {
+            notes.push('Estimated osmolality uses 2 x Na + glucose/18 + BUN/2.8.');
         }
 
         setText('ab-note', notes.length ? notes.join(' ') : 'Provide full chemistry/electrolyte panel for interpretation support.');

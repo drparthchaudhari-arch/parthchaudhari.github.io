@@ -60,9 +60,11 @@
                 </label>
                 <div class="pc-calculator-actions">
                     <button type="submit" class="pc-btn pc-btn--primary">Update Doses</button>
+                    <button id="er-print" type="button" class="pc-btn pc-btn--secondary">Print Chart</button>
+                    <button id="er-reset-concentration" type="button" class="pc-btn pc-btn--secondary">Reset Concentrations</button>
                 </div>
             </form>
-            <p class="pc-calculator-note">Doses are educational estimates. Always verify route, concentration, and case context.</p>
+            <p class="pc-calculator-note">Doses are educational estimates. You can adjust concentration values for your stocked formulations.</p>
         </section>
 
         <section class="pc-bridge-section" aria-labelledby="er-chart-title" aria-live="polite">
@@ -74,6 +76,7 @@
                             <th>Use Case</th>
                             <th>Drug</th>
                             <th>Standard Dose</th>
+                            <th>Concentration</th>
                             <th>Calculated Dose</th>
                             <th>Approx Volume</th>
                             <th>Route</th>
@@ -83,6 +86,11 @@
                 </table>
             </div>
             <p id="er-drug-note" class="pc-calculator-note">Enter weight and update to render doses.</p>
+            <p class="pc-disclaimer">
+                Merck source baseline (reviewed February 13, 2026):
+                <a href="https://www.merckvetmanual.com/emergency-medicine-and-critical-care/cardiopulmonary-cerebral-resuscitation/cardiopulmonary-resuscitation-in-small-animals" target="_blank" rel="noopener noreferrer">Cardiopulmonary Resuscitation in Small Animals</a>,
+                <a href="https://www.merckvetmanual.com/pages-with-widgets/clinical-calculators" target="_blank" rel="noopener noreferrer">Merck Emergency Drug Calculator</a>.
+            </p>
         </section>
     </main>
 </body>

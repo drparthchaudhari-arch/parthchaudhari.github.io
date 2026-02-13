@@ -1519,6 +1519,10 @@
     font-size: 0.84rem;
 }
 
+.pc-disclaimer a {
+    color: var(--pc-primary);
+}
+
 .pc-completed-badge {
     display: inline-flex;
     min-height: 36px;
@@ -4148,6 +4152,12 @@
     gap: 0.8rem;
 }
 
+.pc-tool-subtitle {
+    margin: 0.2rem 0 0.7rem;
+    color: var(--pc-text-muted);
+    font-size: 0.92rem;
+}
+
 .pc-tool-launch {
     --pc-tool-accent: #2f8fda;
     --pc-tool-glow: rgba(47, 143, 218, 0.22);
@@ -4253,6 +4263,48 @@
 .pc-tool-launch--lime {
     --pc-tool-accent: #6f9d2a;
     --pc-tool-glow: rgba(111, 157, 42, 0.24);
+}
+
+.pc-tool-launch--priority {
+    border-width: 2px;
+}
+
+.pc-tool-launch--planned {
+    border-style: dashed;
+    opacity: 0.94;
+}
+
+.pc-er-concentration-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.pc-er-concentration-input.pc-input {
+    width: 7.2rem;
+    min-width: 7.2rem;
+    padding: 0.36rem 0.5rem;
+    border-width: 1px;
+    font-size: 0.84rem;
+}
+
+.pc-er-concentration-unit {
+    color: var(--pc-text-muted);
+    font-size: 0.78rem;
+    white-space: nowrap;
+}
+
+.pc-er-default {
+    display: block;
+    margin-top: 0.24rem;
+    color: var(--pc-text-muted);
+    font-size: 0.72rem;
+    line-height: 1.4;
+}
+
+.pc-er-concentration-na {
+    color: var(--pc-text-muted);
+    font-size: 0.8rem;
 }
 
 .pc-tool-module-grid {
