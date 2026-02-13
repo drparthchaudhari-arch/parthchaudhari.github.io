@@ -18,6 +18,7 @@
     var ANALYTICS_BUFFER_KEY = 'pc_analytics_buffer_v1';
     var ANALYTICS_BUFFER_LIMIT = 80;
     var NAV_ITEMS = [
+        { id: 'home', label: 'Home', href: '/' },
         {
             id: 'tools-reference',
             label: 'Tools & References',
@@ -211,6 +212,10 @@
 
     function getActiveNavId(pathname) {
         var path = normalizePath(pathname);
+
+        if (path === '/') {
+            return 'home';
+        }
 
         if (
             path === '/tools' ||
