@@ -47,11 +47,21 @@
         <section class="pc-bridge-section" aria-labelledby="label-title">
             <h2 id="label-title" class="pc-bridge-title">Label Inputs</h2>
             <form id="label-form" class="pc-calculator-grid" novalidate>
+                <label class="pc-calculator-field" for="label-clinic"><span>Clinic Name</span><input id="label-clinic" class="pc-input" type="text" placeholder="Clinic Name"></label>
                 <label class="pc-calculator-field" for="label-patient"><span>Patient Name</span><input id="label-patient" class="pc-input" type="text" placeholder="Patient"></label>
                 <label class="pc-calculator-field" for="label-med"><span>Medication</span><input id="label-med" class="pc-input" type="text" placeholder="Medication name"></label>
+                <label class="pc-calculator-field" for="label-form-type">
+                    <span>Dosage Form</span>
+                    <select id="label-form-type" class="pc-input">
+                        <option value="Liquid">Liquid</option>
+                        <option value="Tablets">Tablets</option>
+                        <option value="Injection">Injection</option>
+                    </select>
+                </label>
                 <label class="pc-calculator-field" for="label-dose"><span>Dose per administration</span><input id="label-dose" class="pc-input" type="text" placeholder="e.g. 2.5 mg (0.5 mL)"></label>
                 <label class="pc-calculator-field" for="label-frequency"><span>Frequency</span><input id="label-frequency" class="pc-input" type="text" placeholder="e.g. Every 12 hours"></label>
                 <label class="pc-calculator-field" for="label-duration"><span>Duration (days)</span><input id="label-duration" class="pc-input" type="number" min="1" step="1" value="7"></label>
+                <label class="pc-calculator-field" for="label-total-amount"><span>Total Amount Dispensed</span><input id="label-total-amount" class="pc-input" type="text" placeholder="e.g. 30 mL / 14 tablets / 1 vial"></label>
                 <label class="pc-calculator-field" for="label-instructions"><span>Special Instructions</span><textarea id="label-instructions" class="pc-input" rows="3" placeholder="With food / shake well / complete full course"></textarea></label>
                 <div class="pc-calculator-actions">
                     <button type="submit" class="pc-btn pc-btn--primary">Generate Label</button>

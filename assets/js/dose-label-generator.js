@@ -7,21 +7,41 @@
     }
 
     function buildLabel() {
+        var clinic = text('label-clinic') || 'Veterinary Clinic';
         var patient = text('label-patient') || 'Patient';
         var med = text('label-med') || 'Medication';
+        var formType = text('label-form-type') || 'Liquid';
         var dose = text('label-dose') || 'As prescribed';
         var frequency = text('label-frequency') || 'As directed';
         var duration = text('label-duration') || '7';
+        var totalAmount = text('label-total-amount') || 'As dispensed';
         var instructions = text('label-instructions') || 'Complete the full prescribed course unless directed otherwise.';
+        var formHint = '';
+
+        if (formType === 'Liquid') {
+            formHint = 'Shake well before each use.';
+        } else if (formType === 'Tablets') {
+            formHint = 'Do not crush or split unless directed by veterinarian.';
+        } else if (formType === 'Injection') {
+            formHint = 'Administer exactly as instructed by veterinarian.';
+        }
+
+        var finalInstructions = instructions;
+        if (formHint) {
+            finalInstructions += ' ' + formHint;
+        }
 
         return [
             'VETERINARY MEDICATION LABEL',
+            'Clinic: ' + clinic,
             'Patient: ' + patient,
             'Medication: ' + med,
+            'Dosage Form: ' + formType,
             'Dose: ' + dose,
             'Frequency: ' + frequency,
             'Duration: ' + duration + ' day(s)',
-            'Instructions: ' + instructions,
+            'Total Dispensed: ' + totalAmount,
+            'Instructions: ' + finalInstructions,
             'Warnings: Keep out of reach of children. Contact clinic for adverse effects.'
         ].join('\n');
     }
