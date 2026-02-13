@@ -1174,7 +1174,7 @@
 }
 
 .pc-photo-frame.pc-photo-placeholder::before {
-    content: 'Profile photo coming soon';
+    content: 'Photo coming soon';
     color: var(--pc-text-muted);
     font-weight: 600;
     font-size: 0.94rem;

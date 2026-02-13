@@ -1,12 +1,12 @@
 (function () {
     var SEARCH_INDEX_URL = '/assets/search/index.json';
-    var FILTER_ORDER = ['all', 'case', 'game', 'resource', 'profile'];
-    var GROUP_ORDER = ['case', 'game', 'resource', 'profile'];
+    var FILTER_ORDER = ['all', 'case', 'game', 'resource', 'about'];
+    var GROUP_ORDER = ['case', 'game', 'resource', 'about'];
     var GROUP_LABELS = {
         case: 'Cases',
         game: 'Games',
         resource: 'Resources',
-        profile: 'Profile'
+        about: 'About Me'
     };
 
     var POPULAR_LINKS = [
@@ -263,7 +263,7 @@
 
         state.resultLinks = [];
         state.activeResultIndex = -1;
-        setSummary('Type to search cases, games, resources, and profile content.');
+        setSummary('Type to search cases, games, resources, and about me content.');
     }
 
     function renderNoResults(query) {
