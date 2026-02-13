@@ -25,8 +25,7 @@
                 { label: 'Memory Match', href: '/play/memory-match/' },
                 { label: '2048', href: '/play/2048/' },
                 { label: 'Tic-Tac-Toe', href: '/play/tictactoe/' },
-                { label: 'IQ Challenge', href: '/play/iq-challenge/' },
-                { label: 'WordVet', href: '/play/wordvet/' }
+                { label: 'IQ Challenge', href: '/play/iq-challenge/' }
             ]
         },
         {
