@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-02-13T16:12:17.505Z",
+  "generatedAt": "2026-02-13T17:18:54.702Z",
   "killSwitch": false,
   "minWordCount": 420,
   "pages": [
     {
       "route": "/reference/programmatic/canine-cbc-normal-values/",
       "slug": "canine-cbc-normal-values",
-      "words": 655,
+      "words": 687,
       "noindex": false,
       "indexable": true,
       "noindexReason": ""
@@ -14,7 +14,7 @@
     {
       "route": "/reference/programmatic/feline-chemistry-normal-values/",
       "slug": "feline-chemistry-normal-values",
-      "words": 598,
+      "words": 627,
       "noindex": false,
       "indexable": true,
       "noindexReason": ""
@@ -22,7 +22,7 @@
     {
       "route": "/reference/programmatic/chocolate-toxicity-dose-thresholds-dogs/",
       "slug": "chocolate-toxicity-dose-thresholds-dogs",
-      "words": 525,
+      "words": 556,
       "noindex": false,
       "indexable": true,
       "noindexReason": ""

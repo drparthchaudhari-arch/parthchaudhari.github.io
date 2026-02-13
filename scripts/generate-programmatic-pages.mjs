@@ -58,7 +58,14 @@ function tableRows(rows) {
 
 function sourceList(sources) {
   return (sources || [])
-    .map((source) => `                <li><a href="${escapeHtml(source.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.label)}</a></li>`)
+    .map((source) => {
+      const label = escapeHtml(source.label || '');
+      const href = source.href ? escapeHtml(source.href) : '';
+      if (!href) {
+        return `                <li>${label}</li>`;
+      }
+      return `                <li><a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a></li>`;
+    })
     .join('\n');
 }
 

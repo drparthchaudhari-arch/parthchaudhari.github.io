@@ -3,19 +3,21 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 const LAST_REVIEWED = 'February 13, 2026';
 const BASE_URL = 'https://parthchaudhari.com';
 
-const sharedSources = [
-  {
-    label: 'Merck Veterinary Manual: Emergency Medicine and Critical Care',
-    href: 'https://www.merckvetmanual.com/emergency-medicine-and-critical-care'
-  },
-  {
-    label: 'Merck Veterinary Manual: Heart Failure in Small Animals',
-    href: 'https://www.merckvetmanual.com/circulatory-system/heart-failure/heart-failure-in-small-animals'
-  },
-  {
-    label: 'Merck Veterinary Manual: Fluid Therapy and Shock',
-    href: 'https://www.merckvetmanual.com/emergency-medicine-and-critical-care/fluid-therapy'
-  }
+const approvedReferences = [
+  'Drug label search (DailyMed)',
+  'IRIS stages',
+  'Normal lab values',
+  'Heartworm treatment protocol',
+  'Lab test protocols',
+  'Microchip lookup',
+  'Vertebral Heart Score',
+  'BCS charts',
+  'ACVIM cardiology consensus guideline references',
+  'Dental charts',
+  'AAHA vaccination guidelines',
+  'Flea/tick product info',
+  'Dog/cat breed search',
+  'RECOVER CPR guidelines'
 ];
 
 function toPath(slug) {
@@ -85,7 +87,7 @@ function renderSources() {
   return `        <section class="pc-bridge-section" aria-label="Sources and review notes">
             <h2 class="pc-bridge-title">Sources and Review Notes</h2>
             <ul class="pc-link-list">
-${linkListItems(sharedSources)}
+${listItems(approvedReferences)}
             </ul>
             <p class="pc-last-reviewed">Last reviewed: ${LAST_REVIEWED}</p>
             <div class="pc-note-box">
@@ -1861,7 +1863,7 @@ const sourcesPage = wrapPage({
         <section class="pc-bridge-section" aria-label="Sources approach">
             <h2 class="pc-bridge-title">Sources Approach</h2>
             <ul class="pc-link-list">
-${linkListItems(sharedSources)}
+${listItems(approvedReferences)}
                 <li>Supplemental interpretation relies on established veterinary clinical education practice and exam-oriented framing.</li>
                 <li>High-impact pages are reviewed on a recurring schedule and updated when major guidance shifts are identified.</li>
             </ul>

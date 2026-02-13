@@ -66,12 +66,46 @@
       ],
       "sources": [
         {
-          "label": "Merck Veterinary Manual: Hematology",
-          "href": "https://www.merckvetmanual.com/clinical-pathology-and-procedures/hematology"
+          "label": "Drug label search (DailyMed)"
         },
         {
-          "label": "Merck Veterinary Manual: Clinical Pathology",
-          "href": "https://www.merckvetmanual.com/clinical-pathology-and-procedures"
+          "label": "IRIS stages"
+        },
+        {
+          "label": "Normal lab values"
+        },
+        {
+          "label": "Heartworm treatment protocol"
+        },
+        {
+          "label": "Lab test protocols"
+        },
+        {
+          "label": "Microchip lookup"
+        },
+        {
+          "label": "Vertebral Heart Score"
+        },
+        {
+          "label": "BCS charts"
+        },
+        {
+          "label": "ACVIM cardiology consensus guideline references"
+        },
+        {
+          "label": "Dental charts"
+        },
+        {
+          "label": "AAHA vaccination guidelines"
+        },
+        {
+          "label": "Flea/tick product info"
+        },
+        {
+          "label": "Dog/cat breed search"
+        },
+        {
+          "label": "RECOVER CPR guidelines"
         }
       ],
       "relatedLinks": [
@@ -146,12 +180,46 @@
       ],
       "sources": [
         {
-          "label": "Merck Veterinary Manual: Biochemistry Reference",
-          "href": "https://www.merckvetmanual.com/clinical-pathology-and-procedures/biochemistry"
+          "label": "Drug label search (DailyMed)"
         },
         {
-          "label": "Merck Veterinary Manual: Renal and Urinary Disorders",
-          "href": "https://www.merckvetmanual.com/urinary-system"
+          "label": "IRIS stages"
+        },
+        {
+          "label": "Normal lab values"
+        },
+        {
+          "label": "Heartworm treatment protocol"
+        },
+        {
+          "label": "Lab test protocols"
+        },
+        {
+          "label": "Microchip lookup"
+        },
+        {
+          "label": "Vertebral Heart Score"
+        },
+        {
+          "label": "BCS charts"
+        },
+        {
+          "label": "ACVIM cardiology consensus guideline references"
+        },
+        {
+          "label": "Dental charts"
+        },
+        {
+          "label": "AAHA vaccination guidelines"
+        },
+        {
+          "label": "Flea/tick product info"
+        },
+        {
+          "label": "Dog/cat breed search"
+        },
+        {
+          "label": "RECOVER CPR guidelines"
         }
       ],
       "relatedLinks": [
@@ -220,12 +288,46 @@
       ],
       "sources": [
         {
-          "label": "Merck Veterinary Manual: Toxicology",
-          "href": "https://www.merckvetmanual.com/toxicology"
+          "label": "Drug label search (DailyMed)"
         },
         {
-          "label": "Merck Veterinary Manual: Small Animal Poisoning",
-          "href": "https://www.merckvetmanual.com/toxicology/toxicoses-from-human-and-veterinary-medications"
+          "label": "IRIS stages"
+        },
+        {
+          "label": "Normal lab values"
+        },
+        {
+          "label": "Heartworm treatment protocol"
+        },
+        {
+          "label": "Lab test protocols"
+        },
+        {
+          "label": "Microchip lookup"
+        },
+        {
+          "label": "Vertebral Heart Score"
+        },
+        {
+          "label": "BCS charts"
+        },
+        {
+          "label": "ACVIM cardiology consensus guideline references"
+        },
+        {
+          "label": "Dental charts"
+        },
+        {
+          "label": "AAHA vaccination guidelines"
+        },
+        {
+          "label": "Flea/tick product info"
+        },
+        {
+          "label": "Dog/cat breed search"
+        },
+        {
+          "label": "RECOVER CPR guidelines"
         }
       ],
       "relatedLinks": [
