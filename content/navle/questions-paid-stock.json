@@ -1,0 +1,262 @@
+[
+  {
+    "id": "navle_001",
+    "topic": "cardiology",
+    "stem": "An 8-year-old Golden Retriever presents with cough, exercise intolerance, and grade IV/VI left apical systolic murmur. Thoracic radiographs reveal cardiomegaly and pulmonary infiltrates. What is the most appropriate next diagnostic test?",
+    "options": {
+      "A": "Thoracic radiographs (lateral and DV views)",
+      "B": "Echocardiogram with Doppler",
+      "C": "NT-proBNP blood test",
+      "D": "Electrocardiogram"
+    },
+    "correct": "A",
+    "explanation": "While echocardiography provides detailed cardiac structure assessment, thoracic radiographs are the most appropriate initial test to confirm active pulmonary congestion."
+  },
+  {
+    "id": "navle_002",
+    "topic": "cardiology",
+    "stem": "A 9-year-old Cavalier King Charles Spaniel has acute dyspnea, crackles, and radiographic pulmonary edema. What is the best immediate medication priority?",
+    "options": {
+      "A": "Start oral enalapril only",
+      "B": "Give furosemide and oxygen support",
+      "C": "Delay treatment until echocardiography",
+      "D": "Use corticosteroids as first-line therapy"
+    },
+    "correct": "B",
+    "explanation": "Acute cardiogenic edema is a stabilize-first emergency. Oxygen and loop diuretic therapy are first-line while diagnostics continue."
+  },
+  {
+    "id": "navle_003",
+    "topic": "endocrinology",
+    "stem": "A dog with confirmed diabetic ketoacidosis is severely dehydrated. What should happen before insulin infusion is started?",
+    "options": {
+      "A": "Begin regular insulin immediately",
+      "B": "Administer bicarbonate first",
+      "C": "Initiate fluid resuscitation and plan potassium support",
+      "D": "Restrict fluids to avoid cerebral edema"
+    },
+    "correct": "C",
+    "explanation": "In DKA, perfusion restoration and electrolyte planning precede insulin to avoid abrupt potassium decline and worsening instability."
+  },
+  {
+    "id": "navle_004",
+    "topic": "emergency",
+    "stem": "An obstructed male cat has severe hyperkalemia with bradycardia and peaked T waves. Which intervention protects the myocardium first?",
+    "options": {
+      "A": "Calcium gluconate",
+      "B": "Furosemide",
+      "C": "Prednisolone",
+      "D": "Cefovecin"
+    },
+    "correct": "A",
+    "explanation": "Calcium gluconate stabilizes cardiac membranes in life-threatening hyperkalemia. Potassium-shifting and removal strategies follow."
+  },
+  {
+    "id": "navle_005",
+    "topic": "emergency",
+    "stem": "A Great Dane presents with non-productive retching, shock, and severe abdominal distension. Which sequence is most appropriate?",
+    "options": {
+      "A": "Immediate surgery without stabilization",
+      "B": "Fluids, decompression, then surgical correction with gastropexy",
+      "C": "Observe for 12 hours before intervention",
+      "D": "Treat with oral antacids only"
+    },
+    "correct": "B",
+    "explanation": "GDV management requires rapid stabilization, gastric decompression, and definitive surgery once perfusion improves."
+  },
+  {
+    "id": "navle_006",
+    "topic": "toxicology",
+    "stem": "Which chocolate source is generally highest risk for severe theobromine toxicity at smaller ingested amounts?",
+    "options": {
+      "A": "Milk chocolate",
+      "B": "White chocolate",
+      "C": "Baking chocolate",
+      "D": "Chocolate-flavored cereal"
+    },
+    "correct": "C",
+    "explanation": "Baking chocolate has high theobromine concentration, increasing toxicity risk at lower ingested doses."
+  },
+  {
+    "id": "navle_007",
+    "topic": "toxicology",
+    "stem": "A cat chewed true lily leaves 2 hours ago and is asymptomatic. Best next step?",
+    "options": {
+      "A": "Wait for azotemia before treatment",
+      "B": "Immediate decontamination and aggressive IV fluids",
+      "C": "Single antiemetic and discharge",
+      "D": "No therapy needed unless vomiting starts"
+    },
+    "correct": "B",
+    "explanation": "Any true lily exposure in cats is an emergency. Early decontamination and renal-protective fluids are time-critical."
+  },
+  {
+    "id": "navle_008",
+    "topic": "endocrinology",
+    "stem": "Which electrolyte pattern is most classically associated with Addisonian crisis in dogs?",
+    "options": {
+      "A": "Hypernatremia and hypokalemia",
+      "B": "Hyponatremia and hyperkalemia",
+      "C": "Hypercalcemia and hypophosphatemia",
+      "D": "Normal sodium and potassium"
+    },
+    "correct": "B",
+    "explanation": "Primary hypoadrenocorticism commonly causes low sodium and high potassium due to mineralocorticoid deficiency."
+  },
+  {
+    "id": "navle_009",
+    "topic": "bovine",
+    "stem": "A postpartum dairy cow has reduced appetite and a left-sided ping. Most likely diagnosis?",
+    "options": {
+      "A": "Left displaced abomasum",
+      "B": "Right-sided heart failure",
+      "C": "Acute rabies",
+      "D": "Pulmonary edema"
+    },
+    "correct": "A",
+    "explanation": "Classic LDA findings include recent calving, reduced intake, and left-sided ping in the appropriate rib space."
+  },
+  {
+    "id": "navle_010",
+    "topic": "equine",
+    "stem": "In an adult horse with colic, which finding strongly increases need for surgical referral?",
+    "options": {
+      "A": "Mild intermittent discomfort responsive to analgesics",
+      "B": "Heart rate persistently above 60 bpm with refractory pain",
+      "C": "Single soft fecal output",
+      "D": "Normal abdominal ultrasound"
+    },
+    "correct": "B",
+    "explanation": "Persistent severe pain and tachycardia despite medical management are key surgical red flags in equine colic."
+  },
+  {
+    "id": "navle_011",
+    "topic": "hematology",
+    "stem": "A pale, icteric dog has regenerative anemia. Which finding best supports IMHA?",
+    "options": {
+      "A": "Low platelet count alone",
+      "B": "Spherocytes and autoagglutination",
+      "C": "Low T4",
+      "D": "High urine specific gravity"
+    },
+    "correct": "B",
+    "explanation": "Spherocytosis and agglutination are classic clues for immune-mediated hemolytic anemia in the right clinical context."
+  },
+  {
+    "id": "navle_012",
+    "topic": "critical-care",
+    "stem": "In septic shock resuscitation, which trend suggests improving perfusion?",
+    "options": {
+      "A": "Rising blood lactate",
+      "B": "Falling blood lactate over serial checks",
+      "C": "Persistent hypothermia",
+      "D": "Increasing vasopressor need"
+    },
+    "correct": "B",
+    "explanation": "Serial lactate clearance is a practical marker of improved tissue perfusion when interpreted with overall clinical status."
+  },
+  {
+    "id": "navle_013",
+    "topic": "toxicology",
+    "stem": "A dog ingested ibuprofen 45 minutes ago and is clinically stable. What is a priority early intervention (if no contraindication)?",
+    "options": {
+      "A": "Induce emesis",
+      "B": "Start insulin CRI",
+      "C": "Delay all therapy until signs appear",
+      "D": "Give diuretics only"
+    },
+    "correct": "A",
+    "explanation": "Recent ingestion may allow decontamination by emesis (case dependent), followed by GI and renal protective plans."
+  },
+  {
+    "id": "navle_014",
+    "topic": "cardiology",
+    "stem": "Dog + chronic cough + systolic murmur + cardiomegaly + edema pattern on thoracic imaging most strongly indicates:",
+    "options": {
+      "A": "Primary tracheal collapse only",
+      "B": "Left-sided congestive heart failure",
+      "C": "Simple kennel cough",
+      "D": "Pulmonary thromboembolism only"
+    },
+    "correct": "B",
+    "explanation": "The combined auscultation, imaging, and respiratory pattern is classic for left-sided CHF rather than isolated airway disease."
+  },
+  {
+    "id": "navle_015",
+    "topic": "endocrinology",
+    "stem": "When managing DKA, insulin should usually be delayed until:",
+    "options": {
+      "A": "At least initial fluid therapy is underway",
+      "B": "Urine ketones become negative",
+      "C": "Blood glucose normalizes naturally",
+      "D": "A complete endocrine panel is returned"
+    },
+    "correct": "A",
+    "explanation": "Starting insulin before restoring perfusion can worsen electrolyte shifts and destabilize the patient."
+  },
+  {
+    "id": "navle_016",
+    "topic": "toxicology",
+    "stem": "What is a hallmark early danger in canine xylitol ingestion?",
+    "options": {
+      "A": "Delayed hypercalcemia only",
+      "B": "Rapid hypoglycemia",
+      "C": "Immediate megacolon",
+      "D": "Primary pulmonary edema"
+    },
+    "correct": "B",
+    "explanation": "Xylitol can trigger profound insulin release and early hypoglycemia; hepatic injury can follow."
+  },
+  {
+    "id": "navle_017",
+    "topic": "cardiology",
+    "stem": "A dyspneic cat with suspected cardiomyopathy and pleural effusion is in respiratory distress. Best immediate therapeutic procedure?",
+    "options": {
+      "A": "Abdominocentesis",
+      "B": "Thoracocentesis",
+      "C": "Cystocentesis",
+      "D": "Pericardiocentesis in all cases"
+    },
+    "correct": "B",
+    "explanation": "When pleural effusion compromises breathing, thoracocentesis can provide rapid relief and diagnostic value."
+  },
+  {
+    "id": "navle_018",
+    "topic": "infectious-disease",
+    "stem": "A puppy with hemorrhagic diarrhea and suspected parvoviral enteritis is hypovolemic. Core stabilization fluid choice?",
+    "options": {
+      "A": "Hypotonic crystalloid",
+      "B": "Isotonic crystalloid resuscitation",
+      "C": "Only oral rehydration",
+      "D": "No fluids until CBC returns"
+    },
+    "correct": "B",
+    "explanation": "Parvoviral shock management is aggressive isotonic fluid resuscitation with ongoing reassessment and supportive care."
+  },
+  {
+    "id": "navle_019",
+    "topic": "parasitology",
+    "stem": "Before melarsomine adulticide in canine heartworm disease, which adjunct is commonly part of protocol planning?",
+    "options": {
+      "A": "Doxycycline therapy",
+      "B": "Long-term metronidazole as sole treatment",
+      "C": "Immediate intense exercise",
+      "D": "No macrocyclic lactone exposure"
+    },
+    "correct": "A",
+    "explanation": "Doxycycline targeting Wolbachia is a common component of staged heartworm treatment protocols."
+  },
+  {
+    "id": "navle_020",
+    "topic": "emergency",
+    "stem": "Which ECG progression is consistent with worsening hyperkalemia?",
+    "options": {
+      "A": "Tall R waves then short QT",
+      "B": "Peaked T waves progressing to widened QRS",
+      "C": "Normal sinus rhythm with narrow QRS only",
+      "D": "ST depression only"
+    },
+    "correct": "B",
+    "explanation": "Hyperkalemia classically progresses from peaked T waves to QRS widening, then severe conduction compromise."
+  }
+]

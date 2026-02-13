@@ -1,262 +1,434 @@
 [
   {
-    "id": "navle_001",
+    "id": "main1_001_mmvd_b2",
     "topic": "cardiology",
-    "stem": "An 8-year-old Golden Retriever presents with cough, exercise intolerance, and grade IV/VI left apical systolic murmur. Thoracic radiographs reveal cardiomegaly and pulmonary infiltrates. What is the most appropriate next diagnostic test?",
+    "stem": "A 9-year-old Cavalier King Charles Spaniel has a grade III/VI left apical systolic murmur. Thoracic radiographs and echo show left atrial and mild left ventricular enlargement, but no pulmonary edema and no crackles. What is the most appropriate next management step?",
     "options": {
-      "A": "Thoracic radiographs (lateral and DV views)",
-      "B": "Echocardiogram with Doppler",
-      "C": "NT-proBNP blood test",
-      "D": "Electrocardiogram"
+      "A": "Start furosemide and oxygen therapy immediately",
+      "B": "Start pimobendan to delay progression to CHF",
+      "C": "Start enalapril as primary disease-modifying therapy",
+      "D": "No cardiac medications and recheck in 12 months"
     },
-    "correct": "A",
-    "explanation": "While echocardiography provides detailed cardiac structure assessment, thoracic radiographs are the most appropriate initial test to confirm active pulmonary congestion."
+    "correct": "B",
+    "explanation": "This is preclinical MMVD with remodeling (Stage B2). Pimobendan is indicated to delay CHF onset.",
+    "decision_framework": "Stage first: B1 (no enlargement), B2 (enlargement without edema), or CHF (edema/distress).",
+    "key_triggers": [
+      "MMVD confirmed by murmur plus echocardiography",
+      "Cardiomegaly/LA enlargement is present",
+      "No pulmonary edema or crackles, so this is not active CHF"
+    ],
+    "eliminate_wrong": {
+      "A": "Acute CHF protocol is for pulmonary edema or severe respiratory distress, which are absent here.",
+      "C": "ACE inhibitors are not the primary tested move for Stage B2 in this pattern.",
+      "D": "No-treatment logic fits B1, not B2 with documented enlargement."
+    },
+    "speed_training": "No edema plus cardiomegaly in MMVD points to B2, then choose pimobendan.",
+    "navle_rule": "Treat Stage B2. Do not medicate Stage B1.",
+    "source_doc": "main1 for navle.ini"
   },
   {
-    "id": "navle_002",
+    "id": "main1_002_acute_chf",
     "topic": "cardiology",
-    "stem": "A 9-year-old Cavalier King Charles Spaniel has acute dyspnea, crackles, and radiographic pulmonary edema. What is the best immediate medication priority?",
+    "stem": "A small-breed dog with chronic murmur develops acute dyspnea, tachypnea, crackles, and radiographic pulmonary edema. What is the best immediate next step?",
     "options": {
-      "A": "Start oral enalapril only",
-      "B": "Give furosemide and oxygen support",
-      "C": "Delay treatment until echocardiography",
-      "D": "Use corticosteroids as first-line therapy"
+      "A": "Wait for complete echocardiography before treatment",
+      "B": "Start oxygen and furosemide immediately",
+      "C": "Start oral cough suppressant only",
+      "D": "Start pimobendan only and discharge"
     },
     "correct": "B",
-    "explanation": "Acute cardiogenic edema is a stabilize-first emergency. Oxygen and loop diuretic therapy are first-line while diagnostics continue."
-  },
-  {
-    "id": "navle_003",
-    "topic": "endocrinology",
-    "stem": "A dog with confirmed diabetic ketoacidosis is severely dehydrated. What should happen before insulin infusion is started?",
-    "options": {
-      "A": "Begin regular insulin immediately",
-      "B": "Administer bicarbonate first",
-      "C": "Initiate fluid resuscitation and plan potassium support",
-      "D": "Restrict fluids to avoid cerebral edema"
+    "explanation": "This is acute cardiogenic pulmonary edema. Stabilization with oxygen and diuresis is the first move.",
+    "decision_framework": "In respiratory distress with edema, stabilize first; detailed staging comes after oxygenation/perfusion support.",
+    "key_triggers": [
+      "Respiratory distress with crackles",
+      "Pulmonary edema confirmed on imaging",
+      "This is decompensated CHF, not preclinical disease"
+    ],
+    "eliminate_wrong": {
+      "A": "Deferring therapy risks deterioration; acute edema requires immediate stabilization.",
+      "C": "Symptom suppression alone does not treat life-threatening edema.",
+      "D": "Pimobendan can be part of long-term care, but immediate edema control is urgent."
     },
-    "correct": "C",
-    "explanation": "In DKA, perfusion restoration and electrolyte planning precede insulin to avoid abrupt potassium decline and worsening instability."
+    "speed_training": "Dyspnea plus edema equals oxygen and loop diuretic first.",
+    "navle_rule": "Acute CHF is a stabilize-first scenario.",
+    "source_doc": "main1 for navle.ini"
   },
   {
-    "id": "navle_004",
-    "topic": "emergency",
-    "stem": "An obstructed male cat has severe hyperkalemia with bradycardia and peaked T waves. Which intervention protects the myocardium first?",
-    "options": {
-      "A": "Calcium gluconate",
-      "B": "Furosemide",
-      "C": "Prednisolone",
-      "D": "Cefovecin"
-    },
-    "correct": "A",
-    "explanation": "Calcium gluconate stabilizes cardiac membranes in life-threatening hyperkalemia. Potassium-shifting and removal strategies follow."
-  },
-  {
-    "id": "navle_005",
-    "topic": "emergency",
-    "stem": "A Great Dane presents with non-productive retching, shock, and severe abdominal distension. Which sequence is most appropriate?",
-    "options": {
-      "A": "Immediate surgery without stabilization",
-      "B": "Fluids, decompression, then surgical correction with gastropexy",
-      "C": "Observe for 12 hours before intervention",
-      "D": "Treat with oral antacids only"
-    },
-    "correct": "B",
-    "explanation": "GDV management requires rapid stabilization, gastric decompression, and definitive surgery once perfusion improves."
-  },
-  {
-    "id": "navle_006",
-    "topic": "toxicology",
-    "stem": "Which chocolate source is generally highest risk for severe theobromine toxicity at smaller ingested amounts?",
-    "options": {
-      "A": "Milk chocolate",
-      "B": "White chocolate",
-      "C": "Baking chocolate",
-      "D": "Chocolate-flavored cereal"
-    },
-    "correct": "C",
-    "explanation": "Baking chocolate has high theobromine concentration, increasing toxicity risk at lower ingested doses."
-  },
-  {
-    "id": "navle_007",
-    "topic": "toxicology",
-    "stem": "A cat chewed true lily leaves 2 hours ago and is asymptomatic. Best next step?",
-    "options": {
-      "A": "Wait for azotemia before treatment",
-      "B": "Immediate decontamination and aggressive IV fluids",
-      "C": "Single antiemetic and discharge",
-      "D": "No therapy needed unless vomiting starts"
-    },
-    "correct": "B",
-    "explanation": "Any true lily exposure in cats is an emergency. Early decontamination and renal-protective fluids are time-critical."
-  },
-  {
-    "id": "navle_008",
-    "topic": "endocrinology",
-    "stem": "Which electrolyte pattern is most classically associated with Addisonian crisis in dogs?",
-    "options": {
-      "A": "Hypernatremia and hypokalemia",
-      "B": "Hyponatremia and hyperkalemia",
-      "C": "Hypercalcemia and hypophosphatemia",
-      "D": "Normal sodium and potassium"
-    },
-    "correct": "B",
-    "explanation": "Primary hypoadrenocorticism commonly causes low sodium and high potassium due to mineralocorticoid deficiency."
-  },
-  {
-    "id": "navle_009",
-    "topic": "bovine",
-    "stem": "A postpartum dairy cow has reduced appetite and a left-sided ping. Most likely diagnosis?",
-    "options": {
-      "A": "Left displaced abomasum",
-      "B": "Right-sided heart failure",
-      "C": "Acute rabies",
-      "D": "Pulmonary edema"
-    },
-    "correct": "A",
-    "explanation": "Classic LDA findings include recent calving, reduced intake, and left-sided ping in the appropriate rib space."
-  },
-  {
-    "id": "navle_010",
-    "topic": "equine",
-    "stem": "In an adult horse with colic, which finding strongly increases need for surgical referral?",
-    "options": {
-      "A": "Mild intermittent discomfort responsive to analgesics",
-      "B": "Heart rate persistently above 60 bpm with refractory pain",
-      "C": "Single soft fecal output",
-      "D": "Normal abdominal ultrasound"
-    },
-    "correct": "B",
-    "explanation": "Persistent severe pain and tachycardia despite medical management are key surgical red flags in equine colic."
-  },
-  {
-    "id": "navle_011",
-    "topic": "hematology",
-    "stem": "A pale, icteric dog has regenerative anemia. Which finding best supports IMHA?",
-    "options": {
-      "A": "Low platelet count alone",
-      "B": "Spherocytes and autoagglutination",
-      "C": "Low T4",
-      "D": "High urine specific gravity"
-    },
-    "correct": "B",
-    "explanation": "Spherocytosis and agglutination are classic clues for immune-mediated hemolytic anemia in the right clinical context."
-  },
-  {
-    "id": "navle_012",
-    "topic": "critical-care",
-    "stem": "In septic shock resuscitation, which trend suggests improving perfusion?",
-    "options": {
-      "A": "Rising blood lactate",
-      "B": "Falling blood lactate over serial checks",
-      "C": "Persistent hypothermia",
-      "D": "Increasing vasopressor need"
-    },
-    "correct": "B",
-    "explanation": "Serial lactate clearance is a practical marker of improved tissue perfusion when interpreted with overall clinical status."
-  },
-  {
-    "id": "navle_013",
-    "topic": "toxicology",
-    "stem": "A dog ingested ibuprofen 45 minutes ago and is clinically stable. What is a priority early intervention (if no contraindication)?",
-    "options": {
-      "A": "Induce emesis",
-      "B": "Start insulin CRI",
-      "C": "Delay all therapy until signs appear",
-      "D": "Give diuretics only"
-    },
-    "correct": "A",
-    "explanation": "Recent ingestion may allow decontamination by emesis (case dependent), followed by GI and renal protective plans."
-  },
-  {
-    "id": "navle_014",
+    "id": "main1_003_dcm_occult",
     "topic": "cardiology",
-    "stem": "Dog + chronic cough + systolic murmur + cardiomegaly + edema pattern on thoracic imaging most strongly indicates:",
+    "stem": "A Doberman Pinscher has echo-confirmed dilated cardiomyopathy with chamber dilation but no pulmonary edema and no respiratory distress. Which next step is most appropriate?",
     "options": {
-      "A": "Primary tracheal collapse only",
-      "B": "Left-sided congestive heart failure",
-      "C": "Simple kennel cough",
-      "D": "Pulmonary thromboembolism only"
+      "A": "Start furosemide as first-line therapy",
+      "B": "Start pimobendan and arrange rhythm monitoring",
+      "C": "No treatment until CHF develops",
+      "D": "Immediate synchronized cardioversion"
     },
     "correct": "B",
-    "explanation": "The combined auscultation, imaging, and respiratory pattern is classic for left-sided CHF rather than isolated airway disease."
+    "explanation": "Occult DCM with dilation is managed proactively, while diuretics are reserved for edema/CHF.",
+    "decision_framework": "Separate occult remodeling from overt CHF before selecting therapy.",
+    "key_triggers": [
+      "DCM structural disease is present",
+      "No pulmonary edema at this time",
+      "Risk of progression and arrhythmia still exists"
+    ],
+    "eliminate_wrong": {
+      "A": "Diuretics are primarily for congestion/edema, not occult non-congestive disease.",
+      "C": "Waiting can miss the benefit of early stage-appropriate intervention.",
+      "D": "Cardioversion is not indicated without unstable tachyarrhythmia context."
+    },
+    "speed_training": "Dilation without edema is an occult pathway, not an acute CHF pathway.",
+    "navle_rule": "Use stage-based treatment: occult DCM differs from congestive DCM.",
+    "source_doc": "main1 for navle.ini"
   },
   {
-    "id": "navle_015",
-    "topic": "endocrinology",
-    "stem": "When managing DKA, insulin should usually be delayed until:",
+    "id": "main1_004_vt_assume",
+    "topic": "cardiology",
+    "stem": "A dog presents weak with a wide-complex tachycardia at 230 bpm and poor perfusion. What is the most appropriate immediate treatment approach?",
     "options": {
-      "A": "At least initial fluid therapy is underway",
-      "B": "Urine ketones become negative",
-      "C": "Blood glucose normalizes naturally",
-      "D": "A complete endocrine panel is returned"
+      "A": "Assume SVT and give diltiazem first",
+      "B": "Assume ventricular tachycardia and treat promptly (lidocaine if appropriate)",
+      "C": "Delay treatment until Holter results return",
+      "D": "Send home with oral beta-blocker only"
+    },
+    "correct": "B",
+    "explanation": "In unstable canine wide-complex tachycardia, immediate VT-directed management is prioritized.",
+    "decision_framework": "Treat the dangerous rhythm pattern first, then refine diagnosis once stabilized.",
+    "key_triggers": [
+      "Wide-complex rapid rhythm",
+      "Perfusion compromise",
+      "Emergency rhythm control needed"
+    ],
+    "eliminate_wrong": {
+      "A": "Treating as benign SVT first can delay life-saving VT therapy.",
+      "C": "Holter is not an immediate stabilization tool.",
+      "D": "Outpatient-only plan is unsafe in unstable tachyarrhythmia."
+    },
+    "speed_training": "Wide-complex plus instability should trigger VT-first emergency logic.",
+    "navle_rule": "Stabilize life-threatening arrhythmias before definitive outpatient workup.",
+    "source_doc": "main1 for navle.ini"
+  },
+  {
+    "id": "main1_005_aki_ckd",
+    "topic": "nephrology",
+    "stem": "A dog has azotemia, non-regenerative anemia, small irregular kidneys on ultrasound, and chronic weight loss. Which interpretation is most appropriate?",
+    "options": {
+      "A": "Acute kidney injury is most likely",
+      "B": "Chronic kidney disease is most likely",
+      "C": "Post-renal azotemia from acute obstruction is most likely",
+      "D": "Primary hepatic failure is most likely"
+    },
+    "correct": "B",
+    "explanation": "Small irregular kidneys with chronic changes and anemia fit CKD more than AKI.",
+    "decision_framework": "Use chronicity markers (body condition, anemia, kidney size/architecture) to distinguish CKD from AKI.",
+    "key_triggers": [
+      "Small irregular kidneys",
+      "Non-regenerative anemia",
+      "Longer-duration clinical signs"
+    ],
+    "eliminate_wrong": {
+      "A": "AKI typically has abrupt onset and often normal-to-enlarged kidneys early.",
+      "C": "Post-renal patterns rely on obstruction evidence not provided here.",
+      "D": "The dominant pattern is renal, not hepatic."
+    },
+    "speed_training": "Small irregular kidneys plus anemia usually means chronic renal disease.",
+    "navle_rule": "Kidney size and chronic systemic clues are high-yield AKI/CKD discriminators.",
+    "source_doc": "main1 for navle.ini"
+  },
+  {
+    "id": "main1_006_struvite_dog",
+    "topic": "urology",
+    "stem": "A dog has a struvite cystolith and positive urine culture for urease-producing bacteria. Best initial management strategy?",
+    "options": {
+      "A": "Medical dissolution diet with culture-directed antibiotics",
+      "B": "Immediate nephrectomy",
+      "C": "No treatment unless obstruction develops",
+      "D": "Prednisone as primary therapy"
     },
     "correct": "A",
-    "explanation": "Starting insulin before restoring perfusion can worsen electrolyte shifts and destabilize the patient."
-  },
-  {
-    "id": "navle_016",
-    "topic": "toxicology",
-    "stem": "What is a hallmark early danger in canine xylitol ingestion?",
-    "options": {
-      "A": "Delayed hypercalcemia only",
-      "B": "Rapid hypoglycemia",
-      "C": "Immediate megacolon",
-      "D": "Primary pulmonary edema"
+    "explanation": "Canine struvite stones are often infection-associated and commonly managed with dissolution plus antimicrobial control.",
+    "decision_framework": "Identify stone type and infection status before deciding dissolve versus remove surgically.",
+    "key_triggers": [
+      "Struvite identification",
+      "Concurrent bacterial UTI",
+      "No immediate emergency obstruction in stem"
+    ],
+    "eliminate_wrong": {
+      "B": "Nephrectomy is unrelated to routine bladder struvite management.",
+      "C": "Untreated infection stones risk persistent disease and recurrence.",
+      "D": "Steroids are not primary therapy for infection-associated urolithiasis."
     },
-    "correct": "B",
-    "explanation": "Xylitol can trigger profound insulin release and early hypoglycemia; hepatic injury can follow."
+    "speed_training": "Dog struvite with UTI usually enters dissolve-plus-antibiotic pathway.",
+    "navle_rule": "Treat both the stone chemistry and the infection driver.",
+    "source_doc": "main1 for navle.ini"
   },
   {
-    "id": "navle_017",
-    "topic": "cardiology",
-    "stem": "A dyspneic cat with suspected cardiomyopathy and pleural effusion is in respiratory distress. Best immediate therapeutic procedure?",
-    "options": {
-      "A": "Abdominocentesis",
-      "B": "Thoracocentesis",
-      "C": "Cystocentesis",
-      "D": "Pericardiocentesis in all cases"
-    },
-    "correct": "B",
-    "explanation": "When pleural effusion compromises breathing, thoracocentesis can provide rapid relief and diagnostic value."
-  },
-  {
-    "id": "navle_018",
+    "id": "main1_007_lepto_treat_now",
     "topic": "infectious-disease",
-    "stem": "A puppy with hemorrhagic diarrhea and suspected parvoviral enteritis is hypovolemic. Core stabilization fluid choice?",
+    "stem": "A febrile dog with AKI risk and icterus has strong suspicion for leptospirosis. What is the most appropriate immediate approach?",
     "options": {
-      "A": "Hypotonic crystalloid",
-      "B": "Isotonic crystalloid resuscitation",
-      "C": "Only oral rehydration",
-      "D": "No fluids until CBC returns"
+      "A": "Delay treatment until convalescent titers are back",
+      "B": "Start appropriate antimicrobials and zoonotic precautions immediately",
+      "C": "Give only antiemetics and observe",
+      "D": "Use corticosteroids as sole first-line treatment"
     },
     "correct": "B",
-    "explanation": "Parvoviral shock management is aggressive isotonic fluid resuscitation with ongoing reassessment and supportive care."
+    "explanation": "Leptospirosis is both time-sensitive and zoonotic, so early treatment and biosecurity are key.",
+    "decision_framework": "When clinical suspicion is high and public-health risk exists, treat while confirmatory testing proceeds.",
+    "key_triggers": [
+      "Compatible multi-system illness",
+      "Renal/hepatic involvement pattern",
+      "Zoonotic transmission concern"
+    ],
+    "eliminate_wrong": {
+      "A": "Waiting for delayed confirmation can worsen outcome and exposure risk.",
+      "C": "Supportive care alone misses disease-modifying treatment needs.",
+      "D": "Steroids are not first-line monotherapy for suspected lepto."
+    },
+    "speed_training": "High suspicion leptospirosis means treat now and protect staff/owners.",
+    "navle_rule": "Do not delay leptospirosis therapy for perfect confirmation in unstable timelines.",
+    "source_doc": "main1 for navle.ini"
   },
   {
-    "id": "navle_019",
-    "topic": "parasitology",
-    "stem": "Before melarsomine adulticide in canine heartworm disease, which adjunct is commonly part of protocol planning?",
+    "id": "main1_008_hepatic_encephalopathy",
+    "topic": "hepatology",
+    "stem": "A dog with known hepatic dysfunction develops episodic neurologic signs and elevated ammonia. What is the best immediate medical management priority?",
     "options": {
-      "A": "Doxycycline therapy",
-      "B": "Long-term metronidazole as sole treatment",
-      "C": "Immediate intense exercise",
-      "D": "No macrocyclic lactone exposure"
+      "A": "Lactulose-centered ammonia-lowering strategy",
+      "B": "High-protein unrestricted diet without adjuncts",
+      "C": "Furosemide as first-line neurologic treatment",
+      "D": "Immediate chemotherapy"
     },
     "correct": "A",
-    "explanation": "Doxycycline targeting Wolbachia is a common component of staged heartworm treatment protocols."
+    "explanation": "Hepatic encephalopathy management targets ammonia reduction and trigger control, with lactulose as a core intervention.",
+    "decision_framework": "Recognize neuro signs from metabolic hepatic failure and treat toxin load rapidly.",
+    "key_triggers": [
+      "Neurologic episodes with liver disease",
+      "Hyperammonemia pattern",
+      "Need for ammonia-lowering therapy"
+    ],
+    "eliminate_wrong": {
+      "B": "Uncontrolled high protein can worsen encephalopathy in susceptible cases.",
+      "C": "Loop diuretics do not address ammonia-driven neurologic dysfunction.",
+      "D": "Chemotherapy is unrelated to first-line HE stabilization."
+    },
+    "speed_training": "Neuro signs plus hepatic failure should trigger HE protocol, not primary neurologic drug pathways.",
+    "navle_rule": "Treat hepatic encephalopathy by reducing ammonia and correcting precipitating factors.",
+    "source_doc": "main1 for navle.ini"
   },
   {
-    "id": "navle_020",
-    "topic": "emergency",
-    "stem": "Which ECG progression is consistent with worsening hyperkalemia?",
+    "id": "main1_009_pancreatitis_severity",
+    "topic": "gastroenterology",
+    "stem": "A dog with pancreatitis is tachycardic, hypotensive, and shows poor perfusion with systemic inflammatory signs. What is the best immediate management priority?",
     "options": {
-      "A": "Tall R waves then short QT",
-      "B": "Peaked T waves progressing to widened QRS",
-      "C": "Normal sinus rhythm with narrow QRS only",
-      "D": "ST depression only"
+      "A": "Aggressive stabilization with fluids, analgesia, and monitoring",
+      "B": "Discharge with oral antacid only",
+      "C": "Delay treatment until pancreatic biopsy",
+      "D": "Start long-acting steroid as sole therapy"
     },
-    "correct": "B",
-    "explanation": "Hyperkalemia classically progresses from peaked T waves to QRS widening, then severe conduction compromise."
+    "correct": "A",
+    "explanation": "Severe pancreatitis with shock/SIRS requires immediate supportive critical care rather than delayed diagnostics.",
+    "decision_framework": "Triage severity first; unstable perfusion means resuscitate before advanced diagnostics.",
+    "key_triggers": [
+      "Hemodynamic instability",
+      "SIRS/shock indicators",
+      "Need for ICU-level supportive care"
+    ],
+    "eliminate_wrong": {
+      "B": "Outpatient symptomatic care is unsafe in shock physiology.",
+      "C": "Resuscitation should not wait for invasive confirmation.",
+      "D": "Single-drug steroid strategy is not standard first-line severe pancreatitis care."
+    },
+    "speed_training": "Pancreatitis with shock signs equals critical care pathway, not routine outpatient protocol.",
+    "navle_rule": "Severity stratification determines urgency and care setting.",
+    "source_doc": "main1 for navle.ini"
+  },
+  {
+    "id": "main1_010_imtp",
+    "topic": "hematology",
+    "stem": "A dog has petechiae, epistaxis, and severe thrombocytopenia with no evidence of consumptive coagulopathy. Most appropriate next treatment direction?",
+    "options": {
+      "A": "Begin immunosuppressive treatment for IMTP framework",
+      "B": "Start aspirin for platelet support",
+      "C": "Observe at home and recheck in 2 weeks",
+      "D": "No therapy unless hematocrit drops"
+    },
+    "correct": "A",
+    "explanation": "This pattern supports immune-mediated thrombocytopenia requiring prompt immunosuppressive management.",
+    "decision_framework": "Active bleeding plus very low platelets requires urgent IMTP-oriented treatment after triage for alternatives.",
+    "key_triggers": [
+      "Mucosal bleeding signs",
+      "Severe thrombocytopenia",
+      "No immediate evidence of another dominant cause in stem"
+    ],
+    "eliminate_wrong": {
+      "B": "Antiplatelet drugs can worsen hemorrhage in severe thrombocytopenia.",
+      "C": "Delaying treatment in active bleeding is unsafe.",
+      "D": "Platelet crisis can be life-threatening even before anemia develops."
+    },
+    "speed_training": "Bleeding plus very low platelets should trigger IMTP emergency logic.",
+    "navle_rule": "Do not use platelet-inhibiting drugs in severe thrombocytopenic bleeding patterns.",
+    "source_doc": "main1 for navle.ini"
+  },
+  {
+    "id": "main1_011_megaesophagus",
+    "topic": "internal-medicine",
+    "stem": "A dog with generalized megaesophagus has chronic regurgitation and recurrent aspiration risk. Which baseline management action is most important?",
+    "options": {
+      "A": "Upright feeding strategy with aspiration-risk prevention",
+      "B": "High-volume bolus feeding in lateral recumbency",
+      "C": "Immediate loop diuretic protocol",
+      "D": "No feeding modification needed"
+    },
+    "correct": "A",
+    "explanation": "Gravity-assisted feeding and aspiration prevention are core baseline interventions in megaesophagus care.",
+    "decision_framework": "Protect airway first while investigating underlying causes.",
+    "key_triggers": [
+      "Regurgitation (not vomiting) pattern",
+      "Known aspiration-pneumonia risk",
+      "Need for practical feeding-position intervention"
+    ],
+    "eliminate_wrong": {
+      "B": "Recumbent large-volume feeding increases regurgitation/aspiration risk.",
+      "C": "Diuretics do not address esophageal motility failure.",
+      "D": "Feeding posture is central, not optional, in baseline control."
+    },
+    "speed_training": "Megaesophagus questions often test airway protection and feeding mechanics first.",
+    "navle_rule": "Prevent aspiration while evaluating etiology.",
+    "source_doc": "main1 for navle.ini"
+  },
+  {
+    "id": "main1_012_mct_preop",
+    "topic": "oncology",
+    "stem": "A dog with a cutaneous mast cell tumor is scheduled for surgery. Which perioperative medication concept is most appropriate?",
+    "options": {
+      "A": "Use histamine-blockade strategy perioperatively",
+      "B": "Use morphine to maximize histamine release",
+      "C": "No perioperative planning is needed",
+      "D": "Use only thyroid hormone support"
+    },
+    "correct": "A",
+    "explanation": "Mast cell tumor handling can trigger histamine-mediated effects, so perioperative blockade planning is appropriate.",
+    "decision_framework": "Separate definitive tumor control from perioperative mediator-risk mitigation.",
+    "key_triggers": [
+      "Confirmed/suspected mast cell tumor",
+      "Surgical manipulation planned",
+      "Need to reduce mediator-release complications"
+    ],
+    "eliminate_wrong": {
+      "B": "Avoid choices that increase histamine release in this context.",
+      "C": "Ignoring perioperative mediator risk is unsafe.",
+      "D": "Thyroid support is unrelated to mast-cell mediator management."
+    },
+    "speed_training": "Mast cell peri-op questions usually test histamine-risk mitigation before incision.",
+    "navle_rule": "Plan both tumor control and mediator protection.",
+    "source_doc": "main1 for navle.ini"
+  },
+  {
+    "id": "main1_013_pericardial_tamponade",
+    "topic": "emergency",
+    "stem": "A dog has muffled heart sounds, weak pulses, jugular distension, and ultrasound evidence of pericardial effusion with tamponade physiology. Immediate best step?",
+    "options": {
+      "A": "Pericardiocentesis",
+      "B": "High-dose furosemide only",
+      "C": "Delay intervention until full oncology staging",
+      "D": "Oral bronchodilator trial"
+    },
+    "correct": "A",
+    "explanation": "Tamponade is a mechanical filling problem; immediate pericardial drainage is the priority.",
+    "decision_framework": "If circulation is impaired by pericardial pressure, relieve pressure first.",
+    "key_triggers": [
+      "Classic tamponade exam findings",
+      "Effusion confirmed",
+      "Hemodynamic compromise"
+    ],
+    "eliminate_wrong": {
+      "B": "Diuretics do not resolve the compressive pericardial constraint.",
+      "C": "Cause workup comes after hemodynamic stabilization.",
+      "D": "Bronchodilators do not treat tamponade physiology."
+    },
+    "speed_training": "Muffled sounds plus poor pulses plus JVD should trigger tamponade drainage logic.",
+    "navle_rule": "Stabilize first, then investigate etiology.",
+    "source_doc": "main1 for navle.ini"
+  },
+  {
+    "id": "main1_014_tension_pneumothorax",
+    "topic": "emergency",
+    "stem": "A dog after trauma is acutely dyspneic with hyperresonant thorax and worsening respiratory effort. Tension pneumothorax is suspected. What is most appropriate now?",
+    "options": {
+      "A": "Immediate thoracocentesis before waiting for radiographs",
+      "B": "Wait for complete CT before intervention",
+      "C": "Start oral antitussive and observe",
+      "D": "Treat only with IV fluids"
+    },
+    "correct": "A",
+    "explanation": "Suspected tension pneumothorax is a decompress-now emergency; imaging can follow stabilization.",
+    "decision_framework": "Prioritize life-saving decompression when clinical signs fit pressure pneumothorax.",
+    "key_triggers": [
+      "Acute severe dyspnea",
+      "Trauma context",
+      "Clinical suspicion of tension physiology"
+    ],
+    "eliminate_wrong": {
+      "B": "Delaying decompression for imaging can be fatal.",
+      "C": "Antitussives do not resolve pleural air under pressure.",
+      "D": "Fluids alone do not fix mechanical respiratory compromise."
+    },
+    "speed_training": "When chest pressure threatens ventilation, tap first and image second.",
+    "navle_rule": "Emergency decompression precedes confirmatory imaging in unstable cases.",
+    "source_doc": "main1 for navle.ini"
+  },
+  {
+    "id": "main1_015_aspiration_pneumonia",
+    "topic": "respiratory",
+    "stem": "A regurgitating dog develops fever, crackles, and increased respiratory effort. What is the most appropriate next diagnostic step?",
+    "options": {
+      "A": "Thoracic radiographs",
+      "B": "Only abdominal ultrasound",
+      "C": "No diagnostics, start long-term steroids",
+      "D": "Delay all testing for 72 hours"
+    },
+    "correct": "A",
+    "explanation": "Thoracic radiographs are central for confirming aspiration pneumonia pattern and severity.",
+    "decision_framework": "Confirm pulmonary involvement and severity, then tailor antimicrobial/supportive plan.",
+    "key_triggers": [
+      "Aspiration risk history",
+      "New respiratory signs",
+      "Need to localize pulmonary pathology"
+    ],
+    "eliminate_wrong": {
+      "B": "Abdominal imaging does not establish pulmonary infiltrate severity.",
+      "C": "Empiric long-term steroid-first strategy is not standard here.",
+      "D": "Delaying evaluation can worsen hypoxemia and infection burden."
+    },
+    "speed_training": "Aspiration concern with respiratory signs should trigger thoracic imaging quickly.",
+    "navle_rule": "Diagnose chest disease directly when airway/lung signs are present.",
+    "source_doc": "main1 for navle.ini"
+  },
+  {
+    "id": "main1_016_parvo_first12h",
+    "topic": "infectious-disease",
+    "stem": "An unvaccinated puppy has vomiting, hemorrhagic diarrhea, depression, and leukopenia. What is the best first-hours management sequence?",
+    "options": {
+      "A": "Immediate isolation with aggressive fluid/supportive protocol",
+      "B": "Wait for complete viral panel before precautions",
+      "C": "Outpatient oral meds only",
+      "D": "High-dose NSAID protocol"
+    },
+    "correct": "A",
+    "explanation": "Early parvovirus care is isolation plus hemodynamic/supportive stabilization in the first hours.",
+    "decision_framework": "Handle contagion control and perfusion support in parallel from the start.",
+    "key_triggers": [
+      "High-risk signalment and GI signs",
+      "Leukopenia supports severe viral enteritis concern",
+      "Need for both infection control and resuscitation"
+    ],
+    "eliminate_wrong": {
+      "B": "Waiting delays critical containment and stabilization.",
+      "C": "Severe suspected parvo generally needs inpatient aggressive support.",
+      "D": "NSAID-first approach can be harmful and misses core resuscitation needs."
+    },
+    "speed_training": "Parvo pattern means isolate first and resuscitate early.",
+    "navle_rule": "In contagious critical GI disease, biosecurity and stabilization are immediate priorities.",
+    "source_doc": "main1 for navle.ini"
   }
 ]

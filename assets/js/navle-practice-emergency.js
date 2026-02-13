@@ -4,6 +4,12 @@
     var SESSION_KEY = 'pc_navle_practice_emergency_session_v1';
     var USAGE_KEY = 'pc_navle_free_usage_v1';
     var LEGACY_FREE_PREFIX = 'pc_free_questions_';
+    var PAID_FLAG_KEY = 'pc_navle_paid';
+    var FREE_BANK_URL = '/content/navle/questions.json';
+    var PAID_STOCK_BANK_URL = '/content/navle/questions-paid-stock.json';
+    var PREMIUM_STATUSES = ['premium', 'active', 'paid', 'pro'];
+    var FREE_DAILY_LIMIT = 5;
+    var FREE_BANK_MAX = 50;
 
     var currentQuestion = null;
     var questionIndex = 0;
@@ -11,6 +17,7 @@
     var freeUsed = 0;
     var wasLoggedIn = false;
     var authHydrationInFlight = false;
+    var isPaidUser = false;
 
     function byId(id) {
         return document.getElementById(id);
@@ -40,6 +47,15 @@
         } catch (error) {
             return false;
         }
+    }
+
+    function escapeHtml(value) {
+        return String(value || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
     }
 
     function getTodayKey() {
@@ -107,15 +123,47 @@
         });
     }
 
+    function getTopicLabel(topic) {
+        var normalized = String(topic || 'general').replace(/[-_]+/g, ' ').trim();
+        if (!normalized) {
+            return 'General';
+        }
+        return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+    }
+
+    function getQuestionCounter(index) {
+        if (!questions.length) {
+            return { current: 1, total: 1 };
+        }
+
+        var current = Math.min(Math.max(index + 1, 1), questions.length);
+        return {
+            current: current,
+            total: questions.length
+        };
+    }
+
     function setProgress(index) {
         var progress = byId('question-progress');
         var fill = byId('practice-progress-fill');
-        var current = Math.min(index + 1, 5);
+
+        if (isPaidUser) {
+            var paidCounter = getQuestionCounter(index);
+            if (progress) {
+                progress.textContent = 'Question ' + paidCounter.current + ' of ' + paidCounter.total + ' (Paid Stock)';
+            }
+            if (fill) {
+                fill.style.width = String((paidCounter.current / paidCounter.total) * 100) + '%';
+            }
+            return;
+        }
+
+        var current = Math.min(index + 1, FREE_DAILY_LIMIT);
         if (progress) {
-            progress.textContent = 'Question ' + current + ' of 5 (Free)';
+            progress.textContent = 'Question ' + current + ' of ' + FREE_DAILY_LIMIT + ' (Free)';
         }
         if (fill) {
-            fill.style.width = String((current / 5) * 100) + '%';
+            fill.style.width = String((current / FREE_DAILY_LIMIT) * 100) + '%';
         }
     }
 
@@ -125,36 +173,198 @@
         }
 
         return data.filter(function (item) {
-            return item && typeof item === 'object' && item.stem && item.options && item.correct;
+            if (!item || typeof item !== 'object' || !item.stem || !item.options || !item.correct) {
+                return false;
+            }
+
+            var optionKeys = Object.keys(item.options);
+            return optionKeys.length >= 2 && optionKeys.indexOf(String(item.correct)) !== -1;
         });
     }
 
+    function readUrlPlanHint() {
+        try {
+            var params = new URLSearchParams(window.location.search || '');
+            var bank = String(params.get('bank') || '').toLowerCase();
+            var plan = String(params.get('plan') || '').toLowerCase();
+            return bank || plan;
+        } catch (error) {
+            return '';
+        }
+    }
+
+    function hasPaidOverride() {
+        var localFlag = String(safeGet(PAID_FLAG_KEY) || '').toLowerCase().trim();
+        if (localFlag === 'true' || localFlag === '1' || localFlag === 'paid') {
+            return true;
+        }
+
+        var planHint = readUrlPlanHint();
+        return PREMIUM_STATUSES.indexOf(planHint) !== -1;
+    }
+
+    function hasPaidMetadata() {
+        if (!window.pcSync || typeof window.pcSync.getCurrentUser !== 'function') {
+            return false;
+        }
+
+        var user = window.pcSync.getCurrentUser();
+        if (!user) {
+            return false;
+        }
+
+        var userMeta = user.user_metadata && typeof user.user_metadata === 'object' ? user.user_metadata : {};
+        var appMeta = user.app_metadata && typeof user.app_metadata === 'object' ? user.app_metadata : {};
+        var status = String(userMeta.subscription_status || appMeta.subscription_status || '').toLowerCase().trim();
+        if (PREMIUM_STATUSES.indexOf(status) !== -1) {
+            return true;
+        }
+
+        var plan = String(userMeta.plan || appMeta.plan || '').toLowerCase().trim();
+        if (PREMIUM_STATUSES.indexOf(plan) !== -1) {
+            return true;
+        }
+
+        var subscription = String(userMeta.subscription || appMeta.subscription || '').toLowerCase().trim();
+        return PREMIUM_STATUSES.indexOf(subscription) !== -1;
+    }
+
+    function detectPaidAccess() {
+        return hasPaidOverride() || hasPaidMetadata();
+    }
+
+    async function fetchQuestionBank(url) {
+        var response = await fetch(url, { cache: 'no-store' });
+        if (!response.ok) {
+            throw new Error('HTTP ' + response.status + ' on ' + url);
+        }
+
+        return response.json();
+    }
+
+    async function loadQuestionBankData() {
+        var banks = isPaidUser
+            ? [PAID_STOCK_BANK_URL, FREE_BANK_URL]
+            : [FREE_BANK_URL];
+
+        var lastError = null;
+
+        for (var i = 0; i < banks.length; i += 1) {
+            try {
+                return await fetchQuestionBank(banks[i]);
+            } catch (error) {
+                lastError = error;
+            }
+        }
+
+        throw lastError || new Error('No question bank available');
+    }
+
     function renderLimitReached() {
+        if (isPaidUser) {
+            return;
+        }
+
         var container = byId('question-container');
         if (container) {
             container.innerHTML = '<p class="pc-calculator-note">Daily free limit reached. Create a free account to unlock all remaining questions.</p>';
         }
-        setProgress(4);
+        setProgress(FREE_DAILY_LIMIT - 1);
         showGateModal();
+    }
+
+    function renderList(items) {
+        if (!Array.isArray(items) || !items.length) {
+            return '';
+        }
+
+        var content = items.map(function (item) {
+            return '<li>' + escapeHtml(item) + '</li>';
+        }).join('');
+
+        return '<ul class="pc-question-explanation-list">' + content + '</ul>';
+    }
+
+    function renderEliminationMap(question, selectedOption) {
+        var map = question && question.eliminate_wrong;
+        if (!map || typeof map !== 'object') {
+            return '';
+        }
+
+        var keys = Object.keys(map);
+        if (!keys.length) {
+            return '';
+        }
+
+        var highlighted = '';
+        if (selectedOption && map[selectedOption]) {
+            highlighted = '<p><strong>Your Option ' + escapeHtml(selectedOption) + ':</strong> ' + escapeHtml(map[selectedOption]) + '</p>';
+        }
+
+        var lines = keys.map(function (key) {
+            return '<li><strong>' + escapeHtml(key) + '.</strong> ' + escapeHtml(map[key]) + '</li>';
+        }).join('');
+
+        return '<h5>❌ Eliminate Wrong Answers</h5>' + highlighted + '<ul class="pc-question-explanation-list">' + lines + '</ul>';
+    }
+
+    function renderExplanationHtml(question, selectedOption) {
+        var parts = [];
+
+        if (question.decision_framework) {
+            parts.push('<h5>🧠 Decision Framework</h5><p>' + escapeHtml(question.decision_framework) + '</p>');
+        }
+
+        if (Array.isArray(question.key_triggers) && question.key_triggers.length) {
+            parts.push('<h5>Key Triggers</h5>' + renderList(question.key_triggers));
+        }
+
+        var eliminationHtml = renderEliminationMap(question, selectedOption);
+        if (eliminationHtml) {
+            parts.push(eliminationHtml);
+        }
+
+        if (question.explanation) {
+            parts.push('<h5>✅ Correct Answer Logic</h5><p>' + escapeHtml(question.explanation) + '</p>');
+        }
+
+        if (question.speed_training) {
+            parts.push('<h5>⏱️ Speed Training</h5><p>' + escapeHtml(question.speed_training) + '</p>');
+        }
+
+        if (question.navle_rule) {
+            parts.push('<p><strong>NAVLE Rule:</strong> ' + escapeHtml(question.navle_rule) + '</p>');
+        }
+
+        if (question.source_doc) {
+            parts.push('<p class="pc-text-small">Source format: ' + escapeHtml(question.source_doc) + '</p>');
+        }
+
+        if (!parts.length) {
+            parts.push('<p>No explanation available for this question yet.</p>');
+        }
+
+        return parts.join('');
     }
 
     async function loadQuestions() {
         var container = byId('question-container');
 
         try {
-            var response = await fetch('/content/navle/questions.json', { cache: 'no-store' });
-            if (!response.ok) {
-                throw new Error('HTTP ' + response.status);
+            isPaidUser = detectPaidAccess();
+            var data = await loadQuestionBankData();
+            questions = parseQuestions(data);
+
+            if (!isPaidUser) {
+                questions = questions.slice(0, FREE_BANK_MAX);
             }
 
-            var data = await response.json();
-            questions = parseQuestions(data).slice(0, 50);
             if (!questions.length) {
                 throw new Error('No questions available');
             }
 
             freeUsed = readUsage();
-            if (freeUsed >= 5) {
+            if (!isPaidUser && freeUsed >= FREE_DAILY_LIMIT) {
                 renderLimitReached();
                 return;
             }
@@ -185,7 +395,7 @@
             return;
         }
 
-        if (freeUsed >= 5) {
+        if (!isPaidUser && freeUsed >= FREE_DAILY_LIMIT) {
             renderLimitReached();
             return;
         }
@@ -199,8 +409,8 @@
             var text = pair[1];
             return '' +
                 '<button class="pc-option-btn" type="button" onclick="selectOption(\'' + key + '\')" data-option="' + key + '">' +
-                '<span class="pc-option-key">' + key + '</span>' +
-                '<span class="pc-option-text">' + text + '</span>' +
+                '<span class="pc-option-key">' + escapeHtml(key) + '</span>' +
+                '<span class="pc-option-text">' + escapeHtml(text) + '</span>' +
                 '</button>';
         }).join('');
 
@@ -208,9 +418,9 @@
             '<div class="pc-question-card">' +
             '<div class="pc-question-header">' +
             '<span class="pc-question-number">Question ' + (index + 1) + '</span>' +
-            '<span class="pc-question-topic">' + String(currentQuestion.topic || 'general') + '</span>' +
+            '<span class="pc-question-topic">' + escapeHtml(getTopicLabel(currentQuestion.topic || 'general')) + '</span>' +
             '</div>' +
-            '<p class="pc-question-stem">' + currentQuestion.stem + '</p>' +
+            '<p class="pc-question-stem">' + escapeHtml(currentQuestion.stem) + '</p>' +
             '<div class="pc-question-options">' + optionsHtml + '</div>' +
             '<div class="pc-question-feedback" id="feedback" style="display:none;"></div>' +
             '</div>';
@@ -243,22 +453,24 @@
         feedback.style.display = 'block';
         feedback.className = 'pc-question-feedback ' + (isCorrect ? 'pc-feedback--correct' : 'pc-feedback--incorrect');
         feedback.innerHTML = '' +
-            '<h4>' + (isCorrect ? '✓ Correct!' : '✗ Incorrect') + '</h4>' +
-            '<p>' + currentQuestion.explanation + '</p>' +
+            '<h4>' + (isCorrect ? '✓ Correct!' : '✗ Not the Best Choice') + '</h4>' +
+            renderExplanationHtml(currentQuestion, option) +
             '<button class="pc-btn pc-btn--primary" type="button" onclick="nextQuestion()">Next Question</button>';
 
-        freeUsed += 1;
-        writeUsage(freeUsed);
+        if (!isPaidUser) {
+            freeUsed += 1;
+            writeUsage(freeUsed);
+            if (freeUsed >= FREE_DAILY_LIMIT) {
+                window.setTimeout(showGateModal, 1200);
+            }
+        }
+
         writeSessionIndex(questionIndex + 1);
         queueProgressSync();
-
-        if (freeUsed >= 5) {
-            window.setTimeout(showGateModal, 1200);
-        }
     }
 
     function nextQuestion() {
-        if (freeUsed >= 5) {
+        if (!isPaidUser && freeUsed >= FREE_DAILY_LIMIT) {
             renderLimitReached();
             return;
         }
@@ -269,6 +481,10 @@
     }
 
     function showGateModal() {
+        if (isPaidUser) {
+            return;
+        }
+
         var modal = byId('gate-modal');
         if (modal) {
             modal.style.display = 'grid';
