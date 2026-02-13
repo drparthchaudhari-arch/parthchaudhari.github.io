@@ -6,24 +6,24 @@
 
 :root {
     /* Light Mode (Default) */
-    --pc-bg-primary: #F7F7F2;
+    --pc-bg-primary: #F1F6FB;
     --pc-bg-secondary: #FFFFFF;
-    --pc-bg-tertiary: #E8E8E0;
-    --pc-text-primary: #121826;
-    --pc-text-secondary: #4A5568;
-    --pc-text-muted: #718096;
-    --pc-border: #CBD5E0;
+    --pc-bg-tertiary: #E7F0FA;
+    --pc-text-primary: #0F1B2D;
+    --pc-text-secondary: #334A63;
+    --pc-text-muted: #60758F;
+    --pc-border: #C3D3E4;
 
     /* Brand Colors (constant) */
-    --pc-teal: #0B4F6C;
-    --pc-teal-light: #147A8C;
-    --pc-teal-dark: #06384A;
-    --pc-coral: #FF6B35;
-    --pc-coral-light: #FF8F6B;
-    --pc-coral-dark: #E55A2B;
+    --pc-teal: #0E5D79;
+    --pc-teal-light: #1B7E9A;
+    --pc-teal-dark: #084258;
+    --pc-coral: #EE6B3B;
+    --pc-coral-light: #FF946D;
+    --pc-coral-dark: #D95A2C;
     --pc-mint: #00F5D4;
     --pc-mint-dark: #00D4B8;
-    --pc-bone: #F7F7F2;
+    --pc-bone: #F1F6FB;
     --pc-navy: #121826;
 
     /* Semantic */
