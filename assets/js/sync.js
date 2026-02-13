@@ -576,10 +576,22 @@
             var profileResult = await ensureProfile(client, user);
             if (!profileResult.ok) {
                 if (profileResult.error && isRlsViolation(profileResult.error, 'profiles')) {
-                    warnings.push('Profile sync skipped due profiles table RLS policy.');
-                } else if (profileResult.error) {
-                    warnings.push('Profile sync skipped: ' + getErrorMessage(profileResult.error));
+                    return {
+                        ok: false,
+                        error: {
+                            code: getErrorCode(profileResult.error) || 'PROFILE_RLS_BLOCKED',
+                            message: 'Sync blocked: profiles row could not be created due RLS policy. Run sync RLS hotfix migration and retry.'
+                        }
+                    };
                 }
+
+                return {
+                    ok: false,
+                    error: profileResult.error || {
+                        code: 'PROFILE_UPSERT_FAILED',
+                        message: 'Sync blocked: unable to create profile row required before writing user_progress.'
+                    }
+                };
             }
 
             var progressPayload = {

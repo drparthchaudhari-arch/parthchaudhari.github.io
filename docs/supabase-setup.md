@@ -65,6 +65,23 @@ If you see `new row violates row-level security policy for table "profiles"`, ru
 
 - `supabase/migrations/20260213_sync_rls_hotfix.sql`
 
+### Foreign key error on user_progress
+If you see:
+- `insert or update on table "user_progress" violates foreign key constraint "user_progress_user_id_fkey"`
+
+It means `user_progress.user_id` is being written before a matching `profiles.id` row exists.
+
+Fix:
+1. Run `supabase/migrations/20260213_sync_rls_hotfix.sql` to ensure `profiles` insert policy exists.
+2. Ensure the user has a profile row (created automatically by app sync once policy is correct).
+3. Retry Sync.
+
+### Recommended hardening (one-time)
+Run:
+- `supabase/migrations/20260213_profile_autoprovision.sql`
+
+This adds an `auth.users` trigger that auto-creates/updates `profiles` rows, which prevents future `user_progress_user_id_fkey` sync failures.
+
 ## Step 3: Configure Auth
 - Authentication -> Providers -> Enable Email
 - Turn OFF "Confirm email" (optional)

@@ -485,11 +485,19 @@
                     showError('Sync blocked by Supabase RLS on profiles. Add a profiles INSERT policy (auth.uid() = id) and retry.');
                     return;
                 }
+                if (isUserProgressForeignKeyError(result && result.error)) {
+                    showError('Sync blocked: user_progress requires a matching profiles row for your user. Create/fix profile row and retry sync.');
+                    return;
+                }
                 showError('Sync failed: ' + getErrorMessage(result && result.error));
             }
         } catch (error) {
             if (isProfilesRlsError(error)) {
                 showError('Sync blocked by Supabase RLS on profiles. Add a profiles INSERT policy (auth.uid() = id) and retry.');
+                return;
+            }
+            if (isUserProgressForeignKeyError(error)) {
+                showError('Sync blocked: user_progress requires a matching profiles row for your user. Create/fix profile row and retry sync.');
                 return;
             }
             showError('Sync error: ' + getErrorMessage(error));
@@ -522,6 +530,27 @@
     function isProfilesRlsError(error) {
         var message = getErrorMessage(error).toLowerCase();
         return message.indexOf('row-level security') !== -1 && message.indexOf('profiles') !== -1;
+    }
+
+    function isUserProgressForeignKeyError(error) {
+        if (!error) {
+            return false;
+        }
+
+        var code = (error.code ? String(error.code) : '').toLowerCase();
+        var message = getErrorMessage(error).toLowerCase();
+
+        if (message.indexOf('user_progress_user_id_fkey') !== -1) {
+            return true;
+        }
+
+        if (code === '23503' && message.indexOf('user_progress') !== -1) {
+            return true;
+        }
+
+        return message.indexOf('foreign key') !== -1 &&
+            message.indexOf('user_progress') !== -1 &&
+            message.indexOf('profiles') !== -1;
     }
 
     function getErrorMessage(error) {
