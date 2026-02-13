@@ -1,4 +1,5 @@
 (function () {
+    var SITE_BRAND = 'VetLudics';
     var AUTH_STATE_KEY = 'pc_sync_auth_state';
     var TEXT_SCALE_KEY = 'pc_text_scale_v1';
     var DESKTOP_VIEW_KEY = 'pc_desktop_view_v1';
@@ -10,55 +11,60 @@
     var DESKTOP_WIDTH = 1280;
     var desktopViewDefaultViewport = '';
     var NAV_ITEMS = [
-        { id: 'home', label: 'Home', href: '/' },
         {
-            id: 'clinical-tools',
-            label: 'Clinical Tools',
+            id: 'tools',
+            label: 'Tools',
             href: '/tools/',
             children: [
-                { label: 'All Clinical Tools', href: '/tools/' },
-                { label: 'Dose Calculator', href: '/tools/dose-calculator.html' },
-                { label: 'Unit Converter', href: '/tools/unit-converter.html' },
-                { label: 'Emergency Drug Chart', href: '/tools/emergency-drug-chart.html' },
-                { label: 'CRI Calculator', href: '/tools/cri-calculator.html' },
-                { label: 'Fluid Calculator', href: '/tools/fluid-calculator.html' }
+                { label: 'All Veterinary Tools', href: '/tools/' },
+                { label: 'Veterinary Calculators', href: '/veterinary-calculators/' },
+                { label: 'Emergency Triage Algorithms', href: '/emergency-triage-algorithms/' },
+                { label: 'Dose Calculator', href: '/tools/dose-calculator.html' }
             ]
         },
         {
-            id: 'study',
-            label: 'Study',
-            href: '/study/',
+            id: 'navle-study',
+            label: 'NAVLE Study',
+            href: '/study/navle/',
             children: [
-                { label: 'NAVLE Practice', href: '/study/navle/practice/' },
-                { label: 'Reference', href: '/reference/' },
-                { label: 'NAVLE Topics', href: '/study/wordweb/' },
+                { label: 'NAVLE Study Hub', href: '/study/navle/' },
+                { label: 'Practice Questions', href: '/study/navle/practice/' },
+                { label: 'NAVLE Practice Questions', href: '/navle-practice-questions/' },
                 { label: 'Topic Guides', href: '/study/navle/topics/' },
-                { label: "Today's Plan", href: '/today/' },
-                { label: 'Case Directory', href: '/bridge/case-studies/' }
+                { label: 'Comprehensive Guide', href: '/study/navle/comprehensive/' }
             ]
         },
         {
-            id: 'play',
-            label: 'Play',
-            href: '/play/',
+            id: 'reference',
+            label: 'Reference',
+            href: '/reference/',
             children: [
-                { label: 'Sudoku', href: '/play/sudoku/' },
-                { label: 'Memory Match', href: '/play/memory-match/' },
-                { label: '2048', href: '/play/2048/' },
-                { label: 'Tic-Tac-Toe', href: '/play/tictactoe/' },
-                { label: 'IQ Challenge', href: '/play/iq-challenge/' }
+                { label: 'Reference Library', href: '/reference/' },
+                { label: 'Dog and Cat Normal Values', href: '/dog-cat-normal-values/' },
+                { label: 'Toxicity Reference', href: '/reference/toxicities.html' }
             ]
         },
         {
-            id: 'profile',
-            label: 'Profile',
-            href: '/account/',
+            id: 'case-studies',
+            label: 'Case Studies',
+            href: '/bridge/case-studies/',
             children: [
-                { label: 'Account & Sync', href: '/account/' },
-                { label: 'Subscription', href: '/account/subscription/' }
+                { label: 'Case Studies Hub', href: '/clinical-case-studies/' },
+                { label: 'Clinical Case Directory', href: '/bridge/case-studies/' },
+                { label: 'Cardiology CHF Algorithm', href: '/cardiology-chf-algorithm/' }
             ]
         },
-        { id: 'search', label: 'Search', href: '/search.html' }
+        { id: 'pricing', label: 'Pricing', href: '/pricing/' },
+        {
+            id: 'about',
+            label: 'About',
+            href: '/about.html',
+            children: [
+                { label: 'About and Credentials', href: '/about.html' },
+                { label: 'Editorial Policy', href: '/editorial-policy/' },
+                { label: 'Contact', href: '/contact.html' }
+            ]
+        }
     ];
 
     function isLoggedInFromCache() {
@@ -115,40 +121,65 @@
     function getActiveNavId(pathname) {
         var path = normalizePath(pathname);
 
-        if (path === '/') {
-            return 'home';
-        }
-
-        if (path === '/tools' || path.indexOf('/tools/') === 0) {
-            return 'clinical-tools';
+        if (
+            path === '/tools' ||
+            path.indexOf('/tools/') === 0 ||
+            path === '/veterinary-calculators' ||
+            path.indexOf('/veterinary-calculators/') === 0 ||
+            path === '/emergency-triage-algorithms' ||
+            path.indexOf('/emergency-triage-algorithms/') === 0
+        ) {
+            return 'tools';
         }
 
         if (
             path === '/study' ||
             path.indexOf('/study/') === 0 ||
+            path === '/navle-practice-questions' ||
+            path.indexOf('/navle-practice-questions/') === 0
+        ) {
+            return 'navle-study';
+        }
+
+        if (
             path === '/reference' ||
             path.indexOf('/reference/') === 0 ||
-            path === '/today' ||
-            path.indexOf('/today/') === 0 ||
-            path === '/bridge' ||
-            path.indexOf('/bridge/') === 0
+            path === '/dog-cat-normal-values' ||
+            path.indexOf('/dog-cat-normal-values/') === 0
         ) {
-            return 'study';
+            return 'reference';
         }
 
-        if (path === '/play' || path.indexOf('/play/') === 0 || path === '/leaderboard' || path.indexOf('/leaderboard/') === 0) {
-            return 'play';
+        if (
+            path === '/bridge' ||
+            path.indexOf('/bridge/') === 0 ||
+            path === '/clinical-case-studies' ||
+            path.indexOf('/clinical-case-studies/') === 0 ||
+            path === '/cardiology-chf-algorithm' ||
+            path.indexOf('/cardiology-chf-algorithm/') === 0
+        ) {
+            return 'case-studies';
         }
 
-        if (path === '/search' || path === '/search.html') {
-            return 'search';
+        if (path === '/pricing' || path.indexOf('/pricing/') === 0) {
+            return 'pricing';
         }
 
-        if (path === '/account' || path.indexOf('/account/') === 0 || path === '/info' || path === '/info.html') {
-            return 'profile';
+        if (
+            path === '/about' ||
+            path.indexOf('/about/') === 0 ||
+            path === '/about.html' ||
+            path === '/info' ||
+            path === '/info.html' ||
+            path === '/contact' ||
+            path === '/contact.html' ||
+            path === '/editorial-policy' ||
+            path.indexOf('/editorial-policy/') === 0
+        ) {
+            return 'about';
         }
 
-        return 'home';
+        return '';
     }
 
     function createPortalNavItem(item, activeId, pathname) {
@@ -162,15 +193,6 @@
         var anchor = document.createElement('a');
         anchor.className = 'pc-nav-link' + (item.id === activeId ? ' pc-is-active' : '');
         anchor.href = item.href;
-
-        if (item.id === 'profile') {
-            var indicator = document.createElement('span');
-            indicator.className = 'pc-auth-indicator';
-            indicator.setAttribute('data-pc-auth-indicator', '');
-            indicator.setAttribute('aria-hidden', 'true');
-            indicator.textContent = '○';
-            anchor.appendChild(indicator);
-        }
 
         anchor.appendChild(document.createTextNode(item.label));
         wrapper.appendChild(anchor);
@@ -257,6 +279,33 @@
         }
     }
 
+    function applyBrandLabel() {
+        var logos = document.querySelectorAll('.pc-logo');
+        for (var i = 0; i < logos.length; i += 1) {
+            logos[i].textContent = SITE_BRAND;
+            logos[i].setAttribute('aria-label', SITE_BRAND + ' home');
+            logos[i].setAttribute('title', SITE_BRAND);
+        }
+    }
+
+    function ensureCanonicalLink() {
+        var canonical = document.querySelector('link[rel=\"canonical\"]');
+        var path = window.location.pathname || '/';
+        var cleanPath = path === '/index.html' ? '/' : path;
+        var fallbackHref = toAbsoluteUrl(cleanPath);
+
+        if (!canonical) {
+            canonical = document.createElement('link');
+            canonical.setAttribute('rel', 'canonical');
+            canonical.setAttribute('href', fallbackHref);
+            document.head.appendChild(canonical);
+            return;
+        }
+
+        var currentHref = canonical.getAttribute('href') || fallbackHref;
+        canonical.setAttribute('href', currentHref.split('#')[0].split('?')[0]);
+    }
+
     function appendGlobalQuickLinksIfMissing() {
         if (document.querySelector('[data-pc-global-quick-links]')) {
             return;
@@ -277,12 +326,12 @@
         strip.setAttribute('aria-label', 'Quick references');
 
         var quickLinks = [
-            { label: 'Clinical Tools', href: '/tools/' },
-            { label: 'NAVLE Practice', href: '/study/navle/practice/' },
+            { label: 'Tools', href: '/tools/' },
+            { label: 'NAVLE Study', href: '/study/navle/' },
             { label: 'Reference', href: '/reference/' },
-            { label: 'NAVLE Topics', href: '/study/wordweb/' },
-            { label: 'Topic Guides', href: '/study/navle/topics/' },
-            { label: 'Play', href: '/play/' }
+            { label: 'Case Studies', href: '/bridge/case-studies/' },
+            { label: 'Pricing', href: '/pricing/' },
+            { label: 'About', href: '/about.html' }
         ];
 
         for (var i = 0; i < quickLinks.length; i += 1) {
@@ -294,6 +343,204 @@
         }
 
         main.appendChild(strip);
+    }
+
+    function shouldSkipGlobalFooter(path) {
+        return (
+            path.indexOf('/account') === 0 ||
+            path.indexOf('/leaderboard') === 0 ||
+            path.indexOf('/app') === 0 ||
+            path.indexOf('/archive') === 0 ||
+            (document.body && document.body.classList.contains('pc-page--gameframe'))
+        );
+    }
+
+    function appendGlobalFooterIfMissing() {
+        if (document.querySelector('.pc-footer') || document.querySelector('[data-pc-global-footer]')) {
+            return;
+        }
+
+        var main = document.querySelector('main');
+        if (!main) {
+            return;
+        }
+
+        var path = normalizePath(window.location.pathname || '/');
+        if (shouldSkipGlobalFooter(path)) {
+            return;
+        }
+
+        var footer = document.createElement('footer');
+        footer.className = 'pc-footer pc-footer--global';
+        footer.setAttribute('data-pc-global-footer', 'true');
+        footer.innerHTML =
+            '<div class="pc-footer-links">' +
+            '<a href="/about.html">About & Credentials</a>' +
+            '<a href="/editorial-policy/">Editorial Policy</a>' +
+            '<a href="/pricing/">Pricing</a>' +
+            '<a href="/contact.html">Contact</a>' +
+            '</div>' +
+            '<p class="pc-footer-note">Last reviewed dates appear on key clinical pages and are updated during scheduled content reviews.</p>' +
+            '<p class="pc-footer-note">Educational use only. ' + SITE_BRAND + ' does not provide patient-specific diagnosis or treatment advice.</p>';
+
+        main.appendChild(footer);
+    }
+
+    function getBreadcrumbRoot(path) {
+        if (
+            path === '/tools' ||
+            path.indexOf('/tools/') === 0 ||
+            path === '/veterinary-calculators' ||
+            path.indexOf('/veterinary-calculators/') === 0 ||
+            path === '/emergency-triage-algorithms' ||
+            path.indexOf('/emergency-triage-algorithms/') === 0
+        ) {
+            return { label: 'Tools', href: '/tools/' };
+        }
+
+        if (
+            path === '/study' ||
+            path.indexOf('/study/') === 0 ||
+            path === '/navle-practice-questions' ||
+            path.indexOf('/navle-practice-questions/') === 0
+        ) {
+            return { label: 'NAVLE Study', href: '/study/navle/' };
+        }
+
+        if (
+            path === '/reference' ||
+            path.indexOf('/reference/') === 0 ||
+            path === '/dog-cat-normal-values' ||
+            path.indexOf('/dog-cat-normal-values/') === 0
+        ) {
+            return { label: 'Reference', href: '/reference/' };
+        }
+
+        if (
+            path === '/bridge' ||
+            path.indexOf('/bridge/') === 0 ||
+            path === '/clinical-case-studies' ||
+            path.indexOf('/clinical-case-studies/') === 0 ||
+            path === '/cardiology-chf-algorithm' ||
+            path.indexOf('/cardiology-chf-algorithm/') === 0
+        ) {
+            return { label: 'Case Studies', href: '/bridge/case-studies/' };
+        }
+
+        return null;
+    }
+
+    function getCurrentPageLabel() {
+        var heading = document.querySelector('main h1');
+        if (heading && heading.textContent && heading.textContent.trim()) {
+            return heading.textContent.trim();
+        }
+
+        var title = (document.title || '').split('–')[0].split('|')[0].trim();
+        return title || 'Current Page';
+    }
+
+    function toAbsoluteUrl(path) {
+        return 'https://parthchaudhari.com' + (path.charAt(0) === '/' ? path : '/' + path);
+    }
+
+    function appendBreadcrumbStructuredData(items) {
+        if (document.querySelector('[data-pc-breadcrumb-jsonld]')) {
+            return;
+        }
+
+        var list = [];
+        for (var i = 0; i < items.length; i += 1) {
+            list.push({
+                '@type': 'ListItem',
+                position: i + 1,
+                name: items[i].name,
+                item: items[i].url
+            });
+        }
+
+        var script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.setAttribute('data-pc-breadcrumb-jsonld', 'true');
+        script.textContent = JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: list
+        });
+        document.head.appendChild(script);
+    }
+
+    function appendSectionBreadcrumbIfMissing() {
+        if (document.querySelector('.pc-breadcrumbs') || document.querySelector('[data-pc-disable-breadcrumbs]')) {
+            return;
+        }
+
+        var main = document.querySelector('main');
+        if (!main) {
+            return;
+        }
+
+        var path = normalizePath(window.location.pathname || '/');
+        var root = getBreadcrumbRoot(path);
+        if (!root) {
+            return;
+        }
+
+        var homeCrumb = { name: 'Home', url: toAbsoluteUrl('/') };
+        var rootCrumb = { name: root.label, url: toAbsoluteUrl(root.href) };
+        var currentPath = window.location.pathname || '/';
+        var currentUrl = toAbsoluteUrl(currentPath);
+        var currentLabel = getCurrentPageLabel();
+
+        var nav = document.createElement('nav');
+        nav.className = 'pc-breadcrumbs';
+        nav.setAttribute('aria-label', 'Breadcrumb');
+        nav.innerHTML =
+            '<ol class="pc-breadcrumbs__list">' +
+            '<li class="pc-breadcrumbs__item"><a href="/">Home</a></li>' +
+            '<li class="pc-breadcrumbs__item"><a href="' + root.href + '">' + root.label + '</a></li>' +
+            '<li class="pc-breadcrumbs__item" aria-current="page">' + currentLabel + '</li>' +
+            '</ol>';
+
+        if (main.firstElementChild) {
+            main.insertBefore(nav, main.firstElementChild);
+        } else {
+            main.appendChild(nav);
+        }
+
+        appendBreadcrumbStructuredData([homeCrumb, rootCrumb, { name: currentLabel, url: currentUrl }]);
+    }
+
+    function appendSiteStructuredDataIfMissing() {
+        if (document.querySelector('[data-pc-site-jsonld]')) {
+            return;
+        }
+
+        var script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.setAttribute('data-pc-site-jsonld', 'true');
+        script.textContent = JSON.stringify({
+            '@context': 'https://schema.org',
+            '@graph': [
+                {
+                    '@type': 'Organization',
+                    name: SITE_BRAND,
+                    url: 'https://parthchaudhari.com/',
+                    logo: 'https://parthchaudhari.com/assets/img/vet-favicon.svg',
+                    sameAs: ['https://parthchaudhari.com/about.html']
+                },
+                {
+                    '@type': 'WebSite',
+                    name: SITE_BRAND,
+                    url: 'https://parthchaudhari.com/',
+                    publisher: {
+                        '@type': 'Organization',
+                        name: SITE_BRAND
+                    }
+                }
+            ]
+        });
+        document.head.appendChild(script);
     }
 
     function recordLastLearningLocation() {
@@ -551,9 +798,14 @@
     }
 
     function init() {
+        applyBrandLabel();
+        ensureCanonicalLink();
         normalizePortalNav();
         normalizeLegacyNav();
+        appendSectionBreadcrumbIfMissing();
         appendGlobalQuickLinksIfMissing();
+        appendGlobalFooterIfMissing();
+        appendSiteStructuredDataIfMissing();
         recordLastLearningLocation();
         initUserViewControls();
 

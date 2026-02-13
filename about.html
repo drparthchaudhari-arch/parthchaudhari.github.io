@@ -1,186 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-mode="pro" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
-  <title>About | VetLudics Portal</title>
-  <style>
-    :root {
-      --primary:#0f1f3c;
-      --secondary:#1a3a52;
-      --accent:#00b8e6;
-      --accent-light:#64d5ff;
-      --card:#ffffff;
-      --text:#0f1f3c;
-      --border:#e0e6ed;
-      --shadow-md:0 8px 24px rgba(0,180,216,0.12);
-    }
-    * { box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body {
-      margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",sans-serif;
-      background:linear-gradient(180deg,#f8f9fb 0%,#f0f4f8 100%);
-      color:var(--text);
-      line-height:1.8;
-      letter-spacing:0.3px;
-    }
-    header {
-      background:linear-gradient(135deg,#0f1f3c 0%,#1a3a52 40%,#006b94 100%);
-      color:#fff;
-      padding:120px 20px 140px;
-      text-align:center;
-      position:relative;
-      overflow:hidden;
-    }
-    header::before {
-      content:"";
-      position:absolute;
-      top:-30%;
-      right:-10%;
-      width:600px;
-      height:600px;
-      background:radial-gradient(circle,rgba(100,213,255,0.15) 0%,transparent 70%);
-      animation:float 8s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%,100% { transform:translateY(0px); }
-      50% { transform:translateY(-30px); }
-    }
-    header h1 {
-      margin:0;
-      font-size:56px;
-      font-weight:800;
-      letter-spacing:-1px;
-      background:linear-gradient(120deg,#fff 0%,#64d5ff 100%);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-clip:text;
-    }
-    nav {
-      display:flex;
-      gap:32px;
-      justify-content:center;
-      flex-wrap:wrap;
-      margin-top:24px;
-    }
-    nav a {
-      color:#fff;
-      text-decoration:none;
-      font-weight:600;
-      font-size:15px;
-      position:relative;
-      transition:color .3s ease;
-      padding:4px 0;
-    }
-    nav a::after {
-      content:"";
-      position:absolute;
-      left:0;
-      bottom:-6px;
-      width:0;
-      height:2.5px;
-      background:linear-gradient(90deg,var(--accent),var(--accent-light));
-      transition:width .4s cubic-bezier(0.34,1.56,0.64,1);
-      border-radius:3px;
-    }
-    nav a:hover { color:var(--accent); }
-    nav a:hover::after { width:100%; }
-    .container {
-      max-width:1100px;
-      margin:60px auto;
-      padding:64px 40px;
-      background:var(--card);
-      border-radius:24px;
-      box-shadow:var(--shadow-md);
-      border:1px solid rgba(224,230,237,0.8);
-    }
-    h2 {
-      color:var(--primary);
-      font-size:36px;
-      font-weight:800;
-      margin:0 0 20px 0;
-      background:linear-gradient(135deg,var(--primary),var(--secondary));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-clip:text;
-      letter-spacing:-0.5px;
-    }
-    p {
-      color:var(--text);
-      font-size:16px;
-      line-height:1.85;
-      margin:16px 0;
-    }
-    footer {
-      background:linear-gradient(180deg,var(--primary) 0%,var(--secondary) 100%);
-      text-align:center;
-      padding:40px 24px;
-      font-size:14px;
-      color:#ffffff;
-      margin-top:60px;
-    }
-    @media(max-width:768px){
-      header { padding:70px 20px 80px; }
-      header h1 { font-size:36px; }
-      .container { padding:40px 28px; margin:40px 20px; }
-      nav { gap:20px; }
-    }
-    @media(max-width:480px){
-      header h1 { font-size:28px; }
-      .container { padding:28px 20px; }
-      nav { gap:12px; }
-    }
-    /* Floating animals removed */
-
-    /* Side CTA for IQ challenge */
-    .side-cta {
-      position:fixed;
-      right:-48px;
-      top:50%;
-      transform:rotate(-90deg) translateY(-50%);
-      transform-origin:center;
-      background:linear-gradient(90deg,var(--accent),var(--accent-light));
-      color:#fff;
-      padding:10px 20px;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:700;
-      box-shadow:0 8px 24px rgba(0,180,216,0.15);
-      z-index:9999;
-    }
-    .side-cta:hover { transform:rotate(-90deg) translateY(-50%) translateY(-4px); }
-    @media(max-width:768px){ .side-cta{ display:none !important; } }
-  </style>
+    <title>Veterinary Educator Credentials – VetLudics</title>
+    <meta name="description" content="Meet Parth Chaudhari, BVSc&AH, and review the clinical background, educational focus, and credential context behind VetLudics veterinary learning content.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Veterinary Educator Credentials – VetLudics">
+    <meta property="og:description" content="Background and credentials behind VetLudics veterinary educational resources.">
+    <meta property="og:url" content="https://parthchaudhari.com/about.html">
+    <link rel="canonical" href="https://parthchaudhari.com/about.html">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/nav-status.js" defer></script>
 </head>
-<body>
+<body class="pc-page pc-page--info">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">VetLudics</a>
+            <div class="pc-nav-group">
+                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
+                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
+                </button>
+                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
+                </button>
+            </div>
+        </div>
+    </nav>
 
+    <main id="pc-main" class="pc-info-shell" role="main">
+        <section class="pc-section">
+            <div class="pc-hero-profile">
+                <div class="pc-photo-frame">
+                    <img
+                        src="/assets/img/profile.jpg"
+                        alt="Parth Chaudhari"
+                        loading="lazy"
+                        decoding="async"
+                        width="300"
+                        height="300"
+                        style="aspect-ratio: 1 / 1;"
+                    >
+                </div>
+                <div class="pc-hero-content">
+                    <h1>Parth Chaudhari, BVSc&amp;AH</h1>
+                    <p class="pc-tagline">Veterinary Educator | NAVLE Candidate | Clinical Learning Builder</p>
+                    <p>VetLudics is built around practical exam preparation and case-based clinical reasoning. The focus is to make veterinary learning more structured, measurable, and easier to apply.</p>
+                    <div class="pc-hero-actions">
+                        <a href="/clinical-case-studies/" class="pc-btn">Clinical Case Studies</a>
+                        <a href="/study/navle/" class="pc-btn pc-btn-secondary">NAVLE Study Hub</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <section class="pc-section">
+            <h2>Clinical and Educational Focus</h2>
+            <div class="pc-experience-grid">
+                <article class="pc-experience-card">
+                    <h3>Small Animal Clinical Workflow</h3>
+                    <p>Training and support experience in triage, internal medicine reasoning, diagnostics, and follow-up planning.</p>
+                </article>
+                <article class="pc-experience-card">
+                    <h3>NAVLE-Oriented Content Design</h3>
+                    <p>Educational pages and tools are organized around exam-style pattern recognition and decision sequencing.</p>
+                </article>
+                <article class="pc-experience-card">
+                    <h3>Case-Linked Reinforcement</h3>
+                    <p>Learning flows connect question practice, calculators, references, and case studies for stronger retention.</p>
+                </article>
+            </div>
+        </section>
 
-<header>
-  <h1>About</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="info.html#experience">Experience</a>
-    <a href="info.html#education">Education</a>
-    <a href="info.html#skills">Skills</a>
-    <a href="contact.html">Contact</a>
-    <a href="Parth-Chaudhari-CV.txt" download>Download CV</a>
-  </nav>
-</header>
-
-<div class="container">
-  <h2>Professional Background</h2>
-  <p>
-    I am an internationally trained veterinarian with more than four years of clinical experience in large-animal medicine and recent clinical experience in small-animal practice in Canada. I currently work as a veterinary assistant and technician while fulfilling the requirements for veterinary licensure in North America.
-  </p>
-  <p>
-    My clinical interests include internal medicine, emergency and critical care, and evidence-based clinical decision-making. I am actively preparing for the North American Veterinary Licensing Examination (NAVLE) and continue to pursue professional development opportunities.
-  </p>
-</div>
-<a class="side-cta" href="iq.html" aria-label="Take the IQ challenge" target="_blank" rel="noopener noreferrer">Take IQ Test</a>
-<footer>© 2026 VetLudics Portal</footer>
-
+        <section class="pc-section">
+            <h2>Editorial and Trust Links</h2>
+            <ul class="pc-link-list">
+                <li><a href="/editorial-policy/">Editorial policy and review standards</a></li>
+                <li><a href="/pricing/">Transparent Free and Premium pricing</a></li>
+                <li><a href="/contact.html">Contact for feedback or corrections</a></li>
+            </ul>
+            <p class="pc-last-reviewed">Last reviewed: February 13, 2026</p>
+            <div class="pc-note-box">
+                <p>Educational only. VetLudics does not provide patient-specific diagnosis or treatment advice.</p>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

@@ -1320,6 +1320,53 @@
     font-size: 0.92rem;
 }
 
+.pc-footer-note + .pc-footer-note {
+    margin-top: 0.45rem;
+}
+
+.pc-breadcrumbs {
+    margin-bottom: 0.9rem;
+    border: 1px solid var(--pc-border);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--pc-surface) 92%, transparent);
+    padding: 0.55rem 0.75rem;
+}
+
+.pc-breadcrumbs__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: 0.84rem;
+}
+
+.pc-breadcrumbs__item {
+    color: var(--pc-text-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.pc-breadcrumbs__item + .pc-breadcrumbs__item:before {
+    content: '/';
+    color: var(--pc-text-muted);
+    opacity: 0.75;
+}
+
+.pc-breadcrumbs__item a {
+    color: var(--pc-primary);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.pc-breadcrumbs__item[aria-current='page'] {
+    color: var(--pc-text);
+    font-weight: 700;
+}
+
 .pc-play-shell {
     width: min(1140px, 100%);
     margin: 0 auto;
@@ -1572,6 +1619,94 @@
 
 .pc-disclaimer a {
     color: var(--pc-primary);
+}
+
+.pc-last-reviewed {
+    margin: 0.75rem 0 0;
+    color: var(--pc-text-muted);
+    font-size: 0.83rem;
+    font-style: italic;
+}
+
+.pc-link-list {
+    margin: 0.8rem 0 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.45rem;
+    line-height: 1.6;
+}
+
+.pc-link-list a {
+    color: var(--pc-primary);
+    font-weight: 700;
+}
+
+.pc-note-box {
+    margin-top: 0.9rem;
+    border: 1px dashed var(--pc-border);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--pc-surface-strong) 85%, transparent);
+    padding: 0.75rem 0.85rem;
+}
+
+.pc-note-box p {
+    margin: 0;
+    color: var(--pc-text-muted);
+    line-height: 1.6;
+}
+
+.pc-tag-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.pc-tag {
+    min-height: 30px;
+    border-radius: 999px;
+    border: 1px solid var(--pc-border);
+    background: color-mix(in srgb, var(--pc-surface) 88%, transparent);
+    color: var(--pc-text);
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.pc-faq-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.7rem;
+}
+
+.pc-faq-item {
+    border: 1px solid var(--pc-border);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--pc-surface-strong) 84%, transparent);
+    padding: 0.75rem;
+}
+
+.pc-faq-item h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1rem;
+}
+
+.pc-faq-item p {
+    margin: 0;
+    color: var(--pc-text-muted);
+    line-height: 1.6;
+}
+
+.pc-pricing-table-note {
+    margin: 0.55rem 0 0;
+    color: var(--pc-text-muted);
+    font-size: 0.84rem;
 }
 
 .pc-completed-badge {

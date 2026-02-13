@@ -1,267 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-mode="pro" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
-  <title>Contact | VetLudics Portal</title>
-  <style>
-    :root {
-      --primary:#0f1f3c;
-      --secondary:#1a3a52;
-      --accent:#00b8e6;
-      --accent-light:#64d5ff;
-      --card:#ffffff;
-      --text:#0f1f3c;
-      --border:#e0e6ed;
-      --shadow-md:0 8px 24px rgba(0,180,216,0.12);
-    }
-    * { box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body {
-      margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",sans-serif;
-      background:linear-gradient(180deg,#f8f9fb 0%,#f0f4f8 100%);
-      color:var(--text);
-      line-height:1.8;
-      letter-spacing:0.3px;
-    }
-    header {
-      background:linear-gradient(135deg,#0f1f3c 0%,#1a3a52 40%,#006b94 100%);
-      color:#fff;
-      padding:120px 20px 140px;
-      text-align:center;
-      position:relative;
-      overflow:hidden;
-    }
-    header::before {
-      content:"";
-      position:absolute;
-      top:-30%;
-      right:-10%;
-      width:600px;
-      height:600px;
-      background:radial-gradient(circle,rgba(100,213,255,0.15) 0%,transparent 70%);
-      animation:float 8s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%,100% { transform:translateY(0px); }
-      50% { transform:translateY(-30px); }
-    }
-    header h1 {
-      margin:0;
-      font-size:56px;
-      font-weight:800;
-      letter-spacing:-1px;
-      background:linear-gradient(120deg,#fff 0%,#64d5ff 100%);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-clip:text;
-    }
-    nav {
-      display:flex;
-      gap:32px;
-      justify-content:center;
-      flex-wrap:wrap;
-      margin-top:24px;
-    }
-    nav a {
-      color:#fff;
-      text-decoration:none;
-      font-weight:600;
-      font-size:15px;
-      position:relative;
-      transition:color .3s ease;
-      padding:4px 0;
-    }
-    nav a::after {
-      content:"";
-      position:absolute;
-      left:0;
-      bottom:-6px;
-      width:0;
-      height:2.5px;
-      background:linear-gradient(90deg,var(--accent),var(--accent-light));
-      transition:width .4s cubic-bezier(0.34,1.56,0.64,1);
-      border-radius:3px;
-    }
-    nav a:hover { color:var(--accent); }
-    nav a:hover::after { width:100%; }
-    .container {
-      max-width:1100px;
-      margin:60px auto;
-      padding:64px 40px;
-      background:var(--card);
-      border-radius:24px;
-      box-shadow:var(--shadow-md);
-      border:1px solid rgba(224,230,237,0.8);
-    }
-    h2 {
-      color:var(--primary);
-      font-size:28px;
-      font-weight:700;
-      margin:0 0 40px 0;
-      background:linear-gradient(135deg,var(--primary),var(--secondary));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-clip:text;
-    }
-    .contact-item {
-      display:flex;
-      align-items:center;
-      gap:20px;
-      padding:28px;
-      margin:0 0 24px 0;
-      background:linear-gradient(135deg,#e3f4ff 0%,#d4ecff 100%);
-      border-radius:20px;
-      border-left:5px solid var(--accent);
-      transition:all .4s cubic-bezier(0.34,1.56,0.64,1);
-      position:relative;
-      overflow:hidden;
-    }
-    .contact-item::before {
-      content:"";
-      position:absolute;
-      top:-100%;
-      right:-100%;
-      width:300px;
-      height:300px;
-      background:radial-gradient(circle,rgba(100,213,255,0.15) 0%,transparent 70%);
-      border-radius:50%;
-      transition:all 0.6s ease;
-    }
-    .contact-item:hover {
-      transform:translateX(12px);
-      box-shadow:0 12px 32px rgba(0,180,216,0.18);
-      border-left-color:var(--accent-light);
-    }
-    .contact-item:hover::before {
-      top:-50%;
-      right:-50%;
-    }
-    .contact-item:last-child { margin-bottom:0; }
-    .contact-icon {
-      width:40px;
-      height:40px;
-      background:var(--accent);
-      color:#fff;
-      border-radius:50%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:bold;
-      flex-shrink:0;
-    }
-    .contact-info h3 {
-      margin:0 0 4px 0;
-      color:var(--secondary);
-      font-size:14px;
-      font-weight:700;
-      text-transform:uppercase;
-      letter-spacing:0.5px;
-    }
-    .contact-info p {
-      margin:0;
-      color:var(--text);
-      font-size:16px;
-      font-weight:500;
-    }
-    footer {
-      background:linear-gradient(180deg,var(--primary) 0%,var(--secondary) 100%);
-      text-align:center;
-      padding:40px 24px;
-      font-size:14px;
-      color:#ffffff;
-      margin-top:60px;
-    }
-    @media(max-width:768px){
-      header { padding:70px 20px 80px; }
-      header h1 { font-size:36px; }
-      .container { padding:40px 28px; margin:40px 20px; }
-      nav { gap:20px; }
-      .contact-item { flex-direction:column; text-align:center; align-items:flex-start; }
-    }
-    @media(max-width:480px){
-      header h1 { font-size:28px; }
-      .container { padding:28px 20px; }
-      nav { gap:12px; }
-      h2 { font-size:22px; }
-      .contact-item { padding:20px; }
-    }
-    /* Floating animals removed */
-
-    /* Side CTA for IQ challenge */
-    .side-cta {
-      position:fixed;
-      right:-48px;
-      top:50%;
-      transform:rotate(-90deg) translateY(-50%);
-      transform-origin:center;
-      background:linear-gradient(90deg,var(--accent),var(--accent-light));
-      color:#fff;
-      padding:10px 20px;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:700;
-      box-shadow:0 8px 24px rgba(0,180,216,0.15);
-      z-index:9999;
-    }
-    .side-cta:hover { transform:rotate(-90deg) translateY(-50%) translateY(-4px); }
-    @media(max-width:768px){ .side-cta{ display:none !important; } }
-  </style>
+    <title>Veterinary Education Contact – VetLudics</title>
+    <meta name="description" content="Contact VetLudics for educational content feedback, corrections, and collaboration inquiries related to veterinary tools, study resources, and cases.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Veterinary Education Contact – VetLudics">
+    <meta property="og:description" content="Contact details for VetLudics educational content and collaboration inquiries.">
+    <meta property="og:url" content="https://parthchaudhari.com/contact.html">
+    <link rel="canonical" href="https://parthchaudhari.com/contact.html">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/nav-status.js" defer></script>
 </head>
-<body>
+<body class="pc-page pc-page--study">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">VetLudics</a>
+            <div class="pc-nav-group">
+                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
+                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
+                </button>
+                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
+                </button>
+            </div>
+        </div>
+    </nav>
 
+    <main id="pc-main" class="pc-bridge-shell" role="main">
+        <section class="pc-bridge-hero">
+            <p class="pc-kicker">Contact</p>
+            <h1 class="pc-fork-title">Get in Touch</h1>
+            <p class="pc-fork-copy">Use this contact page for content corrections, partnership discussions, and questions about VetLudics study resources. Educational feedback is welcome.</p>
+            <p class="pc-last-reviewed">Last reviewed: February 13, 2026</p>
+        </section>
 
+        <section class="pc-bridge-section" aria-label="Primary contact details">
+            <h2 class="pc-bridge-title">Primary Contact Details</h2>
+            <div class="pc-bridge-card-grid">
+                <article class="pc-bridge-card">
+                    <h3>Email</h3>
+                    <p><a href="mailto:parth@parthchaudhari.com">parth@parthchaudhari.com</a></p>
+                </article>
+                <article class="pc-bridge-card">
+                    <h3>Phone</h3>
+                    <p><a href="tel:+12269780850">+1 226-978-0850</a></p>
+                </article>
+                <article class="pc-bridge-card">
+                    <h3>Location</h3>
+                    <p>Waterloo, Ontario, Canada</p>
+                </article>
+            </div>
+        </section>
 
-<header>
-  <h1>Contact</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="info.html#experience">Experience</a>
-    <a href="info.html#education">Education</a>
-    <a href="info.html#skills">Skills</a>
-    <a href="Parth-Chaudhari-CV.txt" download>Download CV</a>
-  </nav>
-</header>
-
-<div class="container">
-  <h2>Contact Information</h2>
-  <p style="margin-top:0; margin-bottom:20px; color:var(--text); font-weight:500;">I welcome professional inquiries and clinical opportunities. Please use the contact details below to reach me.</p>
-  
-  <div class="contact-item">
-    <div class="contact-icon">✉</div>
-    <div class="contact-info">
-      <h3>Email</h3>
-      <p><a href="mailto:parth@parthchaudhari.com" style="color:var(--secondary);text-decoration:none;font-weight:600;">parth@parthchaudhari.com</a></p>
-    </div>
-  </div>
-
-  <div class="contact-item">
-    <div class="contact-icon">📱</div>
-    <div class="contact-info">
-      <h3>Phone</h3>
-      <p><a href="tel:+12269780850" style="color:var(--secondary);text-decoration:none;font-weight:600;">+1 226-978-0850</a></p>
-    </div>
-  </div>
-
-  <div class="contact-item">
-    <div class="contact-icon">📍</div>
-    <div class="contact-info">
-      <h3>Location</h3>
-      <p>Waterloo, Ontario, Canada</p>
-    </div>
-  </div>
-</div>
-
-<a class="side-cta" href="iq.html" aria-label="Take the IQ challenge" target="_blank" rel="noopener noreferrer">Take IQ Test</a>
-<footer>
-  <div style="max-width:1100px;margin:auto;padding:20px 24px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
-    <div>© 2026 VetLudics Portal</div>
-    <div><a href="mailto:parth@parthchaudhari.com" style="color:rgba(255,255,255,0.9);text-decoration:none;font-weight:600;">parth@parthchaudhari.com</a></div>
-  </div>
-</footer>
-
+        <section class="pc-bridge-section" aria-label="Related trust links">
+            <h2 class="pc-bridge-title">Related Pages</h2>
+            <ul class="pc-link-list">
+                <li><a href="/about.html">About and credentials</a></li>
+                <li><a href="/editorial-policy/">Editorial policy and correction process</a></li>
+                <li><a href="/pricing/">Pricing and plan details</a></li>
+            </ul>
+            <div class="pc-note-box">
+                <p>Educational only. VetLudics does not provide emergency consultation or patient-specific treatment advice.</p>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
