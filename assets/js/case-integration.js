@@ -778,7 +778,8 @@
         actions.innerHTML =
             '<button type="button" class="pc-btn pc-btn--secondary" data-pc-export-json>Export Encounter JSON</button>' +
             '<button type="button" class="pc-btn pc-btn--secondary" data-pc-export-csv>Export Encounter CSV</button>' +
-            '<button type="button" class="pc-btn pc-btn--secondary" data-pc-export-fhir>Export Encounter FHIR</button>';
+            '<button type="button" class="pc-btn pc-btn--secondary" data-pc-export-fhir>Export Encounter FHIR</button>' +
+            '<button type="button" class="pc-btn pc-btn--secondary" data-pc-export-pdf>Export Encounter PDF</button>';
 
         panel.appendChild(header);
         panel.appendChild(grid);
@@ -804,6 +805,13 @@
         actions.querySelector('[data-pc-export-fhir]').addEventListener('click', function () {
             if (window.pcIntegration && typeof window.pcIntegration.exportEncounter === 'function') {
                 window.pcIntegration.exportEncounter(encounter.id, 'fhir');
+                renderStats(encounter.id, stats);
+            }
+        });
+
+        actions.querySelector('[data-pc-export-pdf]').addEventListener('click', function () {
+            if (window.pcIntegration && typeof window.pcIntegration.exportEncounter === 'function') {
+                window.pcIntegration.exportEncounter(encounter.id, 'pdf');
                 renderStats(encounter.id, stats);
             }
         });

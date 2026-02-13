@@ -529,6 +529,15 @@
         return '"' + text + '"';
     }
 
+    function escapeHtml(value) {
+        return String(value === null || value === undefined ? '' : value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
     function toFhirId(value, fallbackPrefix) {
         var base = sanitizeId(value || '');
         if (!base) {
@@ -669,6 +678,93 @@
         };
     }
 
+    function encounterToPrintableHtml(encounter) {
+        var outcomes = encounter.outcomes && typeof encounter.outcomes === 'object' ? encounter.outcomes : {};
+        var calculations = Array.isArray(encounter.calculations) ? encounter.calculations : [];
+        var events = Array.isArray(encounter.events) ? encounter.events : [];
+        var i;
+        var rows = '';
+        var timelineRows = '';
+
+        for (i = 0; i < calculations.length; i += 1) {
+            var calc = calculations[i] || {};
+            rows +=
+                '<tr>' +
+                '<td>' + escapeHtml(calc.calculatorLabel || calc.calculatorId || 'Calculator') + '</td>' +
+                '<td><code>' + escapeHtml(JSON.stringify(calc.inputs || {})) + '</code></td>' +
+                '<td><code>' + escapeHtml(JSON.stringify(calc.outputs || {})) + '</code></td>' +
+                '<td>' + escapeHtml(calc.createdAt || '') + '</td>' +
+                '</tr>';
+        }
+
+        if (!rows) {
+            rows = '<tr><td colspan="4">No calculator entries recorded.</td></tr>';
+        }
+
+        var eventCount = Math.min(events.length, 20);
+        for (i = Math.max(0, events.length - eventCount); i < events.length; i += 1) {
+            var evt = events[i] || {};
+            timelineRows +=
+                '<tr>' +
+                '<td>' + escapeHtml(evt.type || 'event') + '</td>' +
+                '<td><code>' + escapeHtml(JSON.stringify(evt.details || {})) + '</code></td>' +
+                '<td>' + escapeHtml(evt.createdAt || '') + '</td>' +
+                '</tr>';
+        }
+
+        if (!timelineRows) {
+            timelineRows = '<tr><td colspan="3">No timeline events.</td></tr>';
+        }
+
+        return '<!DOCTYPE html>' +
+            '<html lang="en">' +
+            '<head>' +
+            '<meta charset="utf-8">' +
+            '<meta name="viewport" content="width=device-width, initial-scale=1">' +
+            '<title>Encounter Export - ' + escapeHtml(encounter.caseTitle || encounter.caseId || 'Case') + '</title>' +
+            '<style>' +
+            'body{font-family:Arial,sans-serif;margin:24px;color:#0f172a;line-height:1.45}' +
+            'h1,h2{margin:0 0 12px}' +
+            '.meta{margin:0 0 16px;padding:12px;border:1px solid #cbd5e1;border-radius:8px;background:#f8fafc}' +
+            '.meta p{margin:4px 0}' +
+            'table{width:100%;border-collapse:collapse;margin-top:10px}' +
+            'th,td{border:1px solid #cbd5e1;padding:8px;vertical-align:top;text-align:left;font-size:12px}' +
+            'th{background:#f1f5f9}' +
+            'code{white-space:pre-wrap;word-break:break-word;font-size:11px}' +
+            '.disclaimer{margin-top:18px;padding:10px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;font-size:12px}' +
+            '@media print{body{margin:12px} .no-print{display:none}}' +
+            '</style>' +
+            '</head>' +
+            '<body>' +
+            '<h1>Encounter Export</h1>' +
+            '<div class="meta">' +
+            '<p><strong>Encounter ID:</strong> ' + escapeHtml(encounter.id || '') + '</p>' +
+            '<p><strong>Case:</strong> ' + escapeHtml(encounter.caseTitle || encounter.caseId || '') + '</p>' +
+            '<p><strong>Status:</strong> ' + escapeHtml(encounter.status || 'open') + '</p>' +
+            '<p><strong>Created:</strong> ' + escapeHtml(encounter.createdAt || '') + '</p>' +
+            '<p><strong>Updated:</strong> ' + escapeHtml(encounter.updatedAt || '') + '</p>' +
+            '<p><strong>Outcome:</strong> ' + escapeHtml(outcomes.resolution || 'not documented') + '</p>' +
+            '<p><strong>Follow-up needed:</strong> ' + (outcomes.followUpNeeded ? 'Yes' : 'No') + '</p>' +
+            '<p><strong>Complications:</strong> ' + escapeHtml(Array.isArray(outcomes.complications) ? outcomes.complications.join('; ') : '') + '</p>' +
+            '<p><strong>Actual treatment:</strong> ' + escapeHtml(outcomes.actualTreatment || '') + '</p>' +
+            '</div>' +
+            '<h2>Calculator Log</h2>' +
+            '<table>' +
+            '<thead><tr><th>Calculator</th><th>Inputs</th><th>Outputs</th><th>Timestamp</th></tr></thead>' +
+            '<tbody>' + rows + '</tbody>' +
+            '</table>' +
+            '<h2>Recent Timeline Events</h2>' +
+            '<table>' +
+            '<thead><tr><th>Event</th><th>Details</th><th>Timestamp</th></tr></thead>' +
+            '<tbody>' + timelineRows + '</tbody>' +
+            '</table>' +
+            '<p class="disclaimer">Educational export only. Verify all doses and treatment decisions against current clinical protocols.</p>' +
+            '<p class="no-print"><button onclick="window.print()">Print / Save as PDF</button></p>' +
+            '<script>setTimeout(function(){window.print();},300);<\/script>' +
+            '</body>' +
+            '</html>';
+    }
+
     function encounterToCsv(encounter) {
         var lines = [];
         var calculations = Array.isArray(encounter.calculations) ? encounter.calculations : [];
@@ -783,6 +879,19 @@
             extension = 'fhir.json';
             content = JSON.stringify(encounterToFhir(encounter), null, 2);
             mimeType = 'application/fhir+json;charset=utf-8';
+        } else if (normalized === 'pdf' || normalized === 'print') {
+            var popup = window.open('', '_blank', 'noopener,noreferrer');
+            if (!popup) {
+                return {
+                    ok: false,
+                    reason: 'popup_blocked'
+                };
+            }
+
+            popup.document.open();
+            popup.document.write(encounterToPrintableHtml(encounter));
+            popup.document.close();
+            exportType = 'pdf';
         } else {
             exportType = 'json';
             extension = 'json';
@@ -790,8 +899,10 @@
             mimeType = 'application/json;charset=utf-8';
         }
 
-        var filename = (sanitizeId(encounter.caseId) || 'encounter') + '_' + sanitizeId(encounter.id) + '.' + extension;
-        downloadText(filename, content, mimeType);
+        if (exportType !== 'pdf') {
+            var filename = (sanitizeId(encounter.caseId) || 'encounter') + '_' + sanitizeId(encounter.id) + '.' + extension;
+            downloadText(filename, content, mimeType);
+        }
 
         var encounters = getAllEncounters();
         if (encounters[encounter.id]) {
