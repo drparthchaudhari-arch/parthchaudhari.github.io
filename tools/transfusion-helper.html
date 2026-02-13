@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+    <title>Transfusion Helper | VetLudics Tools</title>
+    <meta name="description" content="Transfusion helper for dose volume, infusion rate planning, and reaction-first response reminders.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Transfusion Helper | VetLudics Tools">
+    <meta property="og:description" content="Estimate transfusion volume and review reaction recognition checkpoints.">
+    <meta property="og:url" content="https://parthchaudhari.com/tools/transfusion-helper.html">
+    <link rel="canonical" href="https://parthchaudhari.com/tools/transfusion-helper.html">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/transfusion-helper.js" defer></script>
+</head>
+<body class="pc-page pc-page--study">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">VetLudics Portal</a>
+            <div class="pc-nav-group">
+                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
+                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
+                </button>
+                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="pc-main" class="pc-bridge-shell" role="main">
+        <section class="pc-bridge-hero">
+            <p class="pc-kicker">Live Module</p>
+            <h1 class="pc-fork-title">Transfusion Helper</h1>
+            <p class="pc-fork-copy">Estimate packed cell transfusion volume, set rate checkpoints, and review first-response reaction steps.</p>
+            <div class="pc-panel-actions">
+                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+                <a class="pc-btn pc-btn--secondary" href="/reference/normal-values.html">Normal Values</a>
+            </div>
+        </section>
+
+        <section class="pc-bridge-section" aria-labelledby="transfusion-title">
+            <h2 id="transfusion-title" class="pc-bridge-title">Calculate Volume</h2>
+            <form id="transfusion-form" class="pc-calculator-grid" novalidate>
+                <label class="pc-calculator-field" for="tx-species"><span>Species</span><select id="tx-species" class="pc-input"><option value="dog">Dog</option><option value="cat">Cat</option></select></label>
+                <label class="pc-calculator-field" for="tx-weight"><span>Weight (kg)</span><input id="tx-weight" class="pc-input" type="number" min="0.2" step="0.1" required></label>
+                <label class="pc-calculator-field" for="tx-current"><span>Current PCV (%)</span><input id="tx-current" class="pc-input" type="number" min="0" max="80" step="0.1" required></label>
+                <label class="pc-calculator-field" for="tx-target"><span>Target PCV (%)</span><input id="tx-target" class="pc-input" type="number" min="0" max="80" step="0.1" required></label>
+                <label class="pc-calculator-field" for="tx-donor"><span>Donor PCV (%)</span><input id="tx-donor" class="pc-input" type="number" min="10" max="90" step="0.1" value="60" required></label>
+                <div class="pc-calculator-actions"><button type="submit" class="pc-btn pc-btn--primary">Calculate</button></div>
+            </form>
+        </section>
+
+        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="tx-result-title">
+            <h2 id="tx-result-title" class="pc-bridge-title">Transfusion Plan</h2>
+            <div class="pc-stat-grid pc-stat-grid--results">
+                <article class="pc-stat-card"><p class="pc-stat-label">Total Volume</p><p id="tx-volume" class="pc-stat-number">-</p></article>
+                <article class="pc-stat-card"><p class="pc-stat-label">Initial 15-min Rate</p><p id="tx-initial" class="pc-stat-number">-</p></article>
+                <article class="pc-stat-card"><p class="pc-stat-label">4-hour Average Rate</p><p id="tx-maint" class="pc-stat-number">-</p></article>
+            </div>
+            <p id="tx-note" class="pc-calculator-note">Enter values to generate a transfusion estimate.</p>
+            <article class="pc-tool-module">
+                <h3>Reaction First Response</h3>
+                <p>Stop transfusion, keep IV line with saline, reassess temperature/HR/RR/BP, and inform veterinarian immediately.</p>
+                <p>Watch for: fever, facial swelling, vomiting, urticaria, tachycardia, hypotension, dyspnea, pigmenturia.</p>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

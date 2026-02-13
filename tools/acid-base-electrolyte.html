@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+    <title>Acid-Base and Electrolyte Helper | VetLudics Tools</title>
+    <meta name="description" content="Calculate anion gap, corrected sodium, corrected calcium, and estimated osmolality for emergency interpretation.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Acid-Base and Electrolyte Helper | VetLudics Tools">
+    <meta property="og:description" content="Rapid electrolyte and acid-base helper for clinic and NAVLE prep use.">
+    <meta property="og:url" content="https://parthchaudhari.com/tools/acid-base-electrolyte.html">
+    <link rel="canonical" href="https://parthchaudhari.com/tools/acid-base-electrolyte.html">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/acid-base-electrolyte.js" defer></script>
+</head>
+<body class="pc-page pc-page--study">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">VetLudics Portal</a>
+            <div class="pc-nav-group">
+                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
+                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
+                </button>
+                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="pc-main" class="pc-bridge-shell" role="main">
+        <section class="pc-bridge-hero">
+            <p class="pc-kicker">Live Module</p>
+            <h1 class="pc-fork-title">Acid-Base and Electrolyte Helper</h1>
+            <p class="pc-fork-copy">Compute key correction formulas quickly: anion gap, sodium correction, corrected calcium, and osmolality estimate.</p>
+            <div class="pc-panel-actions">
+                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+                <a class="pc-btn pc-btn--secondary" href="/tools/unit-converter.html">Unit Converter</a>
+            </div>
+        </section>
+
+        <section class="pc-bridge-section" aria-labelledby="ab-input-title">
+            <h2 id="ab-input-title" class="pc-bridge-title">Inputs</h2>
+            <form id="ab-form" class="pc-calculator-grid" novalidate>
+                <label class="pc-calculator-field" for="ab-na"><span>Na (mEq/L)</span><input id="ab-na" class="pc-input" type="number" step="any"></label>
+                <label class="pc-calculator-field" for="ab-k"><span>K (mEq/L)</span><input id="ab-k" class="pc-input" type="number" step="any"></label>
+                <label class="pc-calculator-field" for="ab-cl"><span>Cl (mEq/L)</span><input id="ab-cl" class="pc-input" type="number" step="any"></label>
+                <label class="pc-calculator-field" for="ab-hco3"><span>HCO3 (mEq/L)</span><input id="ab-hco3" class="pc-input" type="number" step="any"></label>
+                <label class="pc-calculator-field" for="ab-glucose"><span>Glucose (mg/dL)</span><input id="ab-glucose" class="pc-input" type="number" step="any"></label>
+                <label class="pc-calculator-field" for="ab-bun"><span>BUN (mg/dL)</span><input id="ab-bun" class="pc-input" type="number" step="any"></label>
+                <label class="pc-calculator-field" for="ab-ca"><span>Total Ca (mg/dL)</span><input id="ab-ca" class="pc-input" type="number" step="any"></label>
+                <label class="pc-calculator-field" for="ab-albumin"><span>Albumin (g/dL)</span><input id="ab-albumin" class="pc-input" type="number" step="any"></label>
+                <div class="pc-calculator-actions">
+                    <button type="submit" class="pc-btn pc-btn--primary">Calculate</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="ab-result-title">
+            <h2 id="ab-result-title" class="pc-bridge-title">Results</h2>
+            <div class="pc-stat-grid pc-stat-grid--results">
+                <article class="pc-stat-card"><p class="pc-stat-label">Anion Gap</p><p id="ab-gap" class="pc-stat-number">-</p></article>
+                <article class="pc-stat-card"><p class="pc-stat-label">Corrected Na</p><p id="ab-cna" class="pc-stat-number">-</p></article>
+                <article class="pc-stat-card"><p class="pc-stat-label">Corrected Ca</p><p id="ab-cca" class="pc-stat-number">-</p></article>
+            </div>
+            <article class="pc-bridge-card pc-bridge-card--inline">
+                <h3>Estimated Osmolality</h3>
+                <p id="ab-osm" class="pc-calculator-highlight">-</p>
+                <p id="ab-note" class="pc-calculator-note">Enter values to generate an interpretation note.</p>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

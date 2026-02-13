@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+    <title>Dose Label Generator | VetLudics Tools</title>
+    <meta name="description" content="Generate printable medication labels with dose, frequency, duration, and client instructions.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Dose Label Generator | VetLudics Tools">
+    <meta property="og:description" content="Create clean medication labels from mg/kg calculations and treatment plans.">
+    <meta property="og:url" content="https://parthchaudhari.com/tools/dose-label-generator.html">
+    <link rel="canonical" href="https://parthchaudhari.com/tools/dose-label-generator.html">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/dose-label-generator.js" defer></script>
+</head>
+<body class="pc-page pc-page--study">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">VetLudics Portal</a>
+            <div class="pc-nav-group">
+                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
+                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
+                </button>
+                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="pc-main" class="pc-bridge-shell" role="main">
+        <section class="pc-bridge-hero">
+            <p class="pc-kicker">Live Module</p>
+            <h1 class="pc-fork-title">Dose Label Generator</h1>
+            <p class="pc-fork-copy">Create printable client-ready medication labels with dosage, frequency, duration, and key cautions.</p>
+            <div class="pc-panel-actions">
+                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+                <a class="pc-btn pc-btn--secondary" href="/tools/dose-calculator.html">Dose Calculator</a>
+            </div>
+        </section>
+
+        <section class="pc-bridge-section" aria-labelledby="label-title">
+            <h2 id="label-title" class="pc-bridge-title">Label Inputs</h2>
+            <form id="label-form" class="pc-calculator-grid" novalidate>
+                <label class="pc-calculator-field" for="label-patient"><span>Patient Name</span><input id="label-patient" class="pc-input" type="text" placeholder="Patient"></label>
+                <label class="pc-calculator-field" for="label-med"><span>Medication</span><input id="label-med" class="pc-input" type="text" placeholder="Medication name"></label>
+                <label class="pc-calculator-field" for="label-dose"><span>Dose per administration</span><input id="label-dose" class="pc-input" type="text" placeholder="e.g. 2.5 mg (0.5 mL)"></label>
+                <label class="pc-calculator-field" for="label-frequency"><span>Frequency</span><input id="label-frequency" class="pc-input" type="text" placeholder="e.g. Every 12 hours"></label>
+                <label class="pc-calculator-field" for="label-duration"><span>Duration (days)</span><input id="label-duration" class="pc-input" type="number" min="1" step="1" value="7"></label>
+                <label class="pc-calculator-field" for="label-instructions"><span>Special Instructions</span><textarea id="label-instructions" class="pc-input" rows="3" placeholder="With food / shake well / complete full course"></textarea></label>
+                <div class="pc-calculator-actions">
+                    <button type="submit" class="pc-btn pc-btn--primary">Generate Label</button>
+                    <button id="label-copy" type="button" class="pc-btn pc-btn--secondary">Copy</button>
+                    <button id="label-print" type="button" class="pc-btn pc-btn--secondary">Print</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="label-output-title">
+            <h2 id="label-output-title" class="pc-bridge-title">Printable Label</h2>
+            <textarea id="label-output" class="pc-input" rows="10" readonly></textarea>
+            <p id="label-note" class="pc-calculator-note">Generate a label, then copy or print.</p>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+    <title>Unit Converter | VetLudics Tools</title>
+    <meta name="description" content="Veterinary unit converter for glucose, creatinine, BUN, calcium, phosphorus, bilirubin, cholesterol, CBC, temperature, and weight.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Unit Converter | VetLudics Tools">
+    <meta property="og:description" content="Convert common veterinary lab and clinical units instantly.">
+    <meta property="og:url" content="https://parthchaudhari.com/tools/unit-converter.html">
+    <link rel="canonical" href="https://parthchaudhari.com/tools/unit-converter.html">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/unit-converter.js" defer></script>
+</head>
+<body class="pc-page pc-page--study">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">VetLudics Portal</a>
+            <div class="pc-nav-group">
+                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
+                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
+                </button>
+                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="pc-main" class="pc-bridge-shell" role="main">
+        <section class="pc-bridge-hero">
+            <p class="pc-kicker">Live Module</p>
+            <h1 class="pc-fork-title">Veterinary Unit Converter</h1>
+            <p class="pc-fork-copy">Convert chemistry, CBC, temperature, and weight values quickly for clinics, emergency rounds, and exam prep.</p>
+            <div class="pc-panel-actions">
+                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+                <a class="pc-btn pc-btn--secondary" href="/reference/normal-values.html">Normal Values</a>
+            </div>
+        </section>
+
+        <section class="pc-bridge-section" aria-labelledby="converter-title">
+            <h2 id="converter-title" class="pc-bridge-title">Conversion Workspace</h2>
+            <form id="converter-form" class="pc-calculator-grid" novalidate>
+                <label class="pc-calculator-field" for="converter-type">
+                    <span>Conversion Type</span>
+                    <select id="converter-type" class="pc-input"></select>
+                </label>
+
+                <label class="pc-calculator-field" for="converter-input">
+                    <span id="converter-input-label">Input</span>
+                    <input id="converter-input" class="pc-input" type="number" step="any" placeholder="Enter value" required>
+                </label>
+
+                <div class="pc-calculator-actions">
+                    <button id="converter-swap" type="button" class="pc-btn pc-btn--secondary">Swap Direction</button>
+                    <button id="converter-clear" type="button" class="pc-btn pc-btn--secondary">Clear</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="converter-result-title">
+            <h2 id="converter-result-title" class="pc-bridge-title">Result</h2>
+            <div class="pc-stat-grid pc-stat-grid--results">
+                <article class="pc-stat-card">
+                    <p class="pc-stat-label">Converted Value</p>
+                    <p id="converter-output" class="pc-stat-number">-</p>
+                </article>
+                <article class="pc-stat-card">
+                    <p class="pc-stat-label">Direction</p>
+                    <p id="converter-direction" class="pc-stat-number">-</p>
+                </article>
+                <article class="pc-stat-card">
+                    <p class="pc-stat-label">Formula</p>
+                    <p id="converter-formula" class="pc-stat-number">-</p>
+                </article>
+            </div>
+            <p id="converter-note" class="pc-calculator-note">Choose a conversion and type a value.</p>
+        </section>
+    </main>
+</body>
+</html>

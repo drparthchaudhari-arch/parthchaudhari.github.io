@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+    <title>Discharge Instruction Generator | VetLudics Tools</title>
+    <meta name="description" content="Generate discharge instructions for common veterinary workflows including surgery, dental, GI, otitis, wounds, UTI, and pancreatitis.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Discharge Instruction Generator | VetLudics Tools">
+    <meta property="og:description" content="Template-based discharge instructions with red flag reminders and follow-up cues.">
+    <meta property="og:url" content="https://parthchaudhari.com/tools/discharge-generator.html">
+    <link rel="canonical" href="https://parthchaudhari.com/tools/discharge-generator.html">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/discharge-generator.js" defer></script>
+</head>
+<body class="pc-page pc-page--study">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">VetLudics Portal</a>
+            <div class="pc-nav-group">
+                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
+                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
+                </button>
+                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="pc-main" class="pc-bridge-shell" role="main">
+        <section class="pc-bridge-hero">
+            <p class="pc-kicker">Live Module</p>
+            <h1 class="pc-fork-title">Discharge Instruction Generator</h1>
+            <p class="pc-fork-copy">Build clear client instructions quickly using common discharge templates and red-flag reminders.</p>
+            <div class="pc-panel-actions">
+                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+                <a class="pc-btn pc-btn--secondary" href="/tools/phone-triage.html">Phone Triage</a>
+            </div>
+        </section>
+
+        <section class="pc-bridge-section" aria-labelledby="discharge-title">
+            <h2 id="discharge-title" class="pc-bridge-title">Template Inputs</h2>
+            <form id="discharge-form" class="pc-calculator-grid" novalidate>
+                <label class="pc-calculator-field" for="dc-template"><span>Template</span><select id="dc-template" class="pc-input"></select></label>
+                <label class="pc-calculator-field" for="dc-name"><span>Patient Name</span><input id="dc-name" class="pc-input" type="text" placeholder="Patient"></label>
+                <label class="pc-calculator-field" for="dc-species"><span>Species</span><input id="dc-species" class="pc-input" type="text" placeholder="Dog/Cat"></label>
+                <label class="pc-calculator-field" for="dc-followup"><span>Follow-up (days)</span><input id="dc-followup" class="pc-input" type="number" min="1" step="1" value="7"></label>
+                <label class="pc-calculator-field" for="dc-meds"><span>Medications</span><textarea id="dc-meds" class="pc-input" rows="3" placeholder="List medications and doses"></textarea></label>
+                <label class="pc-calculator-field" for="dc-notes"><span>Extra Notes</span><textarea id="dc-notes" class="pc-input" rows="3" placeholder="Diet/activity/specific instructions"></textarea></label>
+                <div class="pc-calculator-actions">
+                    <button type="submit" class="pc-btn pc-btn--primary">Generate</button>
+                    <button id="dc-copy" type="button" class="pc-btn pc-btn--secondary">Copy</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="pc-bridge-section" aria-labelledby="discharge-output-title" aria-live="polite">
+            <h2 id="discharge-output-title" class="pc-bridge-title">Generated Instructions</h2>
+            <textarea id="dc-output" class="pc-input" rows="14" readonly></textarea>
+            <p id="dc-note" class="pc-calculator-note">Select a template and generate instructions.</p>
+        </section>
+    </main>
+</body>
+</html>
