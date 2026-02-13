@@ -1096,6 +1096,438 @@
         return card;
     }
 
+    function createSecurityComplianceCard(config, encounter, onAction) {
+        var card = document.createElement('article');
+        card.className = 'pc-tool-module pc-case-security';
+        card.innerHTML = '<h3>Security & Compliance Controls</h3>';
+
+        var intro = document.createElement('p');
+        intro.className = 'pc-case-intel__summary';
+        intro.textContent = 'Runs runtime compliance checks and exports tamper-evident audit logs.';
+        card.appendChild(intro);
+
+        var details = document.createElement('div');
+        details.className = 'pc-case-intel__summary';
+        card.appendChild(details);
+
+        var actions = document.createElement('div');
+        actions.className = 'pc-panel-actions';
+
+        var runCheckButton = document.createElement('button');
+        runCheckButton.type = 'button';
+        runCheckButton.className = 'pc-btn pc-btn--secondary';
+        runCheckButton.textContent = 'Run Compliance Check';
+        actions.appendChild(runCheckButton);
+
+        var exportAuditCsvButton = document.createElement('button');
+        exportAuditCsvButton.type = 'button';
+        exportAuditCsvButton.className = 'pc-btn pc-btn--secondary';
+        exportAuditCsvButton.textContent = 'Export Audit CSV';
+        actions.appendChild(exportAuditCsvButton);
+
+        var exportAuditJsonButton = document.createElement('button');
+        exportAuditJsonButton.type = 'button';
+        exportAuditJsonButton.className = 'pc-btn pc-btn--secondary';
+        exportAuditJsonButton.textContent = 'Export Audit JSON';
+        actions.appendChild(exportAuditJsonButton);
+
+        card.appendChild(actions);
+
+        var status = document.createElement('p');
+        status.className = 'pc-case-outcome__status';
+        status.textContent = 'Awaiting compliance check.';
+        card.appendChild(status);
+
+        function renderStatus() {
+            if (!window.pcIntegration || typeof window.pcIntegration.getSecurityStatus !== 'function') {
+                details.textContent = 'Security status unavailable in this environment.';
+                return null;
+            }
+
+            var security = window.pcIntegration.getSecurityStatus();
+            var auditText = security.audit && security.audit.ok
+                ? ('OK (' + security.audit.total + ' records)')
+                : ('Issue at index ' + (security.audit ? security.audit.brokenAt : 'unknown'));
+
+            details.textContent =
+                'Transport HTTPS: ' + (security.httpsTransport ? 'yes' : 'no') +
+                ' | Secure context: ' + (security.secureContext ? 'yes' : 'no') +
+                ' | Background sync: ' + (security.backgroundSync ? 'enabled' : 'not available') +
+                ' | Offline queue: ' + security.offlineQueueDepth +
+                ' | Audit chain: ' + auditText +
+                ' | Policy: ' + security.policyVersion;
+            return security;
+        }
+
+        runCheckButton.addEventListener('click', function () {
+            var security = renderStatus();
+            if (!security) {
+                status.textContent = 'Compliance check unavailable.';
+                return;
+            }
+
+            status.textContent = security.audit && security.audit.ok
+                ? 'Compliance check complete: audit chain verified.'
+                : 'Compliance check found an audit-chain integrity issue.';
+
+            if (window.pcIntegration && typeof window.pcIntegration.logCaseAction === 'function') {
+                window.pcIntegration.logCaseAction({
+                    encounterId: encounter.id,
+                    caseId: config.caseId,
+                    caseTitle: config.title,
+                    action: 'compliance_check_run',
+                    source: 'security_compliance_card',
+                    details: {
+                        secureContext: security.secureContext,
+                        httpsTransport: security.httpsTransport,
+                        auditOk: !!(security.audit && security.audit.ok)
+                    }
+                });
+            }
+
+            if (typeof onAction === 'function') {
+                onAction();
+            }
+        });
+
+        exportAuditCsvButton.addEventListener('click', function () {
+            if (!window.pcIntegration || typeof window.pcIntegration.exportAuditLog !== 'function') {
+                status.textContent = 'Audit export is unavailable.';
+                return;
+            }
+
+            var result = window.pcIntegration.exportAuditLog('csv');
+            status.textContent = result && result.ok
+                ? ('Audit CSV exported (' + result.count + ' rows).')
+                : 'Audit CSV export failed.';
+
+            if (typeof onAction === 'function') {
+                onAction();
+            }
+        });
+
+        exportAuditJsonButton.addEventListener('click', function () {
+            if (!window.pcIntegration || typeof window.pcIntegration.exportAuditLog !== 'function') {
+                status.textContent = 'Audit export is unavailable.';
+                return;
+            }
+
+            var result = window.pcIntegration.exportAuditLog('json');
+            status.textContent = result && result.ok
+                ? ('Audit JSON exported (' + result.count + ' rows).')
+                : 'Audit JSON export failed.';
+
+            if (typeof onAction === 'function') {
+                onAction();
+            }
+        });
+
+        renderStatus();
+        return card;
+    }
+
+    function createVeterinaryComplianceCard(config, encounter, onAction) {
+        var passScore = config && config.assessment && Number.isFinite(Number(config.assessment.passScorePercent))
+            ? Number(config.assessment.passScorePercent)
+            : 80;
+        var latestScore = null;
+
+        var card = document.createElement('article');
+        card.className = 'pc-tool-module pc-case-vet-compliance';
+        card.innerHTML = '<h3>Veterinary Compliance Workflow</h3>';
+
+        var intro = document.createElement('p');
+        intro.className = 'pc-case-intel__summary';
+        intro.textContent = 'Log controlled-substance usage and issue CE credit after passing case skill checks.';
+        card.appendChild(intro);
+
+        var controlledTitle = document.createElement('p');
+        controlledTitle.className = 'pc-case-step__title';
+        controlledTitle.textContent = 'Controlled Substance Log';
+        card.appendChild(controlledTitle);
+
+        var controlledGrid = document.createElement('div');
+        controlledGrid.className = 'pc-case-outcome__grid';
+
+        var drugField = document.createElement('label');
+        drugField.className = 'pc-case-outcome__field';
+        drugField.innerHTML = '<span>Drug</span>';
+        var drugInput = document.createElement('input');
+        drugInput.className = 'pc-input';
+        drugInput.type = 'text';
+        drugInput.placeholder = 'e.g., fentanyl';
+        drugField.appendChild(drugInput);
+        controlledGrid.appendChild(drugField);
+
+        var scheduleField = document.createElement('label');
+        scheduleField.className = 'pc-case-outcome__field';
+        scheduleField.innerHTML = '<span>DEA schedule</span>';
+        var scheduleSelect = document.createElement('select');
+        scheduleSelect.className = 'pc-input';
+        scheduleSelect.innerHTML =
+            '<option value="II">II</option>' +
+            '<option value="III">III</option>' +
+            '<option value="IV">IV</option>' +
+            '<option value="V">V</option>';
+        scheduleField.appendChild(scheduleSelect);
+        controlledGrid.appendChild(scheduleField);
+
+        var amountField = document.createElement('label');
+        amountField.className = 'pc-case-outcome__field';
+        amountField.innerHTML = '<span>Amount</span>';
+        var amountInput = document.createElement('input');
+        amountInput.className = 'pc-input';
+        amountInput.type = 'number';
+        amountInput.step = 'any';
+        amountInput.min = '0';
+        amountInput.placeholder = 'e.g., 0.6';
+        amountField.appendChild(amountInput);
+        controlledGrid.appendChild(amountField);
+
+        var unitField = document.createElement('label');
+        unitField.className = 'pc-case-outcome__field';
+        unitField.innerHTML = '<span>Unit</span>';
+        var unitInput = document.createElement('input');
+        unitInput.className = 'pc-input';
+        unitInput.type = 'text';
+        unitInput.value = 'mg';
+        unitField.appendChild(unitInput);
+        controlledGrid.appendChild(unitField);
+
+        var licenseField = document.createElement('label');
+        licenseField.className = 'pc-case-outcome__field';
+        licenseField.innerHTML = '<span>License # (optional)</span>';
+        var licenseInput = document.createElement('input');
+        licenseInput.className = 'pc-input';
+        licenseInput.type = 'text';
+        licenseField.appendChild(licenseInput);
+        controlledGrid.appendChild(licenseField);
+
+        var deaField = document.createElement('label');
+        deaField.className = 'pc-case-outcome__field';
+        deaField.innerHTML = '<span>DEA # (optional)</span>';
+        var deaInput = document.createElement('input');
+        deaInput.className = 'pc-input';
+        deaInput.type = 'text';
+        deaField.appendChild(deaInput);
+        controlledGrid.appendChild(deaField);
+
+        card.appendChild(controlledGrid);
+
+        var controlledActions = document.createElement('div');
+        controlledActions.className = 'pc-panel-actions';
+
+        var logControlledButton = document.createElement('button');
+        logControlledButton.type = 'button';
+        logControlledButton.className = 'pc-btn pc-btn--secondary';
+        logControlledButton.textContent = 'Log Controlled Entry';
+        controlledActions.appendChild(logControlledButton);
+
+        var exportControlledButton = document.createElement('button');
+        exportControlledButton.type = 'button';
+        exportControlledButton.className = 'pc-btn pc-btn--secondary';
+        exportControlledButton.textContent = 'Export Controlled CSV';
+        controlledActions.appendChild(exportControlledButton);
+
+        card.appendChild(controlledActions);
+
+        var controlledStatus = document.createElement('p');
+        controlledStatus.className = 'pc-case-outcome__status';
+        controlledStatus.textContent = 'No controlled-substance entry logged yet.';
+        card.appendChild(controlledStatus);
+
+        var ceTitle = document.createElement('p');
+        ceTitle.className = 'pc-case-step__title';
+        ceTitle.textContent = 'CE Credit Issuance';
+        card.appendChild(ceTitle);
+
+        var ceGrid = document.createElement('div');
+        ceGrid.className = 'pc-case-outcome__grid';
+
+        var learnerField = document.createElement('label');
+        learnerField.className = 'pc-case-outcome__field';
+        learnerField.innerHTML = '<span>Learner name</span>';
+        var learnerInput = document.createElement('input');
+        learnerInput.className = 'pc-input';
+        learnerInput.type = 'text';
+        learnerInput.placeholder = 'e.g., Dr A. Sharma';
+        learnerField.appendChild(learnerInput);
+        ceGrid.appendChild(learnerField);
+
+        var stateField = document.createElement('label');
+        stateField.className = 'pc-case-outcome__field';
+        stateField.innerHTML = '<span>License state/province</span>';
+        var stateInput = document.createElement('input');
+        stateInput.className = 'pc-input';
+        stateInput.type = 'text';
+        stateInput.placeholder = 'e.g., ON';
+        stateField.appendChild(stateInput);
+        ceGrid.appendChild(stateField);
+
+        var ceLicenseField = document.createElement('label');
+        ceLicenseField.className = 'pc-case-outcome__field';
+        ceLicenseField.innerHTML = '<span>License # (optional)</span>';
+        var ceLicenseInput = document.createElement('input');
+        ceLicenseInput.className = 'pc-input';
+        ceLicenseInput.type = 'text';
+        ceLicenseField.appendChild(ceLicenseInput);
+        ceGrid.appendChild(ceLicenseField);
+
+        card.appendChild(ceGrid);
+
+        var ceActions = document.createElement('div');
+        ceActions.className = 'pc-panel-actions';
+
+        var issueCeButton = document.createElement('button');
+        issueCeButton.type = 'button';
+        issueCeButton.className = 'pc-btn pc-btn--secondary';
+        issueCeButton.textContent = 'Issue CE Credit (0.5 hr)';
+        issueCeButton.disabled = true;
+        ceActions.appendChild(issueCeButton);
+
+        var exportCeButton = document.createElement('button');
+        exportCeButton.type = 'button';
+        exportCeButton.className = 'pc-btn pc-btn--secondary';
+        exportCeButton.textContent = 'Export CE CSV';
+        ceActions.appendChild(exportCeButton);
+
+        card.appendChild(ceActions);
+
+        var ceStatus = document.createElement('p');
+        ceStatus.className = 'pc-case-outcome__status';
+        ceStatus.textContent = 'Complete skill check to enable CE issuance.';
+        card.appendChild(ceStatus);
+
+        function updateAssessment(score) {
+            latestScore = score && typeof score === 'object' ? score : null;
+            var eligible = !!(
+                latestScore &&
+                latestScore.stepCount > 0 &&
+                latestScore.completed === latestScore.stepCount &&
+                latestScore.percent >= passScore
+            );
+            issueCeButton.disabled = !eligible;
+
+            if (eligible) {
+                ceStatus.textContent = 'Eligible for CE credit issuance (' + latestScore.percent + '% score).';
+            } else if (latestScore) {
+                ceStatus.textContent = 'CE locked. Need ' + passScore + '% with all steps attempted. Current: ' +
+                    latestScore.percent + '% (' + latestScore.completed + '/' + latestScore.stepCount + ').';
+            } else {
+                ceStatus.textContent = 'Complete skill check to enable CE issuance.';
+            }
+        }
+
+        logControlledButton.addEventListener('click', function () {
+            if (!window.pcIntegration || typeof window.pcIntegration.logControlledSubstance !== 'function') {
+                controlledStatus.textContent = 'Controlled-substance logging unavailable.';
+                return;
+            }
+
+            var response = window.pcIntegration.logControlledSubstance({
+                encounterId: encounter.id,
+                caseId: config.caseId,
+                caseTitle: config.title,
+                drug: drugInput.value,
+                schedule: scheduleSelect.value,
+                amount: amountInput.value,
+                unit: unitInput.value,
+                licenseNumber: licenseInput.value,
+                deaNumber: deaInput.value,
+                notes: 'Logged via case workspace'
+            });
+
+            if (!response || !response.ok) {
+                controlledStatus.textContent = 'Failed to log controlled entry (' +
+                    (response && response.reason ? response.reason : 'unknown_error') + ').';
+                return;
+            }
+
+            controlledStatus.textContent = 'Controlled entry logged: ' +
+                response.record.drug + ' Schedule ' + response.record.schedule + ' (' +
+                response.record.amount + ' ' + response.record.unit + ').';
+
+            if (typeof onAction === 'function') {
+                onAction();
+            }
+        });
+
+        exportControlledButton.addEventListener('click', function () {
+            if (!window.pcIntegration || typeof window.pcIntegration.exportControlledSubstanceLog !== 'function') {
+                controlledStatus.textContent = 'Controlled-substance export unavailable.';
+                return;
+            }
+
+            var response = window.pcIntegration.exportControlledSubstanceLog('csv');
+            controlledStatus.textContent = response && response.ok
+                ? ('Controlled log exported (' + response.count + ' rows).')
+                : 'Controlled log export failed.';
+
+            if (typeof onAction === 'function') {
+                onAction();
+            }
+        });
+
+        issueCeButton.addEventListener('click', function () {
+            if (!window.pcIntegration || typeof window.pcIntegration.awardCeCredit !== 'function') {
+                ceStatus.textContent = 'CE issuance unavailable.';
+                return;
+            }
+
+            if (!latestScore) {
+                ceStatus.textContent = 'CE issuance unavailable until score is calculated.';
+                return;
+            }
+
+            var response = window.pcIntegration.awardCeCredit({
+                encounterId: encounter.id,
+                caseId: config.caseId,
+                caseTitle: config.title,
+                learnerName: learnerInput.value,
+                licenseState: stateInput.value,
+                licenseNumber: ceLicenseInput.value,
+                scorePercent: latestScore.percent,
+                minimumScore: passScore,
+                creditHours: 0.5,
+                activityType: 'case_skill_check'
+            });
+
+            if (!response || !response.ok) {
+                ceStatus.textContent = 'CE issuance failed (' +
+                    (response && response.reason ? response.reason : 'unknown_error') + ').';
+                return;
+            }
+
+            ceStatus.textContent = 'CE issued: ' + response.credit.certificateId +
+                ' | ' + response.credit.creditHours + ' hr.';
+
+            if (typeof onAction === 'function') {
+                onAction();
+            }
+        });
+
+        exportCeButton.addEventListener('click', function () {
+            if (!window.pcIntegration || typeof window.pcIntegration.exportCeCredits !== 'function') {
+                ceStatus.textContent = 'CE export unavailable.';
+                return;
+            }
+
+            var response = window.pcIntegration.exportCeCredits('csv');
+            ceStatus.textContent = response && response.ok
+                ? ('CE export complete (' + response.count + ' records).')
+                : 'CE export failed.';
+
+            if (typeof onAction === 'function') {
+                onAction();
+            }
+        });
+
+        return {
+            card: card,
+            updateAssessment: updateAssessment
+        };
+    }
+
     function createPanel(config, encounter) {
         var panel = document.createElement('section');
         panel.className = 'pc-case-section pc-card pc-case-intel';
@@ -1185,8 +1617,16 @@
         var stats = document.createElement('p');
         stats.className = 'pc-calculator-note';
         stats.setAttribute('data-pc-encounter-stats', '');
+        var latestAssessmentScore = null;
+        var applyAssessmentToCompliance = null;
 
-        var assessmentCard = createAssessmentCard(config, encounter);
+        var assessmentCard = createAssessmentCard(config, encounter, function (score) {
+            latestAssessmentScore = score;
+            if (typeof applyAssessmentToCompliance === 'function') {
+                applyAssessmentToCompliance(score);
+            }
+            renderStats(encounter.id, stats);
+        });
         if (assessmentCard) {
             grid.appendChild(assessmentCard);
         }
@@ -1203,6 +1643,26 @@
         });
         if (collabCard) {
             grid.appendChild(collabCard);
+        }
+
+        var securityCard = createSecurityComplianceCard(config, encounter, function () {
+            renderStats(encounter.id, stats);
+        });
+        if (securityCard) {
+            grid.appendChild(securityCard);
+        }
+
+        var vetCompliance = createVeterinaryComplianceCard(config, encounter, function () {
+            renderStats(encounter.id, stats);
+        });
+        if (vetCompliance && vetCompliance.card) {
+            applyAssessmentToCompliance = typeof vetCompliance.updateAssessment === 'function'
+                ? vetCompliance.updateAssessment
+                : null;
+            if (applyAssessmentToCompliance && latestAssessmentScore) {
+                applyAssessmentToCompliance(latestAssessmentScore);
+            }
+            grid.appendChild(vetCompliance.card);
         }
 
         var actions = document.createElement('div');

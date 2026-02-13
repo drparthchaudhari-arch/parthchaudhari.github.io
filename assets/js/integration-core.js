@@ -4,16 +4,45 @@
     var ENCOUNTERS_KEY = 'pc_phase4_encounters_v1';
     var ACTIVE_CASE_MAP_KEY = 'pc_phase4_active_case_map_v1';
     var OFFLINE_QUEUE_KEY = 'pc_phase4_offline_queue_v1';
+    var AUDIT_LOG_KEY = 'pc_phase4_audit_log_v1';
+    var CONTROLLED_SUBSTANCE_KEY = 'pc_phase4_controlled_substance_log_v1';
+    var CE_CREDIT_KEY = 'pc_phase4_ce_credit_log_v1';
     var BACKGROUND_SYNC_TAG = 'pc-phase4-sync';
     var MAX_CALCULATIONS_PER_ENCOUNTER = 250;
     var MAX_EVENTS_PER_ENCOUNTER = 500;
     var MAX_OFFLINE_QUEUE = 100;
+    var MAX_AUDIT_LOGS = 2000;
+    var MAX_CONTROLLED_SUBSTANCE_LOGS = 1500;
+    var MAX_CE_CREDITS = 1500;
     var listenersBound = false;
     var RESOLUTION_ALLOWED = {
         improved: true,
         static: true,
         deteriorated: true,
         euthanized: true
+    };
+    var CONTROLLED_SCHEDULE_ALLOWED = {
+        II: true,
+        III: true,
+        IV: true,
+        V: true
+    };
+    var REDACTED_FIELDS = {
+        ownername: true,
+        patientname: true,
+        email: true,
+        phone: true,
+        address: true,
+        ssn: true,
+        deanumber: true,
+        licensenumber: true
+    };
+    var HASHED_FIELDS = {
+        patientid: true,
+        ownerid: true,
+        userid: true,
+        accountid: true,
+        microchip: true
     };
 
     function safeParse(value, fallback) {
@@ -69,6 +98,199 @@
         var base = String(prefix || 'id');
         var random = Math.random().toString(36).slice(2, 10);
         return base + '_' + Date.now().toString(36) + '_' + random;
+    }
+
+    function normalizeFieldName(value) {
+        return String(value || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+
+    function fnv1aHash(value) {
+        var text = String(value === null || value === undefined ? '' : value);
+        var hash = 2166136261;
+        var i;
+
+        for (i = 0; i < text.length; i += 1) {
+            hash ^= text.charCodeAt(i);
+            hash += (hash << 1) + (hash << 4) + (hash << 7) + (hash << 8) + (hash << 24);
+        }
+
+        return ('0000000' + (hash >>> 0).toString(16)).slice(-8);
+    }
+
+    function maskValue(value, keepTail) {
+        var text = String(value || '').trim();
+        var tail = Number.isFinite(Number(keepTail)) ? Number(keepTail) : 4;
+        if (!text) {
+            return '';
+        }
+        if (text.length <= tail) {
+            return text;
+        }
+        return new Array(Math.max(0, text.length - tail) + 1).join('*') + text.slice(text.length - tail);
+    }
+
+    function sanitizeSensitivePayload(value, depth) {
+        var currentDepth = Number.isFinite(Number(depth)) ? Number(depth) : 0;
+        if (currentDepth > 6) {
+            return null;
+        }
+
+        if (value === null || value === undefined) {
+            return value;
+        }
+
+        if (Array.isArray(value)) {
+            return value.map(function (entry) {
+                return sanitizeSensitivePayload(entry, currentDepth + 1);
+            });
+        }
+
+        if (typeof value === 'object') {
+            var output = {};
+            var keys = Object.keys(value);
+            var i;
+
+            for (i = 0; i < keys.length; i += 1) {
+                var key = keys[i];
+                var normalized = normalizeFieldName(key);
+                var entry = value[key];
+
+                if (REDACTED_FIELDS[normalized]) {
+                    output[key] = '[REDACTED]';
+                } else if (HASHED_FIELDS[normalized]) {
+                    output[key] = 'hash:' + fnv1aHash(entry);
+                } else {
+                    output[key] = sanitizeSensitivePayload(entry, currentDepth + 1);
+                }
+            }
+
+            return output;
+        }
+
+        return value;
+    }
+
+    function getAuditLogs() {
+        var logs = safeGet(AUDIT_LOG_KEY, []);
+        return Array.isArray(logs) ? logs : [];
+    }
+
+    function setAuditLogs(logs) {
+        return safeSet(AUDIT_LOG_KEY, Array.isArray(logs) ? logs : []);
+    }
+
+    function appendAuditLog(options) {
+        var opts = options && typeof options === 'object' ? options : {};
+        var logs = getAuditLogs();
+        var previous = logs.length ? logs[logs.length - 1] : null;
+        var entry = {
+            id: randomId('audit'),
+            timestamp: nowIso(),
+            action: String(opts.action || 'audit_event'),
+            resourceType: String(opts.resourceType || 'system'),
+            resourceId: String(opts.resourceId || ''),
+            severity: String(opts.severity || 'info'),
+            details: sanitizeSensitivePayload(opts.details || {}, 0),
+            previousHash: previous && previous.hash ? String(previous.hash) : ''
+        };
+        var body = JSON.stringify({
+            id: entry.id,
+            timestamp: entry.timestamp,
+            action: entry.action,
+            resourceType: entry.resourceType,
+            resourceId: entry.resourceId,
+            severity: entry.severity,
+            details: entry.details
+        });
+        entry.hash = fnv1aHash(entry.previousHash + '|' + body);
+
+        logs.push(entry);
+        if (logs.length > MAX_AUDIT_LOGS) {
+            logs = logs.slice(logs.length - MAX_AUDIT_LOGS);
+        }
+        setAuditLogs(logs);
+        return safeClone(entry, null);
+    }
+
+    function verifyAuditTrail() {
+        var logs = getAuditLogs();
+        var expectedPreviousHash = '';
+        var i;
+
+        for (i = 0; i < logs.length; i += 1) {
+            var entry = logs[i] || {};
+            var body = JSON.stringify({
+                id: entry.id || '',
+                timestamp: entry.timestamp || '',
+                action: entry.action || '',
+                resourceType: entry.resourceType || '',
+                resourceId: entry.resourceId || '',
+                severity: entry.severity || '',
+                details: entry.details || {}
+            });
+            var calculated = fnv1aHash(expectedPreviousHash + '|' + body);
+            var storedPrevious = String(entry.previousHash || '');
+            var storedHash = String(entry.hash || '');
+
+            if (storedPrevious !== expectedPreviousHash || storedHash !== calculated) {
+                return {
+                    ok: false,
+                    total: logs.length,
+                    brokenAt: i,
+                    expectedHash: calculated,
+                    observedHash: storedHash
+                };
+            }
+
+            expectedPreviousHash = storedHash;
+        }
+
+        return {
+            ok: true,
+            total: logs.length,
+            brokenAt: -1
+        };
+    }
+
+    function isHttpsTransport() {
+        var protocol = String(window.location.protocol || '').toLowerCase();
+        var host = String(window.location.hostname || '').toLowerCase();
+        if (protocol === 'https:') {
+            return true;
+        }
+        return host === 'localhost' || host === '127.0.0.1';
+    }
+
+    function getSecurityStatus() {
+        var queue = getOfflineQueue();
+        var auditHealth = verifyAuditTrail();
+        return {
+            timestamp: nowIso(),
+            secureContext: window.isSecureContext === true,
+            httpsTransport: isHttpsTransport(),
+            backgroundSync: canUseBackgroundSync(),
+            offlineQueueDepth: queue.length,
+            audit: auditHealth,
+            policyVersion: 'phase4-security-v1'
+        };
+    }
+
+    function getControlledSubstanceLogs() {
+        var logs = safeGet(CONTROLLED_SUBSTANCE_KEY, []);
+        return Array.isArray(logs) ? logs : [];
+    }
+
+    function setControlledSubstanceLogs(logs) {
+        return safeSet(CONTROLLED_SUBSTANCE_KEY, Array.isArray(logs) ? logs : []);
+    }
+
+    function getCeCredits() {
+        var credits = safeGet(CE_CREDIT_KEY, []);
+        return Array.isArray(credits) ? credits : [];
+    }
+
+    function setCeCredits(credits) {
+        return safeSet(CE_CREDIT_KEY, Array.isArray(credits) ? credits : []);
     }
 
     function getAllEncounters() {
@@ -278,6 +500,7 @@
         var encounterId = sanitizeId(opts.encounterId || context.encounterId || '');
         var encounters = getAllEncounters();
         var activeMap = getActiveCaseMap();
+        var created = false;
 
         if (encounterId && !encounters[encounterId]) {
             encounterId = '';
@@ -296,13 +519,14 @@
         }
 
         if (!encounters[encounterId]) {
+            created = true;
             encounters[encounterId] = {
                 id: encounterId,
                 caseId: caseId || 'standalone',
                 caseTitle: title,
                 pagePath: window.location.pathname,
                 status: 'open',
-                patient: safeClone(opts.patient || {}, {}),
+                patient: sanitizeSensitivePayload(safeClone(opts.patient || {}, {}), 0),
                 tags: Array.isArray(opts.tags) ? safeClone(opts.tags, []) : [],
                 outcomes: {
                     actualTreatment: '',
@@ -325,7 +549,7 @@
                 encounters[encounterId].caseTitle = title;
             }
             if (opts.patient && typeof opts.patient === 'object') {
-                encounters[encounterId].patient = safeClone(opts.patient, {});
+                encounters[encounterId].patient = sanitizeSensitivePayload(safeClone(opts.patient, {}), 0);
             }
             if (!encounters[encounterId].outcomes || typeof encounters[encounterId].outcomes !== 'object') {
                 encounters[encounterId].outcomes = {
@@ -345,6 +569,20 @@
 
         setAllEncounters(encounters);
         setActiveCaseMap(activeMap);
+
+        if (created) {
+            appendAuditLog({
+                action: 'encounter_create',
+                resourceType: 'encounter',
+                resourceId: encounterId,
+                severity: 'info',
+                details: {
+                    caseId: caseId || 'standalone',
+                    pagePath: window.location.pathname
+                }
+            });
+        }
+
         return safeClone(encounters[encounterId], null);
     }
 
@@ -406,7 +644,7 @@
             id: randomId('evt'),
             type: String(opts.type || 'event'),
             source: String(opts.source || window.location.pathname),
-            details: safeClone(opts.details || {}, {}),
+            details: sanitizeSensitivePayload(safeClone(opts.details || {}, {}), 0),
             createdAt: nowIso()
         };
 
@@ -420,6 +658,18 @@
         record.updatedAt = item.createdAt;
         encounters[encounter.id] = record;
         setAllEncounters(encounters);
+
+        appendAuditLog({
+            action: 'event_append',
+            resourceType: 'encounter_event',
+            resourceId: item.id,
+            severity: 'info',
+            details: {
+                encounterId: encounter.id,
+                eventType: item.type,
+                source: item.source
+            }
+        });
 
         triggerSync('phase4_event', { eventType: item.type, encounterId: encounter.id });
         return safeClone(item, null);
@@ -468,8 +718,8 @@
             calculatorId: String(opts.calculatorId || 'calculator'),
             calculatorLabel: String(opts.calculatorLabel || opts.calculatorId || 'Calculator'),
             source: String(opts.source || window.location.pathname),
-            inputs: safeClone(opts.inputs || {}, {}),
-            outputs: safeClone(opts.outputs || {}, {}),
+            inputs: sanitizeSensitivePayload(safeClone(opts.inputs || {}, {}), 0),
+            outputs: sanitizeSensitivePayload(safeClone(opts.outputs || {}, {}), 0),
             warnings: Array.isArray(opts.warnings) ? safeClone(opts.warnings, []) : [],
             references: Array.isArray(opts.references) ? safeClone(opts.references, []) : [],
             userOverride: !!opts.userOverride,
@@ -487,6 +737,18 @@
         record.updatedAt = calculation.createdAt;
         encounters[encounter.id] = record;
         setAllEncounters(encounters);
+
+        appendAuditLog({
+            action: 'calculation_log',
+            resourceType: 'calculation',
+            resourceId: calculation.id,
+            severity: calculation.userOverride ? 'warning' : 'info',
+            details: {
+                encounterId: encounter.id,
+                calculatorId: calculation.calculatorId,
+                userOverride: calculation.userOverride
+            }
+        });
 
         triggerSync('phase4_calculation', {
             encounterId: encounter.id,
@@ -531,6 +793,18 @@
         record.updatedAt = merged.updatedAt;
         encounters[encounter.id] = record;
         setAllEncounters(encounters);
+
+        appendAuditLog({
+            action: 'outcome_update',
+            resourceType: 'encounter',
+            resourceId: encounter.id,
+            severity: 'info',
+            details: {
+                resolution: merged.resolution,
+                followUpNeeded: merged.followUpNeeded,
+                complicationCount: merged.complications.length
+            }
+        });
 
         appendEvent({
             encounterId: encounter.id,
@@ -883,6 +1157,427 @@
         return lines.join('\n');
     }
 
+    function auditLogsToCsv(logs) {
+        var rows = [];
+        var items = Array.isArray(logs) ? logs : [];
+        var i;
+
+        rows.push([
+            'id',
+            'timestamp',
+            'action',
+            'resource_type',
+            'resource_id',
+            'severity',
+            'details',
+            'previous_hash',
+            'hash'
+        ].join(','));
+
+        for (i = 0; i < items.length; i += 1) {
+            var row = items[i] || {};
+            rows.push([
+                toCsvCell(row.id || ''),
+                toCsvCell(row.timestamp || ''),
+                toCsvCell(row.action || ''),
+                toCsvCell(row.resourceType || ''),
+                toCsvCell(row.resourceId || ''),
+                toCsvCell(row.severity || ''),
+                toCsvCell(row.details || {}),
+                toCsvCell(row.previousHash || ''),
+                toCsvCell(row.hash || '')
+            ].join(','));
+        }
+
+        return rows.join('\n');
+    }
+
+    function controlledLogsToCsv(logs) {
+        var rows = [];
+        var items = Array.isArray(logs) ? logs : [];
+        var i;
+
+        rows.push([
+            'id',
+            'timestamp',
+            'case_id',
+            'encounter_id',
+            'drug',
+            'schedule',
+            'amount',
+            'unit',
+            'license_number_masked',
+            'dea_masked',
+            'inventory_reference',
+            'patient_hash',
+            'notes'
+        ].join(','));
+
+        for (i = 0; i < items.length; i += 1) {
+            var row = items[i] || {};
+            rows.push([
+                toCsvCell(row.id || ''),
+                toCsvCell(row.timestamp || ''),
+                toCsvCell(row.caseId || ''),
+                toCsvCell(row.encounterId || ''),
+                toCsvCell(row.drug || ''),
+                toCsvCell(row.schedule || ''),
+                toCsvCell(row.amount || ''),
+                toCsvCell(row.unit || ''),
+                toCsvCell(row.licenseNumberMasked || ''),
+                toCsvCell(row.deaNumberMasked || ''),
+                toCsvCell(row.inventoryReference || ''),
+                toCsvCell(row.patientHash || ''),
+                toCsvCell(row.notes || '')
+            ].join(','));
+        }
+
+        return rows.join('\n');
+    }
+
+    function ceCreditsToCsv(credits) {
+        var rows = [];
+        var items = Array.isArray(credits) ? credits : [];
+        var i;
+
+        rows.push([
+            'id',
+            'certificate_id',
+            'issued_at',
+            'activity_type',
+            'case_id',
+            'encounter_id',
+            'credit_hours',
+            'score_percent',
+            'minimum_score',
+            'license_state',
+            'license_number_masked',
+            'learner_hash'
+        ].join(','));
+
+        for (i = 0; i < items.length; i += 1) {
+            var row = items[i] || {};
+            rows.push([
+                toCsvCell(row.id || ''),
+                toCsvCell(row.certificateId || ''),
+                toCsvCell(row.issuedAt || ''),
+                toCsvCell(row.activityType || ''),
+                toCsvCell(row.caseId || ''),
+                toCsvCell(row.encounterId || ''),
+                toCsvCell(row.creditHours || ''),
+                toCsvCell(row.scorePercent || ''),
+                toCsvCell(row.minimumScore || ''),
+                toCsvCell(row.licenseState || ''),
+                toCsvCell(row.licenseNumberMasked || ''),
+                toCsvCell(row.learnerHash || '')
+            ].join(','));
+        }
+
+        return rows.join('\n');
+    }
+
+    function getAuditSummary() {
+        var status = getSecurityStatus();
+        return {
+            policyVersion: status.policyVersion,
+            secureContext: status.secureContext,
+            httpsTransport: status.httpsTransport,
+            backgroundSync: status.backgroundSync,
+            offlineQueueDepth: status.offlineQueueDepth,
+            audit: status.audit
+        };
+    }
+
+    function exportAuditLog(format) {
+        var normalized = String(format || 'json').toLowerCase();
+        var logs = getAuditLogs();
+        var content = '';
+        var extension = '';
+        var mimeType = '';
+
+        if (normalized === 'csv') {
+            content = auditLogsToCsv(logs);
+            extension = 'csv';
+            mimeType = 'text/csv;charset=utf-8';
+        } else {
+            content = JSON.stringify({
+                exportedAt: nowIso(),
+                summary: getAuditSummary(),
+                logs: logs
+            }, null, 2);
+            extension = 'json';
+            mimeType = 'application/json;charset=utf-8';
+        }
+
+        downloadText('audit_log_' + nowIso().slice(0, 10) + '.' + extension, content, mimeType);
+        appendAuditLog({
+            action: 'audit_export',
+            resourceType: 'audit_log',
+            resourceId: '',
+            severity: 'info',
+            details: {
+                format: normalized,
+                count: logs.length
+            }
+        });
+        return {
+            ok: true,
+            format: normalized,
+            count: logs.length
+        };
+    }
+
+    function logControlledSubstance(options) {
+        var opts = options && typeof options === 'object' ? options : {};
+        var encounter = ensureEncounter(opts);
+        var drug = String(opts.drug || '').trim();
+        var schedule = String(opts.schedule || '').trim().toUpperCase();
+        var amount = Number(opts.amount);
+        var unit = String(opts.unit || 'mg').trim() || 'mg';
+        var licenseNumber = String(opts.licenseNumber || '').trim();
+        var deaNumber = String(opts.deaNumber || '').trim();
+
+        if (!drug) {
+            return {
+                ok: false,
+                reason: 'drug_required'
+            };
+        }
+
+        if (!CONTROLLED_SCHEDULE_ALLOWED[schedule]) {
+            return {
+                ok: false,
+                reason: 'invalid_schedule'
+            };
+        }
+
+        if (!Number.isFinite(amount) || amount <= 0) {
+            return {
+                ok: false,
+                reason: 'invalid_amount'
+            };
+        }
+
+        var logs = getControlledSubstanceLogs();
+        var record = {
+            id: randomId('dea'),
+            timestamp: nowIso(),
+            caseId: encounter.caseId,
+            caseTitle: encounter.caseTitle,
+            encounterId: encounter.id,
+            drug: drug,
+            schedule: schedule,
+            amount: Number(amount.toFixed(3)),
+            unit: unit,
+            licenseNumberMasked: maskValue(licenseNumber, 4),
+            deaNumberMasked: maskValue(deaNumber, 4),
+            inventoryReference: String(opts.inventoryReference || '').trim(),
+            patientHash: fnv1aHash(String(opts.patientId || encounter.id || '')),
+            notes: String(opts.notes || '').trim()
+        };
+
+        logs.push(record);
+        if (logs.length > MAX_CONTROLLED_SUBSTANCE_LOGS) {
+            logs = logs.slice(logs.length - MAX_CONTROLLED_SUBSTANCE_LOGS);
+        }
+        setControlledSubstanceLogs(logs);
+
+        appendEvent({
+            encounterId: encounter.id,
+            caseId: encounter.caseId,
+            caseTitle: encounter.caseTitle,
+            source: 'controlled_substance_log',
+            type: 'controlled_substance_entry',
+            details: {
+                drug: record.drug,
+                schedule: record.schedule,
+                amount: record.amount,
+                unit: record.unit
+            }
+        });
+
+        appendAuditLog({
+            action: 'controlled_substance_log',
+            resourceType: 'controlled_substance',
+            resourceId: record.id,
+            severity: 'critical',
+            details: {
+                encounterId: encounter.id,
+                schedule: record.schedule,
+                drug: record.drug,
+                amount: record.amount
+            }
+        });
+
+        triggerSync('phase4_controlled_substance', {
+            encounterId: encounter.id,
+            schedule: record.schedule
+        });
+
+        return {
+            ok: true,
+            record: safeClone(record, {})
+        };
+    }
+
+    function exportControlledSubstanceLog(format) {
+        var normalized = String(format || 'csv').toLowerCase();
+        var logs = getControlledSubstanceLogs();
+        var content = '';
+        var extension = '';
+        var mimeType = '';
+
+        if (normalized === 'json') {
+            content = JSON.stringify({
+                exportedAt: nowIso(),
+                records: logs
+            }, null, 2);
+            extension = 'json';
+            mimeType = 'application/json;charset=utf-8';
+        } else {
+            content = controlledLogsToCsv(logs);
+            extension = 'csv';
+            mimeType = 'text/csv;charset=utf-8';
+        }
+
+        downloadText('controlled_substances_' + nowIso().slice(0, 10) + '.' + extension, content, mimeType);
+        appendAuditLog({
+            action: 'controlled_substance_export',
+            resourceType: 'controlled_substance',
+            resourceId: '',
+            severity: 'warning',
+            details: {
+                format: normalized,
+                count: logs.length
+            }
+        });
+        return {
+            ok: true,
+            format: normalized,
+            count: logs.length
+        };
+    }
+
+    function awardCeCredit(options) {
+        var opts = options && typeof options === 'object' ? options : {};
+        var encounter = ensureEncounter(opts);
+        var scorePercent = Number(opts.scorePercent);
+        var minimumScore = Number.isFinite(Number(opts.minimumScore)) ? Number(opts.minimumScore) : 80;
+        var creditHours = Number.isFinite(Number(opts.creditHours)) ? Number(opts.creditHours) : 0.5;
+
+        if (!Number.isFinite(scorePercent)) {
+            return {
+                ok: false,
+                reason: 'score_required'
+            };
+        }
+
+        if (scorePercent < minimumScore) {
+            return {
+                ok: false,
+                reason: 'score_below_threshold',
+                minimumScore: minimumScore
+            };
+        }
+
+        var credits = getCeCredits();
+        var learnerIdentity = String(opts.learnerId || opts.learnerEmail || opts.learnerName || 'anonymous');
+        var record = {
+            id: randomId('ce'),
+            certificateId: 'CE-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase(),
+            issuedAt: nowIso(),
+            activityType: String(opts.activityType || 'case_skill_check'),
+            caseId: encounter.caseId,
+            caseTitle: encounter.caseTitle,
+            encounterId: encounter.id,
+            scorePercent: Math.round(scorePercent),
+            minimumScore: minimumScore,
+            creditHours: Number(creditHours.toFixed(2)),
+            learnerHash: fnv1aHash(learnerIdentity),
+            licenseState: String(opts.licenseState || '').trim().toUpperCase(),
+            licenseNumberMasked: maskValue(String(opts.licenseNumber || '').trim(), 3)
+        };
+
+        credits.push(record);
+        if (credits.length > MAX_CE_CREDITS) {
+            credits = credits.slice(credits.length - MAX_CE_CREDITS);
+        }
+        setCeCredits(credits);
+
+        appendEvent({
+            encounterId: encounter.id,
+            caseId: encounter.caseId,
+            caseTitle: encounter.caseTitle,
+            source: 'ce_credit',
+            type: 'ce_credit_issued',
+            details: {
+                certificateId: record.certificateId,
+                creditHours: record.creditHours,
+                scorePercent: record.scorePercent
+            }
+        });
+
+        appendAuditLog({
+            action: 'ce_credit_issued',
+            resourceType: 'ce_credit',
+            resourceId: record.id,
+            severity: 'info',
+            details: {
+                encounterId: encounter.id,
+                certificateId: record.certificateId,
+                scorePercent: record.scorePercent
+            }
+        });
+
+        triggerSync('phase4_ce_credit', {
+            encounterId: encounter.id,
+            certificateId: record.certificateId
+        });
+
+        return {
+            ok: true,
+            credit: safeClone(record, {})
+        };
+    }
+
+    function exportCeCredits(format) {
+        var normalized = String(format || 'csv').toLowerCase();
+        var credits = getCeCredits();
+        var content = '';
+        var extension = '';
+        var mimeType = '';
+
+        if (normalized === 'json') {
+            content = JSON.stringify({
+                exportedAt: nowIso(),
+                records: credits
+            }, null, 2);
+            extension = 'json';
+            mimeType = 'application/json;charset=utf-8';
+        } else {
+            content = ceCreditsToCsv(credits);
+            extension = 'csv';
+            mimeType = 'text/csv;charset=utf-8';
+        }
+
+        downloadText('ce_credits_' + nowIso().slice(0, 10) + '.' + extension, content, mimeType);
+        appendAuditLog({
+            action: 'ce_credit_export',
+            resourceType: 'ce_credit',
+            resourceId: '',
+            severity: 'info',
+            details: {
+                format: normalized,
+                count: credits.length
+            }
+        });
+        return {
+            ok: true,
+            format: normalized,
+            count: credits.length
+        };
+    }
+
     function downloadText(filename, content, mimeType) {
         var blob = new Blob([String(content || '')], { type: mimeType || 'text/plain;charset=utf-8' });
         var url = URL.createObjectURL(blob);
@@ -961,6 +1656,16 @@
         triggerSync('phase4_export', {
             encounterId: encounter.id,
             format: exportType
+        });
+
+        appendAuditLog({
+            action: 'encounter_export',
+            resourceType: 'encounter',
+            resourceId: encounter.id,
+            severity: 'info',
+            details: {
+                format: exportType
+            }
         });
 
         return {
@@ -1056,6 +1761,18 @@
         }
         listenersBound = true;
 
+        appendAuditLog({
+            action: 'security_bootstrap',
+            resourceType: 'runtime',
+            resourceId: '',
+            severity: isHttpsTransport() && window.isSecureContext === true ? 'info' : 'warning',
+            details: {
+                secureContext: window.isSecureContext === true,
+                httpsTransport: isHttpsTransport(),
+                backgroundSync: canUseBackgroundSync()
+            }
+        });
+
         window.addEventListener('online', function () {
             flushQueue().catch(function () {
                 // Best effort.
@@ -1087,6 +1804,13 @@
         logCalculation: logCalculation,
         updateEncounterOutcome: updateEncounterOutcome,
         exportEncounter: exportEncounter,
+        getSecurityStatus: getSecurityStatus,
+        verifyAuditTrail: verifyAuditTrail,
+        exportAuditLog: exportAuditLog,
+        logControlledSubstance: logControlledSubstance,
+        exportControlledSubstanceLog: exportControlledSubstanceLog,
+        awardCeCredit: awardCeCredit,
+        exportCeCredits: exportCeCredits,
         queueAction: queueAction,
         flushQueue: flushQueue,
         buildPrefillUrl: buildPrefillUrl
