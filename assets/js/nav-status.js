@@ -11,7 +11,19 @@
     var desktopViewDefaultViewport = '';
     var NAV_ITEMS = [
         { id: 'home', label: 'Home', href: '/' },
-        { id: 'clinical-tools', label: 'Clinical Tools', href: '/tools/' },
+        {
+            id: 'clinical-tools',
+            label: 'Clinical Tools',
+            href: '/tools/',
+            children: [
+                { label: 'All Clinical Tools', href: '/tools/' },
+                { label: 'Dose Calculator', href: '/tools/dose-calculator.html' },
+                { label: 'Unit Converter', href: '/tools/unit-converter.html' },
+                { label: 'Emergency Drug Chart', href: '/tools/emergency-drug-chart.html' },
+                { label: 'CRI Calculator', href: '/tools/cri-calculator.html' },
+                { label: 'Fluid Calculator', href: '/tools/fluid-calculator.html' }
+            ]
+        },
         {
             id: 'study',
             label: 'Study',
