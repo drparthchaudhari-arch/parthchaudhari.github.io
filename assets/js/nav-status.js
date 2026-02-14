@@ -379,6 +379,69 @@
         }
     }
 
+    function initGlobalMotionSync() {
+        if (!document.body) {
+            return;
+        }
+
+        var reduceMotion = false;
+        try {
+            reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        } catch (error) {
+            reduceMotion = false;
+        }
+
+        if (reduceMotion) {
+            document.body.classList.add('pc-motion-disabled');
+            return;
+        }
+
+        var targets = document.querySelectorAll(
+            '.pc-bridge-hero, .pc-bridge-section, .pc-home-tier-card, .pc-bridge-card, ' +
+            '.pc-tool-module, .pc-topic-card, .pc-study-panel, .pc-search-panel, ' +
+            '.pc-navle-clean-card, .pc-pricing-card, .pc-account-card, .pc-case-article, ' +
+            '.pc-stat-card, .pc-table-wrap, .pc-note-box, .pc-competency-card'
+        );
+
+        if (!targets.length) {
+            return;
+        }
+
+        var items = [];
+        for (var i = 0; i < targets.length; i += 1) {
+            var element = targets[i];
+            element.classList.add('pc-motion-item');
+            element.style.setProperty('--pc-motion-delay', ((i % 8) * 60) + 'ms');
+            items.push(element);
+        }
+
+        if (!('IntersectionObserver' in window)) {
+            for (var j = 0; j < items.length; j += 1) {
+                items[j].classList.add('pc-is-visible');
+            }
+            return;
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+            for (var entryIndex = 0; entryIndex < entries.length; entryIndex += 1) {
+                var entry = entries[entryIndex];
+                if (!entry.isIntersecting) {
+                    continue;
+                }
+                entry.target.classList.add('pc-is-visible');
+                observer.unobserve(entry.target);
+            }
+        }, {
+            root: null,
+            rootMargin: '0px 0px -9% 0px',
+            threshold: 0.12
+        });
+
+        for (var k = 0; k < items.length; k += 1) {
+            observer.observe(items[k]);
+        }
+    }
+
     function ensureSkipLink() {
         if (document.querySelector('.pc-skip-link')) {
             return;
@@ -1389,6 +1452,7 @@
             appendSiteStructuredDataIfMissing();
             recordLastLearningLocation();
             initUserViewControls();
+            initGlobalMotionSync();
         }, 120);
 
         scheduleNonCritical(function () {
