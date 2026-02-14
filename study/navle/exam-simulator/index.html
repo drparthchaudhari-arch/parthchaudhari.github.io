@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
     <title>NAVLE Exam Simulator | VetLudics Study</title>
-    <meta name="description" content="NAVLE full-length exam simulator status and launch updates.">
+    <meta name="description" content="Run a timed 24-question NAVLE simulator with mark-for-review, question grid, calculator, and system-level result evaluation.">
     <meta property="og:type" content="website">
     <meta property="og:title" content="NAVLE Exam Simulator | VetLudics Study">
-    <meta property="og:description" content="Exam simulator is marked coming soon while practice mode remains available.">
+    <meta property="og:description" content="Timed 24-question NAVLE simulator with exam-style navigation and detailed system analytics.">
     <meta property="og:url" content="https://parthchaudhari.com/study/navle/exam-simulator/">
     <link rel="canonical" href="https://parthchaudhari.com/study/navle/exam-simulator/">
     <link rel="stylesheet" href="/assets/css/tokens.css">
     <link rel="stylesheet" href="/assets/css/portal.css">
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/navle-exam-simulator.js?v=20260214a" defer></script>
 </head>
 <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
@@ -34,14 +35,204 @@
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
         <section class="pc-bridge-hero">
-            <p class="pc-kicker">Coming Soon</p>
+            <p class="pc-kicker">Live</p>
             <h1 class="pc-fork-title">NAVLE Exam Simulator</h1>
-            <p class="pc-fork-copy">Full-length timed exam sessions are in development. Continue with practice questions now, and use subscription page updates for launch timing.</p>
+            <p class="pc-fork-copy">Timed exam simulation with left-side question grid, mark-and-return workflow, built-in calculator, and final system-by-system performance evaluation.</p>
             <div class="pc-panel-actions">
-                <button class="pc-btn" type="button" disabled>Exam Simulator Coming Soon</button>
+                <button class="pc-btn" type="button" id="hero-start-btn">Start 24-Question Simulator</button>
                 <a class="pc-btn pc-btn--secondary" href="/study/navle/practice/">Continue Practice</a>
             </div>
         </section>
+
+        <section id="sim-launch" class="pc-bridge-section pc-exam-launch" aria-labelledby="sim-launch-title">
+            <h2 id="sim-launch-title" class="pc-bridge-title">Choose Simulator Mode</h2>
+            <div class="pc-exam-mode-grid">
+                <article class="pc-exam-mode-card pc-exam-mode-card--live">
+                    <p class="pc-tool-module__status pc-tool-module__status--live">Live</p>
+                    <h3>Timed Block: 24 Questions</h3>
+                    <p>Includes timer, calculator, mark-for-review, and exam-style question navigation in the left panel.</p>
+                    <ul class="pc-navle-plan-list">
+                        <li>24 mixed-system NAVLE questions</li>
+                        <li>36-minute countdown timer</li>
+                        <li>Detailed result and system-level evaluation</li>
+                    </ul>
+                    <button id="start-exam-24-btn" class="pc-btn" type="button">Start 24-Question Simulator</button>
+                </article>
+
+                <article class="pc-exam-mode-card">
+                    <p class="pc-tool-module__status pc-tool-module__status--planned">Coming Soon</p>
+                    <h3>Exam Block: 60 Questions</h3>
+                    <p>Full NAVLE-style block mode with timer, mark/review workflow, and expanded analytics.</p>
+                    <button class="pc-btn pc-btn--secondary" type="button" data-coming-soon="60-question exam block">Coming Soon</button>
+                </article>
+
+                <article class="pc-exam-mode-card">
+                    <p class="pc-tool-module__status pc-tool-module__status--planned">Coming Soon</p>
+                    <h3>Full NAVLE Simulation: 360 Questions</h3>
+                    <p>Complete six-block simulation (6 x 60 questions) with long-form pacing and end-to-end review.</p>
+                    <button class="pc-btn pc-btn--secondary" type="button" data-coming-soon="360-question full simulator (6 blocks of 60)">Coming Soon</button>
+                </article>
+            </div>
+        </section>
+
+        <section id="exam-shell" class="pc-bridge-section pc-exam-shell" aria-labelledby="exam-shell-title" hidden>
+            <h2 id="exam-shell-title" class="pc-bridge-title">24-Question NAVLE Simulator</h2>
+            <div class="pc-exam-layout">
+                <aside class="pc-exam-sidebar" aria-label="Exam controls and question map">
+                    <div class="pc-exam-timer-card">
+                        <p class="pc-exam-label">Time Remaining</p>
+                        <p id="exam-timer" class="pc-exam-timer" aria-live="polite">36:00</p>
+                        <p id="exam-timer-note" class="pc-text-small">Timer starts when the simulator starts.</p>
+                    </div>
+
+                    <div class="pc-exam-stats-grid">
+                        <article class="pc-exam-stat-card">
+                            <p>Answered</p>
+                            <strong id="exam-answered-count">0</strong>
+                        </article>
+                        <article class="pc-exam-stat-card">
+                            <p>Marked</p>
+                            <strong id="exam-marked-count">0</strong>
+                        </article>
+                        <article class="pc-exam-stat-card">
+                            <p>Not Done</p>
+                            <strong id="exam-not-done-count">24</strong>
+                        </article>
+                    </div>
+
+                    <div class="pc-exam-legend">
+                        <p class="pc-exam-section-title">Question Status</p>
+                        <div class="pc-exam-legend-row">
+                            <span class="pc-exam-legend-chip pc-exam-legend-chip--current">Current</span>
+                            <span class="pc-exam-legend-chip pc-exam-legend-chip--answered">Answered</span>
+                            <span class="pc-exam-legend-chip pc-exam-legend-chip--marked">Marked</span>
+                            <span class="pc-exam-legend-chip pc-exam-legend-chip--not-done">Not Done</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="pc-exam-section-title">Question Grid</p>
+                        <p class="pc-text-small">Click any question number to jump back.</p>
+                        <div id="exam-question-grid" class="pc-exam-question-grid" aria-label="Question navigation grid"></div>
+                    </div>
+
+                    <div class="pc-exam-calculator">
+                        <button id="calc-toggle-btn" class="pc-btn pc-btn--secondary pc-btn--small" type="button" aria-expanded="true" aria-controls="exam-calculator-panel">
+                            Calculator
+                        </button>
+                        <div id="exam-calculator-panel" class="pc-exam-calculator-panel">
+                            <label for="calc-display" class="pc-search-label">Expression</label>
+                            <input id="calc-display" class="pc-input" type="text" inputmode="decimal" placeholder="e.g. (2.5*7)+12">
+                            <p id="calc-result" class="pc-text-small">Result: -</p>
+                            <div class="pc-exam-calc-grid" aria-label="Calculator keypad">
+                                <button class="pc-exam-calc-key" data-calc-action="clear" type="button">C</button>
+                                <button class="pc-exam-calc-key" data-calc-action="backspace" type="button">Bksp</button>
+                                <button class="pc-exam-calc-key" data-calc-value="(" type="button">(</button>
+                                <button class="pc-exam-calc-key" data-calc-value=")" type="button">)</button>
+
+                                <button class="pc-exam-calc-key" data-calc-value="7" type="button">7</button>
+                                <button class="pc-exam-calc-key" data-calc-value="8" type="button">8</button>
+                                <button class="pc-exam-calc-key" data-calc-value="9" type="button">9</button>
+                                <button class="pc-exam-calc-key" data-calc-value="/" type="button">/</button>
+
+                                <button class="pc-exam-calc-key" data-calc-value="4" type="button">4</button>
+                                <button class="pc-exam-calc-key" data-calc-value="5" type="button">5</button>
+                                <button class="pc-exam-calc-key" data-calc-value="6" type="button">6</button>
+                                <button class="pc-exam-calc-key" data-calc-value="*" type="button">*</button>
+
+                                <button class="pc-exam-calc-key" data-calc-value="1" type="button">1</button>
+                                <button class="pc-exam-calc-key" data-calc-value="2" type="button">2</button>
+                                <button class="pc-exam-calc-key" data-calc-value="3" type="button">3</button>
+                                <button class="pc-exam-calc-key" data-calc-value="-" type="button">-</button>
+
+                                <button class="pc-exam-calc-key" data-calc-value="0" type="button">0</button>
+                                <button class="pc-exam-calc-key" data-calc-value="." type="button">.</button>
+                                <button class="pc-exam-calc-key" data-calc-action="evaluate" type="button">=</button>
+                                <button class="pc-exam-calc-key" data-calc-value="+" type="button">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <section class="pc-exam-main" aria-label="Question window">
+                    <div class="pc-exam-main-toolbar">
+                        <p id="exam-question-progress" class="pc-practice-counter">Question 1 of 24</p>
+                        <div class="pc-panel-actions">
+                            <button id="mark-question-btn" class="pc-btn pc-btn--secondary" type="button">Mark Question</button>
+                            <button id="clear-answer-btn" class="pc-btn pc-btn--secondary" type="button">Clear Answer</button>
+                        </div>
+                    </div>
+
+                    <div id="exam-question-container" class="pc-question-container" aria-live="polite"></div>
+
+                    <div class="pc-panel-actions pc-exam-nav-actions">
+                        <button id="prev-question-btn" class="pc-btn pc-btn--secondary" type="button">Previous</button>
+                        <button id="next-question-btn" class="pc-btn pc-btn--secondary" type="button">Next</button>
+                        <button id="submit-exam-btn" class="pc-btn" type="button">Submit Simulator</button>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <section id="exam-result" class="pc-bridge-section pc-exam-results" aria-labelledby="exam-result-title" hidden>
+            <h2 id="exam-result-title" class="pc-bridge-title">Simulator Results</h2>
+            <p id="result-summary-copy" class="pc-fork-copy">Your timed simulation breakdown is ready.</p>
+
+            <div class="pc-exam-result-stat-grid">
+                <article class="pc-exam-result-stat">
+                    <p>Score</p>
+                    <strong id="result-score">0%</strong>
+                </article>
+                <article class="pc-exam-result-stat">
+                    <p>Correct</p>
+                    <strong id="result-correct-count">0/24</strong>
+                </article>
+                <article class="pc-exam-result-stat">
+                    <p>Incorrect</p>
+                    <strong id="result-incorrect-count">0</strong>
+                </article>
+                <article class="pc-exam-result-stat">
+                    <p>Not Done</p>
+                    <strong id="result-unanswered-count">0</strong>
+                </article>
+                <article class="pc-exam-result-stat">
+                    <p>Time Used</p>
+                    <strong id="result-time-used">00:00</strong>
+                </article>
+            </div>
+
+            <div class="pc-bridge-card pc-bridge-card--inline">
+                <h3>Correct Questions</h3>
+                <p id="result-correct-numbers" class="pc-text-small">-</p>
+            </div>
+
+            <section class="pc-bridge-card pc-bridge-card--inline" aria-labelledby="system-eval-title">
+                <h3 id="system-eval-title">System Evaluation</h3>
+                <div id="result-system-breakdown" class="pc-exam-system-grid"></div>
+            </section>
+
+            <section class="pc-bridge-card pc-bridge-card--inline" aria-labelledby="review-title">
+                <h3 id="review-title">Questions To Review</h3>
+                <div id="result-review-list" class="pc-exam-review-list"></div>
+            </section>
+
+            <div class="pc-panel-actions">
+                <button id="retake-exam-btn" class="pc-btn" type="button">Retake 24-Question Simulator</button>
+                <button id="back-to-modes-btn" class="pc-btn pc-btn--secondary" type="button">Back to Mode Selection</button>
+            </div>
+        </section>
     </main>
+
+    <div id="coming-soon-modal" class="pc-modal" hidden aria-modal="true" role="dialog" aria-labelledby="coming-soon-title" aria-describedby="coming-soon-copy">
+        <div class="pc-modal__surface pc-modal__surface--practice">
+            <button id="coming-soon-close-btn" class="pc-modal__close" type="button" aria-label="Close popup">x</button>
+            <h2 id="coming-soon-title">More Simulators Are Coming Soon</h2>
+            <p id="coming-soon-copy">This simulator mode is in development. Use the live 24-question mode for now.</p>
+            <div class="pc-modal__actions">
+                <button id="coming-soon-dismiss-btn" class="pc-btn pc-btn--secondary" type="button">Close</button>
+                <button id="coming-soon-start-live-btn" class="pc-btn" type="button">Start Live 24-Question Mode</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
