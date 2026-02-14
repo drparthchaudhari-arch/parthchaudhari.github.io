@@ -7106,50 +7106,7 @@ body.pc-page {
 }
 
 .pc-portal-nav__inner {
-    animation:
-        pc-nav-settle 520ms cubic-bezier(0.2, 0.9, 0.2, 1) both,
-        pc-nav-breathe 11.2s ease-in-out 620ms infinite;
-}
-
-.pc-nav-link,
-.pc-nav-toggle,
-.pc-nav-pill {
-    position: relative;
-    overflow: hidden;
-}
-
-.pc-nav-link::after,
-.pc-nav-toggle::after,
-.pc-nav-pill::after {
-    content: '';
-    position: absolute;
-    left: 14%;
-    right: 14%;
-    bottom: 6px;
-    height: 2px;
-    border-radius: 999px;
-    background:
-        linear-gradient(90deg,
-            color-mix(in srgb, var(--pc-primary) 68%, transparent) 0%,
-            color-mix(in srgb, var(--pc-accent) 74%, transparent) 52%,
-            color-mix(in srgb, var(--pc-primary) 68%, transparent) 100%);
-    background-size: 220% 100%;
-    transform: scaleX(0);
-    transform-origin: center;
-    transition: transform 260ms ease;
-    animation: pc-nav-underline-drift 6.4s ease-in-out infinite;
-}
-
-.pc-nav-link:hover::after,
-.pc-nav-link:focus-visible::after,
-.pc-nav-link.pc-is-active::after,
-.pc-nav-toggle:hover::after,
-.pc-nav-toggle:focus-visible::after,
-.pc-nav-toggle[aria-expanded="true"]::after,
-.pc-nav-pill:hover::after,
-.pc-nav-pill:focus-visible::after,
-.pc-nav-pill.pc-is-active::after {
-    transform: scaleX(1);
+    animation: pc-nav-settle 520ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
 }
 
 .pc-motion-item {
@@ -7227,27 +7184,6 @@ body.pc-page {
     }
 }
 
-@keyframes pc-nav-breathe {
-    0% {
-        box-shadow: 0 8px 24px color-mix(in srgb, var(--pc-primary) 10%, transparent);
-    }
-    50% {
-        box-shadow: 0 16px 32px color-mix(in srgb, var(--pc-accent) 14%, transparent);
-    }
-    100% {
-        box-shadow: 0 8px 24px color-mix(in srgb, var(--pc-primary) 10%, transparent);
-    }
-}
-
-@keyframes pc-nav-underline-drift {
-    0% {
-        background-position: 0% 50%;
-    }
-    100% {
-        background-position: 100% 50%;
-    }
-}
-
 @keyframes pc-ambient-orbit-a {
     0% {
         transform: translate3d(0, 0, 0) scale(1);
@@ -7318,9 +7254,6 @@ body.pc-page {
     }
 
     .pc-portal-nav__inner,
-    .pc-nav-link::after,
-    .pc-nav-toggle::after,
-    .pc-nav-pill::after,
     .pc-bridge-hero,
     .pc-bridge-section,
     .pc-home-tier-card,
