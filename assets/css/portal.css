@@ -6942,12 +6942,14 @@ body.pc-page {
 }
 
 .pc-page--home .pc-home-tier-card {
-    min-height: 460px;
+    min-height: 560px;
+    justify-content: flex-start;
+    gap: 0.85rem;
 }
 
 .pc-page--home .pc-home-tier-inside {
     margin-top: auto;
-    max-height: 220px;
+    max-height: 320px;
     overflow: auto;
     transform: none;
 }
@@ -6964,9 +6966,15 @@ body.pc-page {
 .pc-page--home .pc-home-tier-card:hover .pc-home-tier-inside,
 .pc-page--home .pc-home-tier-card:focus .pc-home-tier-inside,
 .pc-page--home .pc-home-tier-card:focus-within .pc-home-tier-inside {
-    max-height: 220px;
+    max-height: 320px;
     overflow: auto;
     transform: none;
+}
+
+.pc-page--home .pc-home-tier-cta {
+    width: 100%;
+    margin-top: 0.35rem;
+    justify-content: center;
 }
 
 .pc-page--home .pc-home-tier-links,
@@ -6982,4 +6990,17 @@ body.pc-page {
 .pc-page--home .pc-home-tier-card:focus-within .pc-home-tier-links li {
     opacity: 1;
     transform: none;
+}
+
+@media (max-width: 900px) {
+    .pc-page--home .pc-home-tier-card {
+        min-height: auto;
+    }
+
+    .pc-page--home .pc-home-tier-inside,
+    .pc-page--home .pc-home-tier-card:hover .pc-home-tier-inside,
+    .pc-page--home .pc-home-tier-card:focus .pc-home-tier-inside,
+    .pc-page--home .pc-home-tier-card:focus-within .pc-home-tier-inside {
+        max-height: 1400px;
+    }
 }
