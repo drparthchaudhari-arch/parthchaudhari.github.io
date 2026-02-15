@@ -7,25 +7,269 @@
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Page Not Found | VetLudics</title>
-    <meta name="description" content="The requested page could not be found." />
+    <meta name="description" content="The requested page could not be found. Explore veterinary calculators, study tools, and resources on VetLudics." />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Page Not Found | VetLudics" />
+    <meta property="og:description" content="The requested page could not be found." />
+    <meta property="og:url" content="https://parthchaudhari.com/404.html" />
     <link rel="canonical" href="https://parthchaudhari.com/404.html" />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <link rel="stylesheet" href="/assets/css/page-enhancements.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
+    <script src="/assets/js/animations.js" defer></script>
   </head>
-  <body class="pc-page pc-page--study">
-    <main id="pc-main" class="pc-privacy-shell" role="main">
-      <section class="pc-bridge-hero">
+  <body class="pc-page pc-page--error no-js">
+    <!-- Page Transition Overlay -->
+    <div class="pc-page-transition" aria-hidden="true"></div>
+    
+    <!-- Toast Container -->
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    
+    <!-- Floating Background Elements -->
+    <div class="pc-floating-elements" aria-hidden="true">
+      <div class="pc-float-shape pc-float-shape--1"></div>
+      <div class="pc-float-shape pc-float-shape--2"></div>
+      <div class="pc-float-shape pc-float-shape--3"></div>
+      <div class="pc-float-shape pc-float-shape--4"></div>
+    </div>
+
+    <!-- Modern Ambient Floating Elements -->
+    <div class="pc-ambient-container" aria-hidden="true">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+      <div class="pc-ambient-particles">
+        <div class="pc-particle"></div>
+        <div class="pc-particle"></div>
+        <div class="pc-particle"></div>
+        <div class="pc-particle"></div>
+        <div class="pc-particle"></div>
+      </div>
+      <div class="pc-ambient-grid"></div>
+    </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+    
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <span class="pc-logo__icon">🐾</span>
+          <span class="pc-logo__text">VetLudics</span>
+        </a>
+        
+        <!-- Search Bar (Desktop) -->
+        <form class="pc-nav-search" action="/search.html" method="get" role="search">
+          <div class="pc-search-wrapper">
+            <svg class="pc-search-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            </svg>
+            <input 
+              type="search" 
+              name="q" 
+              class="pc-search-input pc-search-input--nav" 
+              placeholder="Search calculators, topics..."
+              aria-label="Search veterinary calculators"
+              autocomplete="off"
+            >
+            <kbd class="pc-search-shortcut">⌘K</kbd>
+          </div>
+        </form>
+        
+        <div class="pc-nav-group">
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
+          <a class="pc-nav-link" href="/search.html">Search</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">
+            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+            <span class="pc-nav-link__text">Account</span>
+          </a>
+          <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+            <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
+            <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
+          </button>
+          
+          <!-- Mobile Menu Toggle -->
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
+        <div class="pc-mobile-menu__header">
+          <span class="pc-mobile-menu__title">Menu</span>
+          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
+        </div>
+        <nav class="pc-mobile-menu__nav">
+          <a class="pc-mobile-nav-link" href="/play/">
+            <span class="pc-mobile-nav-link__icon">🎮</span>
+            <span class="pc-mobile-nav-link__text">Play</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/bridge/">
+            <span class="pc-mobile-nav-link__icon">🌉</span>
+            <span class="pc-mobile-nav-link__text">Bridge</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/search.html">
+            <span class="pc-mobile-nav-link__icon">🔍</span>
+            <span class="pc-mobile-nav-link__text">Search</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/study/">
+            <span class="pc-mobile-nav-link__icon">📚</span>
+            <span class="pc-mobile-nav-link__text">Study Plan</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/account/">
+            <span class="pc-mobile-nav-link__icon">👤</span>
+            <span class="pc-mobile-nav-link__text">Account</span>
+          </a>
+        </nav>
+        <div class="pc-mobile-menu__footer">
+          <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
+            <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
+            <span>Switch to <span data-pc-theme-label>dark</span> mode</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="pc-bridge-shell" role="main">
+      <!-- Breadcrumb Navigation -->
+      <nav class="pc-breadcrumbs" aria-label="Breadcrumb">
+        <ol class="pc-breadcrumbs__list">
+          <li class="pc-breadcrumbs__item"><a href="/">Home</a></li>
+          <li class="pc-breadcrumbs__item" aria-current="page">Page Not Found</li>
+        </ol>
+      </nav>
+      
+      <!-- Error Section -->
+      <section class="pc-bridge-hero pc-bridge-hero--centered" data-animate="fade-up">
+        <div class="pc-bridge-hero__badge">🔍</div>
         <p class="pc-kicker">404</p>
-        <h1 class="pc-fork-title">Page Not Found</h1>
-        <p class="pc-fork-copy">This URL does not exist or has moved.</p>
+        <h1 class="pc-fork-title pc-gradient-text">Page Not Found</h1>
+        <p class="pc-fork-copy pc-fork-copy--large">
+          Sorry, we couldn't find the page you're looking for. 
+          It might have been moved, deleted, or the URL might be incorrect.
+        </p>
         <div class="pc-panel-actions">
-          <a class="pc-btn pc-btn--primary" href="/">Go Home</a>
-          <a class="pc-btn pc-btn--secondary" href="/study/">Go to Study</a>
+          <a class="pc-btn pc-btn--primary pc-btn--large" href="/">
+            <span>Go Home</span>
+            <svg class="pc-btn__arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a class="pc-btn pc-btn--secondary pc-btn--large" href="/tools/">Explore Tools</a>
+        </div>
+      </section>
+
+      <!-- Quick Links Section -->
+      <section class="pc-bridge-section" aria-label="Quick links" data-animate="fade-up" data-delay="100">
+        <h2 class="pc-bridge-title">Popular Destinations</h2>
+        <div class="pc-related-grid">
+          <a href="/tools/dose-calculator.html" class="pc-related-card">
+            <span class="pc-related-card__icon">💊</span>
+            <div class="pc-related-card__content">
+              <h3>Dose Calculator</h3>
+              <p>Calculate drug dosages quickly</p>
+            </div>
+            <svg class="pc-related-card__arrow" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="/study/navle/" class="pc-related-card">
+            <span class="pc-related-card__icon">📚</span>
+            <div class="pc-related-card__content">
+              <h3>NAVLE Hub</h3>
+              <p>Exam preparation resources</p>
+            </div>
+            <svg class="pc-related-card__arrow" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="/search.html" class="pc-related-card">
+            <span class="pc-related-card__icon">🔍</span>
+            <div class="pc-related-card__content">
+              <h3>Search</h3>
+              <p>Find tools and resources</p>
+            </div>
+            <svg class="pc-related-card__arrow" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="/reference/" class="pc-related-card">
+            <span class="pc-related-card__icon">📖</span>
+            <div class="pc-related-card__content">
+              <h3>Reference Library</h3>
+              <p>Clinical references and guides</p>
+            </div>
+            <svg class="pc-related-card__arrow" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="/bridge/" class="pc-related-card">
+            <span class="pc-related-card__icon">🌉</span>
+            <div class="pc-related-card__content">
+              <h3>Clinical Cases</h3>
+              <p>Case-based learning scenarios</p>
+            </div>
+            <svg class="pc-related-card__arrow" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="/contact.html" class="pc-related-card">
+            <span class="pc-related-card__icon">✉️</span>
+            <div class="pc-related-card__content">
+              <h3>Contact</h3>
+              <p>Get in touch with us</p>
+            </div>
+            <svg class="pc-related-card__arrow" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      <!-- Disclaimer -->
+      <section class="pc-bridge-section pc-bridge-section--subtle" data-animate="fade-up">
+        <div class="pc-note-box pc-note-box--subtle">
+          <p>
+            <strong>Educational only.</strong> VetLudics does not provide emergency consultation
+            or patient-specific treatment advice. For veterinary emergencies, please contact your local
+            emergency clinic or veterinarian immediately.
+          </p>
         </div>
       </section>
     </main>
+    
+    <!-- Enhanced Footer -->
+    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal">
+      <div class="pc-footer__bottom">
+        <div class="pc-footer__legal">
+          <a href="/">Home</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <a href="/editorial-policy/">Editorial Policy</a>
+        </div>
+        <p class="pc-footer__copyright">© 2025 VetLudics. Not a substitute for professional veterinary advice.</p>
+      </div>
+    </footer>
   </body>
 </html>

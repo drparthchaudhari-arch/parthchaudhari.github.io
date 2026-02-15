@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-mode="play" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +7,10 @@
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Memory Match | VetLudics</title>
+    <meta
+      name="description"
+      content="Play Memory Match - Test your memory with this card matching game on VetLudics."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,6 +21,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <style>
       :root {
         --primary: #0d7377;
@@ -34,7 +40,7 @@
         box-sizing: border-box;
       }
 
-      body {
+      .game-wrapper {
         min-height: 100vh;
         font-family: 'Inter', sans-serif;
         color: var(--white);
@@ -43,27 +49,12 @@
           radial-gradient(circle at 82% 85%, #1c2747 0%, transparent 44%),
           linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
         padding: 1rem;
+        padding-top: calc(64px + 1rem);
       }
 
       .page-wrap {
         max-width: 1100px;
         margin: 0 auto;
-      }
-
-      .top-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.8rem;
-        margin-bottom: 1rem;
-      }
-
-      .top-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.45rem;
-        text-decoration: none;
-        color: var(--secondary);
-        font-weight: 600;
       }
 
       .panel {
@@ -235,10 +226,8 @@
       }
 
       @media (max-width: 700px) {
-        .top-links {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 0.45rem;
+        .game-wrapper {
+          padding-top: calc(60px + 0.75rem);
         }
 
         .panel {
@@ -251,8 +240,9 @@
       }
 
       @media (max-width: 520px) {
-        body {
+        .game-wrapper {
           padding: 0.75rem;
+          padding-top: calc(60px + 0.75rem);
         }
 
         .memory-stats {
@@ -271,66 +261,94 @@
         }
       }
     </style>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
   </head>
-  <body>
-    <div class="page-wrap">
-      <div class="top-links">
-        <a class="top-link" href="games.html"
-          ><i class="fas fa-arrow-left"></i> Back to Games</a
-        >
-        <a class="top-link" href="index.html"
-          ><i class="fas fa-house"></i> Home</a
-        >
+  <body class="pc-page pc-page--game">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/about.html">About Me</a>
+          <a class="pc-nav-link pc-is-active" href="/play/">Play</a>
+          <a class="pc-nav-link" href="/bridge/">Bridge</a>
+          <a class="pc-nav-link" href="/search.html">Search</a>
+          <a class="pc-nav-link" href="/account/">
+            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+            Account
+          </a>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Play</span>
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Night</span>
+          </button>
+        </div>
       </div>
+    </nav>
 
-      <section class="panel">
-        <h1>Memory Match</h1>
-        <p class="subtitle">
-          Select your board size and theme, then start a new game.
-        </p>
-
-        <div class="control-row">
-          <div class="control-item">
-            <label for="memorySizeSelect">Grid Size</label>
-            <select id="memorySizeSelect"></select>
-          </div>
-          <div class="control-item">
-            <label for="memoryThemeSelect">Theme</label>
-            <select id="memoryThemeSelect">
-              <option value="animals">Animals</option>
-              <option value="nature">Nature + Symbols</option>
-              <option value="mixed">Mixed</option>
-            </select>
-          </div>
-        </div>
-
-        <button class="btn-game" id="memoryStartBtn">Start Memory Game</button>
-
-        <div class="game-panel">
-          <div class="memory-stats">
-            <div class="memory-stat">
-              <div class="memory-stat-value" id="memoryMoves">0</div>
-              <div class="memory-stat-label">MOVES</div>
-            </div>
-            <div class="memory-stat">
-              <div class="memory-stat-value" id="memoryMatches">0</div>
-              <div class="memory-stat-label">MATCHES</div>
-            </div>
-            <div class="memory-stat">
-              <div class="memory-stat-value" id="memoryTime">0:00</div>
-              <div class="memory-stat-label">TIME</div>
-            </div>
-          </div>
-          <div class="memory-board-wrap">
-            <div class="memory-grid" id="memoryGrid"></div>
-          </div>
-          <p class="micro-text">
-            Tip: for very large boards, scroll inside the game panel.
+    <main id="pc-main" class="game-wrapper" role="main">
+      <div class="page-wrap">
+        <section class="panel">
+          <h1>Memory Match</h1>
+          <p class="subtitle">
+            Select your board size and theme, then start a new game.
           </p>
-        </div>
-      </section>
-    </div>
+
+          <div class="control-row">
+            <div class="control-item">
+              <label for="memorySizeSelect">Grid Size</label>
+              <select id="memorySizeSelect"></select>
+            </div>
+            <div class="control-item">
+              <label for="memoryThemeSelect">Theme</label>
+              <select id="memoryThemeSelect">
+                <option value="animals">Animals</option>
+                <option value="nature">Nature + Symbols</option>
+                <option value="mixed">Mixed</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn-game" id="memoryStartBtn">Start Memory Game</button>
+
+          <div class="game-panel">
+            <div class="memory-stats">
+              <div class="memory-stat">
+                <div class="memory-stat-value" id="memoryMoves">0</div>
+                <div class="memory-stat-label">MOVES</div>
+              </div>
+              <div class="memory-stat">
+                <div class="memory-stat-value" id="memoryMatches">0</div>
+                <div class="memory-stat-label">MATCHES</div>
+              </div>
+              <div class="memory-stat">
+                <div class="memory-stat-value" id="memoryTime">0:00</div>
+                <div class="memory-stat-label">TIME</div>
+              </div>
+            </div>
+            <div class="memory-board-wrap">
+              <div class="memory-grid" id="memoryGrid"></div>
+            </div>
+            <p class="micro-text">
+              Tip: for very large boards, scroll inside the game panel.
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
 
     <script>
       function shuffle(array) {

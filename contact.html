@@ -30,6 +30,9 @@
     <script src="/assets/js/animations.js" defer></script>
   </head>
   <body class="pc-page pc-page--study no-js">
+    <!-- Page Transition Overlay -->
+    <div class="pc-page-transition" aria-hidden="true"></div>
+    
     <!-- Toast Container -->
     <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
     
@@ -37,6 +40,8 @@
     <div class="pc-floating-elements" aria-hidden="true">
       <div class="pc-float-shape pc-float-shape--1"></div>
       <div class="pc-float-shape pc-float-shape--2"></div>
+      <div class="pc-float-shape pc-float-shape--3"></div>
+      <div class="pc-float-shape pc-float-shape--4"></div>
     </div>
 
     <!-- Modern Ambient Floating Elements -->
@@ -92,8 +97,9 @@
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
           <a class="pc-nav-link" href="/search.html">Search</a>
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
-          <a class="pc-nav-link pc-is-active" href="/contact.html">
-            <span class="pc-nav-link__text">Contact</span>
+          <a class="pc-nav-link" href="/account/">
+            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+            <span class="pc-nav-link__text">Account</span>
           </a>
           <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
             <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
@@ -133,9 +139,9 @@
             <span class="pc-mobile-nav-link__icon">📚</span>
             <span class="pc-mobile-nav-link__text">Study Plan</span>
           </a>
-          <a class="pc-mobile-nav-link pc-is-active" href="/contact.html">
-            <span class="pc-mobile-nav-link__icon">✉️</span>
-            <span class="pc-mobile-nav-link__text">Contact</span>
+          <a class="pc-mobile-nav-link" href="/account/">
+            <span class="pc-mobile-nav-link__icon">👤</span>
+            <span class="pc-mobile-nav-link__text">Account</span>
           </a>
         </nav>
         <div class="pc-mobile-menu__footer">

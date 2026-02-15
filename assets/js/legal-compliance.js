@@ -588,7 +588,7 @@
     note.className = 'pc-license-attribution'
     note.setAttribute('data-pc-license-attribution', 'true')
     note.textContent = text
-    host.appendChild(note)
+    main.appendChild(note)
   }
 
   function appendTrademarkFooterIfMissing() {

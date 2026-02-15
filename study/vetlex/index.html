@@ -1,24 +1,55 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-mode="pro" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author-status" content="NAVLE-candidate-unlicensed" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
-    <title>VetLex Study Tool Redirect</title>
+    <title>VetLex Study Tool Redirect | VetLudics</title>
     <meta
       name="description"
-      content="VetLex terminology trainer redirects to the word-study hub."
+      content="VetLex terminology trainer redirects to the WordWeb NAVLE study hub."
     />
     <link rel="canonical" href="https://parthchaudhari.com/study/wordweb/" />
     <meta http-equiv="refresh" content="0;url=/study/wordweb/" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
   </head>
-  <body>
+  <body class="pc-page pc-page--study">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <span class="pc-logo__icon">🐾</span>
+          <span class="pc-logo__text">VetLudics</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/study/">Study</a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="pc-bridge-shell" role="main">
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Redirecting</p>
+        <h1 class="pc-fork-title">VetLex has moved</h1>
+        <p class="pc-fork-copy">
+          You are being redirected to the WordWeb NAVLE Study Hub.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn" href="/study/wordweb/">Go to WordWeb Topics</a>
+          <a class="pc-btn pc-btn--secondary" href="/study/">Study Planner</a>
+        </div>
+      </section>
+    </main>
+
     <script>
       window.location.replace('/study/wordweb/')
     </script>
-    <p>Not affiliated with Wordle or NYT Games.</p>
+    <p style="text-align: center; padding: 2rem; color: var(--pc-text-muted);">Not affiliated with Wordle or NYT Games.</p>
   </body>
 </html>

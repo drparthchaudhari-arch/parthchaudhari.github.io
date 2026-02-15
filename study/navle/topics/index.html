@@ -27,53 +27,110 @@
     />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
+    <script src="/assets/js/animations.js" defer></script>
   </head>
-  <body class="pc-page pc-page--study">
+  <body class="pc-page pc-page--study no-js">
+    <!-- Mobile Menu Overlay -->
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
-        <a class="pc-logo" href="/">VetLudics</a>
+        <a class="pc-logo" href="/">
+          <span class="pc-logo__icon">🐾</span>
+          <span class="pc-logo__text">VetLudics</span>
+        </a>
+        
         <div class="pc-nav-group">
-          <button
-            type="button"
-            class="pc-nav-toggle"
-            data-pc-mode-toggle
-            aria-label="Toggle professional or play mode"
-          >
-            <span class="pc-nav-toggle__label" data-pc-mode-label
-              >Mode: Professional</span
-            >
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
+          <a class="pc-nav-link" href="/search.html">Search</a>
+          <a class="pc-nav-link pc-is-active" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">
+            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+            <span class="pc-nav-link__text">Account</span>
+          </a>
+          <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+            <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
+            <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
           </button>
-          <button
-            type="button"
-            class="pc-nav-toggle"
-            data-pc-theme-toggle
-            aria-label="Toggle day or night theme"
-          >
-            <span class="pc-nav-toggle__label" data-pc-theme-label
-              >Theme: Day</span
-            >
+          
+          <!-- Mobile Menu Toggle -->
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
+        <div class="pc-mobile-menu__header">
+          <span class="pc-mobile-menu__title">Menu</span>
+          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
+        </div>
+        <nav class="pc-mobile-menu__nav">
+          <a class="pc-mobile-nav-link" href="/play/">
+            <span class="pc-mobile-nav-link__icon">🎮</span>
+            <span class="pc-mobile-nav-link__text">Play</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/bridge/">
+            <span class="pc-mobile-nav-link__icon">🌉</span>
+            <span class="pc-mobile-nav-link__text">Bridge</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/search.html">
+            <span class="pc-mobile-nav-link__icon">🔍</span>
+            <span class="pc-mobile-nav-link__text">Search</span>
+          </a>
+          <a class="pc-mobile-nav-link pc-is-active" href="/study/">
+            <span class="pc-mobile-nav-link__icon">📚</span>
+            <span class="pc-mobile-nav-link__text">Study Plan</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/account/">
+            <span class="pc-mobile-nav-link__icon">👤</span>
+            <span class="pc-mobile-nav-link__text">Account</span>
+          </a>
+        </nav>
+        <div class="pc-mobile-menu__footer">
+          <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
+            <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
+            <span>Switch to <span data-pc-theme-label>dark</span> mode</span>
           </button>
         </div>
       </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-      <section class="pc-bridge-hero">
+      <!-- Breadcrumb Navigation -->
+      <nav class="pc-breadcrumbs" aria-label="Breadcrumb">
+        <ol class="pc-breadcrumbs__list">
+          <li class="pc-breadcrumbs__item"><a href="/">Home</a></li>
+          <li class="pc-breadcrumbs__item"><a href="/study/">Study</a></li>
+          <li class="pc-breadcrumbs__item"><a href="/study/navle/">NAVLE Hub</a></li>
+          <li class="pc-breadcrumbs__item" aria-current="page">Topic Guides</li>
+        </ol>
+      </nav>
+
+      <section class="pc-bridge-hero" data-animate="fade-up">
         <p class="pc-kicker">Update</p>
-        <h1 class="pc-fork-title">NAVLE Topic Guides</h1>
-        <p class="pc-fork-copy">
+        <h1 class="pc-fork-title pc-gradient-text">NAVLE Topic Guides</h1>
+        <p class="pc-fork-copy pc-fork-copy--large">
           Use this page for current topic updates and direct links to active
           NAVLE study routes.
         </p>
       </section>
 
-      <section class="pc-bridge-section" aria-label="Available study routes">
+      <section class="pc-bridge-section" aria-label="Available study routes" data-animate="fade-up" data-delay="100">
         <h2 class="pc-bridge-title">Continue Study</h2>
-        <div class="pc-panel-actions">
+        <div class="pc-panel-actions pc-panel-actions--wrap">
           <a class="pc-link-chip pc-link-chip--primary" href="/study/navle/"
             >NAVLE Hub</a
           >
@@ -82,9 +139,56 @@
             href="/study/navle/practice/"
             >Practice Questions</a
           >
+          <a class="pc-link-chip" href="/study/navle/exam-simulator/">Exam Simulator</a>
+          <a class="pc-link-chip" href="/study/wordweb/">WordWeb Topics</a>
           <a class="pc-link-chip" href="/study/">Study Planner</a>
         </div>
       </section>
+
+      <!-- Topic Categories Section -->
+      <section class="pc-bridge-section" aria-label="Topic categories" data-animate="fade-up" data-delay="200">
+        <h2 class="pc-bridge-title">Study Categories</h2>
+        <div class="pc-navle-clean-grid">
+          <article class="pc-navle-clean-card" data-animate="fade-up" data-delay="250">
+            <h3>🐄 Large Animal</h3>
+            <p>Bovine, equine, small ruminant, porcine, and poultry medicine topics.</p>
+            <div class="pc-navle-priority-row">
+              <a class="pc-link-chip" href="/study/wordweb/#species-bovine">Bovine</a>
+              <a class="pc-link-chip" href="/study/wordweb/#species-equine">Equine</a>
+            </div>
+          </article>
+          <article class="pc-navle-clean-card" data-animate="fade-up" data-delay="300">
+            <h3>🐕 Small Animal</h3>
+            <p>Canine and feline medicine, surgery, and emergency topics.</p>
+            <div class="pc-navle-priority-row">
+              <a class="pc-link-chip" href="/study/wordweb/#species-canine">Canine</a>
+              <a class="pc-link-chip" href="/study/wordweb/#species-feline">Feline</a>
+            </div>
+          </article>
+          <article class="pc-navle-clean-card" data-animate="fade-up" data-delay="350">
+            <h3>⚡ Emergency & Critical Care</h3>
+            <p>Shock, toxicology, fluids, anesthesia, and transfusion medicine.</p>
+            <div class="pc-navle-priority-row">
+              <a class="pc-link-chip" href="/study/wordweb/#high-yield-emergency">Emergency</a>
+              <a class="pc-link-chip" href="/study/wordweb/#fluids-electrolytes">Fluids</a>
+            </div>
+          </article>
+        </div>
+      </section>
     </main>
+
+    <!-- Enhanced Footer -->
+    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal">
+      <div class="pc-footer__bottom">
+        <div class="pc-footer__legal">
+          <a href="/">Home</a>
+          <a href="/study/navle/">NAVLE Hub</a>
+          <a href="/study/navle/practice/">Practice</a>
+          <a href="/tools/">Tools</a>
+          <a href="/about.html">About</a>
+        </div>
+        <p class="pc-footer__copyright">© 2025 VetLudics</p>
+      </div>
+    </footer>
   </body>
 </html>

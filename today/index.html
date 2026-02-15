@@ -5,32 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author-status" content="NAVLE-candidate-unlicensed" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <title>Today's Plan | NAVLE Study | Parth Chaudhari</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
+    <title>Today's Plan | VetLudics</title>
     <meta
       name="description"
       content="Your daily veterinary study plan. Cases, games, and progress tracking."
     />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Today's Plan | VetLudics" />
+    <meta
+      property="og:description"
+      content="Your daily veterinary study plan. Cases, games, and progress tracking."
+    />
+    <meta property="og:url" content="https://parthchaudhari.com/today/" />
+    <link rel="canonical" href="https://parthchaudhari.com/today/" />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
+    <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
   </head>
-  <body class="pc-page">
-    <!-- Nav (same as other pages) -->
-    <nav class="pc-nav">
-      <a href="/" class="pc-nav__brand">Parth Chaudhari</a>
-      <div class="pc-nav__links">
-        <a href="/" class="pc-nav__link">Home</a>
-        <a href="/today/" class="pc-nav__link pc-nav__link--active">Today</a>
-        <a href="/bridge/" class="pc-nav__link">Bridge</a>
-        <a href="/study/" class="pc-nav__link">Study</a>
-        <a href="/account/" class="pc-nav__link">Profile</a>
-        <a href="/play/" class="pc-nav__link">Play</a>
+  <body class="pc-page pc-page--study">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
+        </div>
       </div>
-      <button class="pc-nav-toggle" data-pc-theme-toggle>Theme</button>
     </nav>
 
-    <main class="pc-today-page">
+    <main id="pc-main" class="pc-today-page" role="main">
       <!-- Header with streak -->
       <header class="pc-today-header">
         <div class="pc-streak-display">

@@ -30,36 +30,104 @@
     />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <link rel="stylesheet" href="/assets/css/calculator-modern.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/animations.js" defer></script>
     <script src="/assets/js/sepsis-bundle-planner.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
   </head>
-  <body class="pc-page pc-page--study">
+  <body class="pc-page pc-page--study no-js">
+        <!-- Toast Container -->
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Floating Background Elements -->
+    <div class="pc-floating-elements" aria-hidden="true">
+      <div class="pc-float-shape pc-float-shape--1"></div>
+      <div class="pc-float-shape pc-float-shape--2"></div>
+    </div>
+
+    <!-- Modern Ambient Floating Elements -->
+    <div class="pc-ambient-container" aria-hidden="true">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+      <div class="pc-ambient-particles">
+        <div class="pc-particle"></div>
+        <div class="pc-particle"></div>
+        <div class="pc-particle"></div>
+        <div class="pc-particle"></div>
+        <div class="pc-particle"></div>
+      </div>
+      <div class="pc-ambient-grid"></div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
-        <a class="pc-logo" href="/">VetLudics</a>
+        <a class="pc-logo" href="/">
+          <span class="pc-logo__icon">🐾</span>
+          <span class="pc-logo__text">VetLudics</span>
+        </a>
+        
+        <form class="pc-nav-search" action="/search.html" method="get" role="search">
+          <div class="pc-search-wrapper">
+            <svg class="pc-search-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            </svg>
+            <input type="search" name="q" class="pc-search-input pc-search-input--nav" placeholder="Search..." aria-label="Search" autocomplete="off">
+            <kbd class="pc-search-shortcut">⌘K</kbd>
+          </div>
+        </form>
+        
         <div class="pc-nav-group">
-          <button
-            type="button"
-            class="pc-nav-toggle"
-            data-pc-mode-toggle
-            aria-label="Toggle professional or play mode"
-          >
-            <span class="pc-nav-toggle__label" data-pc-mode-label
-              >Mode: Professional</span
-            >
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
+          <a class="pc-nav-link" href="/search.html">Search</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">
+            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+            <span class="pc-nav-link__text">Account</span>
+          </a>
+          <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle theme">
+            <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
+            <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
           </button>
-          <button
-            type="button"
-            class="pc-nav-toggle"
-            data-pc-theme-toggle
-            aria-label="Toggle day or night theme"
-          >
-            <span class="pc-nav-toggle__label" data-pc-theme-label
-              >Theme: Day</span
-            >
+          
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+      
+      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
+        <div class="pc-mobile-menu__header">
+          <span class="pc-mobile-menu__title">Menu</span>
+          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
+        </div>
+        <nav class="pc-mobile-menu__nav">
+          <a class="pc-mobile-nav-link" href="/play/">🎮 Play</a>
+          <a class="pc-mobile-nav-link" href="/bridge/">🌉 Bridge</a>
+          <a class="pc-mobile-nav-link" href="/search.html">🔍 Search</a>
+          <a class="pc-mobile-nav-link" href="/study/">📚 Study Plan</a>
+          <a class="pc-mobile-nav-link" href="/account/">👤 Account</a>
+        </nav>
+        <div class="pc-mobile-menu__footer">
+          <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
+            <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
+            <span>Switch theme</span>
           </button>
         </div>
       </div>
@@ -177,5 +245,16 @@
         </p>
       </section>
     </main>
+    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal">
+      <div class="pc-footer__bottom">
+        <div class="pc-footer__legal">
+          <a href="/">Home</a>
+          <a href="/tools/">Tools</a>
+          <a href="/reference/">References</a>
+          <a href="/privacy/">Privacy</a>
+        </div>
+        <p class="pc-footer__copyright">© 2025 VetLudics. Not a substitute for professional veterinary advice.</p>
+      </div>
+    </footer>
   </body>
 </html>

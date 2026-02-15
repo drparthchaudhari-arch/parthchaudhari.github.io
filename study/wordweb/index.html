@@ -27,48 +27,82 @@
     <link rel="canonical" href="https://parthchaudhari.com/study/wordweb/" />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
+    <script src="/assets/js/animations.js" defer></script>
   </head>
-  <body class="pc-page pc-page--study">
+  <body class="pc-page pc-page--study no-js">
+    <!-- Mobile Menu Overlay -->
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
-        <a class="pc-logo" href="/">VetLudics</a>
+        <a class="pc-logo" href="/">
+          <span class="pc-logo__icon">🐾</span>
+          <span class="pc-logo__text">VetLudics</span>
+        </a>
+        
         <div class="pc-nav-group">
-          <a class="pc-nav-link" href="/about.html">About Me</a>
-          <a class="pc-nav-link" href="/play/">Play</a>
-          <a class="pc-nav-link" href="/bridge/">Bridge</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
           <a class="pc-nav-link" href="/search.html">Search</a>
-          <a class="pc-nav-link pc-is-active" href="/study/">Study Plan</a>
-          <a class="pc-nav-link" href="/account/"
-            ><span
-              class="pc-auth-indicator"
-              data-pc-auth-indicator
-              aria-hidden="true"
-              >○</span
-            >Account</a
-          >
-          <button
-            type="button"
-            class="pc-nav-toggle"
-            data-pc-mode-toggle
-            aria-label="Toggle professional or play mode"
-          >
-            <span class="pc-nav-toggle__label" data-pc-mode-label
-              >Mode: Professional</span
-            >
+          <a class="pc-nav-link pc-is-active" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">
+            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+            <span class="pc-nav-link__text">Account</span>
+          </a>
+          <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+            <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
+            <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
           </button>
-          <button
-            type="button"
-            class="pc-nav-toggle"
-            data-pc-theme-toggle
-            aria-label="Toggle day or night theme"
-          >
-            <span class="pc-nav-toggle__label" data-pc-theme-label
-              >Theme: Day</span
-            >
+          
+          <!-- Mobile Menu Toggle -->
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
+        <div class="pc-mobile-menu__header">
+          <span class="pc-mobile-menu__title">Menu</span>
+          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
+        </div>
+        <nav class="pc-mobile-menu__nav">
+          <a class="pc-mobile-nav-link" href="/play/">
+            <span class="pc-mobile-nav-link__icon">🎮</span>
+            <span class="pc-mobile-nav-link__text">Play</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/bridge/">
+            <span class="pc-mobile-nav-link__icon">🌉</span>
+            <span class="pc-mobile-nav-link__text">Bridge</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/search.html">
+            <span class="pc-mobile-nav-link__icon">🔍</span>
+            <span class="pc-mobile-nav-link__text">Search</span>
+          </a>
+          <a class="pc-mobile-nav-link pc-is-active" href="/study/">
+            <span class="pc-mobile-nav-link__icon">📚</span>
+            <span class="pc-mobile-nav-link__text">Study Plan</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/account/">
+            <span class="pc-mobile-nav-link__icon">👤</span>
+            <span class="pc-mobile-nav-link__text">Account</span>
+          </a>
+        </nav>
+        <div class="pc-mobile-menu__footer">
+          <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
+            <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
+            <span>Switch to <span data-pc-theme-label>dark</span> mode</span>
           </button>
         </div>
       </div>

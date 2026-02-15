@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-mode="play" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,7 +21,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <style>
       :root {
         --primary: #0d7377;
@@ -49,32 +50,11 @@
           radial-gradient(circle at 12% 10%, #1e3859 0%, transparent 42%),
           radial-gradient(circle at 82% 85%, #1d2d4f 0%, transparent 44%),
           linear-gradient(140deg, var(--dark) 0%, var(--darker) 100%);
+      }
+
+      .content-wrapper {
         padding: 1.1rem;
-      }
-
-      .about-corner {
-        position: fixed;
-        top: 1rem;
-        right: 1rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.45rem;
-        padding: 0.55rem 0.9rem;
-        border-radius: 999px;
-        text-decoration: none;
-        color: var(--white);
-        font-weight: 600;
-        font-size: 0.84rem;
-        background: rgba(50, 224, 196, 0.17);
-        border: 1px solid rgba(50, 224, 196, 0.45);
-        backdrop-filter: blur(12px);
-        transition: var(--transition);
-        z-index: 10;
-      }
-
-      .about-corner:hover {
-        transform: translateY(-2px);
-        background: rgba(50, 224, 196, 0.25);
+        padding-top: calc(64px + 1.1rem);
       }
 
       .shell {
@@ -307,8 +287,9 @@
       }
 
       @media (max-width: 768px) {
-        body {
+        .content-wrapper {
           padding: 0.8rem;
+          padding-top: calc(60px + 0.8rem);
         }
 
         .header-card,
@@ -326,12 +307,6 @@
           width: 100%;
           justify-content: center;
         }
-
-        .about-corner {
-          top: auto;
-          bottom: 0.9rem;
-          right: 0.9rem;
-        }
       }
 
       @media (max-width: 520px) {
@@ -342,232 +317,263 @@
         }
       }
     </style>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-    <script src="/assets/js/animations.js" defer></script>
   </head>
-  <body>
-    <a class="about-corner" href="info.html">
-      <i class="fas fa-user-doctor"></i>
-      About Me
-    </a>
-
-    <main class="shell">
-      <section class="header-card">
-        <a href="index.html" class="back-link">
-          <i class="fas fa-arrow-left"></i>
-          Back to Home
-        </a>
-        <span class="chip">
-          <i class="fas fa-compass"></i>
-          VetLudics Strategy Hub
-        </span>
-        <h1>From Generic Game Site to Veterinary Learning Category</h1>
-        <p class="lead">
-          This page operationalizes the benchmark analysis against veterinary
-          portfolios, casual game platforms, and NAVLE prep tools. Focus: where
-          clinical expertise plus game mechanics creates durable unfair
-          advantage.
-        </p>
-        <div class="header-actions">
-          <a class="btn primary" href="games.html#games">
-            <i class="fas fa-play"></i>
-            Launch VetLudics Puzzle Hub
+  <body class="pc-page pc-page--strategy">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/about.html">About Me</a>
+          <a class="pc-nav-link pc-is-active" href="/play/">Play</a>
+          <a class="pc-nav-link" href="/bridge/">Bridge</a>
+          <a class="pc-nav-link" href="/search.html">Search</a>
+          <a class="pc-nav-link" href="/account/">
+            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+            Account
           </a>
-          <a class="btn ghost" href="#feature-roadmap">
-            <i class="fas fa-road"></i>
-            Jump to Roadmap
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Play</span>
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Night</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="content-wrapper" role="main">
+      <div class="shell">
+        <section class="header-card">
+          <a href="/" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Back to Home
           </a>
-        </div>
-      </section>
+          <span class="chip">
+            <i class="fas fa-compass"></i>
+            VetLudics Strategy Hub
+          </span>
+          <h1>From Generic Game Site to Veterinary Learning Category</h1>
+          <p class="lead">
+            This page operationalizes the benchmark analysis against veterinary
+            portfolios, casual game platforms, and NAVLE prep tools. Focus: where
+            clinical expertise plus game mechanics creates durable unfair
+            advantage.
+          </p>
+          <div class="header-actions">
+            <a class="btn primary" href="/games/#games">
+              <i class="fas fa-play"></i>
+              Launch VetLudics Puzzle Hub
+            </a>
+            <a class="btn ghost" href="#feature-roadmap">
+              <i class="fas fa-road"></i>
+              Jump to Roadmap
+            </a>
+          </div>
+        </section>
 
-      <section class="section" id="market-gap">
-        <h2>Market Gap Comparison</h2>
-        <p>
-          The structure below defines what each benchmark segment does well and
-          exactly where VetLudics can win.
+        <section class="section" id="market-gap">
+          <h2>Market Gap Comparison</h2>
+          <p>
+            The structure below defines what each benchmark segment does well and
+            exactly where VetLudics can win.
+          </p>
+          <div class="compare-grid">
+            <article class="compare-card">
+              <h3>
+                Veterinary Portfolio and CE Sites (VetFolio + personal branding
+                portfolios)
+              </h3>
+              <ul>
+                <li>Strong professional trust and credential credibility.</li>
+                <li>Often low daily engagement and limited play mechanics.</li>
+                <li>
+                  Opportunity: convert credibility into repeat learning behavior.
+                </li>
+              </ul>
+            </article>
+            <article class="compare-card">
+              <h3>Casual Gaming Platforms (CoolmathGames, Poki, Miniclip)</h3>
+              <ul>
+                <li>
+                  Excellent retention loops, progression, and replayability.
+                </li>
+                <li>No authentic veterinary domain authority.</li>
+                <li>
+                  Opportunity: deliver meaningful puzzle play with real-world
+                  depth.
+                </li>
+              </ul>
+            </article>
+            <article class="compare-card">
+              <h3>Exam Prep Tools (VetPrep, Zuku Review)</h3>
+              <ul>
+                <li>High exam rigor and readiness systems.</li>
+                <li>Less game-native engagement in micro-session formats.</li>
+                <li>
+                  Opportunity: NAVLE-grade relevance with stronger habit loops.
+                </li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="opportunities">
+          <h2>Five Untapped Opportunities</h2>
+          <p>
+            Each opportunity is framed as a quick win plus long-term
+            differentiator so roadmap planning is executable.
+          </p>
+          <div class="opportunity-grid">
+            <article class="opportunity-card">
+              <h3>1. Gamified NAVLE Sprint Prep</h3>
+              <p>
+                Timed blueprint-tagged question sprints built for high-frequency
+                study sessions.
+              </p>
+              <div class="note">
+                <strong>Quick win:</strong> timed rounds with species/domain tags.
+              </div>
+              <div class="note">
+                <strong>Long-term:</strong> adaptive readiness scoring + study
+                planner.
+              </div>
+            </article>
+            <article class="opportunity-card">
+              <h3>2. NAVLE Topic Ladder</h3>
+              <p>
+                Move from word recognition to definitions, clinical context, and
+                case-level usage.
+              </p>
+              <div class="note">
+                <strong>Quick win:</strong> definition and context cards after
+                each level.
+              </div>
+              <div class="note">
+                <strong>Long-term:</strong> spaced repetition with case-linked
+                recall loops.
+              </div>
+            </article>
+            <article class="opportunity-card">
+              <h3>3. Client Education Microgames</h3>
+              <p>
+                Pet owner gameplay for triage awareness, prevention, and
+                communication readiness.
+              </p>
+              <div class="note">
+                <strong>Quick win:</strong> emergency urgency and preventive care
+                mini-games.
+              </div>
+              <div class="note">
+                <strong>Long-term:</strong> clinic-branded QR onboarding +
+                completion analytics.
+              </div>
+            </article>
+            <article class="opportunity-card">
+              <h3>4. Veterinary Anatomy Puzzle Track</h3>
+              <p>
+                Cross-species anatomy modules that train structure recognition and
+                retention.
+              </p>
+              <div class="note">
+                <strong>Quick win:</strong> 2D canine/feline anatomy label
+                puzzles.
+              </div>
+              <div class="note">
+                <strong>Long-term:</strong> interactive 3D anatomy and OSCE-style
+                stations.
+              </div>
+            </article>
+            <article class="opportunity-card">
+              <h3>5. Cohort and Campus Mode</h3>
+              <p>
+                Institutional layer for vet schools and clinics with measurable
+                cohort progression.
+              </p>
+              <div class="note">
+                <strong>Quick win:</strong> cohort codes + weekly challenge packs.
+              </div>
+              <div class="note">
+                <strong>Long-term:</strong> instructor dashboard + LMS and CE
+                integration.
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="feature-roadmap">
+          <h2>Feature Roadmap: Quick Wins to Category Moat</h2>
+          <p>
+            Delivery is phased to maximize momentum first, then move into
+            defensible differentiation.
+          </p>
+          <div class="roadmap-grid">
+            <article class="roadmap-card">
+              <h3>Phase 1: Quick Wins (0-60 Days)</h3>
+              <ul>
+                <li>NAVLE Sprint Mode with domain tags.</li>
+                <li>NAVLE topic summaries and clinical context cards.</li>
+                <li>First client education microgame set.</li>
+                <li>Cohort leaderboard and weekly challenges.</li>
+              </ul>
+            </article>
+            <article class="roadmap-card">
+              <h3>Phase 2: Differentiation (3-6 Months)</h3>
+              <ul>
+                <li>2D anatomy puzzle packs across species.</li>
+                <li>Adaptive review loops for weak areas.</li>
+                <li>Term-to-case progression ladders.</li>
+                <li>Pilot reporting for school cohorts.</li>
+              </ul>
+            </article>
+            <article class="roadmap-card">
+              <h3>Phase 3: Moat (6-12 Months)</h3>
+              <ul>
+                <li>Adaptive NAVLE readiness predictor.</li>
+                <li>3D anatomy module with species compare.</li>
+                <li>Institutional licensing and dashboards.</li>
+                <li>Clinic deployment and CE-aligned pathways.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="section b2b" id="b2b-tier">
+          <h2>Educational B2B Tier</h2>
+          <p>
+            Target organizations: veterinary colleges, clinic groups, and CE
+            partners. Core offer: cohort gameplay, measurable progression, and
+            deployable educational modules linked to the study architecture.
+          </p>
+          <div class="header-actions">
+            <a class="btn primary" href="/about.html#contact">
+              <i class="fas fa-handshake"></i>
+              Discuss Pilot Program
+            </a>
+            <a class="btn ghost" href="/games/#roadmap">
+              <i class="fas fa-flask"></i>
+              View Product Execution Page
+            </a>
+          </div>
+        </section>
+
+        <p class="footer-note">
+          &copy; 2026 VetLudics | Strategy layer updated for VetLudics roadmap
         </p>
-        <div class="compare-grid">
-          <article class="compare-card">
-            <h3>
-              Veterinary Portfolio and CE Sites (VetFolio + personal branding
-              portfolios)
-            </h3>
-            <ul>
-              <li>Strong professional trust and credential credibility.</li>
-              <li>Often low daily engagement and limited play mechanics.</li>
-              <li>
-                Opportunity: convert credibility into repeat learning behavior.
-              </li>
-            </ul>
-          </article>
-          <article class="compare-card">
-            <h3>Casual Gaming Platforms (CoolmathGames, Poki, Miniclip)</h3>
-            <ul>
-              <li>
-                Excellent retention loops, progression, and replayability.
-              </li>
-              <li>No authentic veterinary domain authority.</li>
-              <li>
-                Opportunity: deliver meaningful puzzle play with real-world
-                depth.
-              </li>
-            </ul>
-          </article>
-          <article class="compare-card">
-            <h3>Exam Prep Tools (VetPrep, Zuku Review)</h3>
-            <ul>
-              <li>High exam rigor and readiness systems.</li>
-              <li>Less game-native engagement in micro-session formats.</li>
-              <li>
-                Opportunity: NAVLE-grade relevance with stronger habit loops.
-              </li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section class="section" id="opportunities">
-        <h2>Five Untapped Opportunities</h2>
-        <p>
-          Each opportunity is framed as a quick win plus long-term
-          differentiator so roadmap planning is executable.
-        </p>
-        <div class="opportunity-grid">
-          <article class="opportunity-card">
-            <h3>1. Gamified NAVLE Sprint Prep</h3>
-            <p>
-              Timed blueprint-tagged question sprints built for high-frequency
-              study sessions.
-            </p>
-            <div class="note">
-              <strong>Quick win:</strong> timed rounds with species/domain tags.
-            </div>
-            <div class="note">
-              <strong>Long-term:</strong> adaptive readiness scoring + study
-              planner.
-            </div>
-          </article>
-          <article class="opportunity-card">
-            <h3>2. NAVLE Topic Ladder</h3>
-            <p>
-              Move from word recognition to definitions, clinical context, and
-              case-level usage.
-            </p>
-            <div class="note">
-              <strong>Quick win:</strong> definition and context cards after
-              each level.
-            </div>
-            <div class="note">
-              <strong>Long-term:</strong> spaced repetition with case-linked
-              recall loops.
-            </div>
-          </article>
-          <article class="opportunity-card">
-            <h3>3. Client Education Microgames</h3>
-            <p>
-              Pet owner gameplay for triage awareness, prevention, and
-              communication readiness.
-            </p>
-            <div class="note">
-              <strong>Quick win:</strong> emergency urgency and preventive care
-              mini-games.
-            </div>
-            <div class="note">
-              <strong>Long-term:</strong> clinic-branded QR onboarding +
-              completion analytics.
-            </div>
-          </article>
-          <article class="opportunity-card">
-            <h3>4. Veterinary Anatomy Puzzle Track</h3>
-            <p>
-              Cross-species anatomy modules that train structure recognition and
-              retention.
-            </p>
-            <div class="note">
-              <strong>Quick win:</strong> 2D canine/feline anatomy label
-              puzzles.
-            </div>
-            <div class="note">
-              <strong>Long-term:</strong> interactive 3D anatomy and OSCE-style
-              stations.
-            </div>
-          </article>
-          <article class="opportunity-card">
-            <h3>5. Cohort and Campus Mode</h3>
-            <p>
-              Institutional layer for vet schools and clinics with measurable
-              cohort progression.
-            </p>
-            <div class="note">
-              <strong>Quick win:</strong> cohort codes + weekly challenge packs.
-            </div>
-            <div class="note">
-              <strong>Long-term:</strong> instructor dashboard + LMS and CE
-              integration.
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section" id="feature-roadmap">
-        <h2>Feature Roadmap: Quick Wins to Category Moat</h2>
-        <p>
-          Delivery is phased to maximize momentum first, then move into
-          defensible differentiation.
-        </p>
-        <div class="roadmap-grid">
-          <article class="roadmap-card">
-            <h3>Phase 1: Quick Wins (0-60 Days)</h3>
-            <ul>
-              <li>NAVLE Sprint Mode with domain tags.</li>
-              <li>NAVLE topic summaries and clinical context cards.</li>
-              <li>First client education microgame set.</li>
-              <li>Cohort leaderboard and weekly challenges.</li>
-            </ul>
-          </article>
-          <article class="roadmap-card">
-            <h3>Phase 2: Differentiation (3-6 Months)</h3>
-            <ul>
-              <li>2D anatomy puzzle packs across species.</li>
-              <li>Adaptive review loops for weak areas.</li>
-              <li>Term-to-case progression ladders.</li>
-              <li>Pilot reporting for school cohorts.</li>
-            </ul>
-          </article>
-          <article class="roadmap-card">
-            <h3>Phase 3: Moat (6-12 Months)</h3>
-            <ul>
-              <li>Adaptive NAVLE readiness predictor.</li>
-              <li>3D anatomy module with species compare.</li>
-              <li>Institutional licensing and dashboards.</li>
-              <li>Clinic deployment and CE-aligned pathways.</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section class="section b2b" id="b2b-tier">
-        <h2>Educational B2B Tier</h2>
-        <p>
-          Target organizations: veterinary colleges, clinic groups, and CE
-          partners. Core offer: cohort gameplay, measurable progression, and
-          deployable educational modules linked to the study architecture.
-        </p>
-        <div class="header-actions">
-          <a class="btn primary" href="info.html#contact">
-            <i class="fas fa-handshake"></i>
-            Discuss Pilot Program
-          </a>
-          <a class="btn ghost" href="games.html#roadmap">
-            <i class="fas fa-flask"></i>
-            View Product Execution Page
-          </a>
-        </div>
-      </section>
-
-      <p class="footer-note">
-        &copy; 2026 VetLudics | Strategy layer updated for VetLudics roadmap
-      </p>
+      </div>
     </main>
   </body>
 </html>
