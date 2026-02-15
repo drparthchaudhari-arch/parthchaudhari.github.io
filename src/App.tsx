@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import confetti from 'canvas-confetti';
 import type { Cell, Position } from '@/types/game';
 import { generateLevel, getHint } from '@/utils/gridGenerator';
@@ -7,17 +7,34 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const colors = [
+  'from-emerald-400 to-emerald-600',
+  'from-teal-400 to-teal-600',
+  'from-cyan-400 to-cyan-600',
+  'from-sky-400 to-sky-600',
+  'from-blue-400 to-blue-600',
+  'from-indigo-400 to-indigo-600',
+  'from-violet-400 to-violet-600',
+  'from-purple-400 to-purple-600',
+  'from-fuchsia-400 to-fuchsia-600',
+  'from-pink-400 to-pink-600',
+  'from-rose-400 to-rose-600',
+  'from-orange-400 to-orange-600',
+  'from-amber-400 to-amber-600',
+  'from-yellow-400 to-yellow-600',
+  'from-lime-400 to-lime-600',
+  'from-green-400 to-green-600',
+];
+
 function App() {
   const [currentLevelId, setCurrentLevelId] = useState(1);
   const [currentLevel, setCurrentLevel] = useState(() => generateLevel(1));
-  const [cells, setCells] = useState<Cell[]>([]);
   const [selectedPositions, setSelectedPositions] = useState<Position[]>([]);
   const [foundWords, setFoundWords] = useState<string[]>([]);
   const [foundWordPositions, setFoundWordPositions] = useState<Map<string, Position[]>>(new Map());
   const [isDragging, setIsDragging] = useState(false);
   const [currentWord, setCurrentWord] = useState('');
   const [showLevelComplete, setShowLevelComplete] = useState(false);
-  const [wordColors, setWordColors] = useState<Record<string, string>>({});
   const [showWordList, setShowWordList] = useState(true);
   const [hintsUsed, setHintsUsed] = useState(0);
   const [showHint, setShowHint] = useState(false);
@@ -35,27 +52,8 @@ function App() {
     ? { rows: 8, cols: 10 }
     : { rows: 8, cols: 12 };
 
-  const colors = [
-    'from-emerald-400 to-emerald-600',
-    'from-teal-400 to-teal-600',
-    'from-cyan-400 to-cyan-600',
-    'from-sky-400 to-sky-600',
-    'from-blue-400 to-blue-600',
-    'from-indigo-400 to-indigo-600',
-    'from-violet-400 to-violet-600',
-    'from-purple-400 to-purple-600',
-    'from-fuchsia-400 to-fuchsia-600',
-    'from-pink-400 to-pink-600',
-    'from-rose-400 to-rose-600',
-    'from-orange-400 to-orange-600',
-    'from-amber-400 to-amber-600',
-    'from-yellow-400 to-yellow-600',
-    'from-lime-400 to-lime-600',
-    'from-green-400 to-green-600',
-  ];
-
-  // Initialize cells from current level
-  useEffect(() => {
+  // Compute cells based on current level - using key to reset component state
+  const cells = useMemo<Cell[]>(() => {
     const initialCells: Cell[] = [];
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
@@ -69,24 +67,29 @@ function App() {
         });
       }
     }
-    setCells(initialCells);
-    setFoundWords([]);
-    setFoundWordPositions(new Map());
-    setSelectedPositions([]);
-    setCurrentWord('');
-    setShowLevelComplete(false);
-    setShowHint(false);
-    setHintPositions([]);
+    return initialCells;
   }, [currentLevel, rows, cols]);
 
-  // Assign colors to words when level changes
-  useEffect(() => {
+  // Compute word colors based on current level
+  const wordColors = useMemo(() => {
     const newWordColors: Record<string, string> = {};
     currentLevel.words.forEach((word, index) => {
       newWordColors[word] = colors[index % colors.length];
     });
-    setWordColors(newWordColors);
+    return newWordColors;
   }, [currentLevel]);
+
+  // Track derived cell state (selected and found)
+  const [cellStates, setCellStates] = useState<{ isSelected: boolean; isFound: boolean }[]>([]);
+  
+  // Initialize cellStates when cells change
+  const displayCells = useMemo(() => {
+    return cells.map((cell, index) => ({
+      ...cell,
+      isSelected: cellStates[index]?.isSelected ?? false,
+      isFound: cellStates[index]?.isFound ?? false,
+    }));
+  }, [cells, cellStates]);
 
   const getCellIndex = (row: number, col: number) => row * cols + col;
 
@@ -188,13 +191,13 @@ function App() {
         setStreak(prev => prev + 1);
         
         // Mark cells as found
-        setCells(prev => {
-          const newCells = [...prev];
+        setCellStates(prev => {
+          const newStates = [...prev];
           selectedPositions.forEach(pos => {
             const index = getCellIndex(pos.row, pos.col);
-            newCells[index] = { ...newCells[index], isFound: true };
+            newStates[index] = { ...newStates[index], isFound: true };
           });
-          return newCells;
+          return newStates;
         });
 
         // Check if level complete
@@ -216,19 +219,20 @@ function App() {
 
     // Clear selection
     setSelectedPositions([]);
-    updateSelection([]);
+    setCellStates(cells.map(() => ({ isSelected: false, isFound: false })));
+    setCurrentWord('');
   };
 
   const updateSelection = (positions: Position[]) => {
-    setCells(prev => {
-      const newCells = prev.map(cell => ({ ...cell, isSelected: false }));
+    setCellStates(() => {
+      const newStates = cells.map(() => ({ isSelected: false, isFound: false }));
       positions.forEach(pos => {
         const index = getCellIndex(pos.row, pos.col);
-        if (!newCells[index].isFound) {
-          newCells[index] = { ...newCells[index], isSelected: true };
+        if (!newStates[index].isFound) {
+          newStates[index] = { ...newStates[index], isSelected: true };
         }
       });
-      return newCells;
+      return newStates;
     });
 
     // Build current word
@@ -243,16 +247,6 @@ function App() {
     const nextLevelId = currentLevelId + 1;
     setCurrentLevelId(nextLevelId);
     setCurrentLevel(generateLevel(nextLevelId));
-    setHintsUsed(0);
-    setStreak(0);
-  };
-
-  const handleReset = () => {
-    setCells(prev => prev.map(cell => ({ 
-      ...cell, 
-      isSelected: false, 
-      isFound: false 
-    })));
     setFoundWords([]);
     setFoundWordPositions(new Map());
     setSelectedPositions([]);
@@ -261,6 +255,19 @@ function App() {
     setShowHint(false);
     setHintPositions([]);
     setStreak(0);
+    setCellStates([]);
+  };
+
+  const handleReset = () => {
+    setFoundWords([]);
+    setFoundWordPositions(new Map());
+    setSelectedPositions([]);
+    setCurrentWord('');
+    setShowLevelComplete(false);
+    setShowHint(false);
+    setHintPositions([]);
+    setStreak(0);
+    setCellStates([]);
   };
 
   const handleUseHint = () => {
@@ -279,7 +286,7 @@ function App() {
     }
   };
 
-  const getCellStyle = (cell: Cell): string => {
+  const getCellStyle = (cell: Cell & { isSelected: boolean; isFound: boolean }): string => {
     // Check if this cell is part of a hint
     const isHint = showHint && hintPositions.some(p => p.row === cell.row && p.col === cell.col);
     
@@ -417,7 +424,7 @@ function App() {
                 gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`
               }}
             >
-              {cells.map((cell, index) => (
+              {displayCells.map((cell, index) => (
                 <motion.div
                   key={index}
                   layout

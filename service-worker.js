@@ -1,8 +1,8 @@
 /* global self, caches, clients, fetch */
 
-const CACHE_VERSION = 'pc-phase4-offline-v1';
-const RUNTIME_CACHE = 'pc-phase4-runtime-v1';
-const APP_SHELL_CACHE = 'pc-phase4-shell-v1';
+const CACHE_VERSION = 'pc-phase4-offline-v2';
+const RUNTIME_CACHE = 'pc-phase4-runtime-v2';
+const APP_SHELL_CACHE = 'pc-phase4-shell-v2';
 const BACKGROUND_SYNC_TAG = 'pc-phase4-sync';
 
 const PRECACHE_URLS = [
