@@ -1,0 +1,479 @@
+/* ============================================
+   MODERN CALCULATOR STYLES
+   Updated design for all VetLudics calculators
+   ============================================ */
+
+/* Calculator Page Layout */
+.pc-calculator-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Hero Section */
+.pc-calculator-hero {
+  background: linear-gradient(135deg, 
+    color-mix(in srgb, var(--pc-teal) 8%, var(--pc-surface)),
+    var(--pc-surface)
+  );
+  border: 1px solid color-mix(in srgb, var(--pc-teal) 30%, var(--pc-border));
+  border-radius: var(--pc-radius-xl);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.pc-calculator-hero__icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.pc-calculator-hero__title {
+  font-family: var(--pc-font-display);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  margin: 0 0 0.75rem;
+  background: linear-gradient(135deg, var(--pc-teal), var(--pc-mint));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pc-calculator-hero__desc {
+  font-size: 1.1rem;
+  color: var(--pc-text-muted);
+  max-width: 600px;
+  margin: 0 auto 1rem;
+  line-height: 1.6;
+}
+
+/* Calculator Card */
+.pc-calculator-card {
+  background: var(--pc-surface);
+  border: 1px solid var(--pc-border);
+  border-radius: var(--pc-radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.pc-calculator-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--pc-border);
+}
+
+.pc-calculator-card__icon {
+  font-size: 1.5rem;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--pc-teal) 12%, var(--pc-surface));
+  border-radius: var(--pc-radius-md);
+}
+
+.pc-calculator-card__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Form Grid */
+.pc-calculator-form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.pc-calculator-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+/* Input Fields */
+.pc-calculator-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pc-calculator-field > span:first-child,
+.pc-calculator-field label > span:first-child {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--pc-text);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.pc-input {
+  height: 48px;
+  padding: 0 1rem;
+  border: 2px solid var(--pc-border);
+  border-radius: var(--pc-radius-md);
+  background: var(--pc-surface);
+  color: var(--pc-text);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.pc-input:focus {
+  outline: none;
+  border-color: var(--pc-teal);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--pc-teal) 15%, transparent);
+}
+
+select.pc-input {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+/* Checkbox Styling */
+.pc-calculator-field label:has(input[type="checkbox"]) {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--pc-surface-strong);
+  border: 1px solid var(--pc-border);
+  border-radius: var(--pc-radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pc-calculator-field label:has(input[type="checkbox"]):hover {
+  border-color: var(--pc-teal);
+}
+
+.pc-calculator-field input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--pc-teal);
+}
+
+/* Mode Selector (for toxicity calculator) */
+.pc-calculator-mode-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.pc-calculator-mode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--pc-surface-strong);
+  border: 2px solid var(--pc-border);
+  border-radius: var(--pc-radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.pc-calculator-mode:hover {
+  border-color: var(--pc-teal);
+  transform: translateY(-2px);
+}
+
+.pc-calculator-mode.pc-is-active {
+  background: color-mix(in srgb, var(--pc-teal) 12%, var(--pc-surface));
+  border-color: var(--pc-teal);
+}
+
+.pc-calculator-mode__icon {
+  font-size: 2rem;
+}
+
+.pc-calculator-mode__title {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.pc-calculator-mode__desc {
+  font-size: 0.75rem;
+  color: var(--pc-text-muted);
+}
+
+/* Calculate Button */
+.pc-calculator-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.pc-calculator-actions .pc-btn {
+  min-height: 52px;
+  padding: 0 2rem;
+  font-size: 1rem;
+}
+
+/* Results Section */
+.pc-calculator-results {
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--pc-success) 5%, var(--pc-surface)),
+    var(--pc-surface)
+  );
+  border: 1px solid var(--pc-border);
+  border-radius: var(--pc-radius-lg);
+  padding: 1.5rem;
+}
+
+.pc-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.pc-result-card {
+  background: var(--pc-surface);
+  border: 1px solid var(--pc-border);
+  border-radius: var(--pc-radius-md);
+  padding: 1.25rem;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.pc-result-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--pc-shadow-md);
+}
+
+.pc-result-card--danger {
+  background: color-mix(in srgb, var(--pc-error) 8%, var(--pc-surface));
+  border-color: color-mix(in srgb, var(--pc-error) 40%, var(--pc-border));
+}
+
+.pc-result-card--warning {
+  background: color-mix(in srgb, var(--pc-warning) 8%, var(--pc-surface));
+  border-color: color-mix(in srgb, var(--pc-warning) 40%, var(--pc-border));
+}
+
+.pc-result-card__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--pc-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.5rem;
+}
+
+.pc-result-card__value {
+  font-family: var(--pc-font-display);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--pc-teal);
+  margin: 0;
+}
+
+.pc-result-card--danger .pc-result-card__value {
+  color: var(--pc-error);
+}
+
+.pc-result-card--warning .pc-result-card__value {
+  color: var(--pc-warning);
+}
+
+/* Alert/Warning Boxes */
+.pc-calculator-alert {
+  padding: 1rem 1.25rem;
+  border-radius: var(--pc-radius-md);
+  margin: 1rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.pc-calculator-alert::before {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.pc-calculator-alert--danger {
+  background: color-mix(in srgb, var(--pc-error) 10%, var(--pc-surface));
+  border: 1px solid color-mix(in srgb, var(--pc-error) 40%, var(--pc-border));
+}
+
+.pc-calculator-alert--danger::before {
+  content: '🚨';
+}
+
+.pc-calculator-alert--warning {
+  background: color-mix(in srgb, var(--pc-warning) 10%, var(--pc-surface));
+  border: 1px solid color-mix(in srgb, var(--pc-warning) 40%, var(--pc-border));
+}
+
+.pc-calculator-alert--warning::before {
+  content: '⚠️';
+}
+
+.pc-calculator-alert--info {
+  background: color-mix(in srgb, var(--pc-info) 10%, var(--pc-surface));
+  border: 1px solid color-mix(in srgb, var(--pc-info) 40%, var(--pc-border));
+}
+
+.pc-calculator-alert--info::before {
+  content: 'ℹ️';
+}
+
+.pc-calculator-alert__content {
+  flex: 1;
+}
+
+.pc-calculator-alert__title {
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+}
+
+.pc-calculator-alert__text {
+  font-size: 0.9rem;
+  color: var(--pc-text-muted);
+  margin: 0;
+}
+
+/* Action Card */
+.pc-action-card {
+  background: var(--pc-surface-strong);
+  border: 1px solid var(--pc-border);
+  border-radius: var(--pc-radius-md);
+  padding: 1.25rem;
+  margin-top: 1rem;
+}
+
+.pc-action-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pc-action-card__title::before {
+  content: '📋';
+}
+
+.pc-action-card__text {
+  font-size: 0.95rem;
+  color: var(--pc-text);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Emergency Contacts */
+.pc-emergency-card {
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--pc-coral) 8%, var(--pc-surface)),
+    var(--pc-surface)
+  );
+  border: 1px solid color-mix(in srgb, var(--pc-coral) 40%, var(--pc-border));
+  border-radius: var(--pc-radius-md);
+  padding: 1.25rem;
+  margin-top: 1rem;
+}
+
+.pc-emergency-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--pc-coral);
+}
+
+.pc-emergency-card__title::before {
+  content: '📞';
+}
+
+.pc-emergency-card__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pc-emergency-card__list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--pc-border);
+}
+
+.pc-emergency-card__list li:last-child {
+  border-bottom: none;
+}
+
+.pc-emergency-card__number {
+  font-family: var(--pc-font-mono);
+  font-weight: 700;
+  color: var(--pc-teal);
+}
+
+/* Quick Links */
+.pc-calculator-quick-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.pc-calculator-quick-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: var(--pc-surface-strong);
+  border: 1px solid var(--pc-border);
+  border-radius: var(--pc-radius-md);
+  text-decoration: none;
+  color: var(--pc-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.pc-calculator-quick-link:hover {
+  border-color: var(--pc-teal);
+  background: color-mix(in srgb, var(--pc-teal) 8%, var(--pc-surface));
+  transform: translateX(4px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pc-calculator-hero {
+    padding: 1.5rem 1rem;
+  }
+  
+  .pc-calculator-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .pc-calculator-mode-selector {
+    grid-template-columns: 1fr;
+  }
+  
+  .pc-results-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .pc-calculator-actions {
+    flex-direction: column;
+  }
+  
+  .pc-calculator-actions .pc-btn {
+    width: 100%;
+  }
+}

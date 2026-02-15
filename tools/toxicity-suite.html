@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
+    <title>Veterinary Toxicity Suite | VetLudics Tools</title>
+    <meta name="description" content="Comprehensive veterinary toxicity calculator for chocolate, xylitol, rodenticide, grapes, medications, and more with risk stratification." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Veterinary Toxicity Suite | VetLudics Tools" />
+    <meta property="og:description" content="Complete toxicity assessment tool for veterinarians and pet owners." />
+    <meta property="og:url" content="https://parthchaudhari.com/tools/toxicity-suite.html" />
+    <link rel="canonical" href="https://parthchaudhari.com/tools/toxicity-suite.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <link rel="stylesheet" href="/assets/css/calculator-modern.css" />
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/toxicity-suite.js" defer></script>
+    <script src="/assets/js/animations.js" defer></script>
+    <script src="/assets/js/legal-compliance.js" defer></script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <!-- Toast Container -->
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    
+    <!-- Floating Background Elements -->
+    <div class="pc-floating-elements" aria-hidden="true">
+      <div class="pc-float-shape pc-float-shape--1"></div>
+      <div class="pc-float-shape pc-float-shape--2"></div>
+    </div>
+    
+    <!-- Modern Ambient Floating Elements -->
+    <div class="pc-ambient-container" aria-hidden="true">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+      <div class="pc-ambient-particles">
+        <div class="pc-particle"></div>
+        <div class="pc-particle"></div>
+        <div class="pc-particle"></div>
+        <div class="pc-particle"></div>
+        <div class="pc-particle"></div>
+      </div>
+      <div class="pc-ambient-grid"></div>
+    </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+    
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <span class="pc-logo__icon">🐾</span>
+          <span class="pc-logo__text">VetLudics</span>
+        </a>
+        
+        <!-- Search Bar (Desktop) -->
+        <form class="pc-nav-search" action="/search.html" method="get" role="search">
+          <div class="pc-search-wrapper">
+            <svg class="pc-search-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            </svg>
+            <input type="search" name="q" class="pc-search-input pc-search-input--nav" placeholder="Search..." aria-label="Search" autocomplete="off">
+            <kbd class="pc-search-shortcut">⌘K</kbd>
+          </div>
+        </form>
+        
+        <div class="pc-nav-group">
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
+          <a class="pc-nav-link" href="/search.html">Search</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">
+            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+            <span class="pc-nav-link__text">Account</span>
+          </a>
+          <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle theme">
+            <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
+            <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
+          </button>
+          
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+      
+      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
+        <div class="pc-mobile-menu__header">
+          <span class="pc-mobile-menu__title">Menu</span>
+          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
+        </div>
+        <nav class="pc-mobile-menu__nav">
+          <a class="pc-mobile-nav-link" href="/play/">🎮 Play</a>
+          <a class="pc-mobile-nav-link" href="/bridge/">🌉 Bridge</a>
+          <a class="pc-mobile-nav-link" href="/search.html">🔍 Search</a>
+          <a class="pc-mobile-nav-link" href="/study/">📚 Study Plan</a>
+          <a class="pc-mobile-nav-link" href="/account/">👤 Account</a>
+        </nav>
+        <div class="pc-mobile-menu__footer">
+          <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
+            <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
+            <span>Switch theme</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="pc-calculator-page" role="main">
+      <!-- Breadcrumb -->
+      <nav class="pc-breadcrumbs" aria-label="Breadcrumb">
+        <ol class="pc-breadcrumbs__list">
+          <li class="pc-breadcrumbs__item"><a href="/">Home</a></li>
+          <li class="pc-breadcrumbs__item"><a href="/tools/">Tools</a></li>
+          <li class="pc-breadcrumbs__item" aria-current="page">Toxicity Suite</li>
+        </ol>
+      </nav>
+      
+      <!-- Hero Section -->
+      <section class="pc-calculator-hero" data-animate="fade-up">
+        <div class="pc-calculator-hero__icon">☠️</div>
+        <h1 class="pc-calculator-hero__title">Veterinary Toxicity Suite</h1>
+        <p class="pc-calculator-hero__desc">
+          Comprehensive toxicity calculator for dogs and cats. Calculate risk for chocolate, xylitol, 
+          rodenticides, grapes/raisins, medications, and more. Get immediate action recommendations.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">← Back to Tools</a>
+        </div>
+      </section>
+
+      <!-- Toxicity Type Selector -->
+      <section class="pc-calculator-card" data-animate="fade-up" data-delay="100">
+        <div class="pc-calculator-card__header">
+          <div class="pc-calculator-card__icon">🧪</div>
+          <h2 class="pc-calculator-card__title">Select Toxicity Type</h2>
+        </div>
+        
+        <div class="pc-calculator-mode-selector" role="tablist" aria-label="Toxicity type">
+          <button type="button" class="pc-calculator-mode pc-is-active" data-tox-mode="chocolate" role="tab" aria-selected="true">
+            <span class="pc-calculator-mode__icon">🍫</span>
+            <span class="pc-calculator-mode__title">Chocolate</span>
+            <span class="pc-calculator-mode__desc">Methylxanthines</span>
+          </button>
+          <button type="button" class="pc-calculator-mode" data-tox-mode="xylitol" role="tab" aria-selected="false">
+            <span class="pc-calculator-mode__icon">🍬</span>
+            <span class="pc-calculator-mode__title">Xylitol</span>
+            <span class="pc-calculator-mode__desc">Hypoglycemia risk</span>
+          </button>
+          <button type="button" class="pc-calculator-mode" data-tox-mode="rodenticide" role="tab" aria-selected="false">
+            <span class="pc-calculator-mode__icon">🐀</span>
+            <span class="pc-calculator-mode__title">Rodenticide</span>
+            <span class="pc-calculator-mode__desc">Anticoagulants & more</span>
+          </button>
+          <button type="button" class="pc-calculator-mode" data-tox-mode="grapes" role="tab" aria-selected="false">
+            <span class="pc-calculator-mode__icon">🍇</span>
+            <span class="pc-calculator-mode__title">Grapes/Raisins</span>
+            <span class="pc-calculator-mode__desc">Nephrotoxic</span>
+          </button>
+          <button type="button" class="pc-calculator-mode" data-tox-mode="medication" role="tab" aria-selected="false">
+            <span class="pc-calculator-mode__icon">💊</span>
+            <span class="pc-calculator-mode__title">Medications</span>
+            <span class="pc-calculator-mode__desc">Common drugs</span>
+          </button>
+          <button type="button" class="pc-calculator-mode" data-tox-mode="macadamia" role="tab" aria-selected="false">
+            <span class="pc-calculator-mode__icon">🥜</span>
+            <span class="pc-calculator-mode__title">Macadamia</span>
+            <span class="pc-calculator-mode__desc">Neurotoxic</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Input Form -->
+      <section class="pc-calculator-card" data-animate="fade-up" data-delay="200">
+        <div class="pc-calculator-card__header">
+          <div class="pc-calculator-card__icon">📋</div>
+          <h2 class="pc-calculator-card__title">Patient Information</h2>
+        </div>
+        
+        <form id="tox-form" class="pc-calculator-form" novalidate>
+          <div class="pc-calculator-grid">
+            <label class="pc-calculator-field" for="tox-species">
+              <span>Species</span>
+              <select id="tox-species" class="pc-input">
+                <option value="dog">Dog</option>
+                <option value="cat">Cat</option>
+              </select>
+            </label>
+            
+            <label class="pc-calculator-field" for="tox-weight">
+              <span>Weight (kg)</span>
+              <input id="tox-weight" class="pc-input" type="number" min="0.1" step="0.1" value="10" required />
+            </label>
+            
+            <label class="pc-calculator-field" for="tox-hours">
+              <span>Hours Since Ingestion</span>
+              <input id="tox-hours" class="pc-input" type="number" min="0" step="0.5" value="1" required />
+            </label>
+          </div>
+          
+          <!-- Dynamic Panels -->
+          <div id="tox-panel-chocolate" class="tox-panel" data-tox-panel="chocolate">
+            <div class="pc-calculator-grid" style="margin-top: 1rem;">
+              <label class="pc-calculator-field" for="tox-chocolate-type">
+                <span>Chocolate Type</span>
+                <select id="tox-chocolate-type" class="pc-input">
+                  <option value="white">White chocolate (0.5 mg/oz)</option>
+                  <option value="milk" selected>Milk chocolate (64 mg/oz)</option>
+                  <option value="dark">Dark chocolate (142 mg/oz)</option>
+                  <option value="semiSweet">Semi-sweet (160 mg/oz)</option>
+                  <option value="baking">Baking chocolate (440 mg/oz)</option>
+                  <option value="cocoaPowder">Cocoa powder (807 mg/oz)</option>
+                </select>
+              </label>
+              <label class="pc-calculator-field" for="tox-chocolate-amount">
+                <span>Amount (oz)</span>
+                <input id="tox-chocolate-amount" class="pc-input" type="number" min="0" step="0.1" value="1" />
+              </label>
+            </div>
+          </div>
+          
+          <div id="tox-panel-xylitol" class="tox-panel" data-tox-panel="xylitol" hidden>
+            <div class="pc-calculator-grid" style="margin-top: 1rem;">
+              <label class="pc-calculator-field" for="tox-xylitol-product">
+                <span>Product Type</span>
+                <select id="tox-xylitol-product" class="pc-input">
+                  <option value="gum">Sugar-free gum (500 mg/piece)</option>
+                  <option value="peanutButter">Sugar-free PB (1080 mg/tbsp)</option>
+                  <option value="mouthwash">Mouthwash (200 mg/mL)</option>
+                  <option value="bakedGoods">Baked goods (variable)</option>
+                  <option value="custom">Custom amount</option>
+                </select>
+              </label>
+              <label class="pc-calculator-field" for="tox-xylitol-amount">
+                <span>Amount</span>
+                <input id="tox-xylitol-amount" class="pc-input" type="number" min="0" step="0.1" value="1" />
+              </label>
+              <label class="pc-calculator-field" for="tox-xylitol-custom" id="tox-xylitol-custom-wrap" hidden>
+                <span>Custom mg per unit</span>
+                <input id="tox-xylitol-custom" class="pc-input" type="number" min="0" step="1" value="500" />
+              </label>
+            </div>
+          </div>
+          
+          <div id="tox-panel-rodenticide" class="tox-panel" data-tox-panel="rodenticide" hidden>
+            <div class="pc-calculator-grid" style="margin-top: 1rem;">
+              <label class="pc-calculator-field" for="tox-rodenticide-type">
+                <span>Active Ingredient</span>
+                <select id="tox-rodenticide-type" class="pc-input">
+                  <option value="warfarin">Warfarin (1st-gen)</option>
+                  <option value="bromadiolone">Bromadiolone (2nd-gen)</option>
+                  <option value="difenacoum">Difenacoum (2nd-gen)</option>
+                  <option value="bromethalin">Bromethalin (neuro)</option>
+                  <option value="cholecalciferol">Cholecalciferol (Vit D3)</option>
+                  <option value="zincPhosphide">Zinc phosphide</option>
+                </select>
+              </label>
+              <label class="pc-calculator-field" for="tox-rodenticide-amount">
+                <span>Bait Amount (grams)</span>
+                <input id="tox-rodenticide-amount" class="pc-input" type="number" min="0" step="0.1" value="5" />
+              </label>
+              <label class="pc-calculator-field" for="tox-rodenticide-percent">
+                <span>Active Ingredient (%)</span>
+                <input id="tox-rodenticide-percent" class="pc-input" type="number" min="0" step="0.001" value="0.005" />
+              </label>
+            </div>
+          </div>
+          
+          <div id="tox-panel-grapes" class="tox-panel" data-tox-panel="grapes" hidden>
+            <div class="pc-calculator-grid" style="margin-top: 1rem;">
+              <label class="pc-calculator-field" for="tox-grape-type">
+                <span>Type</span>
+                <select id="tox-grape-type" class="pc-input">
+                  <option value="grapes">Grapes</option>
+                  <option value="raisins">Raisins</option>
+                  <option value="currants">Currants</option>
+                </select>
+              </label>
+              <label class="pc-calculator-field" for="tox-grape-amount">
+                <span>Amount (pieces/oz)</span>
+                <input id="tox-grape-amount" class="pc-input" type="number" min="0" step="0.1" value="1" />
+              </label>
+            </div>
+          </div>
+          
+          <div id="tox-panel-medication" class="tox-panel" data-tox-panel="medication" hidden>
+            <div class="pc-calculator-grid" style="margin-top: 1rem;">
+              <label class="pc-calculator-field" for="tox-medication-type">
+                <span>Medication</span>
+                <select id="tox-medication-type" class="pc-input">
+                  <option value="ibuprofen">Ibuprofen</option>
+                  <option value="acetaminophen">Acetaminophen</option>
+                  <option value="aspirin">Aspirin</option>
+                  <option value="naproxen">Naproxen</option>
+                  <option value="pseudoephedrine">Pseudoephedrine</option>
+                  <option value="diphenhydramine">Diphenhydramine</option>
+                  <option value="metformin">Metformin</option>
+                  <option value="albuterol">Albuterol</option>
+                </select>
+              </label>
+              <label class="pc-calculator-field" for="tox-medication-mg">
+                <span>Amount Ingested (mg)</span>
+                <input id="tox-medication-mg" class="pc-input" type="number" min="0" step="1" value="100" />
+              </label>
+            </div>
+          </div>
+          
+          <div id="tox-panel-macadamia" class="tox-panel" data-tox-panel="macadamia" hidden>
+            <div class="pc-calculator-grid" style="margin-top: 1rem;">
+              <label class="pc-calculator-field" for="tox-macadamia-amount">
+                <span>Amount (nuts or grams)</span>
+                <input id="tox-macadamia-amount" class="pc-input" type="number" min="0" step="0.1" value="1" />
+              </label>
+              <label class="pc-calculator-field" for="tox-macadamia-unit">
+                <span>Unit</span>
+                <select id="tox-macadamia-unit" class="pc-input">
+                  <option value="nuts">Number of nuts</option>
+                  <option value="grams">Grams</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Risk Flags -->
+          <div class="pc-calculator-field" style="margin-top: 1.5rem;">
+            <span>Risk Factors / Contraindications</span>
+            <label><input type="checkbox" id="tox-neuro" /> Neurologic signs present</label>
+            <label><input type="checkbox" id="tox-corrosive" /> Possible corrosive</label>
+            <label><input type="checkbox" id="tox-hydrocarbon" /> Hydrocarbon concern</label>
+            <label><input type="checkbox" id="tox-asymptomatic" /> Currently asymptomatic</label>
+          </div>
+          
+          <div class="pc-calculator-actions">
+            <button type="submit" class="pc-btn pc-btn--primary">Calculate Risk</button>
+            <button type="reset" class="pc-btn pc-btn--secondary">Reset</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Results Section -->
+      <section id="tox-results" class="pc-calculator-results" data-animate="fade-up" data-delay="300" hidden>
+        <div class="pc-calculator-card__header">
+          <div class="pc-calculator-card__icon">📊</div>
+          <h2 class="pc-calculator-card__title">Risk Assessment</h2>
+        </div>
+        
+        <div class="pc-results-grid">
+          <article class="pc-result-card">
+            <p class="pc-result-card__label">Estimated Dose</p>
+            <p id="tox-result-dose" class="pc-result-card__value">-</p>
+          </article>
+          <article class="pc-result-card" id="tox-result-risk-card">
+            <p class="pc-result-card__label">Risk Level</p>
+            <p id="tox-result-risk" class="pc-result-card__value">-</p>
+          </article>
+          <article class="pc-result-card">
+            <p class="pc-result-card__label">Emesis Window</p>
+            <p id="tox-result-emesis" class="pc-result-card__value">-</p>
+          </article>
+        </div>
+        
+        <div id="tox-alert" class="pc-calculator-alert" hidden></div>
+        
+        <div class="pc-action-card">
+          <h3 class="pc-action-card__title">Recommended Action</h3>
+          <p id="tox-result-action" class="pc-action-card__text">Complete the form to see recommendations.</p>
+        </div>
+        
+        <div id="tox-monitoring-card" class="pc-action-card" style="margin-top: 1rem;" hidden>
+          <h3 class="pc-action-card__title">Monitoring</h3>
+          <p id="tox-result-monitoring" class="pc-action-card__text">-</p>
+        </div>
+      </section>
+
+      <!-- Emergency Contacts -->
+      <section class="pc-emergency-card" data-animate="fade-up" data-delay="400">
+        <h3 class="pc-emergency-card__title">Emergency Poison Control</h3>
+        <ul class="pc-emergency-card__list">
+          <li>
+            <span>ASPCA Animal Poison Control</span>
+            <span class="pc-emergency-card__number">888-426-4435</span>
+          </li>
+          <li>
+            <span>Pet Poison Helpline</span>
+            <span class="pc-emergency-card__number">855-764-7661</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Disclaimer -->
+      <p class="pc-disclaimer" style="margin-top: 1.5rem;">
+        <strong>Educational use only.</strong> This calculator provides estimates based on published toxicology data. 
+        Individual patient factors, co-ingestants, and product variability can significantly affect toxicity risk. 
+        Always consult with a veterinarian or poison control for specific cases.
+      </p>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal">
+      <div class="pc-footer__bottom">
+        <div class="pc-footer__legal">
+          <a href="/">Home</a>
+          <a href="/tools/">Tools</a>
+          <a href="/reference/">References</a>
+          <a href="/privacy/">Privacy</a>
+        </div>
+        <p class="pc-footer__copyright">© 2025 VetLudics. Not a substitute for professional veterinary advice.</p>
+      </div>
+    </footer>
+  </body>
+</html>
