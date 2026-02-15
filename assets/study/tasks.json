@@ -2,20 +2,20 @@
   "schema_version": 1,
   "topics": [
     {
-      "id": "wordvet_cardio",
-      "title": "WordVet: Cardiology Terms",
+      "id": "vetlex_cardio",
+      "title": "VetLex: Cardiology Terms",
       "category": "vocabulary",
       "type": "game",
-      "url": "/play/wordvet/",
+      "url": "/play/vetlex/",
       "estimatedTime": 10,
       "difficulty": "beginner"
     },
     {
-      "id": "wordvet_endocrine",
-      "title": "WordVet: Endocrine Terms",
+      "id": "vetlex_endocrine",
+      "title": "VetLex: Endocrine Terms",
       "category": "vocabulary",
       "type": "game",
-      "url": "/play/wordvet/",
+      "url": "/play/vetlex/",
       "estimatedTime": 10,
       "difficulty": "beginner"
     },

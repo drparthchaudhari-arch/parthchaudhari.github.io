@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author-status" content="NAVLE-candidate-unlicensed">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
     <title>Account | VetLudics</title>
     <meta name="description" content="Manage local study data, optional cross-device sync, and privacy settings.">
@@ -15,6 +17,7 @@
     <link rel="stylesheet" href="/assets/css/portal.css">
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/legal-compliance.js" defer></script>
     <script src="/assets/js/storage.js?v=20260213d" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
 </head>
@@ -107,8 +110,23 @@
                         <input id="pc-email-input" class="pc-account-input pc-input" type="email" autocomplete="email" placeholder="your@email.com">
                     </div>
                     <div class="pc-account-field">
+                        <label for="pc-dob-input">Date of Birth (18+ required)</label>
+                        <input id="pc-dob-input" class="pc-account-input pc-input" type="date" autocomplete="bday">
+                    </div>
+                    <div class="pc-account-field">
                         <label for="pc-password-input">Password</label>
                         <input id="pc-password-input" class="pc-account-input pc-input" type="password" autocomplete="current-password" minlength="8" placeholder="At least 8 characters">
+                    </div>
+                    <div class="pc-account-consent" aria-label="Required account and marketing consents">
+                        <label for="pc-consent-tos">
+                            <input type="checkbox" id="pc-consent-tos">
+                            <span>I agree to the <a href="/terms/">Terms of Service</a>.</span>
+                        </label>
+                        <label for="pc-consent-marketing">
+                            <input type="checkbox" id="pc-consent-marketing">
+                            <span>Yes, send me study tips and NAVLE updates.</span>
+                        </label>
+                        <p class="pc-account-consent__note">Marketing consent is optional and can be withdrawn at any time.</p>
                     </div>
                     <div class="pc-account-actions">
                         <button id="pc-login-btn" type="button" class="pc-btn pc-btn--primary">Log In</button>
@@ -126,8 +144,11 @@
                     <p id="pc-last-sync" class="pc-account-status">Last synced: Never</p>
                     <div class="pc-account-actions">
                         <button id="pc-sync-btn" type="button" class="pc-btn pc-btn--primary">Sync Now</button>
+                        <button id="pc-download-data-btn" type="button" class="pc-btn pc-btn--secondary">Download My Data</button>
+                        <button id="pc-delete-account-btn" type="button" class="pc-btn pc-btn--ghost">Delete Account</button>
                         <button id="pc-logout-btn" type="button" class="pc-btn pc-btn--secondary">Log Out</button>
                     </div>
+                    <p class="pc-account-note">Delete Account permanently removes synced profile, progress, and account access.</p>
                 </div>
 
                 <div id="pc-password-recovery-section" hidden>

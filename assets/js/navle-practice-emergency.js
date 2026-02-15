@@ -545,15 +545,59 @@
         showQuestion(nextIndex);
     }
 
+    function isAdultDobValue(value) {
+        if (!value) {
+            return false;
+        }
+
+        var dob = new Date(value + 'T00:00:00');
+        if (Number.isNaN(dob.getTime())) {
+            return false;
+        }
+
+        var today = new Date();
+        var age = today.getFullYear() - dob.getFullYear();
+        var monthDiff = today.getMonth() - dob.getMonth();
+        var dayDiff = today.getDate() - dob.getDate();
+
+        if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+            age -= 1;
+        }
+
+        return age >= 18;
+    }
+
     async function sendMagicLinkFromGate() {
         var emailInput = byId('gate-email');
+        var dobInput = byId('gate-dob');
+        var tosInput = byId('gate-consent-tos');
+        var marketingInput = byId('gate-consent-marketing');
         var message = byId('gate-message');
         var submit = byId('gate-submit');
 
         var email = emailInput ? String(emailInput.value || '').trim() : '';
+        var dobValue = dobInput ? String(dobInput.value || '').trim() : '';
+        var tosAccepted = tosInput ? !!tosInput.checked : false;
+        var marketingAccepted = marketingInput ? !!marketingInput.checked : false;
         if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             if (message) {
                 message.textContent = 'Enter a valid email address.';
+                message.classList.add('pc-is-error');
+            }
+            return;
+        }
+
+        if (!isAdultDobValue(dobValue)) {
+            if (message) {
+                message.textContent = 'You must be at least 18 years old to continue.';
+                message.classList.add('pc-is-error');
+            }
+            return;
+        }
+
+        if (!tosAccepted) {
+            if (message) {
+                message.textContent = 'You must agree to the Terms of Service to continue.';
                 message.classList.add('pc-is-error');
             }
             return;
@@ -572,8 +616,23 @@
         try {
             var authReady = await ensureAuthStackLoaded();
             if (authReady && window.pcSync && typeof window.pcSync.sendMagicLink === 'function') {
+                var now = new Date().toISOString();
                 var result = await window.pcSync.sendMagicLink(email, {
-                    redirectTo: window.location.origin + getCurrentPath()
+                    redirectTo: window.location.origin + getCurrentPath(),
+                    metadata: {
+                        date_of_birth: dobValue,
+                        age_verified_18_plus: true,
+                        tos_consent: {
+                            text: 'I agree to the Terms of Service.',
+                            accepted: true,
+                            acceptedAt: now
+                        },
+                        marketing_consent: {
+                            text: 'Yes, send me study tips and NAVLE updates.',
+                            accepted: marketingAccepted,
+                            acceptedAt: marketingAccepted ? now : ''
+                        }
+                    }
                 });
 
                 if (result && result.ok) {

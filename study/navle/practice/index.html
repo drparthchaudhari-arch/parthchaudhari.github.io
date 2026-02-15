@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+        <meta name="author-status" content="NAVLE-candidate-unlicensed">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
     <title>NAVLE Practice Questions – VetLudics</title>
     <meta name="description" content="Practice NAVLE-style veterinary questions with instant explanations, focused progress tracking, and transparent Free vs Premium access tiers for learners.">
     <meta property="og:type" content="website">
@@ -19,6 +21,7 @@
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/navle-practice-emergency.js?v=20260213g" defer></script>
+    <script src="/assets/js/legal-compliance.js" defer></script>
 </head>
 <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
@@ -80,6 +83,16 @@
             <p class="pc-text-small">Optional: sign in with email to sync your progress across devices.</p>
             <label for="gate-email" class="pc-search-label">Email</label>
             <input type="email" id="gate-email" class="pc-input" placeholder="your@email.com" aria-describedby="gate-message">
+            <label for="gate-dob" class="pc-search-label">Date of Birth (18+ required)</label>
+            <input type="date" id="gate-dob" class="pc-input" aria-describedby="gate-message">
+            <label class="pc-cookie-banner__row" for="gate-consent-tos">
+                <input type="checkbox" id="gate-consent-tos">
+                <span>I agree to the <a href="/terms/">Terms of Service</a>.</span>
+            </label>
+            <label class="pc-cookie-banner__row" for="gate-consent-marketing">
+                <input type="checkbox" id="gate-consent-marketing">
+                <span>Yes, send me study tips and NAVLE updates.</span>
+            </label>
             <button id="gate-submit" class="pc-btn pc-btn--primary" type="button">Send Magic Link</button>
 
             <p class="pc-text-small">No password needed. Check your email.</p>

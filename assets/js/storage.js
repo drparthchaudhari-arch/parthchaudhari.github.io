@@ -564,6 +564,29 @@ PCStorage.importDataBundle = function importDataBundle(bundle) {
   return { success: true, imported };
 };
 
+PCStorage.clearAllData = function clearAllData() {
+  var removed = 0;
+  var keys = [];
+
+  try {
+    for (var i = 0; i < localStorage.length; i += 1) {
+      var key = localStorage.key(i);
+      if (key && key.indexOf('pc_') === 0) {
+        keys.push(key);
+      }
+    }
+
+    for (var j = 0; j < keys.length; j += 1) {
+      localStorage.removeItem(keys[j]);
+      removed += 1;
+    }
+  } catch (error) {
+    // Best effort clear.
+  }
+
+  return removed;
+};
+
 // Initialize on load
 PCStorage.checkSchema();
 

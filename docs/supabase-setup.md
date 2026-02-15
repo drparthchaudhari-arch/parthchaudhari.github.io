@@ -79,8 +79,12 @@ Fix:
 ### Recommended hardening (one-time)
 Run:
 - `supabase/migrations/20260213_profile_autoprovision.sql`
+- `supabase/migrations/20260215_account_deletion_and_consent.sql`
 
 This adds an `auth.users` trigger that auto-creates/updates `profiles` rows, which prevents future `user_progress_user_id_fkey` sync failures.
+The 20260215 migration also adds:
+- `delete_my_account()` RPC for hard account deletion
+- `record_user_consent()` RPC + `user_consents` table for consent proof logging
 
 ## Step 3: Configure Auth
 - Authentication -> Providers -> Enable Email

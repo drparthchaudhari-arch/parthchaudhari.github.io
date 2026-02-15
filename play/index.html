@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+        <meta name="author-status" content="NAVLE-candidate-unlicensed">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
     <title>Play Veterinary Games | VetLudics</title>
     <meta name="description" content="Arcade dashboard for veterinary games with quick play links and progress stats.">
     <meta property="og:type" content="website">
@@ -16,6 +18,7 @@
     <script src="../assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/storage.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/legal-compliance.js" defer></script>
 </head>
 <body class="pc-page pc-page--play">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
@@ -143,6 +146,7 @@
                 </div>
             </article>
         </section>
+        <p class="pc-license-attribution">2048 attribution: © 2014 Gabriele Cirulli - MIT License.</p>
     </main>
     <script src="/assets/js/portal.js"></script>
     <script>
@@ -150,7 +154,7 @@
         function initPlayBadges() {
             if (!window.PCStorage) return;
 
-            var games = ['wordvet', 'sudoku', 'memory-match', '2048', 'tictactoe', 'iq-challenge'];
+            var games = ['vetlex', 'sudoku', 'memory-match', '2048', 'tictactoe', 'iq-challenge'];
             games.forEach(function(gameId) {
                 var badge = document.getElementById('badge-' + gameId);
                 if (!badge) return;

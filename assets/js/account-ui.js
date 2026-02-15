@@ -2,6 +2,12 @@
     'use strict';
 
     var DISPLAY_NAME_KEY = 'pc_profile_name';
+    var LOGIN_RATE_LIMIT_KEY = 'pc_login_rate_limit_v1';
+    var LOGIN_MAX_ATTEMPTS = 5;
+    var LOGIN_LOCK_WINDOW_MS = 15 * 60 * 1000;
+    var AGE_MIN_YEARS = 18;
+    var CONSENT_TERMS_TEXT = 'I agree to the Terms of Service.';
+    var CONSENT_MARKETING_TEXT = 'Yes, send me study tips and NAVLE updates.';
 
     document.addEventListener('DOMContentLoaded', function () {
         initAccountUI();
@@ -25,6 +31,8 @@
         var setNewPasswordBtn = document.getElementById('pc-set-new-password-btn');
         var sendLinkBtn = document.getElementById('pc-send-link-btn');
         var syncBtn = document.getElementById('pc-sync-btn');
+        var downloadBtn = document.getElementById('pc-download-data-btn');
+        var deleteAccountBtn = document.getElementById('pc-delete-account-btn');
         var logoutBtn = document.getElementById('pc-logout-btn');
         var saveNameBtn = document.getElementById('pc-save-name-btn');
 
@@ -66,6 +74,14 @@
 
         if (syncBtn) {
             syncBtn.addEventListener('click', handleSync);
+        }
+
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', handleExport);
+        }
+
+        if (deleteAccountBtn) {
+            deleteAccountBtn.addEventListener('click', handleDeleteAccount);
         }
 
         if (logoutBtn) {
@@ -318,6 +334,157 @@
         }
     }
 
+    function readLoginRateState() {
+        try {
+            return JSON.parse(localStorage.getItem(LOGIN_RATE_LIMIT_KEY) || '{}');
+        } catch (error) {
+            return {};
+        }
+    }
+
+    function writeLoginRateState(nextState) {
+        try {
+            localStorage.setItem(LOGIN_RATE_LIMIT_KEY, JSON.stringify(nextState || {}));
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    function resetLoginAttempts() {
+        writeLoginRateState({
+            attempts: 0,
+            firstAttemptAt: 0,
+            lockedUntil: 0
+        });
+    }
+
+    function getLoginLockState() {
+        var now = Date.now();
+        var state = readLoginRateState();
+        var attempts = Number(state.attempts) || 0;
+        var firstAttemptAt = Number(state.firstAttemptAt) || 0;
+        var lockedUntil = Number(state.lockedUntil) || 0;
+
+        if (lockedUntil && now >= lockedUntil) {
+            resetLoginAttempts();
+            return {
+                locked: false,
+                remainingMs: 0
+            };
+        }
+
+        return {
+            locked: lockedUntil > now,
+            remainingMs: lockedUntil > now ? (lockedUntil - now) : 0,
+            attempts: attempts,
+            firstAttemptAt: firstAttemptAt
+        };
+    }
+
+    function registerFailedLoginAttempt() {
+        var now = Date.now();
+        var state = readLoginRateState();
+        var attempts = Number(state.attempts) || 0;
+        var firstAttemptAt = Number(state.firstAttemptAt) || 0;
+
+        if (!firstAttemptAt || (now - firstAttemptAt) > LOGIN_LOCK_WINDOW_MS) {
+            attempts = 0;
+            firstAttemptAt = now;
+        }
+
+        attempts += 1;
+
+        var nextState = {
+            attempts: attempts,
+            firstAttemptAt: firstAttemptAt,
+            lockedUntil: 0
+        };
+
+        if (attempts >= LOGIN_MAX_ATTEMPTS) {
+            nextState.lockedUntil = now + LOGIN_LOCK_WINDOW_MS;
+        }
+
+        writeLoginRateState(nextState);
+        return nextState;
+    }
+
+    function isAdultDob(value) {
+        if (!value) {
+            return false;
+        }
+
+        var date = new Date(value + 'T00:00:00');
+        if (Number.isNaN(date.getTime())) {
+            return false;
+        }
+
+        var today = new Date();
+        var age = today.getFullYear() - date.getFullYear();
+        var monthDiff = today.getMonth() - date.getMonth();
+        var dayDiff = today.getDate() - date.getDate();
+
+        if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+            age -= 1;
+        }
+
+        return age >= AGE_MIN_YEARS;
+    }
+
+    function validatePasswordComplexity(password) {
+        var raw = String(password || '');
+        if (raw.length < 8) {
+            return {
+                ok: false,
+                message: 'Password must be at least 8 characters'
+            };
+        }
+
+        if (!/[A-Z]/.test(raw) || !/[a-z]/.test(raw) || !/[0-9]/.test(raw)) {
+            return {
+                ok: false,
+                message: 'Password must include uppercase, lowercase, and a number'
+            };
+        }
+
+        return {
+            ok: true,
+            message: ''
+        };
+    }
+
+    function buildConsentRecords(marketingOptIn) {
+        var now = new Date().toISOString();
+        return {
+            terms: {
+                text: CONSENT_TERMS_TEXT,
+                accepted: true,
+                acceptedAt: now,
+                proof: {
+                    source: 'account_signup_form',
+                    ipAddress: 'captured-by-auth-provider'
+                }
+            },
+            marketing: {
+                text: CONSENT_MARKETING_TEXT,
+                accepted: !!marketingOptIn,
+                acceptedAt: marketingOptIn ? now : '',
+                proof: {
+                    source: 'account_signup_form',
+                    ipAddress: 'captured-by-auth-provider'
+                }
+            }
+        };
+    }
+
+    function writeLocalConsentAudit(consentRecords) {
+        try {
+            localStorage.setItem('pc_consent_audit_v1', JSON.stringify(consentRecords || {}));
+        } catch (error) {
+            // Best effort storage.
+        }
+    }
+
     async function syncDisplayNameToProfile(displayName) {
         var user = getCurrentUser();
         if (!user || !displayName) {
@@ -402,7 +569,7 @@
 
     async function handleExport() {
         try {
-            var data = exportDataBundle();
+            var data = await exportDataBundle();
             var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             var url = URL.createObjectURL(blob);
             var a = document.createElement('a');
@@ -418,7 +585,7 @@
         }
     }
 
-    function exportDataBundle() {
+    async function exportDataBundle() {
         if (window.pcSync && typeof window.pcSync.exportAllData === 'function') {
             return window.pcSync.exportAllData();
         }
@@ -490,11 +657,27 @@
 
     async function handleSendLink() {
         var emailInput = document.getElementById('pc-email-input');
+        var dobInput = document.getElementById('pc-dob-input');
+        var tosCheckbox = document.getElementById('pc-consent-tos');
+        var marketingCheckbox = document.getElementById('pc-consent-marketing');
         var email = emailInput ? String(emailInput.value || '').trim() : '';
+        var dobValue = dobInput ? String(dobInput.value || '').trim() : '';
+        var tosAccepted = tosCheckbox ? !!tosCheckbox.checked : false;
+        var marketingAccepted = marketingCheckbox ? !!marketingCheckbox.checked : false;
         var preferredName = readStoredDisplayName();
 
         if (!email || email.indexOf('@') === -1) {
             showError('Please enter a valid email address');
+            return;
+        }
+
+        if (!isAdultDob(dobValue)) {
+            showError('You must be at least 18 years old to continue.');
+            return;
+        }
+
+        if (!tosAccepted) {
+            showError('You must agree to the Terms of Service to continue.');
             return;
         }
 
@@ -505,12 +688,20 @@
 
         try {
             var options = {};
+            var consentRecords = buildConsentRecords(marketingAccepted);
+            writeLocalConsentAudit(consentRecords);
             if (preferredName) {
                 options.metadata = {
                     display_name: preferredName,
                     name: preferredName
                 };
+            } else {
+                options.metadata = {};
             }
+            options.metadata.date_of_birth = dobValue;
+            options.metadata.age_verified_18_plus = true;
+            options.metadata.tos_consent = consentRecords.terms;
+            options.metadata.marketing_consent = consentRecords.marketing;
 
             var result = await window.pcSync.sendMagicLink(email, options);
             if (isSuccessResult(result)) {
@@ -545,18 +736,36 @@
             return;
         }
 
+        var lockState = getLoginLockState();
+        if (lockState.locked) {
+            var remainingMinutes = Math.ceil(lockState.remainingMs / 60000);
+            showError('Too many login attempts. Try again in ' + remainingMinutes + ' minute(s).');
+            return;
+        }
+
         try {
             var result = await window.pcSync.signInWithPassword(email, password);
             if (isSuccessResult(result)) {
                 showSuccess('Logged in successfully');
+                resetLoginAttempts();
                 if (passwordInput) {
                     passwordInput.value = '';
                 }
                 updateAuthUI();
                 return;
             }
+            var failedState = registerFailedLoginAttempt();
+            if (Number(failedState.lockedUntil) > Date.now()) {
+                showError('Too many failed attempts. Login is temporarily locked for 15 minutes.');
+                return;
+            }
             showError('Login failed: ' + getErrorMessage(result && result.error));
         } catch (error) {
+            var failedStateFromCatch = registerFailedLoginAttempt();
+            if (Number(failedStateFromCatch.lockedUntil) > Date.now()) {
+                showError('Too many failed attempts. Login is temporarily locked for 15 minutes.');
+                return;
+            }
             showError('Login failed: ' + getErrorMessage(error));
         }
     }
@@ -564,8 +773,14 @@
     async function handlePasswordSignup() {
         var emailInput = document.getElementById('pc-email-input');
         var passwordInput = document.getElementById('pc-password-input');
+        var dobInput = document.getElementById('pc-dob-input');
+        var tosCheckbox = document.getElementById('pc-consent-tos');
+        var marketingCheckbox = document.getElementById('pc-consent-marketing');
         var email = emailInput ? String(emailInput.value || '').trim() : '';
         var password = passwordInput ? String(passwordInput.value || '') : '';
+        var dobValue = dobInput ? String(dobInput.value || '').trim() : '';
+        var tosAccepted = tosCheckbox ? !!tosCheckbox.checked : false;
+        var marketingAccepted = marketingCheckbox ? !!marketingCheckbox.checked : false;
         var preferredName = readStoredDisplayName();
 
         if (!email || email.indexOf('@') === -1) {
@@ -573,8 +788,19 @@
             return;
         }
 
-        if (password.length < 8) {
-            showError('Password must be at least 8 characters');
+        if (!isAdultDob(dobValue)) {
+            showError('You must be at least 18 years old to create an account.');
+            return;
+        }
+
+        if (!tosAccepted) {
+            showError('You must agree to the Terms of Service to create an account.');
+            return;
+        }
+
+        var passwordCheck = validatePasswordComplexity(password);
+        if (!passwordCheck.ok) {
+            showError(passwordCheck.message);
             return;
         }
 
@@ -585,8 +811,19 @@
 
         try {
             var options = {};
+            var consentRecords = buildConsentRecords(marketingAccepted);
+            writeLocalConsentAudit(consentRecords);
+
+            options.metadata = {
+                date_of_birth: dobValue,
+                age_verified_18_plus: true,
+                tos_consent: consentRecords.terms,
+                marketing_consent: consentRecords.marketing
+            };
             if (preferredName) {
                 options.displayName = preferredName;
+                options.metadata.display_name = preferredName;
+                options.metadata.name = preferredName;
             }
 
             var result = await window.pcSync.signUpWithPassword(email, password, options);
@@ -603,6 +840,11 @@
 
             if (passwordInput) {
                 passwordInput.value = '';
+            }
+            if (window.pcSync && typeof window.pcSync.recordConsentAudit === 'function') {
+                window.pcSync.recordConsentAudit(consentRecords).catch(function () {
+                    // Consent sync is best effort after sign up.
+                });
             }
             updateAuthUI();
         } catch (error) {
@@ -640,8 +882,9 @@
         var passwordInput = document.getElementById('pc-new-password-input');
         var password = passwordInput ? String(passwordInput.value || '') : '';
 
-        if (password.length < 8) {
-            showError('New password must be at least 8 characters');
+        var passwordCheck = validatePasswordComplexity(password);
+        if (!passwordCheck.ok) {
+            showError(passwordCheck.message);
             return;
         }
 
@@ -716,6 +959,60 @@
                 return;
             }
             showError('Sync error: ' + getErrorMessage(error));
+        }
+    }
+
+    function clearAllLocalData() {
+        if (window.pcStorage && typeof window.pcStorage.clearAllData === 'function') {
+            return window.pcStorage.clearAllData();
+        }
+
+        var removed = 0;
+        var keysToDelete = [];
+        try {
+            for (var i = 0; i < localStorage.length; i += 1) {
+                var key = localStorage.key(i);
+                if (key && key.indexOf('pc_') === 0) {
+                    keysToDelete.push(key);
+                }
+            }
+
+            for (var j = 0; j < keysToDelete.length; j += 1) {
+                localStorage.removeItem(keysToDelete[j]);
+                removed += 1;
+            }
+        } catch (error) {
+            // Best effort local wipe.
+        }
+        return removed;
+    }
+
+    async function handleDeleteAccount() {
+        if (!window.pcSync || typeof window.pcSync.deleteAccount !== 'function') {
+            showError('Delete account is unavailable right now');
+            return;
+        }
+
+        var confirmed = window.confirm('Delete account permanently? This removes synced profile and progress data.');
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+            showStatus('Deleting account...', 'info');
+            var result = await window.pcSync.deleteAccount();
+            if (!isSuccessResult(result)) {
+                showError('Delete account failed: ' + getErrorMessage(result && result.error));
+                return;
+            }
+
+            clearAllLocalData();
+            resetLoginAttempts();
+            showSuccess('Account deleted and local data cleared.');
+            updateLocalDataDisplay();
+            updateAuthUI();
+        } catch (error) {
+            showError('Delete account failed: ' + getErrorMessage(error));
         }
     }
 

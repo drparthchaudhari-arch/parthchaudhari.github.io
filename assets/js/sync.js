@@ -2,8 +2,11 @@
     var RETRY_QUEUE_KEY = 'pc_sync_retry_queue';
     var AUTH_STATE_KEY = 'pc_sync_auth_state';
     var SYNC_META_KEY = 'pc_sync_meta';
+    var CONSENT_SYNCED_PREFIX = 'pc_consent_sync_done_';
     var PERIODIC_SYNC_MS = 5 * 60 * 1000;
     var RETRY_POLL_MS = 60 * 1000;
+    var SESSION_STARTED_AT_KEY = 'pc_auth_session_started_at_v1';
+    var SESSION_TIMEOUT_MS = 24 * 60 * 60 * 1000;
 
     var state = {
         currentUser: null,
@@ -56,6 +59,54 @@
         } catch (error) {
             return false;
         }
+    }
+
+    function validatePasswordComplexity(password) {
+        var raw = String(password || '');
+        if (raw.length < 8) {
+            return {
+                ok: false,
+                message: 'Password must be at least 8 characters'
+            };
+        }
+
+        if (!/[A-Z]/.test(raw) || !/[a-z]/.test(raw) || !/[0-9]/.test(raw)) {
+            return {
+                ok: false,
+                message: 'Password must include uppercase, lowercase, and a number'
+            };
+        }
+
+        return {
+            ok: true,
+            message: ''
+        };
+    }
+
+    function setSessionStartedAt(value) {
+        var stamp = Number(value) || Date.now();
+        safeSetItem(SESSION_STARTED_AT_KEY, String(stamp));
+    }
+
+    function clearSessionStartedAt() {
+        try {
+            localStorage.removeItem(SESSION_STARTED_AT_KEY);
+        } catch (error) {
+            // Best effort cleanup.
+        }
+    }
+
+    function readSessionStartedAt() {
+        var raw = Number(safeGetItem(SESSION_STARTED_AT_KEY) || 0);
+        return Number.isFinite(raw) ? raw : 0;
+    }
+
+    function isSessionExpired() {
+        var startedAt = readSessionStartedAt();
+        if (!startedAt) {
+            return false;
+        }
+        return (Date.now() - startedAt) >= SESSION_TIMEOUT_MS;
     }
 
     function toTimestamp(value) {
@@ -481,6 +532,7 @@
         if (!isSupabaseConfigured()) {
             state.currentUser = null;
             setCachedAuthState(false);
+            clearSessionStartedAt();
             dispatchStatusChange();
             return null;
         }
@@ -489,6 +541,7 @@
         if (!client || !client.auth || typeof client.auth.getUser !== 'function') {
             state.currentUser = null;
             setCachedAuthState(false);
+            clearSessionStartedAt();
             dispatchStatusChange();
             return null;
         }
@@ -501,11 +554,27 @@
 
             state.currentUser = response.data && response.data.user ? response.data.user : null;
             setCachedAuthState(!!state.currentUser);
+            if (state.currentUser && isSessionExpired()) {
+                try {
+                    await client.auth.signOut();
+                } catch (error) {
+                    // Timeout sign-out is best effort.
+                }
+                state.currentUser = null;
+                setCachedAuthState(false);
+                clearSessionStartedAt();
+                dispatchStatusChange();
+                return null;
+            }
+            if (state.currentUser && !readSessionStartedAt()) {
+                setSessionStartedAt(Date.now());
+            }
             dispatchStatusChange();
             return state.currentUser;
         } catch (error) {
             state.currentUser = null;
             setCachedAuthState(false);
+            clearSessionStartedAt();
             dispatchStatusChange();
             return null;
         }
@@ -803,10 +872,11 @@
             };
         }
 
-        if (rawPassword.length < 8) {
+        var passwordCheck = validatePasswordComplexity(rawPassword);
+        if (!passwordCheck.ok) {
             return {
                 ok: false,
-                error: new Error('Password must be at least 8 characters')
+                error: new Error(passwordCheck.message)
             };
         }
 
@@ -849,6 +919,9 @@
             var session = response.data && response.data.session ? response.data.session : null;
             state.currentUser = user;
             setCachedAuthState(!!user);
+            if (user && session) {
+                setSessionStartedAt(Date.now());
+            }
             dispatchStatusChange();
 
             if (user && session) {
@@ -989,10 +1062,11 @@
 
     async function updatePassword(nextPassword) {
         var rawPassword = String(nextPassword || '');
-        if (rawPassword.length < 8) {
+        var passwordCheck = validatePasswordComplexity(rawPassword);
+        if (!passwordCheck.ok) {
             return {
                 ok: false,
-                error: new Error('Password must be at least 8 characters')
+                error: new Error(passwordCheck.message)
             };
         }
 
@@ -1125,10 +1199,325 @@
         }
     }
 
+    function isMissingRpcError(error) {
+        var message = getErrorMessage(error).toLowerCase();
+        return message.indexOf('could not find the function') !== -1 ||
+            message.indexOf('function public.') !== -1 && message.indexOf('does not exist') !== -1 ||
+            message.indexOf('pgrst202') !== -1;
+    }
+
+    async function recordConsentAudit(consentRecords) {
+        if (!isSupabaseConfigured()) {
+            return {
+                ok: false,
+                skipped: true,
+                reason: 'not_configured'
+            };
+        }
+
+        var client = getSupabaseClient();
+        if (!client || typeof client.rpc !== 'function') {
+            return {
+                ok: false,
+                skipped: true,
+                reason: 'rpc_unavailable'
+            };
+        }
+
+        var user = await resolveCurrentUser();
+        if (!user) {
+            return {
+                ok: false,
+                skipped: true,
+                reason: 'not_logged_in'
+            };
+        }
+
+        if (!consentRecords || typeof consentRecords !== 'object') {
+            return {
+                ok: false,
+                error: new Error('Consent records are required')
+            };
+        }
+
+        var queue = [];
+        if (consentRecords.terms) {
+            queue.push({
+                type: 'terms',
+                text: consentRecords.terms.text || '',
+                granted: consentRecords.terms.accepted !== false
+            });
+        }
+        if (consentRecords.marketing) {
+            queue.push({
+                type: 'marketing',
+                text: consentRecords.marketing.text || '',
+                granted: consentRecords.marketing.accepted === true
+            });
+        }
+
+        var warnings = [];
+        for (var i = 0; i < queue.length; i += 1) {
+            var entry = queue[i];
+            var response = await client.rpc('record_user_consent', {
+                p_consent_type: entry.type,
+                p_consent_text: String(entry.text || ''),
+                p_consent_granted: !!entry.granted,
+                p_source: 'account_signup_form'
+            });
+
+            if (response.error) {
+                if (isMissingRpcError(response.error)) {
+                    return {
+                        ok: false,
+                        skipped: true,
+                        reason: 'rpc_missing'
+                    };
+                }
+
+                warnings.push(getErrorMessage(response.error));
+            }
+        }
+
+        return {
+            ok: true,
+            warnings: warnings
+        };
+    }
+
+    function getConsentSyncKey(userId) {
+        return CONSENT_SYNCED_PREFIX + String(userId || '');
+    }
+
+    function readConsentFromUserMetadata(user) {
+        if (!user || !user.user_metadata || typeof user.user_metadata !== 'object') {
+            return null;
+        }
+
+        var metadata = user.user_metadata;
+        var payload = {};
+
+        if (metadata.tos_consent && typeof metadata.tos_consent === 'object') {
+            payload.terms = {
+                text: metadata.tos_consent.text || 'I agree to the Terms of Service.',
+                accepted: metadata.tos_consent.accepted !== false
+            };
+        }
+
+        if (metadata.marketing_consent && typeof metadata.marketing_consent === 'object') {
+            payload.marketing = {
+                text: metadata.marketing_consent.text || 'Yes, send me study tips and NAVLE updates.',
+                accepted: metadata.marketing_consent.accepted === true
+            };
+        }
+
+        if (!payload.terms && !payload.marketing) {
+            return null;
+        }
+
+        return payload;
+    }
+
+    function maybeSyncConsentFromMetadata(user) {
+        if (!user || !user.id) {
+            return;
+        }
+
+        var consentPayload = readConsentFromUserMetadata(user);
+        if (!consentPayload) {
+            return;
+        }
+
+        var syncKey = getConsentSyncKey(user.id);
+        if (safeGetItem(syncKey) === '1') {
+            return;
+        }
+
+        recordConsentAudit(consentPayload)
+            .then(function (result) {
+                if (result && result.ok) {
+                    safeSetItem(syncKey, '1');
+                }
+            })
+            .catch(function () {
+                // Consent sync is best effort.
+            });
+    }
+
+    async function exportAllData() {
+        var payload = {
+            exportedAt: nowIso(),
+            local: {},
+            remote: {},
+            warnings: []
+        };
+
+        try {
+            if (window.pcStorage && typeof window.pcStorage.exportDataBundle === 'function') {
+                payload.local = window.pcStorage.exportDataBundle();
+            } else {
+                payload.local = {};
+            }
+        } catch (error) {
+            payload.warnings.push('Local export failed: ' + getErrorMessage(error));
+        }
+
+        if (!isSupabaseConfigured()) {
+            return payload;
+        }
+
+        var client = getSupabaseClient();
+        if (!client || typeof client.from !== 'function') {
+            payload.warnings.push('Remote export unavailable: client not ready');
+            return payload;
+        }
+
+        var user = await resolveCurrentUser();
+        if (!user) {
+            payload.warnings.push('Remote export skipped: not logged in');
+            return payload;
+        }
+
+        payload.remote.user = {
+            id: user.id,
+            email: user.email || '',
+            metadata: user.user_metadata || {}
+        };
+
+        try {
+            var profileResult = await client.from('profiles').select('*').eq('id', user.id).maybeSingle();
+            if (profileResult.error) {
+                payload.warnings.push('profiles export failed: ' + getErrorMessage(profileResult.error));
+            } else {
+                payload.remote.profile = profileResult.data || null;
+            }
+        } catch (error) {
+            payload.warnings.push('profiles export failed: ' + getErrorMessage(error));
+        }
+
+        try {
+            var progressResult = await client.from('user_progress').select('*').eq('user_id', user.id).maybeSingle();
+            if (progressResult.error && progressResult.error.code !== 'PGRST116') {
+                payload.warnings.push('user_progress export failed: ' + getErrorMessage(progressResult.error));
+            } else {
+                payload.remote.user_progress = progressResult.data || null;
+            }
+        } catch (error) {
+            payload.warnings.push('user_progress export failed: ' + getErrorMessage(error));
+        }
+
+        try {
+            var leaderboardResult = await client.from('leaderboard').select('*').eq('user_id', user.id).limit(1).maybeSingle();
+            if (leaderboardResult.error && leaderboardResult.error.code !== 'PGRST116') {
+                payload.warnings.push('leaderboard export failed: ' + getErrorMessage(leaderboardResult.error));
+            } else {
+                payload.remote.leaderboard = leaderboardResult.data || null;
+            }
+        } catch (error) {
+            payload.warnings.push('leaderboard export failed: ' + getErrorMessage(error));
+        }
+
+        return payload;
+    }
+
+    async function deleteAccount() {
+        if (!isSupabaseConfigured()) {
+            return {
+                ok: false,
+                error: new Error('Sync not configured')
+            };
+        }
+
+        var client = getSupabaseClient();
+        if (!client) {
+            return {
+                ok: false,
+                error: new Error('Supabase client unavailable')
+            };
+        }
+
+        var user = await resolveCurrentUser();
+        if (!user) {
+            return {
+                ok: false,
+                error: new Error('You must be logged in to delete your account')
+            };
+        }
+
+        var hardDeleted = false;
+        var warnings = [];
+
+        if (typeof client.rpc === 'function') {
+            var rpcResult = await client.rpc('delete_my_account');
+            if (!rpcResult.error) {
+                hardDeleted = true;
+            } else if (!isMissingRpcError(rpcResult.error)) {
+                return {
+                    ok: false,
+                    error: rpcResult.error
+                };
+            } else {
+                warnings.push('delete_my_account RPC not found');
+            }
+        }
+
+        if (!hardDeleted) {
+            try {
+                await client.from('answers').delete().eq('user_id', user.id);
+            } catch (error) {
+                // Optional cleanup.
+            }
+            try {
+                await client.from('user_progress').delete().eq('user_id', user.id);
+            } catch (error) {
+                warnings.push('user_progress cleanup failed: ' + getErrorMessage(error));
+            }
+            try {
+                await client.from('leaderboard').delete().eq('user_id', user.id);
+            } catch (error) {
+                warnings.push('leaderboard cleanup failed: ' + getErrorMessage(error));
+            }
+            try {
+                await client.from('profiles').delete().eq('id', user.id);
+            } catch (error) {
+                warnings.push('profiles cleanup failed: ' + getErrorMessage(error));
+            }
+
+            if (client.auth && client.auth.admin && typeof client.auth.admin.deleteUser === 'function') {
+                try {
+                    var deleteUserResult = await client.auth.admin.deleteUser(user.id);
+                    if (deleteUserResult && !deleteUserResult.error) {
+                        hardDeleted = true;
+                    }
+                } catch (error) {
+                    warnings.push('auth user deletion failed: ' + getErrorMessage(error));
+                }
+            }
+        }
+
+        if (!hardDeleted) {
+            return {
+                ok: false,
+                error: new Error('Hard delete requires delete_my_account RPC migration in Supabase'),
+                warnings: warnings
+            };
+        }
+
+        await signOut();
+        clearSessionStartedAt();
+
+        return {
+            ok: true,
+            hardDeleted: true,
+            warnings: warnings
+        };
+    }
+
     async function signOut() {
         if (!isSupabaseConfigured()) {
             state.currentUser = null;
             setCachedAuthState(false);
+            clearSessionStartedAt();
             dispatchStatusChange();
             return {
                 ok: true,
@@ -1152,6 +1541,7 @@
 
             state.currentUser = null;
             setCachedAuthState(false);
+            clearSessionStartedAt();
             dispatchStatusChange();
 
             return {
@@ -1214,9 +1604,36 @@
     }
 
     function handleAuthEvent(event, session) {
+        if (session && session.user && isSessionExpired()) {
+            var timeoutClient = getSupabaseClient();
+            if (timeoutClient && timeoutClient.auth && typeof timeoutClient.auth.signOut === 'function') {
+                timeoutClient.auth.signOut().catch(function () {
+                    // Session timeout enforcement is best effort.
+                });
+            }
+            state.currentUser = null;
+            setCachedAuthState(false);
+            clearSessionStartedAt();
+            dispatchStatusChange();
+            return;
+        }
+
         state.currentUser = session && session.user ? session.user : null;
         setCachedAuthState(!!state.currentUser);
+        if (state.currentUser && event === 'SIGNED_IN') {
+            setSessionStartedAt(Date.now());
+        }
+        if (state.currentUser && event === 'INITIAL_SESSION' && !readSessionStartedAt()) {
+            setSessionStartedAt(Date.now());
+        }
+        if (!state.currentUser) {
+            clearSessionStartedAt();
+        }
         dispatchStatusChange();
+
+        if (state.currentUser) {
+            maybeSyncConsentFromMetadata(state.currentUser);
+        }
 
         if (!state.currentUser) {
             return;
@@ -1245,6 +1662,7 @@
         if (!isSupabaseConfigured()) {
             state.currentUser = null;
             setCachedAuthState(false);
+            clearSessionStartedAt();
             dispatchStatusChange();
             return;
         }
@@ -1281,6 +1699,7 @@
         if (!isSupabaseConfigured()) {
             state.currentUser = null;
             setCachedAuthState(false);
+            clearSessionStartedAt();
             dispatchStatusChange();
             return;
         }
@@ -1309,7 +1728,10 @@
         sendPasswordReset: sendPasswordReset,
         updatePassword: updatePassword,
         sendMagicLink: sendMagicLink,
-        signOut: signOut
+        signOut: signOut,
+        exportAllData: exportAllData,
+        deleteAccount: deleteAccount,
+        recordConsentAudit: recordConsentAudit
     };
 
     window.syncToServer = syncToServer;

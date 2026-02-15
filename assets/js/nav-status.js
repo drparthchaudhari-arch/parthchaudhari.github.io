@@ -17,6 +17,7 @@
     var RETENTION_30D_EMIT_KEY = 'pc_retention_30d_emit_day_v1';
     var ANALYTICS_BUFFER_KEY = 'pc_analytics_buffer_v1';
     var ANALYTICS_BUFFER_LIMIT = 80;
+    var analyticsInitialized = false;
     var SERVICE_WORKER_URL = '/service-worker.js';
     var NAV_ITEMS = [
         { id: 'home', label: 'Home', href: '/' },
@@ -551,7 +552,6 @@
 
     function shouldSkipGlobalFooter(path) {
         return (
-            path.indexOf('/account') === 0 ||
             path.indexOf('/leaderboard') === 0 ||
             path.indexOf('/app') === 0 ||
             path.indexOf('/archive') === 0 ||
@@ -580,16 +580,35 @@
         footer.innerHTML =
             '<div class="pc-footer-links">' +
             '<a href="/about.html">About & Credentials</a>' +
-            '<a href="/editorial-policy/">Editorial Policy</a>' +
-            '<a href="/sources-and-limitations/">Sources & Limitations</a>' +
-            '<a href="/pricing/">Pricing</a>' +
+            '<a href="/terms/">Terms of Service</a>' +
+            '<a href="/privacy/">Privacy Policy</a>' +
+            '<a href="/licenses/">Legal & Licenses</a>' +
+            '<a href="/accessibility-plan/">Accessibility Plan</a>' +
             '<a href="/contact.html">Contact</a>' +
             '</div>' +
-            '<p class="pc-footer-note"><strong>About the author:</strong> Parth Chaudhari (BVSc&AH), veterinary educator and NAVLE candidate. <a href="/about.html">View credentials</a>.</p>' +
-            '<p class="pc-footer-note">Last reviewed dates appear on key clinical pages and are updated during scheduled content reviews.</p>' +
-            '<p class="pc-footer-note">Educational use only. ' + SITE_BRAND + ' does not provide patient-specific diagnosis or treatment advice.</p>';
+            '<p class="pc-footer-note"><strong>Status:</strong> NAVLE candidate and veterinary assistant/technician. Not licensed to practice veterinary medicine in North America.</p>' +
+            '<p class="pc-footer-note">Educational use only. ' + SITE_BRAND + ' content is for exam preparation and does not create a veterinary-client-patient relationship (VCPR).</p>' +
+            '<p class="pc-footer-note">NAVLE&reg; is a registered trademark of ICVA. Not affiliated with NAVLE, ICVA, or any veterinary licensing board.</p>';
 
         main.appendChild(footer);
+    }
+
+    function isAnalyticsConsentGranted() {
+        if (window.pcLegal && typeof window.pcLegal.canUseAnalytics === 'function') {
+            return !!window.pcLegal.canUseAnalytics();
+        }
+        return false;
+    }
+
+    function initAnalyticsIfAllowed() {
+        if (analyticsInitialized) {
+            return;
+        }
+        if (!isAnalyticsConsentGranted()) {
+            return;
+        }
+        analyticsInitialized = true;
+        initAnalytics();
     }
 
     function getBreadcrumbRoot(path) {
@@ -1482,7 +1501,7 @@
         }, 120);
 
         scheduleNonCritical(function () {
-            initAnalytics();
+            initAnalyticsIfAllowed();
         }, 60);
 
         scheduleNonCritical(function () {
@@ -1502,6 +1521,10 @@
         window.addEventListener('pc-auth-status-change', function (event) {
             var loggedIn = !!(event && event.detail && event.detail.loggedIn);
             applyIndicator(loggedIn);
+        });
+
+        window.addEventListener('pc-consent-updated', function () {
+            initAnalyticsIfAllowed();
         });
     }
 
