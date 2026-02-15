@@ -6,147 +6,239 @@
     <meta name="author-status" content="NAVLE-candidate-unlicensed" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
-    <title>Veterinary Credentials and Experience – VetLudics</title>
+    <title>Credentials & Experience – VetLudics</title>
     <meta
       name="description"
       content="Review veterinary credentials, clinical competencies, and educational focus behind VetLudics study tools, case content, and NAVLE preparation resources."
     />
-    <meta
-      property="og:title"
-      content="Veterinary Credentials and Experience – VetLudics"
-    />
-    <meta
-      property="og:description"
-      content="Clinical background and competency profile for VetLudics educational content."
-    />
+    <meta property="og:title" content="Credentials & Experience – VetLudics" />
+    <meta property="og:description" content="Clinical background and competency profile for VetLudics educational content." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://parthchaudhari.com/about.html" />
     <link rel="canonical" href="https://parthchaudhari.com/about.html" />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
     <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
+    <link rel="stylesheet" href="/assets/css/page-enhancements.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
     <script src="/assets/js/animations.js" defer></script>
   </head>
   <body class="pc-page pc-page--info">
+    <!-- Toast Container -->
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    
+    <!-- Floating Background Elements -->
+    <div class="pc-floating-elements" aria-hidden="true">
+      <div class="pc-float-shape pc-float-shape--1"></div>
+      <div class="pc-float-shape pc-float-shape--2"></div>
+    </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+    
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
-        <a class="pc-logo" href="/">VetLudics</a>
+        <a class="pc-logo" href="/">
+          <span class="pc-logo__icon">🐾</span>
+          <span class="pc-logo__text">VetLudics</span>
+        </a>
+        
+        <!-- Search Bar (Desktop) -->
+        <form class="pc-nav-search" action="/search.html" method="get" role="search">
+          <div class="pc-search-wrapper">
+            <svg class="pc-search-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            </svg>
+            <input 
+              type="search" 
+              name="q" 
+              class="pc-search-input pc-search-input--nav" 
+              placeholder="Search..."
+              aria-label="Search veterinary calculators"
+              autocomplete="off"
+            >
+            <kbd class="pc-search-shortcut">⌘K</kbd>
+          </div>
+        </form>
+        
         <div class="pc-nav-group">
-          <a class="pc-nav-link pc-is-active" href="/about.html">About Me</a>
-          <a class="pc-nav-link" href="/play/">Play</a>
-          <a class="pc-nav-link" href="/bridge/">Bridge</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
           <a class="pc-nav-link" href="/search.html">Search</a>
-          <a class="pc-nav-link" href="/study/">Study Plan</a>
-          <a class="pc-nav-link" href="/account/"
-            ><span
-              class="pc-auth-indicator"
-              data-pc-auth-indicator
-              aria-hidden="true"
-              >○</span
-            >Account</a
-          >
-          <button
-            type="button"
-            class="pc-nav-toggle"
-            data-pc-mode-toggle
-            aria-label="Toggle professional or play mode"
-          >
-            <span class="pc-nav-toggle__label" data-pc-mode-label
-              >Mode: Professional</span
-            >
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
+          <a class="pc-nav-link pc-is-active" href="/about.html">
+            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+            <span class="pc-nav-link__text">About</span>
+          </a>
+          <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+            <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
+            <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
           </button>
-          <button
-            type="button"
-            class="pc-nav-toggle"
-            data-pc-theme-toggle
-            aria-label="Toggle day or night theme"
-          >
-            <span class="pc-nav-toggle__label" data-pc-theme-label
-              >Theme: Day</span
-            >
+          
+          <!-- Mobile Menu Toggle -->
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
+        <div class="pc-mobile-menu__header">
+          <span class="pc-mobile-menu__title">Menu</span>
+          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
+        </div>
+        <nav class="pc-mobile-menu__nav">
+          <a class="pc-mobile-nav-link" href="/play/">
+            <span class="pc-mobile-nav-link__icon">🎮</span>
+            <span class="pc-mobile-nav-link__text">Play</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/bridge/">
+            <span class="pc-mobile-nav-link__icon">🌉</span>
+            <span class="pc-mobile-nav-link__text">Bridge</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/search.html">
+            <span class="pc-mobile-nav-link__icon">🔍</span>
+            <span class="pc-mobile-nav-link__text">Search</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/study/">
+            <span class="pc-mobile-nav-link__icon">📚</span>
+            <span class="pc-mobile-nav-link__text">Study Plan</span>
+          </a>
+          <a class="pc-mobile-nav-link pc-is-active" href="/about.html">
+            <span class="pc-mobile-nav-link__icon">👤</span>
+            <span class="pc-mobile-nav-link__text">About</span>
+          </a>
+        </nav>
+        <div class="pc-mobile-menu__footer">
+          <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
+            <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
+            <span>Switch to <span data-pc-theme-label>dark</span> mode</span>
           </button>
         </div>
       </div>
     </nav>
 
     <main id="pc-main" class="pc-info-shell" role="main">
-      <section class="pc-section">
-        <div class="pc-hero-profile pc-hero-profile--no-photo">
+      <!-- Breadcrumb Navigation -->
+      <nav class="pc-breadcrumbs" aria-label="Breadcrumb">
+        <ol class="pc-breadcrumbs__list">
+          <li class="pc-breadcrumbs__item"><a href="/">Home</a></li>
+          <li class="pc-breadcrumbs__item" aria-current="page">About</li>
+        </ol>
+      </nav>
+      
+      <!-- Hero Profile Section -->
+      <section class="pc-section pc-section--hero" data-animate="fade-up">
+        <div class="pc-hero-profile pc-hero-profile--enhanced">
           <div class="pc-hero-content">
-            <h1>Parth Chaudhari, BVSc&AH</h1>
-            <p class="pc-tagline">
-              International Veterinary Professional | NAVLE Candidate | Clinical
-              Educator
+            <div class="pc-hero-badge">
+              <span class="pc-hero-badge__dot"></span>
+              NAVLE Candidate
+            </div>
+            <h1 class="pc-hero-title">
+              <span class="pc-gradient-text">Parth Chaudhari</span>, BVSc&AH
+            </h1>
+            <p class="pc-tagline pc-tagline--large">
+              International Veterinary Professional | Clinical Educator
             </p>
-            <p>
-              Clinically trained across companion animal practice, internal
-              medicine, and emergency workflows, with focus on translating
-              clinical reasoning into structured learning systems for veterinary
-              students.
+            <p class="pc-hero-description">
+              Clinically trained across companion animal practice, internal medicine, 
+              and emergency workflows, with focus on translating clinical reasoning 
+              into structured learning systems for veterinary students worldwide.
             </p>
-            <div class="pc-hero-actions">
-              <a href="/editorial-policy/" class="pc-btn">Editorial Policy</a>
-              <a href="/play/" class="pc-btn pc-btn-secondary">Study Games</a>
+            <div class="pc-hero-actions pc-hero-actions--spaced">
+              <a href="/editorial-policy/" class="pc-btn pc-btn--primary pc-btn--large">
+                <span>Editorial Policy</span>
+                <svg class="pc-btn__arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </a>
+              <a href="/play/" class="pc-btn pc-btn--secondary pc-btn--large">Study Games</a>
+            </div>
+          </div>
+          
+          <!-- Stats Cards -->
+          <div class="pc-profile-stats" aria-label="Key statistics">
+            <div class="pc-stat-card pc-stat-card--featured" data-animate="fade-up" data-delay="100">
+              <div class="pc-stat-card__icon">🏥</div>
+              <div class="pc-stat-card__number">4+</div>
+              <div class="pc-stat-card__label">Years Experience</div>
+            </div>
+            <div class="pc-stat-card" data-animate="fade-up" data-delay="200">
+              <div class="pc-stat-card__icon">🎓</div>
+              <div class="pc-stat-card__number">BVSc</div>
+              <div class="pc-stat-card__label">Veterinary Degree</div>
+            </div>
+            <div class="pc-stat-card" data-animate="fade-up" data-delay="300">
+              <div class="pc-stat-card__icon">📚</div>
+              <div class="pc-stat-card__number">NAVLE</div>
+              <div class="pc-stat-card__label">Candidate 2025</div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="pc-section" id="clinical-experience">
-        <h2>Clinical Experience</h2>
-        <p>
-          4+ years of hands-on veterinary experience spanning outpatient case
-          management, emergency triage, perioperative support, and client
-          communication in high-volume clinical environments.
+      <!-- Clinical Experience Section -->
+      <section class="pc-section" data-animate="fade-up">
+        <h2 class="pc-section-title">
+          <span class="pc-gradient-text">Clinical</span> Experience
+        </h2>
+        <p class="pc-section-intro">
+          4+ years of hands-on veterinary experience spanning outpatient case management, 
+          emergency triage, perioperative support, and client communication in high-volume clinical environments.
         </p>
-        <div class="pc-experience-grid">
-          <article class="pc-experience-card">
+        <div class="pc-experience-grid pc-experience-grid--enhanced">
+          <article class="pc-experience-card pc-experience-card--enhanced" data-animate="fade-up" data-delay="0">
+            <div class="pc-experience-card__icon">🐕</div>
             <h3>Companion Animal Practice</h3>
             <p>
-              Case intake, diagnostic planning, treatment follow-up, and
-              continuity of care for canine and feline patients.
+              Case intake, diagnostic planning, treatment follow-up, and continuity 
+              of care for canine and feline patients.
             </p>
           </article>
-          <article class="pc-experience-card">
+          <article class="pc-experience-card pc-experience-card--enhanced" data-animate="fade-up" data-delay="100">
+            <div class="pc-experience-card__icon">🚨</div>
             <h3>Emergency Workflow</h3>
             <p>
-              Rapid triage support, stabilization protocols, and monitoring for
+              Rapid triage support, stabilization protocols, and monitoring for 
               critically ill and post-procedural patients.
             </p>
           </article>
-          <article class="pc-experience-card">
+          <article class="pc-experience-card pc-experience-card--enhanced" data-animate="fade-up" data-delay="200">
+            <div class="pc-experience-card__icon">👨‍🏫</div>
             <h3>Clinical Teaching Focus</h3>
             <p>
-              Development of case-based learning content aligned with
-              NAVLE-level clinical reasoning and terminology retention.
+              Development of case-based learning content aligned with NAVLE-level 
+              clinical reasoning and terminology retention.
             </p>
           </article>
         </div>
-      </section>
-
-      <section class="pc-section">
-        <h2>Clinical Education</h2>
-        <p>
-          Applied clinical learning pathways for veterinary students preparing
-          for NAVLE.
-        </p>
-        <div class="pc-panel-actions">
-          <a href="/tools/" class="pc-btn">Browse Clinical Tools</a>
-          <a href="/play/" class="pc-btn pc-btn-secondary"
-            >Practice with Games</a
-          >
+        <div class="pc-panel-actions" style="margin-top: 1.5rem;">
+          <a href="/tools/" class="pc-btn pc-btn--primary">Browse Clinical Tools</a>
+          <a href="/play/" class="pc-btn pc-btn--secondary">Practice with Games</a>
         </div>
       </section>
 
-      <section class="pc-section pc-competencies">
-        <h2>Clinical Competencies</h2>
+      <!-- Clinical Competencies Section -->
+      <section class="pc-section pc-competencies" data-animate="fade-up">
+        <h2 class="pc-section-title">
+          <span class="pc-gradient-text">Clinical</span> Competencies
+        </h2>
         <div class="pc-competency-grid">
-          <article class="pc-competency-card" tabindex="0">
-            <h3>Emergency &amp; Critical Care</h3>
+          <article class="pc-competency-card pc-competency-card--enhanced" tabindex="0" data-animate="fade-up" data-delay="0">
+            <div class="pc-competency-card__header">
+              <span class="pc-competency-card__icon">🚨</span>
+              <h3>Emergency & Critical Care</h3>
+            </div>
             <ul>
               <li>Triage and stabilization</li>
               <li>Fluid therapy protocols</li>
@@ -154,8 +246,11 @@
               <li>CPCR certified</li>
             </ul>
           </article>
-          <article class="pc-competency-card" tabindex="0">
-            <h3>Internal Medicine</h3>
+          <article class="pc-competency-card pc-competency-card--enhanced" tabindex="0" data-animate="fade-up" data-delay="100">
+            <div class="pc-competency-card__header">
+              <span class="pc-competency-card__icon">🫀</span>
+              <h3>Internal Medicine</h3>
+            </div>
             <ul>
               <li>Canine/feline cardiology</li>
               <li>Endocrine disorders</li>
@@ -163,17 +258,23 @@
               <li>Infectious disease</li>
             </ul>
           </article>
-          <article class="pc-competency-card" tabindex="0">
-            <h3>Diagnostic Imaging</h3>
+          <article class="pc-competency-card pc-competency-card--enhanced" tabindex="0" data-animate="fade-up" data-delay="200">
+            <div class="pc-competency-card__header">
+              <span class="pc-competency-card__icon">📷</span>
+              <h3>Diagnostic Imaging</h3>
+            </div>
             <ul>
               <li>Thoracic/abdominal radiographs</li>
               <li>Abdominal ultrasound</li>
               <li>Echocardiography basics</li>
-              <li>Interpretation &amp; reporting</li>
+              <li>Interpretation & reporting</li>
             </ul>
           </article>
-          <article class="pc-competency-card" tabindex="0">
-            <h3>Surgery &amp; Procedures</h3>
+          <article class="pc-competency-card pc-competency-card--enhanced" tabindex="0" data-animate="fade-up" data-delay="300">
+            <div class="pc-competency-card__header">
+              <span class="pc-competency-card__icon">🔬</span>
+              <h3>Surgery & Procedures</h3>
+            </div>
             <ul>
               <li>Soft tissue surgery</li>
               <li>Orthopedic basics</li>
@@ -184,22 +285,76 @@
         </div>
       </section>
 
-      <footer class="pc-footer">
-        <div class="pc-footer-links">
-          <a href="/about.html">About &amp; Credentials</a>
-          <a href="/editorial-policy/">Editorial Policy</a>
-          <a href="/pricing/">Pricing</a>
-          <a href="/contact.html">Contact</a>
+      <!-- Clinical Education Section -->
+      <section class="pc-section" data-animate="fade-up">
+        <h2 class="pc-section-title">
+          <span class="pc-gradient-text">Clinical</span> Education
+        </h2>
+        <p class="pc-section-intro">
+          Applied clinical learning pathways for veterinary students preparing for NAVLE.
+        </p>
+        <div class="pc-education-paths">
+          <a href="/study/navle/" class="pc-education-card">
+            <div class="pc-education-card__icon">🎯</div>
+            <div class="pc-education-card__content">
+              <h3>NAVLE Study Hub</h3>
+              <p>Structured exam preparation with topic guides and practice questions</p>
+            </div>
+            <svg class="pc-education-card__arrow" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="/bridge/" class="pc-education-card">
+            <div class="pc-education-card__icon">🌉</div>
+            <div class="pc-education-card__content">
+              <h3>Clinical Cases</h3>
+              <p>Case-based learning with real-world scenarios</p>
+            </div>
+            <svg class="pc-education-card__arrow" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+          </a>
         </div>
-        <p class="pc-footer-note">
-          Last reviewed dates appear on key clinical pages and are updated
-          during scheduled content reviews.
-        </p>
-        <p class="pc-footer-note">
-          Educational use only. VetLudics does not provide patient-specific
-          diagnosis or treatment advice.
-        </p>
-      </footer>
+      </section>
     </main>
+    
+    <!-- Enhanced Footer -->
+    <footer class="pc-footer pc-footer--enhanced">
+      <div class="pc-footer__grid">
+        <div class="pc-footer__brand">
+          <a class="pc-footer__logo" href="/">
+            <span class="pc-footer__logo-icon">🐾</span>
+            <span>VetLudics</span>
+          </a>
+          <p class="pc-footer__tagline">Smart tools for veterinary excellence.</p>
+        </div>
+        
+        <div class="pc-footer__links-group">
+          <h4 class="pc-footer__heading">About</h4>
+          <ul class="pc-footer__links">
+            <li><a href="/about.html">Credentials</a></li>
+            <li><a href="/editorial-policy/">Editorial Policy</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="pc-footer__links-group">
+          <h4 class="pc-footer__heading">Resources</h4>
+          <ul class="pc-footer__links">
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/reference/">References</a></li>
+            <li><a href="/pricing/">Pricing</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="pc-footer__bottom">
+        <div class="pc-footer__legal">
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+        </div>
+        <p class="pc-footer__copyright">© 2025 VetLudics. Educational use only.</p>
+      </div>
+    </footer>
   </body>
 </html>

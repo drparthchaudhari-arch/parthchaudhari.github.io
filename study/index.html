@@ -7,171 +7,231 @@
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>NAVLE Study Planner – VetLudics</title>
-    <meta
-      name="description"
-      content="Build and track a NAVLE study plan with topic buckets, case links, and daily completion progress designed for consistent veterinary exam preparation."
-    />
+    <meta name="description" content="Build and track a NAVLE study plan with topic buckets, case links, and daily completion progress designed for consistent veterinary exam preparation." />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="NAVLE Study Planner – VetLudics" />
-    <meta
-      property="og:description"
-      content="Plan veterinary study blocks and track completion in a focused workflow."
-    />
+    <meta property="og:description" content="Plan veterinary study blocks and track completion in a focused workflow." />
     <meta property="og:url" content="https://parthchaudhari.com/study/" />
     <link rel="canonical" href="https://parthchaudhari.com/study/" />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
+    <link rel="stylesheet" href="/assets/css/page-enhancements.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/storage.js?v=20260213d" defer></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"
-      defer
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
     <script src="/assets/js/supabase-config.js" defer></script>
     <script src="/assets/js/sync.js?v=20260213d" defer></script>
     <script src="/assets/js/study-plan.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
+    <script src="/assets/js/animations.js" defer></script>
   </head>
   <body class="pc-page pc-page--study">
+    <!-- Toast Container -->
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    
+    <!-- Floating Background Elements -->
+    <div class="pc-floating-elements" aria-hidden="true">
+      <div class="pc-float-shape pc-float-shape--1"></div>
+      <div class="pc-float-shape pc-float-shape--2"></div>
+    </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+    
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
-        <a class="pc-logo" href="/">VetLudics</a>
+        <a class="pc-logo" href="/">
+          <span class="pc-logo__icon">🐾</span>
+          <span class="pc-logo__text">VetLudics</span>
+        </a>
+        
         <div class="pc-nav-group">
-          <a class="pc-nav-link" href="/about.html">About Me</a>
-          <a class="pc-nav-link" href="/play/">Play</a>
-          <a class="pc-nav-link" href="/bridge/">Bridge</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
           <a class="pc-nav-link" href="/search.html">Search</a>
-          <a class="pc-nav-link pc-is-active" href="/study/">Study Plan</a>
-          <a class="pc-nav-link" href="/account/"
-            ><span
-              class="pc-auth-indicator"
-              data-pc-auth-indicator
-              aria-hidden="true"
-              >○</span
-            >Account</a
-          >
-          <button
-            type="button"
-            class="pc-nav-toggle"
-            data-pc-mode-toggle
-            aria-label="Toggle professional or play mode"
-          >
-            <span class="pc-nav-toggle__label" data-pc-mode-label
-              >Mode: Professional</span
-            >
+          <a class="pc-nav-link pc-is-active" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">
+            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+            <span class="pc-nav-link__text">Account</span>
+          </a>
+          <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+            <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
+            <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
           </button>
-          <button
-            type="button"
-            class="pc-nav-toggle"
-            data-pc-theme-toggle
-            aria-label="Toggle day or night theme"
-          >
-            <span class="pc-nav-toggle__label" data-pc-theme-label
-              >Theme: Day</span
-            >
+          
+          <!-- Mobile Menu Toggle -->
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
+        <div class="pc-mobile-menu__header">
+          <span class="pc-mobile-menu__title">Menu</span>
+          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
+        </div>
+        <nav class="pc-mobile-menu__nav">
+          <a class="pc-mobile-nav-link" href="/play/">
+            <span class="pc-mobile-nav-link__icon">🎮</span>
+            <span class="pc-mobile-nav-link__text">Play</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/bridge/">
+            <span class="pc-mobile-nav-link__icon">🌉</span>
+            <span class="pc-mobile-nav-link__text">Bridge</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/search.html">
+            <span class="pc-mobile-nav-link__icon">🔍</span>
+            <span class="pc-mobile-nav-link__text">Search</span>
+          </a>
+          <a class="pc-mobile-nav-link pc-is-active" href="/study/">
+            <span class="pc-mobile-nav-link__icon">📚</span>
+            <span class="pc-mobile-nav-link__text">Study Plan</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/account/">
+            <span class="pc-mobile-nav-link__icon">👤</span>
+            <span class="pc-mobile-nav-link__text">Account</span>
+          </a>
+        </nav>
+        <div class="pc-mobile-menu__footer">
+          <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
+            <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
+            <span>Switch to <span data-pc-theme-label>dark</span> mode</span>
           </button>
         </div>
       </div>
     </nav>
 
     <main id="pc-main" class="pc-study-shell pc-study-page" role="main">
-      <div class="pc-streak-summary">
-        <span class="pc-streak-flame">🔥</span>
-        <span id="study-streak-count">0</span> day streak
-        <a href="/today/" class="pc-btn pc-btn--small">View Today's Plan</a>
+      <!-- Breadcrumb Navigation -->
+      <nav class="pc-breadcrumbs" aria-label="Breadcrumb">
+        <ol class="pc-breadcrumbs__list">
+          <li class="pc-breadcrumbs__item"><a href="/">Home</a></li>
+          <li class="pc-breadcrumbs__item" aria-current="page">Study Plan</li>
+        </ol>
+      </nav>
+      
+      <!-- Streak Summary -->
+      <div class="pc-streak-summary pc-streak-summary--enhanced" data-animate="fade-up">
+        <div class="pc-streak-summary__main">
+          <span class="pc-streak-flame">🔥</span>
+          <span><strong id="study-streak-count">0</strong> day streak</span>
+        </div>
+        <a href="/today/" class="pc-btn pc-btn--small pc-btn--primary">View Today's Plan</a>
       </div>
 
-      <section
-        class="pc-bridge-hero pc-study-header pc-study-plan-card pc-study-plan-card--active"
-      >
+      <!-- Hero Section -->
+      <section class="pc-bridge-hero pc-bridge-hero--study" data-animate="fade-up">
+        <div class="pc-bridge-hero__badge">📚</div>
         <p class="pc-kicker">Study Planner</p>
-        <h1 class="pc-study-title">NAVLE Study Planner</h1>
-        <p class="pc-study-subtitle">
+        <h1 class="pc-fork-title pc-gradient-text">NAVLE Study Planner</h1>
+        <p class="pc-fork-copy pc-fork-copy--large">
           Choose a plan preset, pick topic buckets, and track progress locally
           across practice questions, WordWeb topics, and reinforcement puzzles.
         </p>
-        <div class="pc-plan-presets" role="group" aria-label="Study presets">
-          <button type="button" class="pc-plan-chip" data-pc-plan="6week">
-            6-Week Intensive
+        <div class="pc-plan-presets pc-plan-presets--enhanced" role="group" aria-label="Study presets">
+          <button type="button" class="pc-plan-chip pc-plan-chip--card" data-pc-plan="6week">
+            <span class="pc-plan-chip__title">6-Week Intensive</span>
+            <span class="pc-plan-chip__desc">20+ hrs/week</span>
           </button>
-          <button type="button" class="pc-plan-chip" data-pc-plan="10week">
-            10-Week Standard
+          <button type="button" class="pc-plan-chip pc-plan-chip--card" data-pc-plan="10week">
+            <span class="pc-plan-chip__title">10-Week Standard</span>
+            <span class="pc-plan-chip__desc">12-15 hrs/week</span>
           </button>
-          <button type="button" class="pc-plan-chip" data-pc-plan="custom">
-            Custom Plan
+          <button type="button" class="pc-plan-chip pc-plan-chip--card" data-pc-plan="custom">
+            <span class="pc-plan-chip__title">Custom Plan</span>
+            <span class="pc-plan-chip__desc">Your own pace</span>
           </button>
         </div>
       </section>
 
+      <!-- Study Layout -->
       <section class="pc-study-layout" aria-label="Study plan builder">
-        <section
-          class="pc-study-panel pc-study-plan-card pc-study-plan-card--active"
-          aria-labelledby="pc-study-topics-title"
-        >
-          <h2 id="pc-study-topics-title">Topic Buckets</h2>
-          <div id="pc-study-topic-grid" class="pc-study-topic-grid"></div>
+        <!-- Topics Panel -->
+        <section class="pc-study-panel pc-study-plan-card pc-study-plan-card--active" aria-labelledby="pc-study-topics-title" data-animate="fade-up" data-delay="100">
+          <h2 id="pc-study-topics-title" class="pc-panel-title">
+            <span>📋</span> Topic Buckets
+          </h2>
+          <div id="pc-study-topic-grid" class="pc-study-topic-grid pc-study-topic-grid--enhanced">
+            <!-- Topics populated by JS -->
+          </div>
         </section>
 
-        <aside
-          class="pc-study-panel pc-study-plan-card"
-          aria-labelledby="pc-study-progress-title"
-        >
-          <h2 id="pc-study-progress-title">Progress Overview</h2>
-          <div class="pc-study-progress">
+        <!-- Progress Panel -->
+        <aside class="pc-study-panel pc-study-plan-card pc-study-progress-card" aria-labelledby="pc-study-progress-title" data-animate="fade-up" data-delay="200">
+          <h2 id="pc-study-progress-title" class="pc-panel-title">
+            <span>📊</span> Progress Overview
+          </h2>
+          
+          <div class="pc-study-progress pc-study-progress--enhanced">
             <div class="pc-study-progress-top">
-              <p>Completion</p>
+              <p>Overall Completion</p>
               <strong id="pc-study-progress-percent">0%</strong>
             </div>
-            <div
-              class="pc-study-progress-bar"
-              aria-label="Study completion progress"
-            >
-              <div
-                id="pc-study-progress-fill"
-                class="pc-study-progress-fill"
-              ></div>
+            <div class="pc-study-progress-bar" aria-label="Study completion progress">
+              <div id="pc-study-progress-fill" class="pc-study-progress-fill"></div>
             </div>
-            <p id="pc-study-progress-summary" class="pc-study-streak">
-              0 / 0 tasks complete
-            </p>
-            <p id="pc-study-streak" class="pc-study-streak">🔥 0 day streak</p>
+            <div class="pc-study-progress-stats">
+              <p id="pc-study-progress-summary">0 / 0 tasks complete</p>
+              <p id="pc-study-streak" class="pc-study-streak">🔥 0 day streak</p>
+            </div>
           </div>
 
-          <section class="pc-study-today" aria-label="Today's tasks">
-            <h3>Today's Tasks</h3>
-            <ul id="pc-study-today-list" class="pc-study-today-list"></ul>
+          <section class="pc-study-today pc-study-today--enhanced" aria-label="Today's tasks">
+            <h3>📅 Today's Tasks</h3>
+            <ul id="pc-study-today-list" class="pc-study-today-list pc-study-today-list--enhanced">
+              <!-- Tasks populated by JS -->
+            </ul>
           </section>
 
-          <section id="pc-study-break" class="pc-study-break" hidden>
-            <p>
-              Take a reset break? Review WordWeb NAVLE topics for 5 minutes.
-            </p>
-            <a class="pc-btn pc-btn--primary" href="/study/wordweb/"
-              >Open WordWeb Topics</a
-            >
+          <section id="pc-study-break" class="pc-study-break pc-study-break--enhanced" hidden>
+            <div class="pc-study-break__icon">☕</div>
+            <p>Take a reset break? Review WordWeb NAVLE topics for 5 minutes.</p>
+            <a class="pc-btn pc-btn--primary" href="/study/wordweb/">Open WordWeb Topics</a>
           </section>
 
-          <div class="pc-study-actions">
-            <a class="pc-btn pc-btn--primary" href="/tools/">Clinical Tools</a>
-            <a class="pc-btn pc-btn--primary" href="/study/navle/practice/"
-              >NAVLE Practice</a
-            >
-            <a class="pc-btn pc-btn--primary" href="/reference/">Reference</a>
-            <a class="pc-btn pc-btn--secondary" href="/study/wordweb/"
-              >NAVLE Topics</a
-            >
-            <a class="pc-btn pc-btn--secondary" href="/study/navle/topics/"
-              >Topic Guides</a
-            >
-            <a class="pc-btn pc-btn--secondary" href="/bridge/">Browse Cases</a>
+          <div class="pc-study-actions pc-study-actions--enhanced">
+            <a class="pc-btn pc-btn--primary" href="/tools/">
+              <span>🛠️</span> Clinical Tools
+            </a>
+            <a class="pc-btn pc-btn--primary" href="/study/navle/practice/">
+              <span>📝</span> NAVLE Practice
+            </a>
+            <a class="pc-btn pc-btn--secondary" href="/study/navle/topics/">
+              <span>📖</span> Topic Guides
+            </a>
+            <a class="pc-btn pc-btn--secondary" href="/bridge/">
+              <span>🌉</span> Browse Cases
+            </a>
           </div>
         </aside>
       </section>
     </main>
+    
+    <!-- Enhanced Footer -->
+    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal">
+      <div class="pc-footer__bottom">
+        <div class="pc-footer__legal">
+          <a href="/">Home</a>
+          <a href="/study/navle/">NAVLE Hub</a>
+          <a href="/tools/">Tools</a>
+          <a href="/about.html">About</a>
+        </div>
+        <p class="pc-footer__copyright">© 2025 VetLudics</p>
+      </div>
+    </footer>
+    
     <script>
-      ;(function () {
+      (function () {
         function initStudyStreakSummary() {
           if (!window.PCStorage) return
           var streak = PCStorage.getStreak()
@@ -182,11 +242,7 @@
         }
 
         if (document.readyState === 'loading') {
-          document.addEventListener(
-            'DOMContentLoaded',
-            initStudyStreakSummary,
-            { once: true }
-          )
+          document.addEventListener('DOMContentLoaded', initStudyStreakSummary, { once: true })
         } else {
           initStudyStreakSummary()
         }

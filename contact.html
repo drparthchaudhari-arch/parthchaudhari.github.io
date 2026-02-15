@@ -6,16 +6,13 @@
     <meta name="author-status" content="NAVLE-candidate-unlicensed" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
-    <title>Veterinary Education Contact – VetLudics</title>
+    <title>Contact – VetLudics</title>
     <meta
       name="description"
       content="Contact VetLudics for educational content feedback, corrections, and collaboration inquiries related to veterinary tools, study resources, and cases."
     />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="Veterinary Education Contact – VetLudics"
-    />
+    <meta property="og:title" content="Contact – VetLudics" />
     <meta
       property="og:description"
       content="Contact details for VetLudics educational content and collaboration inquiries."
@@ -25,89 +22,276 @@
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
     <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
+    <link rel="stylesheet" href="/assets/css/page-enhancements.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
     <script src="/assets/js/animations.js" defer></script>
   </head>
   <body class="pc-page pc-page--study">
+    <!-- Toast Container -->
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    
+    <!-- Floating Background Elements -->
+    <div class="pc-floating-elements" aria-hidden="true">
+      <div class="pc-float-shape pc-float-shape--1"></div>
+      <div class="pc-float-shape pc-float-shape--2"></div>
+    </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+    
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
-        <a class="pc-logo" href="/">VetLudics</a>
+        <a class="pc-logo" href="/">
+          <span class="pc-logo__icon">🐾</span>
+          <span class="pc-logo__text">VetLudics</span>
+        </a>
+        
+        <!-- Search Bar (Desktop) -->
+        <form class="pc-nav-search" action="/search.html" method="get" role="search">
+          <div class="pc-search-wrapper">
+            <svg class="pc-search-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            </svg>
+            <input 
+              type="search" 
+              name="q" 
+              class="pc-search-input pc-search-input--nav" 
+              placeholder="Search..."
+              aria-label="Search veterinary calculators"
+              autocomplete="off"
+            >
+            <kbd class="pc-search-shortcut">⌘K</kbd>
+          </div>
+        </form>
+        
         <div class="pc-nav-group">
-          <button
-            type="button"
-            class="pc-nav-toggle"
-            data-pc-mode-toggle
-            aria-label="Toggle professional or play mode"
-          >
-            <span class="pc-nav-toggle__label" data-pc-mode-label
-              >Mode: Professional</span
-            >
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
+          <a class="pc-nav-link" href="/search.html">Search</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
+          <a class="pc-nav-link pc-is-active" href="/contact.html">
+            <span class="pc-nav-link__text">Contact</span>
+          </a>
+          <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+            <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
+            <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
           </button>
-          <button
-            type="button"
-            class="pc-nav-toggle"
-            data-pc-theme-toggle
-            aria-label="Toggle day or night theme"
-          >
-            <span class="pc-nav-toggle__label" data-pc-theme-label
-              >Theme: Day</span
-            >
+          
+          <!-- Mobile Menu Toggle -->
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
+        <div class="pc-mobile-menu__header">
+          <span class="pc-mobile-menu__title">Menu</span>
+          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
+        </div>
+        <nav class="pc-mobile-menu__nav">
+          <a class="pc-mobile-nav-link" href="/play/">
+            <span class="pc-mobile-nav-link__icon">🎮</span>
+            <span class="pc-mobile-nav-link__text">Play</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/bridge/">
+            <span class="pc-mobile-nav-link__icon">🌉</span>
+            <span class="pc-mobile-nav-link__text">Bridge</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/search.html">
+            <span class="pc-mobile-nav-link__icon">🔍</span>
+            <span class="pc-mobile-nav-link__text">Search</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/study/">
+            <span class="pc-mobile-nav-link__icon">📚</span>
+            <span class="pc-mobile-nav-link__text">Study Plan</span>
+          </a>
+          <a class="pc-mobile-nav-link pc-is-active" href="/contact.html">
+            <span class="pc-mobile-nav-link__icon">✉️</span>
+            <span class="pc-mobile-nav-link__text">Contact</span>
+          </a>
+        </nav>
+        <div class="pc-mobile-menu__footer">
+          <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
+            <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
+            <span>Switch to <span data-pc-theme-label>dark</span> mode</span>
           </button>
         </div>
       </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-      <section class="pc-bridge-hero">
-        <p class="pc-kicker">Contact</p>
-        <h1 class="pc-fork-title">Get in Touch</h1>
-        <p class="pc-fork-copy">
-          Use this contact page for content corrections, partnership
-          discussions, and questions about VetLudics study resources.
-          Educational feedback is welcome.
+      <!-- Breadcrumb Navigation -->
+      <nav class="pc-breadcrumbs" aria-label="Breadcrumb">
+        <ol class="pc-breadcrumbs__list">
+          <li class="pc-breadcrumbs__item"><a href="/">Home</a></li>
+          <li class="pc-breadcrumbs__item" aria-current="page">Contact</li>
+        </ol>
+      </nav>
+      
+      <!-- Hero Section -->
+      <section class="pc-bridge-hero pc-bridge-hero--centered" data-animate="fade-up">
+        <div class="pc-bridge-hero__badge">📬</div>
+        <p class="pc-kicker">Get in Touch</p>
+        <h1 class="pc-fork-title pc-gradient-text">Let's Connect</h1>
+        <p class="pc-fork-copy pc-fork-copy--large">
+          Have feedback, questions, or collaboration ideas? We'd love to hear from you.
+          Use this page for content corrections, partnership discussions, and inquiries about VetLudics resources.
         </p>
         <p class="pc-last-reviewed">Last reviewed: February 13, 2026</p>
       </section>
 
-      <section class="pc-bridge-section" aria-label="Primary contact details">
-        <h2 class="pc-bridge-title">Primary Contact Details</h2>
-        <div class="pc-bridge-card-grid">
-          <article class="pc-bridge-card">
-            <h3>Email</h3>
-            <p>
-              <a href="mailto:parth@parthchaudhari.com"
-                >parth@parthchaudhari.com</a
-              >
-            </p>
+      <!-- Contact Cards Section -->
+      <section class="pc-bridge-section" aria-label="Contact methods" data-animate="fade-up" data-delay="100">
+        <div class="pc-contact-grid">
+          <!-- Email Card -->
+          <article class="pc-contact-card pc-contact-card--primary" data-animate="fade-up" data-delay="0">
+            <div class="pc-contact-card__icon-wrapper">
+              <svg class="pc-contact-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </div>
+            <h2 class="pc-contact-card__title">Email</h2>
+            <p class="pc-contact-card__desc">For general inquiries, feedback, and collaboration opportunities.</p>
+            <a href="mailto:parth@parthchaudhari.com" class="pc-contact-card__link">
+              parth@parthchaudhari.com
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </a>
           </article>
-          <article class="pc-bridge-card">
-            <h3>Location</h3>
-            <p>Waterloo, Ontario, Canada</p>
+          
+          <!-- Location Card -->
+          <article class="pc-contact-card" data-animate="fade-up" data-delay="100">
+            <div class="pc-contact-card__icon-wrapper pc-contact-card__icon-wrapper--secondary">
+              <svg class="pc-contact-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <h2 class="pc-contact-card__title">Location</h2>
+            <p class="pc-contact-card__desc">Based in Waterloo, Ontario, Canada</p>
+            <span class="pc-contact-card__meta">Available for remote collaboration</span>
+          </article>
+          
+          <!-- Response Time Card -->
+          <article class="pc-contact-card" data-animate="fade-up" data-delay="200">
+            <div class="pc-contact-card__icon-wrapper pc-contact-card__icon-wrapper--tertiary">
+              <svg class="pc-contact-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <h2 class="pc-contact-card__title">Response Time</h2>
+            <p class="pc-contact-card__desc">We typically respond within 24-48 hours during weekdays.</p>
+            <span class="pc-contact-card__meta">Educational inquiries prioritized</span>
           </article>
         </div>
       </section>
 
-      <section class="pc-bridge-section" aria-label="Related trust links">
+      <!-- Quick Actions Section -->
+      <section class="pc-bridge-section" aria-label="Related pages" data-animate="fade-up" data-delay="200">
         <h2 class="pc-bridge-title">Related Pages</h2>
-        <ul class="pc-link-list">
-          <li><a href="/about.html">About and credentials</a></li>
-          <li>
-            <a href="/editorial-policy/"
-              >Editorial policy and correction process</a
-            >
-          </li>
-          <li><a href="/pricing/">Pricing and plan details</a></li>
-        </ul>
-        <div class="pc-note-box">
+        <div class="pc-related-grid">
+          <a href="/about.html" class="pc-related-card">
+            <span class="pc-related-card__icon">👤</span>
+            <div class="pc-related-card__content">
+              <h3>About</h3>
+              <p>Learn more about credentials and background</p>
+            </div>
+            <svg class="pc-related-card__arrow" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="/editorial-policy/" class="pc-related-card">
+            <span class="pc-related-card__icon">📋</span>
+            <div class="pc-related-card__content">
+              <h3>Editorial Policy</h3>
+              <p>Content standards and correction process</p>
+            </div>
+            <svg class="pc-related-card__arrow" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="/pricing/" class="pc-related-card">
+            <span class="pc-related-card__icon">💎</span>
+            <div class="pc-related-card__content">
+              <h3>Pricing</h3>
+              <p>Free and premium plan details</p>
+            </div>
+            <svg class="pc-related-card__arrow" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      <!-- Disclaimer -->
+      <section class="pc-bridge-section pc-bridge-section--subtle" data-animate="fade-up">
+        <div class="pc-note-box pc-note-box--subtle">
           <p>
-            Educational only. VetLudics does not provide emergency consultation
-            or patient-specific treatment advice.
+            <strong>Educational only.</strong> VetLudics does not provide emergency consultation
+            or patient-specific treatment advice. For veterinary emergencies, please contact your local
+            emergency clinic or veterinarian immediately.
           </p>
         </div>
       </section>
     </main>
+    
+    <!-- Enhanced Footer -->
+    <footer class="pc-footer pc-footer--enhanced">
+      <div class="pc-footer__grid">
+        <div class="pc-footer__brand">
+          <a class="pc-footer__logo" href="/">
+            <span class="pc-footer__logo-icon">🐾</span>
+            <span>VetLudics</span>
+          </a>
+          <p class="pc-footer__tagline">Smart tools for veterinary excellence.</p>
+        </div>
+        
+        <div class="pc-footer__links-group">
+          <h4 class="pc-footer__heading">Tools</h4>
+          <ul class="pc-footer__links">
+            <li><a href="/tools/">All Calculators</a></li>
+            <li><a href="/reference/">References</a></li>
+          </ul>
+        </div>
+        
+        <div class="pc-footer__links-group">
+          <h4 class="pc-footer__heading">Study</h4>
+          <ul class="pc-footer__links">
+            <li><a href="/study/navle/">NAVLE Hub</a></li>
+            <li><a href="/study/">Study Planner</a></li>
+          </ul>
+        </div>
+        
+        <div class="pc-footer__links-group">
+          <h4 class="pc-footer__heading">Info</h4>
+          <ul class="pc-footer__links">
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="pc-footer__bottom">
+        <div class="pc-footer__legal">
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <a href="/editorial-policy/">Editorial Policy</a>
+        </div>
+        <p class="pc-footer__copyright">© 2025 VetLudics. Not a substitute for professional veterinary advice.</p>
+      </div>
+    </footer>
   </body>
 </html>

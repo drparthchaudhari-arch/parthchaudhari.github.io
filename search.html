@@ -6,7 +6,7 @@
     <meta name="author-status" content="NAVLE-candidate-unlicensed" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
-    <title>Search Veterinary Calculators and NAVLE Resources | VetLudics</title>
+    <title>Search – VetLudics</title>
     <meta
       name="description"
       content="Search veterinary calculators, drug dosing tools, dog/cat resources, and NAVLE learning content across VetLudics."
@@ -16,10 +16,7 @@
       content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
     />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="Search Veterinary Calculators and NAVLE Resources | VetLudics"
-    />
+    <meta property="og:title" content="Search – VetLudics" />
     <meta
       property="og:description"
       content="Find clinical calculators, veterinary drug tools, and study resources quickly."
@@ -29,139 +26,201 @@
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
     <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
+    <link rel="stylesheet" href="/assets/css/page-enhancements.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
     <script src="/assets/js/animations.js" defer></script>
   </head>
   <body class="pc-page pc-page--search">
+    <!-- Toast Container -->
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    
+    <!-- Floating Background Elements -->
+    <div class="pc-floating-elements" aria-hidden="true">
+      <div class="pc-float-shape pc-float-shape--1"></div>
+      <div class="pc-float-shape pc-float-shape--2"></div>
+    </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+    
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
-        <a class="pc-logo" href="/">VetLudics</a>
+        <a class="pc-logo" href="/">
+          <span class="pc-logo__icon">🐾</span>
+          <span class="pc-logo__text">VetLudics</span>
+        </a>
+        
         <div class="pc-nav-group">
-          <a class="pc-nav-link" href="/about.html">About Me</a>
-          <a class="pc-nav-link" href="/play/">Play</a>
-          <a class="pc-nav-link" href="/bridge/">Bridge</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
           <a class="pc-nav-link pc-is-active" href="/search.html">Search</a>
-          <a class="pc-nav-link" href="/study/">Study Plan</a>
-          <a class="pc-nav-link" href="/account/"
-            ><span
-              class="pc-auth-indicator"
-              data-pc-auth-indicator
-              aria-hidden="true"
-              >○</span
-            >Account</a
-          >
-          <button
-            type="button"
-            class="pc-nav-toggle"
-            data-pc-mode-toggle
-            aria-label="Toggle professional or play mode"
-          >
-            <span class="pc-nav-toggle__label" data-pc-mode-label
-              >Mode: Professional</span
-            >
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">
+            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+            <span class="pc-nav-link__text">Account</span>
+          </a>
+          <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+            <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
+            <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
           </button>
-          <button
-            type="button"
-            class="pc-nav-toggle"
-            data-pc-theme-toggle
-            aria-label="Toggle day or night theme"
-          >
-            <span class="pc-nav-toggle__label" data-pc-theme-label
-              >Theme: Day</span
-            >
+          
+          <!-- Mobile Menu Toggle -->
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
+        <div class="pc-mobile-menu__header">
+          <span class="pc-mobile-menu__title">Menu</span>
+          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
+        </div>
+        <nav class="pc-mobile-menu__nav">
+          <a class="pc-mobile-nav-link" href="/play/">
+            <span class="pc-mobile-nav-link__icon">🎮</span>
+            <span class="pc-mobile-nav-link__text">Play</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/bridge/">
+            <span class="pc-mobile-nav-link__icon">🌉</span>
+            <span class="pc-mobile-nav-link__text">Bridge</span>
+          </a>
+          <a class="pc-mobile-nav-link pc-is-active" href="/search.html">
+            <span class="pc-mobile-nav-link__icon">🔍</span>
+            <span class="pc-mobile-nav-link__text">Search</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/study/">
+            <span class="pc-mobile-nav-link__icon">📚</span>
+            <span class="pc-mobile-nav-link__text">Study Plan</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/account/">
+            <span class="pc-mobile-nav-link__icon">👤</span>
+            <span class="pc-mobile-nav-link__text">Account</span>
+          </a>
+        </nav>
+        <div class="pc-mobile-menu__footer">
+          <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
+            <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
+            <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
+            <span>Switch to <span data-pc-theme-label>dark</span> mode</span>
           </button>
         </div>
       </div>
     </nav>
 
     <main id="pc-main" class="pc-search-shell" role="main">
-      <section class="pc-bridge-hero">
+      <!-- Breadcrumb Navigation -->
+      <nav class="pc-breadcrumbs" aria-label="Breadcrumb">
+        <ol class="pc-breadcrumbs__list">
+          <li class="pc-breadcrumbs__item"><a href="/">Home</a></li>
+          <li class="pc-breadcrumbs__item" aria-current="page">Search</li>
+        </ol>
+      </nav>
+      
+      <!-- Hero Section -->
+      <section class="pc-bridge-hero pc-bridge-hero--centered" data-animate="fade-up">
+        <div class="pc-bridge-hero__badge">🔍</div>
         <p class="pc-kicker">Site Search</p>
-        <h1 class="pc-fork-title">Find Cases, Games, and Study Resources</h1>
-        <p class="pc-fork-copy">
-          Search by symptom, species, topic, or game name to jump directly into
-          the right learning asset.
+        <h1 class="pc-fork-title pc-gradient-text">Find What You Need</h1>
+        <p class="pc-fork-copy pc-fork-copy--large">
+          Search across calculators, cases, games, and study resources. 
+          Find the right tool for your clinical or study needs.
         </p>
       </section>
 
-      <section class="pc-search-panel" aria-label="Search tools">
-        <form id="pc-search-form" class="pc-search-form" role="search">
-          <label class="pc-search-label" for="search-input"
-            >Search keyword</label
-          >
-          <input
-            id="search-input"
-            class="pc-search-input"
-            type="search"
-            placeholder="Try: cardio, wordweb, endocrine"
-            autocomplete="off"
-            aria-controls="search-results"
-          />
+      <!-- Search Panel -->
+      <section class="pc-search-panel pc-search-panel--enhanced" aria-label="Search tools" data-animate="fade-up" data-delay="100">
+        <form id="pc-search-form" class="pc-search-form pc-search-form--enhanced" role="search">
+          <div class="pc-search-input-wrapper">
+            <svg class="pc-search-input-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            </svg>
+            <input
+              id="search-input"
+              class="pc-search-input pc-search-input--enhanced"
+              type="search"
+              placeholder="Try: dose calculator, cardiology, emergency drugs..."
+              autocomplete="off"
+              aria-controls="search-results"
+              aria-label="Search keywords"
+            >
+            <kbd class="pc-search-kbd">⌘K</kbd>
+          </div>
         </form>
-        <div
-          class="pc-search-filters"
-          role="toolbar"
-          aria-label="Search filters"
-        >
-          <button
-            type="button"
-            class="pc-filter-chip pc-is-active"
-            data-pc-filter="all"
-            aria-pressed="true"
-          >
-            All
+        
+        <div class="pc-search-filters" role="toolbar" aria-label="Search filters">
+          <button type="button" class="pc-filter-chip pc-is-active" data-pc-filter="all" aria-pressed="true">
+            <span>All</span>
           </button>
-          <button
-            type="button"
-            class="pc-filter-chip"
-            data-pc-filter="case"
-            aria-pressed="false"
-          >
-            Cases
+          <button type="button" class="pc-filter-chip" data-pc-filter="case" aria-pressed="false">
+            <span>📋</span> Cases
           </button>
-          <button
-            type="button"
-            class="pc-filter-chip"
-            data-pc-filter="game"
-            aria-pressed="false"
-          >
-            Games
+          <button type="button" class="pc-filter-chip" data-pc-filter="game" aria-pressed="false">
+            <span>🎮</span> Games
           </button>
-          <button
-            type="button"
-            class="pc-filter-chip"
-            data-pc-filter="resource"
-            aria-pressed="false"
-          >
-            Resources
+          <button type="button" class="pc-filter-chip" data-pc-filter="resource" aria-pressed="false">
+            <span>📚</span> Resources
           </button>
-          <button
-            type="button"
-            class="pc-filter-chip"
-            data-pc-filter="about"
-            aria-pressed="false"
-          >
-            About Me
+          <button type="button" class="pc-filter-chip" data-pc-filter="tool" aria-pressed="false">
+            <span>🛠️</span> Tools
           </button>
         </div>
-        <div
-          id="pc-search-summary"
-          class="pc-search-summary"
-          aria-live="polite"
-        >
-          Type to search. Use arrow keys to navigate results, then press Enter
-          to open.
+        
+        <div id="pc-search-summary" class="pc-search-summary" aria-live="polite">
+          <span class="pc-search-summary__icon">💡</span>
+          <span>Start typing to search. Use arrow keys to navigate results, then press Enter to open.</span>
         </div>
-        <div
-          id="search-results"
-          class="pc-search-results"
-          aria-live="polite"
-        ></div>
+        
+        <div id="search-results" class="pc-search-results pc-search-results--enhanced" aria-live="polite">
+          <!-- Initial suggestions -->
+          <div class="pc-search-suggestions" data-animate="fade-up">
+            <h3 class="pc-search-suggestions__title">Popular Searches</h3>
+            <div class="pc-search-suggestions__grid">
+              <a href="/tools/dose-calculator.html" class="pc-suggestion-chip">
+                <span>💊</span> Dose Calculator
+              </a>
+              <a href="/tools/fluid-calculator.html" class="pc-suggestion-chip">
+                <span>💧</span> Fluid Calculator
+              </a>
+              <a href="/emergency-triage-algorithms/" class="pc-suggestion-chip">
+                <span>🚨</span> Emergency Algorithms
+              </a>
+              <a href="/cardiology-chf-algorithm/" class="pc-suggestion-chip">
+                <span>❤️</span> Cardiology
+              </a>
+              <a href="/study/navle/practice/" class="pc-suggestion-chip">
+                <span>📝</span> NAVLE Practice
+              </a>
+              <a href="/reference/" class="pc-suggestion-chip">
+                <span>📖</span> Reference Library
+              </a>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
+    
+    <!-- Enhanced Footer -->
+    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal">
+      <div class="pc-footer__bottom">
+        <div class="pc-footer__legal">
+          <a href="/">Home</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
+          <a href="/privacy/">Privacy</a>
+        </div>
+        <p class="pc-footer__copyright">© 2025 VetLudics</p>
+      </div>
+    </footer>
+    
     <script src="/assets/js/search.js"></script>
     <script src="/assets/js/search-handler.js"></script>
   </body>
