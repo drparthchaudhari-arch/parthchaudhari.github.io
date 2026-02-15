@@ -437,6 +437,9 @@
   // ==========================================
   
   function init() {
+    // Remove no-js class to indicate JS is working
+    document.body.classList.remove('no-js');
+    
     initMobileMenu();
     initScrollAnimations();
     initSearchShortcut();

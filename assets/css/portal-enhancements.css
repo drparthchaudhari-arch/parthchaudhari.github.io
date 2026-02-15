@@ -1227,11 +1227,22 @@ html {
 /* ----------------------------------------
    15. ANIMATION UTILITIES
    ---------------------------------------- */
+/* Show content immediately if JS is disabled */
+.no-js [data-animate] {
+  opacity: 1;
+  transform: none;
+}
+
 [data-animate] {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
               transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-animate].pc-is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 [data-animate].pc-is-visible {
