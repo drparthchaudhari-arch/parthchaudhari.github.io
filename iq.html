@@ -1,1134 +1,1245 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
-  <title>Personal IQ Challenge | VetLudics</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;700&display=swap');
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
+    <title>Personal IQ Challenge | VetLudics</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;700&display=swap');
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    body {
-      font-family: 'Rajdhani', sans-serif;
-      min-height: 100vh;
-      color: #e8f1ff;
-      background: radial-gradient(circle at 20% 10%, #1b2842 0%, transparent 40%),
-                  radial-gradient(circle at 80% 80%, #2b163d 0%, transparent 40%),
-                  #0b0f19;
-      padding: 1rem;
-    }
+      body {
+        font-family: 'Rajdhani', sans-serif;
+        min-height: 100vh;
+        color: #e8f1ff;
+        background:
+          radial-gradient(circle at 20% 10%, #1b2842 0%, transparent 40%),
+          radial-gradient(circle at 80% 80%, #2b163d 0%, transparent 40%),
+          #0b0f19;
+        padding: 1rem;
+      }
 
-    .container {
-      max-width: 940px;
-      margin: 0 auto;
-    }
+      .container {
+        max-width: 940px;
+        margin: 0 auto;
+      }
 
-    .top-nav {
-      display: flex;
-      justify-content: center;
-      margin: 0.6rem 0 1.3rem;
-    }
+      .top-nav {
+        display: flex;
+        justify-content: center;
+        margin: 0.6rem 0 1.3rem;
+      }
 
-    .home-link {
-      color: #6ff5dc;
-      text-decoration: none;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-    }
+      .home-link {
+        color: #6ff5dc;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+      }
 
-    header {
-      text-align: center;
-      margin-bottom: 1.25rem;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 16px;
-      padding: 1.2rem;
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(6px);
-    }
+      header {
+        text-align: center;
+        margin-bottom: 1.25rem;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 16px;
+        padding: 1.2rem;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(6px);
+      }
 
-    h1 {
-      font-family: 'Orbitron', monospace;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      letter-spacing: 0.08em;
-      background: linear-gradient(45deg, #00d4ff, #89ffbb);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+      h1 {
+        font-family: 'Orbitron', monospace;
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        letter-spacing: 0.08em;
+        background: linear-gradient(45deg, #00d4ff, #89ffbb);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
 
-    .subtitle {
-      margin-top: 0.35rem;
-      color: #9eb2d8;
-      font-size: 1.03rem;
-    }
+      .subtitle {
+        margin-top: 0.35rem;
+        color: #9eb2d8;
+        font-size: 1.03rem;
+      }
 
-    .screen {
-      display: none;
-      animation: fadeIn 0.4s ease;
-    }
+      .screen {
+        display: none;
+        animation: fadeIn 0.4s ease;
+      }
 
-    .screen.active {
-      display: block;
-    }
+      .screen.active {
+        display: block;
+      }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-    .panel {
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 1rem;
-    }
+      .panel {
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 1rem;
+      }
 
-    .intro-text {
-      font-size: 1.04rem;
-      line-height: 1.65;
-      color: #c0cdee;
-      text-align: center;
-    }
+      .intro-text {
+        font-size: 1.04rem;
+        line-height: 1.65;
+        color: #c0cdee;
+        text-align: center;
+      }
 
-    .bullet-grid {
-      margin: 1rem 0;
-      display: grid;
-      gap: 0.7rem;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
+      .bullet-grid {
+        margin: 1rem 0;
+        display: grid;
+        gap: 0.7rem;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
 
-    .bullet-item {
-      border-radius: 10px;
-      background: rgba(0, 212, 255, 0.1);
-      border: 1px solid rgba(0, 212, 255, 0.3);
-      padding: 0.7rem;
-      text-align: center;
-    }
+      .bullet-item {
+        border-radius: 10px;
+        background: rgba(0, 212, 255, 0.1);
+        border: 1px solid rgba(0, 212, 255, 0.3);
+        padding: 0.7rem;
+        text-align: center;
+      }
 
-    .bullet-item strong {
-      display: block;
-      color: #6ff5dc;
-      margin-bottom: 0.2rem;
-      font-size: 0.95rem;
-      letter-spacing: 0.03em;
-    }
+      .bullet-item strong {
+        display: block;
+        color: #6ff5dc;
+        margin-bottom: 0.2rem;
+        font-size: 0.95rem;
+        letter-spacing: 0.03em;
+      }
 
-    .btn {
-      border: none;
-      border-radius: 999px;
-      padding: 0.8rem 1.25rem;
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      width: 100%;
-      max-width: 280px;
-      margin: 0.4rem auto;
-      display: block;
-    }
+      .btn {
+        border: none;
+        border-radius: 999px;
+        padding: 0.8rem 1.25rem;
+        font-size: 0.95rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+        width: 100%;
+        max-width: 280px;
+        margin: 0.4rem auto;
+        display: block;
+      }
 
-    .btn-primary {
-      background: linear-gradient(45deg, #00d4ff, #00ffb3);
-      color: #0b0f19;
-      box-shadow: 0 12px 24px rgba(0, 212, 255, 0.3);
-    }
+      .btn-primary {
+        background: linear-gradient(45deg, #00d4ff, #00ffb3);
+        color: #0b0f19;
+        box-shadow: 0 12px 24px rgba(0, 212, 255, 0.3);
+      }
 
-    .btn-secondary {
-      background: transparent;
-      color: #94d7ff;
-      border: 1px solid rgba(148, 215, 255, 0.45);
-    }
+      .btn-secondary {
+        background: transparent;
+        color: #94d7ff;
+        border: 1px solid rgba(148, 215, 255, 0.45);
+      }
 
-    .btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .status-row {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.55rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .status-item {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 0.55rem;
-      text-align: center;
-    }
-
-    .status-label {
-      font-size: 0.73rem;
-      color: #9db1d8;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .status-value {
-      font-family: 'Orbitron', monospace;
-      font-size: 1.2rem;
-      margin-top: 0.2rem;
-    }
-
-    .progress-track {
-      width: 100%;
-      height: 8px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.12);
-      overflow: hidden;
-      margin-bottom: 0.9rem;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #00d4ff, #00ffb3);
-      width: 0%;
-      transition: width 0.25s ease;
-    }
-
-    .question-panel {
-      background: rgba(0, 0, 0, 0.35);
-      border-radius: 12px;
-      padding: 0.95rem;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      margin-bottom: 0.8rem;
-    }
-
-    .question-type {
-      display: inline-block;
-      border-radius: 999px;
-      padding: 0.18rem 0.75rem;
-      border: 1px solid rgba(0, 212, 255, 0.4);
-      color: #7de4ff;
-      font-size: 0.78rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-      font-weight: 700;
-    }
-
-    .question-text {
-      font-size: 1.2rem;
-      line-height: 1.45;
-      margin-bottom: 0.75rem;
-      font-weight: 600;
-    }
-
-    .question-visual {
-      margin-bottom: 0.65rem;
-      min-height: 46px;
-    }
-
-    .visual-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      justify-content: center;
-    }
-
-    .visual-chip {
-      min-width: 54px;
-      padding: 0.45rem 0.55rem;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      text-align: center;
-      font-size: 1.1rem;
-      font-weight: 700;
-    }
-
-    .options-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.55rem;
-    }
-
-    .option-btn {
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      color: #e8f1ff;
-      padding: 0.7rem;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .option-btn:hover:not(:disabled) {
-      border-color: #6ff5dc;
-      background: rgba(111, 245, 220, 0.13);
-      transform: translateY(-1px);
-    }
-
-    .option-btn:disabled {
-      cursor: not-allowed;
-      opacity: 0.75;
-    }
-
-    .option-btn.correct {
-      border-color: #00ff88;
-      background: rgba(0, 255, 136, 0.2);
-      color: #00ffb0;
-    }
-
-    .option-btn.wrong {
-      border-color: #ff4f8f;
-      background: rgba(255, 79, 143, 0.2);
-      color: #ff7eb0;
-    }
-
-    .result-head {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    .iq-badge {
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      margin: 0.7rem auto;
-      background: conic-gradient(#00d4ff, #00ffb3, #ffdd57, #ff5d9e, #00d4ff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: spin 10s linear infinite;
-    }
-
-    .iq-inner {
-      width: 188px;
-      height: 188px;
-      border-radius: 50%;
-      background: #0b0f19;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      animation: spin 10s linear infinite reverse;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .iq-number {
-      font-family: 'Orbitron', monospace;
-      font-size: 2.7rem;
-      font-weight: 900;
-      color: #7df8ff;
-    }
-
-    .iq-label {
-      color: #9cb2d8;
-      font-size: 0.84rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .summary {
-      margin: 1rem 0;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.13);
-      background: rgba(255, 255, 255, 0.03);
-      padding: 0.7rem;
-    }
-
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 0.7rem;
-      padding: 0.45rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .summary-row:last-child {
-      border-bottom: none;
-    }
-
-    .breakdown {
-      margin: 0.9rem 0;
-      display: grid;
-      gap: 0.55rem;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    }
-
-    .break-item {
-      border-radius: 10px;
-      padding: 0.55rem;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      text-align: center;
-    }
-
-    .break-item strong {
-      display: block;
-      color: #7de4ff;
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.2rem;
-    }
-
-    .result-tag {
-      text-align: center;
-      border-radius: 10px;
-      padding: 0.65rem;
-      margin-top: 0.45rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(0, 212, 255, 0.18);
-      color: #7df8ff;
-    }
-
-    @media (max-width: 700px) {
-      .options-grid {
-        grid-template-columns: 1fr;
+      .btn:hover {
+        transform: translateY(-2px);
       }
 
       .status-row {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.55rem;
+        margin-bottom: 0.8rem;
       }
-    }
-  </style>
+
+      .status-item {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 0.55rem;
+        text-align: center;
+      }
+
+      .status-label {
+        font-size: 0.73rem;
+        color: #9db1d8;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .status-value {
+        font-family: 'Orbitron', monospace;
+        font-size: 1.2rem;
+        margin-top: 0.2rem;
+      }
+
+      .progress-track {
+        width: 100%;
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.12);
+        overflow: hidden;
+        margin-bottom: 0.9rem;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #00d4ff, #00ffb3);
+        width: 0%;
+        transition: width 0.25s ease;
+      }
+
+      .question-panel {
+        background: rgba(0, 0, 0, 0.35);
+        border-radius: 12px;
+        padding: 0.95rem;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        margin-bottom: 0.8rem;
+      }
+
+      .question-type {
+        display: inline-block;
+        border-radius: 999px;
+        padding: 0.18rem 0.75rem;
+        border: 1px solid rgba(0, 212, 255, 0.4);
+        color: #7de4ff;
+        font-size: 0.78rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+      }
+
+      .question-text {
+        font-size: 1.2rem;
+        line-height: 1.45;
+        margin-bottom: 0.75rem;
+        font-weight: 600;
+      }
+
+      .question-visual {
+        margin-bottom: 0.65rem;
+        min-height: 46px;
+      }
+
+      .visual-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        justify-content: center;
+      }
+
+      .visual-chip {
+        min-width: 54px;
+        padding: 0.45rem 0.55rem;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+
+      .options-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.55rem;
+      }
+
+      .option-btn {
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        color: #e8f1ff;
+        padding: 0.7rem;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .option-btn:hover:not(:disabled) {
+        border-color: #6ff5dc;
+        background: rgba(111, 245, 220, 0.13);
+        transform: translateY(-1px);
+      }
+
+      .option-btn:disabled {
+        cursor: not-allowed;
+        opacity: 0.75;
+      }
+
+      .option-btn.correct {
+        border-color: #00ff88;
+        background: rgba(0, 255, 136, 0.2);
+        color: #00ffb0;
+      }
+
+      .option-btn.wrong {
+        border-color: #ff4f8f;
+        background: rgba(255, 79, 143, 0.2);
+        color: #ff7eb0;
+      }
+
+      .result-head {
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+
+      .iq-badge {
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        margin: 0.7rem auto;
+        background: conic-gradient(#00d4ff, #00ffb3, #ffdd57, #ff5d9e, #00d4ff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: spin 10s linear infinite;
+      }
+
+      .iq-inner {
+        width: 188px;
+        height: 188px;
+        border-radius: 50%;
+        background: #0b0f19;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        animation: spin 10s linear infinite reverse;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .iq-number {
+        font-family: 'Orbitron', monospace;
+        font-size: 2.7rem;
+        font-weight: 900;
+        color: #7df8ff;
+      }
+
+      .iq-label {
+        color: #9cb2d8;
+        font-size: 0.84rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .summary {
+        margin: 1rem 0;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.13);
+        background: rgba(255, 255, 255, 0.03);
+        padding: 0.7rem;
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.7rem;
+        padding: 0.45rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .summary-row:last-child {
+        border-bottom: none;
+      }
+
+      .breakdown {
+        margin: 0.9rem 0;
+        display: grid;
+        gap: 0.55rem;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+
+      .break-item {
+        border-radius: 10px;
+        padding: 0.55rem;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        text-align: center;
+      }
+
+      .break-item strong {
+        display: block;
+        color: #7de4ff;
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.2rem;
+      }
+
+      .result-tag {
+        text-align: center;
+        border-radius: 10px;
+        padding: 0.65rem;
+        margin-top: 0.45rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(0, 212, 255, 0.18);
+        color: #7df8ff;
+      }
+
+      @media (max-width: 700px) {
+        .options-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .status-row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body>
-  <div class="container">
-    <div class="top-nav">
-      <a class="home-link" href="index.html">Back to Home</a>
-    </div>
-
-    <header>
-      <h1>Neural Challenge</h1>
-      <p class="subtitle">Dynamic IQ Questions Generated Every Attempt</p>
-    </header>
-
-    <section class="screen active" id="introScreen">
-      <div class="panel">
-        <p class="intro-text">
-          This IQ challenge creates a fresh set of questions every time you start.
-          No fixed question list is reused.
-        </p>
-
-        <div class="bullet-grid">
-          <div class="bullet-item">
-            <strong>15 Questions</strong>
-            Mixed categories
-          </div>
-          <div class="bullet-item">
-            <strong>30 Sec Limit</strong>
-            Per question
-          </div>
-          <div class="bullet-item">
-            <strong>4 Skills</strong>
-            Pattern, numerical, spatial, verbal
-          </div>
-          <div class="bullet-item">
-            <strong>Dynamic Generation</strong>
-            New values each run
-          </div>
-        </div>
-
-        <button class="btn btn-primary" id="startBtn">Start Dynamic IQ Test</button>
+  </head>
+  <body>
+    <div class="container">
+      <div class="top-nav">
+        <a class="home-link" href="index.html">Back to Home</a>
       </div>
-    </section>
 
-    <section class="screen" id="gameScreen">
-      <div class="panel">
-        <div class="status-row">
-          <div class="status-item">
-            <div class="status-label">Question</div>
-            <div class="status-value" id="questionCounter">1 / 15</div>
-          </div>
-          <div class="status-item">
-            <div class="status-label">Score</div>
-            <div class="status-value" id="scoreValue">0</div>
-          </div>
-          <div class="status-item">
-            <div class="status-label">Timer</div>
-            <div class="status-value" id="timerValue">00:30</div>
-          </div>
-        </div>
+      <header>
+        <h1>Neural Challenge</h1>
+        <p class="subtitle">Dynamic IQ Questions Generated Every Attempt</p>
+      </header>
 
-        <div class="progress-track">
-          <div class="progress-fill" id="progressFill"></div>
-        </div>
+      <section class="screen active" id="introScreen">
+        <div class="panel">
+          <p class="intro-text">
+            This IQ challenge creates a fresh set of questions every time you
+            start. No fixed question list is reused.
+          </p>
 
-        <div class="question-panel">
-          <div class="question-type" id="questionType">Pattern</div>
-          <div class="question-text" id="questionText">Loading question...</div>
-          <div class="question-visual" id="questionVisual"></div>
-          <div class="options-grid" id="optionsGrid"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="screen" id="resultScreen">
-      <div class="panel">
-        <div class="result-head">
-          <h2 style="font-family: 'Orbitron', monospace; letter-spacing: 0.08em;">Results</h2>
-          <div class="iq-badge">
-            <div class="iq-inner">
-              <div class="iq-number" id="iqNumber">120</div>
-              <div class="iq-label">Estimated IQ</div>
+          <div class="bullet-grid">
+            <div class="bullet-item">
+              <strong>15 Questions</strong>
+              Mixed categories
+            </div>
+            <div class="bullet-item">
+              <strong>30 Sec Limit</strong>
+              Per question
+            </div>
+            <div class="bullet-item">
+              <strong>4 Skills</strong>
+              Pattern, numerical, spatial, verbal
+            </div>
+            <div class="bullet-item">
+              <strong>Dynamic Generation</strong>
+              New values each run
             </div>
           </div>
+
+          <button class="btn btn-primary" id="startBtn">
+            Start Dynamic IQ Test
+          </button>
         </div>
+      </section>
 
-        <div class="summary">
-          <div class="summary-row"><span>Correct Answers</span><strong id="resultScore">0 / 15</strong></div>
-          <div class="summary-row"><span>Average Response Time</span><strong id="resultAvgTime">0.0s</strong></div>
-          <div class="summary-row"><span>Question Set</span><strong id="resultSetType">Generated Live</strong></div>
+      <section class="screen" id="gameScreen">
+        <div class="panel">
+          <div class="status-row">
+            <div class="status-item">
+              <div class="status-label">Question</div>
+              <div class="status-value" id="questionCounter">1 / 15</div>
+            </div>
+            <div class="status-item">
+              <div class="status-label">Score</div>
+              <div class="status-value" id="scoreValue">0</div>
+            </div>
+            <div class="status-item">
+              <div class="status-label">Timer</div>
+              <div class="status-value" id="timerValue">00:30</div>
+            </div>
+          </div>
+
+          <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+
+          <div class="question-panel">
+            <div class="question-type" id="questionType">Pattern</div>
+            <div class="question-text" id="questionText">
+              Loading question...
+            </div>
+            <div class="question-visual" id="questionVisual"></div>
+            <div class="options-grid" id="optionsGrid"></div>
+          </div>
         </div>
+      </section>
 
-        <div class="breakdown">
-          <div class="break-item"><strong>Pattern</strong><span id="patternPct">0%</span></div>
-          <div class="break-item"><strong>Numerical</strong><span id="numericalPct">0%</span></div>
-          <div class="break-item"><strong>Spatial</strong><span id="spatialPct">0%</span></div>
-          <div class="break-item"><strong>Verbal</strong><span id="verbalPct">0%</span></div>
+      <section class="screen" id="resultScreen">
+        <div class="panel">
+          <div class="result-head">
+            <h2
+              style="font-family: 'Orbitron', monospace; letter-spacing: 0.08em"
+            >
+              Results
+            </h2>
+            <div class="iq-badge">
+              <div class="iq-inner">
+                <div class="iq-number" id="iqNumber">120</div>
+                <div class="iq-label">Estimated IQ</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="summary">
+            <div class="summary-row">
+              <span>Correct Answers</span
+              ><strong id="resultScore">0 / 15</strong>
+            </div>
+            <div class="summary-row">
+              <span>Average Response Time</span
+              ><strong id="resultAvgTime">0.0s</strong>
+            </div>
+            <div class="summary-row">
+              <span>Question Set</span
+              ><strong id="resultSetType">Generated Live</strong>
+            </div>
+          </div>
+
+          <div class="breakdown">
+            <div class="break-item">
+              <strong>Pattern</strong><span id="patternPct">0%</span>
+            </div>
+            <div class="break-item">
+              <strong>Numerical</strong><span id="numericalPct">0%</span>
+            </div>
+            <div class="break-item">
+              <strong>Spatial</strong><span id="spatialPct">0%</span>
+            </div>
+            <div class="break-item">
+              <strong>Verbal</strong><span id="verbalPct">0%</span>
+            </div>
+          </div>
+
+          <div class="result-tag" id="resultTag">Strong</div>
+
+          <button class="btn btn-primary" id="retakeBtn">
+            Generate New Test
+          </button>
+          <button class="btn btn-secondary" id="shareBtn">
+            Copy Result Text
+          </button>
         </div>
-
-        <div class="result-tag" id="resultTag">Strong</div>
-
-        <button class="btn btn-primary" id="retakeBtn">Generate New Test</button>
-        <button class="btn btn-secondary" id="shareBtn">Copy Result Text</button>
-      </div>
-    </section>
-  </div>
-
-  <script>
-    const TOTAL_QUESTIONS = 15;
-    const QUESTION_TIME_LIMIT = 30;
-
-    const startBtn = document.getElementById('startBtn');
-    const introScreen = document.getElementById('introScreen');
-    const gameScreen = document.getElementById('gameScreen');
-    const resultScreen = document.getElementById('resultScreen');
-
-    const questionCounter = document.getElementById('questionCounter');
-    const scoreValue = document.getElementById('scoreValue');
-    const timerValue = document.getElementById('timerValue');
-    const progressFill = document.getElementById('progressFill');
-
-    const questionType = document.getElementById('questionType');
-    const questionText = document.getElementById('questionText');
-    const questionVisual = document.getElementById('questionVisual');
-    const optionsGrid = document.getElementById('optionsGrid');
-
-    const iqNumber = document.getElementById('iqNumber');
-    const resultScore = document.getElementById('resultScore');
-    const resultAvgTime = document.getElementById('resultAvgTime');
-    const resultTag = document.getElementById('resultTag');
-
-    const patternPct = document.getElementById('patternPct');
-    const numericalPct = document.getElementById('numericalPct');
-    const spatialPct = document.getElementById('spatialPct');
-    const verbalPct = document.getElementById('verbalPct');
-
-    const retakeBtn = document.getElementById('retakeBtn');
-    const shareBtn = document.getElementById('shareBtn');
-
-    let questions = [];
-    let currentQuestionIndex = 0;
-    let score = 0;
-    let timeLeft = QUESTION_TIME_LIMIT;
-    let timer = null;
-    let answerLocked = false;
-    let questionStartMs = 0;
-    let totalResponseTime = 0;
-
-    let categoryScores = {
-      pattern: { correct: 0, total: 0 },
-      numerical: { correct: 0, total: 0 },
-      spatial: { correct: 0, total: 0 },
-      verbal: { correct: 0, total: 0 }
-    };
-
-    const categoryLabels = {
-      pattern: 'Pattern',
-      numerical: 'Numerical',
-      spatial: 'Spatial',
-      verbal: 'Verbal'
-    };
-
-    function randomInt(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    function shuffle(arr) {
-      const copy = [...arr];
-      for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copy[i], copy[j]] = [copy[j], copy[i]];
-      }
-      return copy;
-    }
-
-    function makeOptions(correctValue, distractorValues) {
-      const correct = String(correctValue);
-      const unique = [];
-
-      for (const item of distractorValues.map(String)) {
-        if (item !== correct && !unique.includes(item)) {
-          unique.push(item);
-        }
-      }
-
-      const chosenDistractors = shuffle(unique).slice(0, 3);
-      const finalOptions = shuffle([correct, ...chosenDistractors]);
-
-      while (finalOptions.length < 4) {
-        const extra = String(randomInt(2, 200));
-        if (!finalOptions.includes(extra)) {
-          finalOptions.push(extra);
-        }
-      }
-
-      return {
-        options: finalOptions,
-        correctIndex: finalOptions.indexOf(correct)
-      };
-    }
-
-    function getRandomDifferentItem(list, excludedValues) {
-      const blocked = new Set(excludedValues.map(String));
-      const candidates = list.filter(item => !blocked.has(String(item)));
-      return candidates[Math.floor(Math.random() * candidates.length)];
-    }
-
-    /* ==================== QUESTION GENERATORS ==================== */
-    function generatePatternArithmetic() {
-      const start = randomInt(2, 30);
-      const step = randomInt(2, 9);
-      const seq = [start, start + step, start + (step * 2), start + (step * 3)];
-      const correct = start + (step * 4);
-
-      const { options, correctIndex } = makeOptions(correct, [
-        correct - step,
-        correct + step,
-        correct + (step * 2),
-        correct - (step * 2)
-      ]);
-
-      return {
-        type: 'Pattern',
-        category: 'pattern',
-        text: 'Find the next number in this sequence.',
-        visual: [...seq.map(String), '?'],
-        options,
-        correct: correctIndex
-      };
-    }
-
-    function generatePatternGeometric() {
-      const start = randomInt(2, 6);
-      const ratio = randomInt(2, 3);
-      const seq = [start, start * ratio, start * ratio * ratio, start * ratio * ratio * ratio];
-      const correct = seq[3] * ratio;
-
-      const { options, correctIndex } = makeOptions(correct, [
-        correct + start,
-        correct - start,
-        correct + ratio,
-        correct - ratio
-      ]);
-
-      return {
-        type: 'Pattern',
-        category: 'pattern',
-        text: 'Complete this growth pattern.',
-        visual: [...seq.map(String), '?'],
-        options,
-        correct: correctIndex
-      };
-    }
-
-    function generatePatternLetters() {
-      const jump = randomInt(2, 3);
-      const startCode = randomInt(65, 90 - (jump * 4));
-      const seq = [0, 1, 2, 3].map(i => String.fromCharCode(startCode + (jump * i)));
-      const correct = String.fromCharCode(startCode + (jump * 4));
-
-      const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-      const distractors = [
-        letters[Math.max(0, letters.indexOf(correct) - 1)],
-        letters[Math.min(25, letters.indexOf(correct) + 1)],
-        letters[Math.max(0, letters.indexOf(correct) - jump)]
-      ];
-
-      const allOptions = shuffle([correct, ...distractors.filter(Boolean)]).slice(0, 4);
-      while (allOptions.length < 4) {
-        const extra = letters[randomInt(0, 25)];
-        if (!allOptions.includes(extra)) allOptions.push(extra);
-      }
-
-      return {
-        type: 'Pattern',
-        category: 'pattern',
-        text: 'Choose the next letter in the sequence.',
-        visual: [...seq, '?'],
-        options: allOptions,
-        correct: allOptions.indexOf(correct)
-      };
-    }
-
-    function generateNumericalEquation() {
-      const a = randomInt(2, 15);
-      const b = randomInt(2, 15);
-      const c = randomInt(2, 8);
-      const correct = (a + b) * c;
-
-      const { options, correctIndex } = makeOptions(correct, [
-        (a * b) + c,
-        (a + b) + c,
-        correct + b,
-        correct - c
-      ]);
-
-      return {
-        type: 'Numerical',
-        category: 'numerical',
-        text: 'Calculate the value of the expression.',
-        visual: [`(${a} + ${b}) x ${c} = ?`],
-        options,
-        correct: correctIndex
-      };
-    }
-
-    function generateNumericalPercent() {
-      const percentOptions = [10, 20, 25, 50, 75];
-      const percent = percentOptions[randomInt(0, percentOptions.length - 1)];
-      const base = randomInt(4, 40) * 4;
-      const correct = (base * percent) / 100;
-
-      const { options, correctIndex } = makeOptions(correct, [
-        correct + randomInt(2, 15),
-        correct - randomInt(1, 8),
-        Math.round(base / 2),
-        Math.round(base / 4)
-      ]);
-
-      return {
-        type: 'Numerical',
-        category: 'numerical',
-        text: `What is ${percent}% of ${base}?`,
-        visual: null,
-        options,
-        correct: correctIndex
-      };
-    }
-
-    function generateNumericalRatio() {
-      const unit = randomInt(3, 15);
-      const q1 = randomInt(2, 8);
-      let q2 = randomInt(3, 12);
-      if (q2 === q1) q2 += 1;
-
-      const cost1 = unit * q1;
-      const correct = unit * q2;
-
-      const { options, correctIndex } = makeOptions(correct, [
-        cost1 + q2,
-        cost1 + unit,
-        unit + q1 + q2,
-        correct - unit
-      ]);
-
-      return {
-        type: 'Numerical',
-        category: 'numerical',
-        text: `${q1} notebooks cost $${cost1}. At the same rate, what is the cost of ${q2} notebooks?`,
-        visual: null,
-        options: options.map(v => `$${v}`),
-        correct: options.indexOf(String(correct))
-      };
-    }
-
-    function rotateArrow(arrow, turns) {
-      const order = ['↑', '→', '↓', '←'];
-      const diagOrder = ['↗', '↘', '↙', '↖'];
-
-      if (order.includes(arrow)) {
-        const idx = order.indexOf(arrow);
-        return order[(idx + turns) % 4];
-      }
-
-      const idx = diagOrder.indexOf(arrow);
-      return diagOrder[(idx + turns) % 4];
-    }
-
-    function generateSpatialRotation() {
-      const allArrows = ['↑', '→', '↓', '←', '↗', '↘', '↙', '↖'];
-      const arrow = allArrows[randomInt(0, allArrows.length - 1)];
-      const turns = randomInt(1, 3);
-      const degrees = turns * 90;
-      const correct = rotateArrow(arrow, turns);
-
-      const distractors = shuffle(allArrows.filter(v => v !== correct)).slice(0, 3);
-      const options = shuffle([correct, ...distractors]);
-
-      return {
-        type: 'Spatial',
-        category: 'spatial',
-        text: `Rotate the symbol ${degrees}° clockwise.`,
-        visual: [arrow],
-        options,
-        correct: options.indexOf(correct)
-      };
-    }
-
-    function generateSpatialMirror() {
-      const mirrorPairs = {
-        '(': ')',
-        '<': '>',
-        '/': '\\',
-        '↗': '↖',
-        '↘': '↙',
-        '{': '}'
-      };
-
-      const keys = Object.keys(mirrorPairs);
-      const source = keys[randomInt(0, keys.length - 1)];
-      const correct = mirrorPairs[source];
-
-      const allValues = Object.values(mirrorPairs);
-      const distractors = shuffle(allValues.filter(v => v !== correct)).slice(0, 3);
-      const options = shuffle([correct, ...distractors]);
-
-      return {
-        type: 'Spatial',
-        category: 'spatial',
-        text: 'Select the mirror image (left-right reflection).',
-        visual: [source],
-        options,
-        correct: options.indexOf(correct)
-      };
-    }
-
-    function generateSpatialGridCount() {
-      const rows = randomInt(2, 8);
-      const cols = randomInt(2, 8);
-      const correct = rows * cols;
-
-      const { options, correctIndex } = makeOptions(correct, [
-        correct + rows,
-        correct + cols,
-        correct - rows,
-        correct - cols
-      ]);
-
-      return {
-        type: 'Spatial',
-        category: 'spatial',
-        text: `How many small cells are in a ${rows} x ${cols} grid?`,
-        visual: [`${rows} x ${cols}`],
-        options,
-        correct: correctIndex
-      };
-    }
-
-    function generateVerbalAnalogy() {
-      const pairs = [
-        ['Bird', 'Nest'], ['Bee', 'Hive'], ['Fish', 'Water'], ['Doctor', 'Hospital'],
-        ['Painter', 'Brush'], ['Writer', 'Pen'], ['Chef', 'Kitchen'], ['Pilot', 'Cockpit'],
-        ['Farmer', 'Field'], ['Teacher', 'Classroom'], ['Singer', 'Stage'], ['Driver', 'Road']
-      ];
-
-      const pairA = pairs[randomInt(0, pairs.length - 1)];
-      let pairB = pairs[randomInt(0, pairs.length - 1)];
-      while (pairB[0] === pairA[0]) {
-        pairB = pairs[randomInt(0, pairs.length - 1)];
-      }
-
-      const correct = pairB[1];
-      const distractors = shuffle(pairs.map(p => p[1]).filter(v => v !== correct)).slice(0, 3);
-      const options = shuffle([correct, ...distractors]);
-
-      return {
-        type: 'Verbal',
-        category: 'verbal',
-        text: `${pairA[0]} is to ${pairA[1]} as ${pairB[0]} is to ?`,
-        visual: null,
-        options,
-        correct: options.indexOf(correct)
-      };
-    }
-
-    function generateVerbalAnagram() {
-      const words = [
-        'BRAIN', 'LOGIC', 'THINK', 'REASON', 'MEMORY', 'PUZZLE',
-        'MIND', 'FOCUS', 'LEARN', 'SKILL', 'SMART', 'SOLVE'
-      ];
-
-      const word = words[randomInt(0, words.length - 1)];
-      let scrambled = shuffle(word.split('')).join('');
-
-      while (scrambled === word) {
-        scrambled = shuffle(word.split('')).join('');
-      }
-
-      const distractors = shuffle(words.filter(w => w !== word)).slice(0, 3);
-      const options = shuffle([word, ...distractors]);
-
-      return {
-        type: 'Verbal',
-        category: 'verbal',
-        text: `Unscramble this word: ${scrambled}`,
-        visual: null,
-        options,
-        correct: options.indexOf(word)
-      };
-    }
-
-    function generateVerbalOddOneOut() {
-      const groups = {
-        fruits: ['Apple', 'Banana', 'Orange', 'Grape', 'Mango', 'Pear'],
-        animals: ['Tiger', 'Lion', 'Wolf', 'Fox', 'Bear', 'Horse'],
-        colors: ['Red', 'Blue', 'Green', 'Yellow', 'Purple', 'Orange'],
-        planets: ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn'],
-        tools: ['Hammer', 'Saw', 'Wrench', 'Drill', 'Pliers', 'Chisel']
-      };
-
-      const groupNames = Object.keys(groups);
-      const mainGroup = groupNames[randomInt(0, groupNames.length - 1)];
-      let oddGroup = groupNames[randomInt(0, groupNames.length - 1)];
-
-      while (oddGroup === mainGroup) {
-        oddGroup = groupNames[randomInt(0, groupNames.length - 1)];
-      }
-
-      const mainItems = shuffle(groups[mainGroup]).slice(0, 3);
-      const oddItem = groups[oddGroup][randomInt(0, groups[oddGroup].length - 1)];
-      const options = shuffle([...mainItems, oddItem]);
-
-      return {
-        type: 'Verbal',
-        category: 'verbal',
-        text: 'Which word does not belong with the others?',
-        visual: null,
-        options,
-        correct: options.indexOf(oddItem)
-      };
-    }
-
-    const generators = {
-      pattern: [generatePatternArithmetic, generatePatternGeometric, generatePatternLetters],
-      numerical: [generateNumericalEquation, generateNumericalPercent, generateNumericalRatio],
-      spatial: [generateSpatialRotation, generateSpatialMirror, generateSpatialGridCount],
-      verbal: [generateVerbalAnalogy, generateVerbalAnagram, generateVerbalOddOneOut]
-    };
-
-    function generateQuestionSet(total) {
-      const categories = ['pattern', 'numerical', 'spatial', 'verbal'];
-      const list = [];
-
-      for (let i = 0; i < total; i++) {
-        const category = categories[i % categories.length];
-        const categoryGenerators = generators[category];
-        const question = categoryGenerators[randomInt(0, categoryGenerators.length - 1)]();
-        list.push(question);
-      }
-
-      return shuffle(list);
-    }
-
-    function resetState() {
-      questions = generateQuestionSet(TOTAL_QUESTIONS);
-      currentQuestionIndex = 0;
-      score = 0;
-      timeLeft = QUESTION_TIME_LIMIT;
-      totalResponseTime = 0;
-      answerLocked = false;
-      scoreValue.textContent = '0';
-
-      categoryScores = {
+      </section>
+    </div>
+
+    <script>
+      const TOTAL_QUESTIONS = 15
+      const QUESTION_TIME_LIMIT = 30
+
+      const startBtn = document.getElementById('startBtn')
+      const introScreen = document.getElementById('introScreen')
+      const gameScreen = document.getElementById('gameScreen')
+      const resultScreen = document.getElementById('resultScreen')
+
+      const questionCounter = document.getElementById('questionCounter')
+      const scoreValue = document.getElementById('scoreValue')
+      const timerValue = document.getElementById('timerValue')
+      const progressFill = document.getElementById('progressFill')
+
+      const questionType = document.getElementById('questionType')
+      const questionText = document.getElementById('questionText')
+      const questionVisual = document.getElementById('questionVisual')
+      const optionsGrid = document.getElementById('optionsGrid')
+
+      const iqNumber = document.getElementById('iqNumber')
+      const resultScore = document.getElementById('resultScore')
+      const resultAvgTime = document.getElementById('resultAvgTime')
+      const resultTag = document.getElementById('resultTag')
+
+      const patternPct = document.getElementById('patternPct')
+      const numericalPct = document.getElementById('numericalPct')
+      const spatialPct = document.getElementById('spatialPct')
+      const verbalPct = document.getElementById('verbalPct')
+
+      const retakeBtn = document.getElementById('retakeBtn')
+      const shareBtn = document.getElementById('shareBtn')
+
+      let questions = []
+      let currentQuestionIndex = 0
+      let score = 0
+      let timeLeft = QUESTION_TIME_LIMIT
+      let timer = null
+      let answerLocked = false
+      let questionStartMs = 0
+      let totalResponseTime = 0
+
+      let categoryScores = {
         pattern: { correct: 0, total: 0 },
         numerical: { correct: 0, total: 0 },
         spatial: { correct: 0, total: 0 },
-        verbal: { correct: 0, total: 0 }
-      };
-    }
-
-    function switchScreen(fromEl, toEl) {
-      fromEl.classList.remove('active');
-      toEl.classList.add('active');
-    }
-
-    function formatTimer(seconds) {
-      return `00:${seconds.toString().padStart(2, '0')}`;
-    }
-
-    function renderQuestion() {
-      if (currentQuestionIndex >= questions.length) {
-        finishTest();
-        return;
+        verbal: { correct: 0, total: 0 },
       }
 
-      const q = questions[currentQuestionIndex];
-      answerLocked = false;
-      questionStartMs = Date.now();
-      timeLeft = QUESTION_TIME_LIMIT;
-      timerValue.textContent = formatTimer(timeLeft);
-      timerValue.style.color = '#7de4ff';
-
-      questionCounter.textContent = `${currentQuestionIndex + 1} / ${TOTAL_QUESTIONS}`;
-      progressFill.style.width = `${(currentQuestionIndex / TOTAL_QUESTIONS) * 100}%`;
-
-      questionType.textContent = q.type;
-      questionText.textContent = q.text;
-
-      questionVisual.innerHTML = '';
-      if (q.visual && Array.isArray(q.visual)) {
-        const row = document.createElement('div');
-        row.className = 'visual-row';
-        q.visual.forEach(item => {
-          const chip = document.createElement('div');
-          chip.className = 'visual-chip';
-          chip.textContent = item;
-          row.appendChild(chip);
-        });
-        questionVisual.appendChild(row);
+      const categoryLabels = {
+        pattern: 'Pattern',
+        numerical: 'Numerical',
+        spatial: 'Spatial',
+        verbal: 'Verbal',
       }
 
-      optionsGrid.innerHTML = '';
-      q.options.forEach((option, index) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'option-btn';
-        btn.textContent = option;
-        btn.addEventListener('click', () => answerQuestion(index));
-        optionsGrid.appendChild(btn);
-      });
+      function randomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min
+      }
 
-      clearInterval(timer);
-      timer = setInterval(() => {
-        timeLeft--;
-        timerValue.textContent = formatTimer(timeLeft);
+      function shuffle(arr) {
+        const copy = [...arr]
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1))
+          ;[copy[i], copy[j]] = [copy[j], copy[i]]
+        }
+        return copy
+      }
 
-        if (timeLeft <= 8) {
-          timerValue.style.color = '#ff7eb0';
+      function makeOptions(correctValue, distractorValues) {
+        const correct = String(correctValue)
+        const unique = []
+
+        for (const item of distractorValues.map(String)) {
+          if (item !== correct && !unique.includes(item)) {
+            unique.push(item)
+          }
         }
 
-        if (timeLeft <= 0) {
-          answerQuestion(-1);
+        const chosenDistractors = shuffle(unique).slice(0, 3)
+        const finalOptions = shuffle([correct, ...chosenDistractors])
+
+        while (finalOptions.length < 4) {
+          const extra = String(randomInt(2, 200))
+          if (!finalOptions.includes(extra)) {
+            finalOptions.push(extra)
+          }
         }
-      }, 1000);
-    }
 
-    function answerQuestion(selectedIndex) {
-      if (answerLocked) return;
-      answerLocked = true;
-
-      clearInterval(timer);
-
-      const q = questions[currentQuestionIndex];
-      const elapsed = Math.min(QUESTION_TIME_LIMIT, (Date.now() - questionStartMs) / 1000);
-      totalResponseTime += elapsed;
-
-      categoryScores[q.category].total += 1;
-
-      const buttons = optionsGrid.querySelectorAll('.option-btn');
-      buttons.forEach((btn, index) => {
-        btn.disabled = true;
-        if (index === q.correct) {
-          btn.classList.add('correct');
+        return {
+          options: finalOptions,
+          correctIndex: finalOptions.indexOf(correct),
         }
-      });
-
-      if (selectedIndex === q.correct) {
-        score++;
-        scoreValue.textContent = String(score);
-        categoryScores[q.category].correct += 1;
-      } else if (selectedIndex >= 0 && buttons[selectedIndex]) {
-        buttons[selectedIndex].classList.add('wrong');
       }
 
-      setTimeout(() => {
-        currentQuestionIndex++;
-        renderQuestion();
-      }, 700);
-    }
-
-    function safePercent(correct, total) {
-      if (!total) return 0;
-      return Math.round((correct / total) * 100);
-    }
-
-    function finishTest() {
-      progressFill.style.width = '100%';
-      switchScreen(gameScreen, resultScreen);
-
-      const avgTime = totalResponseTime / TOTAL_QUESTIONS;
-      let iq = 88 + (score * 4);
-
-      if (avgTime <= 8) iq += 8;
-      else if (avgTime <= 14) iq += 4;
-      else if (avgTime >= 24) iq -= 5;
-
-      iq = Math.max(80, Math.min(160, Math.round(iq)));
-
-      iqNumber.textContent = String(iq);
-      resultScore.textContent = `${score} / ${TOTAL_QUESTIONS}`;
-      resultAvgTime.textContent = `${avgTime.toFixed(1)}s`;
-
-      const patternValue = safePercent(categoryScores.pattern.correct, categoryScores.pattern.total);
-      const numericalValue = safePercent(categoryScores.numerical.correct, categoryScores.numerical.total);
-      const spatialValue = safePercent(categoryScores.spatial.correct, categoryScores.spatial.total);
-      const verbalValue = safePercent(categoryScores.verbal.correct, categoryScores.verbal.total);
-
-      patternPct.textContent = `${patternValue}%`;
-      numericalPct.textContent = `${numericalValue}%`;
-      spatialPct.textContent = `${spatialValue}%`;
-      verbalPct.textContent = `${verbalValue}%`;
-
-      if (score >= 13) {
-        resultTag.textContent = 'Exceptional Performance';
-      } else if (score >= 10) {
-        resultTag.textContent = 'Strong Performance';
-      } else if (score >= 7) {
-        resultTag.textContent = 'Good Base, Keep Training';
-      } else {
-        resultTag.textContent = 'Practice More for Better Precision';
+      function getRandomDifferentItem(list, excludedValues) {
+        const blocked = new Set(excludedValues.map(String))
+        const candidates = list.filter((item) => !blocked.has(String(item)))
+        return candidates[Math.floor(Math.random() * candidates.length)]
       }
-    }
 
-    function startTest() {
-      resetState();
-      switchScreen(introScreen, gameScreen);
-      renderQuestion();
-    }
+      /* ==================== QUESTION GENERATORS ==================== */
+      function generatePatternArithmetic() {
+        const start = randomInt(2, 30)
+        const step = randomInt(2, 9)
+        const seq = [start, start + step, start + step * 2, start + step * 3]
+        const correct = start + step * 4
 
-    function copyResult() {
-      const text = `I scored ${iqNumber.textContent} in a dynamically generated IQ challenge (${score}/${TOTAL_QUESTIONS}).`;
+        const { options, correctIndex } = makeOptions(correct, [
+          correct - step,
+          correct + step,
+          correct + step * 2,
+          correct - step * 2,
+        ])
 
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text)
-          .then(() => alert('Result copied to clipboard.'))
-          .catch(() => alert(text));
-      } else {
-        alert(text);
+        return {
+          type: 'Pattern',
+          category: 'pattern',
+          text: 'Find the next number in this sequence.',
+          visual: [...seq.map(String), '?'],
+          options,
+          correct: correctIndex,
+        }
       }
-    }
 
-    startBtn.addEventListener('click', startTest);
-    retakeBtn.addEventListener('click', () => {
-      switchScreen(resultScreen, gameScreen);
-      startTest();
-    });
-    shareBtn.addEventListener('click', copyResult);
-  </script>
-</body>
+      function generatePatternGeometric() {
+        const start = randomInt(2, 6)
+        const ratio = randomInt(2, 3)
+        const seq = [
+          start,
+          start * ratio,
+          start * ratio * ratio,
+          start * ratio * ratio * ratio,
+        ]
+        const correct = seq[3] * ratio
+
+        const { options, correctIndex } = makeOptions(correct, [
+          correct + start,
+          correct - start,
+          correct + ratio,
+          correct - ratio,
+        ])
+
+        return {
+          type: 'Pattern',
+          category: 'pattern',
+          text: 'Complete this growth pattern.',
+          visual: [...seq.map(String), '?'],
+          options,
+          correct: correctIndex,
+        }
+      }
+
+      function generatePatternLetters() {
+        const jump = randomInt(2, 3)
+        const startCode = randomInt(65, 90 - jump * 4)
+        const seq = [0, 1, 2, 3].map((i) =>
+          String.fromCharCode(startCode + jump * i)
+        )
+        const correct = String.fromCharCode(startCode + jump * 4)
+
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
+        const distractors = [
+          letters[Math.max(0, letters.indexOf(correct) - 1)],
+          letters[Math.min(25, letters.indexOf(correct) + 1)],
+          letters[Math.max(0, letters.indexOf(correct) - jump)],
+        ]
+
+        const allOptions = shuffle([
+          correct,
+          ...distractors.filter(Boolean),
+        ]).slice(0, 4)
+        while (allOptions.length < 4) {
+          const extra = letters[randomInt(0, 25)]
+          if (!allOptions.includes(extra)) allOptions.push(extra)
+        }
+
+        return {
+          type: 'Pattern',
+          category: 'pattern',
+          text: 'Choose the next letter in the sequence.',
+          visual: [...seq, '?'],
+          options: allOptions,
+          correct: allOptions.indexOf(correct),
+        }
+      }
+
+      function generateNumericalEquation() {
+        const a = randomInt(2, 15)
+        const b = randomInt(2, 15)
+        const c = randomInt(2, 8)
+        const correct = (a + b) * c
+
+        const { options, correctIndex } = makeOptions(correct, [
+          a * b + c,
+          a + b + c,
+          correct + b,
+          correct - c,
+        ])
+
+        return {
+          type: 'Numerical',
+          category: 'numerical',
+          text: 'Calculate the value of the expression.',
+          visual: [`(${a} + ${b}) x ${c} = ?`],
+          options,
+          correct: correctIndex,
+        }
+      }
+
+      function generateNumericalPercent() {
+        const percentOptions = [10, 20, 25, 50, 75]
+        const percent = percentOptions[randomInt(0, percentOptions.length - 1)]
+        const base = randomInt(4, 40) * 4
+        const correct = (base * percent) / 100
+
+        const { options, correctIndex } = makeOptions(correct, [
+          correct + randomInt(2, 15),
+          correct - randomInt(1, 8),
+          Math.round(base / 2),
+          Math.round(base / 4),
+        ])
+
+        return {
+          type: 'Numerical',
+          category: 'numerical',
+          text: `What is ${percent}% of ${base}?`,
+          visual: null,
+          options,
+          correct: correctIndex,
+        }
+      }
+
+      function generateNumericalRatio() {
+        const unit = randomInt(3, 15)
+        const q1 = randomInt(2, 8)
+        let q2 = randomInt(3, 12)
+        if (q2 === q1) q2 += 1
+
+        const cost1 = unit * q1
+        const correct = unit * q2
+
+        const { options, correctIndex } = makeOptions(correct, [
+          cost1 + q2,
+          cost1 + unit,
+          unit + q1 + q2,
+          correct - unit,
+        ])
+
+        return {
+          type: 'Numerical',
+          category: 'numerical',
+          text: `${q1} notebooks cost $${cost1}. At the same rate, what is the cost of ${q2} notebooks?`,
+          visual: null,
+          options: options.map((v) => `$${v}`),
+          correct: options.indexOf(String(correct)),
+        }
+      }
+
+      function rotateArrow(arrow, turns) {
+        const order = ['↑', '→', '↓', '←']
+        const diagOrder = ['↗', '↘', '↙', '↖']
+
+        if (order.includes(arrow)) {
+          const idx = order.indexOf(arrow)
+          return order[(idx + turns) % 4]
+        }
+
+        const idx = diagOrder.indexOf(arrow)
+        return diagOrder[(idx + turns) % 4]
+      }
+
+      function generateSpatialRotation() {
+        const allArrows = ['↑', '→', '↓', '←', '↗', '↘', '↙', '↖']
+        const arrow = allArrows[randomInt(0, allArrows.length - 1)]
+        const turns = randomInt(1, 3)
+        const degrees = turns * 90
+        const correct = rotateArrow(arrow, turns)
+
+        const distractors = shuffle(
+          allArrows.filter((v) => v !== correct)
+        ).slice(0, 3)
+        const options = shuffle([correct, ...distractors])
+
+        return {
+          type: 'Spatial',
+          category: 'spatial',
+          text: `Rotate the symbol ${degrees}° clockwise.`,
+          visual: [arrow],
+          options,
+          correct: options.indexOf(correct),
+        }
+      }
+
+      function generateSpatialMirror() {
+        const mirrorPairs = {
+          '(': ')',
+          '<': '>',
+          '/': '\\',
+          '↗': '↖',
+          '↘': '↙',
+          '{': '}',
+        }
+
+        const keys = Object.keys(mirrorPairs)
+        const source = keys[randomInt(0, keys.length - 1)]
+        const correct = mirrorPairs[source]
+
+        const allValues = Object.values(mirrorPairs)
+        const distractors = shuffle(
+          allValues.filter((v) => v !== correct)
+        ).slice(0, 3)
+        const options = shuffle([correct, ...distractors])
+
+        return {
+          type: 'Spatial',
+          category: 'spatial',
+          text: 'Select the mirror image (left-right reflection).',
+          visual: [source],
+          options,
+          correct: options.indexOf(correct),
+        }
+      }
+
+      function generateSpatialGridCount() {
+        const rows = randomInt(2, 8)
+        const cols = randomInt(2, 8)
+        const correct = rows * cols
+
+        const { options, correctIndex } = makeOptions(correct, [
+          correct + rows,
+          correct + cols,
+          correct - rows,
+          correct - cols,
+        ])
+
+        return {
+          type: 'Spatial',
+          category: 'spatial',
+          text: `How many small cells are in a ${rows} x ${cols} grid?`,
+          visual: [`${rows} x ${cols}`],
+          options,
+          correct: correctIndex,
+        }
+      }
+
+      function generateVerbalAnalogy() {
+        const pairs = [
+          ['Bird', 'Nest'],
+          ['Bee', 'Hive'],
+          ['Fish', 'Water'],
+          ['Doctor', 'Hospital'],
+          ['Painter', 'Brush'],
+          ['Writer', 'Pen'],
+          ['Chef', 'Kitchen'],
+          ['Pilot', 'Cockpit'],
+          ['Farmer', 'Field'],
+          ['Teacher', 'Classroom'],
+          ['Singer', 'Stage'],
+          ['Driver', 'Road'],
+        ]
+
+        const pairA = pairs[randomInt(0, pairs.length - 1)]
+        let pairB = pairs[randomInt(0, pairs.length - 1)]
+        while (pairB[0] === pairA[0]) {
+          pairB = pairs[randomInt(0, pairs.length - 1)]
+        }
+
+        const correct = pairB[1]
+        const distractors = shuffle(
+          pairs.map((p) => p[1]).filter((v) => v !== correct)
+        ).slice(0, 3)
+        const options = shuffle([correct, ...distractors])
+
+        return {
+          type: 'Verbal',
+          category: 'verbal',
+          text: `${pairA[0]} is to ${pairA[1]} as ${pairB[0]} is to ?`,
+          visual: null,
+          options,
+          correct: options.indexOf(correct),
+        }
+      }
+
+      function generateVerbalAnagram() {
+        const words = [
+          'BRAIN',
+          'LOGIC',
+          'THINK',
+          'REASON',
+          'MEMORY',
+          'PUZZLE',
+          'MIND',
+          'FOCUS',
+          'LEARN',
+          'SKILL',
+          'SMART',
+          'SOLVE',
+        ]
+
+        const word = words[randomInt(0, words.length - 1)]
+        let scrambled = shuffle(word.split('')).join('')
+
+        while (scrambled === word) {
+          scrambled = shuffle(word.split('')).join('')
+        }
+
+        const distractors = shuffle(words.filter((w) => w !== word)).slice(0, 3)
+        const options = shuffle([word, ...distractors])
+
+        return {
+          type: 'Verbal',
+          category: 'verbal',
+          text: `Unscramble this word: ${scrambled}`,
+          visual: null,
+          options,
+          correct: options.indexOf(word),
+        }
+      }
+
+      function generateVerbalOddOneOut() {
+        const groups = {
+          fruits: ['Apple', 'Banana', 'Orange', 'Grape', 'Mango', 'Pear'],
+          animals: ['Tiger', 'Lion', 'Wolf', 'Fox', 'Bear', 'Horse'],
+          colors: ['Red', 'Blue', 'Green', 'Yellow', 'Purple', 'Orange'],
+          planets: ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn'],
+          tools: ['Hammer', 'Saw', 'Wrench', 'Drill', 'Pliers', 'Chisel'],
+        }
+
+        const groupNames = Object.keys(groups)
+        const mainGroup = groupNames[randomInt(0, groupNames.length - 1)]
+        let oddGroup = groupNames[randomInt(0, groupNames.length - 1)]
+
+        while (oddGroup === mainGroup) {
+          oddGroup = groupNames[randomInt(0, groupNames.length - 1)]
+        }
+
+        const mainItems = shuffle(groups[mainGroup]).slice(0, 3)
+        const oddItem =
+          groups[oddGroup][randomInt(0, groups[oddGroup].length - 1)]
+        const options = shuffle([...mainItems, oddItem])
+
+        return {
+          type: 'Verbal',
+          category: 'verbal',
+          text: 'Which word does not belong with the others?',
+          visual: null,
+          options,
+          correct: options.indexOf(oddItem),
+        }
+      }
+
+      const generators = {
+        pattern: [
+          generatePatternArithmetic,
+          generatePatternGeometric,
+          generatePatternLetters,
+        ],
+        numerical: [
+          generateNumericalEquation,
+          generateNumericalPercent,
+          generateNumericalRatio,
+        ],
+        spatial: [
+          generateSpatialRotation,
+          generateSpatialMirror,
+          generateSpatialGridCount,
+        ],
+        verbal: [
+          generateVerbalAnalogy,
+          generateVerbalAnagram,
+          generateVerbalOddOneOut,
+        ],
+      }
+
+      function generateQuestionSet(total) {
+        const categories = ['pattern', 'numerical', 'spatial', 'verbal']
+        const list = []
+
+        for (let i = 0; i < total; i++) {
+          const category = categories[i % categories.length]
+          const categoryGenerators = generators[category]
+          const question =
+            categoryGenerators[randomInt(0, categoryGenerators.length - 1)]()
+          list.push(question)
+        }
+
+        return shuffle(list)
+      }
+
+      function resetState() {
+        questions = generateQuestionSet(TOTAL_QUESTIONS)
+        currentQuestionIndex = 0
+        score = 0
+        timeLeft = QUESTION_TIME_LIMIT
+        totalResponseTime = 0
+        answerLocked = false
+        scoreValue.textContent = '0'
+
+        categoryScores = {
+          pattern: { correct: 0, total: 0 },
+          numerical: { correct: 0, total: 0 },
+          spatial: { correct: 0, total: 0 },
+          verbal: { correct: 0, total: 0 },
+        }
+      }
+
+      function switchScreen(fromEl, toEl) {
+        fromEl.classList.remove('active')
+        toEl.classList.add('active')
+      }
+
+      function formatTimer(seconds) {
+        return `00:${seconds.toString().padStart(2, '0')}`
+      }
+
+      function renderQuestion() {
+        if (currentQuestionIndex >= questions.length) {
+          finishTest()
+          return
+        }
+
+        const q = questions[currentQuestionIndex]
+        answerLocked = false
+        questionStartMs = Date.now()
+        timeLeft = QUESTION_TIME_LIMIT
+        timerValue.textContent = formatTimer(timeLeft)
+        timerValue.style.color = '#7de4ff'
+
+        questionCounter.textContent = `${currentQuestionIndex + 1} / ${TOTAL_QUESTIONS}`
+        progressFill.style.width = `${(currentQuestionIndex / TOTAL_QUESTIONS) * 100}%`
+
+        questionType.textContent = q.type
+        questionText.textContent = q.text
+
+        questionVisual.innerHTML = ''
+        if (q.visual && Array.isArray(q.visual)) {
+          const row = document.createElement('div')
+          row.className = 'visual-row'
+          q.visual.forEach((item) => {
+            const chip = document.createElement('div')
+            chip.className = 'visual-chip'
+            chip.textContent = item
+            row.appendChild(chip)
+          })
+          questionVisual.appendChild(row)
+        }
+
+        optionsGrid.innerHTML = ''
+        q.options.forEach((option, index) => {
+          const btn = document.createElement('button')
+          btn.type = 'button'
+          btn.className = 'option-btn'
+          btn.textContent = option
+          btn.addEventListener('click', () => answerQuestion(index))
+          optionsGrid.appendChild(btn)
+        })
+
+        clearInterval(timer)
+        timer = setInterval(() => {
+          timeLeft--
+          timerValue.textContent = formatTimer(timeLeft)
+
+          if (timeLeft <= 8) {
+            timerValue.style.color = '#ff7eb0'
+          }
+
+          if (timeLeft <= 0) {
+            answerQuestion(-1)
+          }
+        }, 1000)
+      }
+
+      function answerQuestion(selectedIndex) {
+        if (answerLocked) return
+        answerLocked = true
+
+        clearInterval(timer)
+
+        const q = questions[currentQuestionIndex]
+        const elapsed = Math.min(
+          QUESTION_TIME_LIMIT,
+          (Date.now() - questionStartMs) / 1000
+        )
+        totalResponseTime += elapsed
+
+        categoryScores[q.category].total += 1
+
+        const buttons = optionsGrid.querySelectorAll('.option-btn')
+        buttons.forEach((btn, index) => {
+          btn.disabled = true
+          if (index === q.correct) {
+            btn.classList.add('correct')
+          }
+        })
+
+        if (selectedIndex === q.correct) {
+          score++
+          scoreValue.textContent = String(score)
+          categoryScores[q.category].correct += 1
+        } else if (selectedIndex >= 0 && buttons[selectedIndex]) {
+          buttons[selectedIndex].classList.add('wrong')
+        }
+
+        setTimeout(() => {
+          currentQuestionIndex++
+          renderQuestion()
+        }, 700)
+      }
+
+      function safePercent(correct, total) {
+        if (!total) return 0
+        return Math.round((correct / total) * 100)
+      }
+
+      function finishTest() {
+        progressFill.style.width = '100%'
+        switchScreen(gameScreen, resultScreen)
+
+        const avgTime = totalResponseTime / TOTAL_QUESTIONS
+        let iq = 88 + score * 4
+
+        if (avgTime <= 8) iq += 8
+        else if (avgTime <= 14) iq += 4
+        else if (avgTime >= 24) iq -= 5
+
+        iq = Math.max(80, Math.min(160, Math.round(iq)))
+
+        iqNumber.textContent = String(iq)
+        resultScore.textContent = `${score} / ${TOTAL_QUESTIONS}`
+        resultAvgTime.textContent = `${avgTime.toFixed(1)}s`
+
+        const patternValue = safePercent(
+          categoryScores.pattern.correct,
+          categoryScores.pattern.total
+        )
+        const numericalValue = safePercent(
+          categoryScores.numerical.correct,
+          categoryScores.numerical.total
+        )
+        const spatialValue = safePercent(
+          categoryScores.spatial.correct,
+          categoryScores.spatial.total
+        )
+        const verbalValue = safePercent(
+          categoryScores.verbal.correct,
+          categoryScores.verbal.total
+        )
+
+        patternPct.textContent = `${patternValue}%`
+        numericalPct.textContent = `${numericalValue}%`
+        spatialPct.textContent = `${spatialValue}%`
+        verbalPct.textContent = `${verbalValue}%`
+
+        if (score >= 13) {
+          resultTag.textContent = 'Exceptional Performance'
+        } else if (score >= 10) {
+          resultTag.textContent = 'Strong Performance'
+        } else if (score >= 7) {
+          resultTag.textContent = 'Good Base, Keep Training'
+        } else {
+          resultTag.textContent = 'Practice More for Better Precision'
+        }
+      }
+
+      function startTest() {
+        resetState()
+        switchScreen(introScreen, gameScreen)
+        renderQuestion()
+      }
+
+      function copyResult() {
+        const text = `I scored ${iqNumber.textContent} in a dynamically generated IQ challenge (${score}/${TOTAL_QUESTIONS}).`
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard
+            .writeText(text)
+            .then(() => alert('Result copied to clipboard.'))
+            .catch(() => alert(text))
+        } else {
+          alert(text)
+        }
+      }
+
+      startBtn.addEventListener('click', startTest)
+      retakeBtn.addEventListener('click', () => {
+        switchScreen(resultScreen, gameScreen)
+        startTest()
+      })
+      shareBtn.addEventListener('click', copyResult)
+    </script>
+  </body>
 </html>

@@ -1,1261 +1,1439 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Tic Tac Toe: Nexus - Ultimate Edition</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        :root {
-            --primary: #6c5ce7;
-            --secondary: #a29bfe;
-            --accent: #fd79a8;
-            --dark: #2d3436;
-            --light: #dfe6e9;
-            --success: #00b894;
-            --danger: #d63031;
-            --warning: #fdcb6e;
-        }
+      :root {
+        --primary: #6c5ce7;
+        --secondary: #a29bfe;
+        --accent: #fd79a8;
+        --dark: #2d3436;
+        --light: #dfe6e9;
+        --success: #00b894;
+        --danger: #d63031;
+        --warning: #fdcb6e;
+      }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: white;
-            overflow-x: hidden;
-        }
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        color: white;
+        overflow-x: hidden;
+      }
 
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 30px;
+        position: relative;
+      }
+
+      h1 {
+        font-size: 3em;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        margin-bottom: 10px;
+        background: linear-gradient(to right, #fff, #a29bfe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .subtitle {
+        opacity: 0.9;
+        font-size: 1.2em;
+      }
+
+      .main-menu {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .game-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 25px;
+        cursor: pointer;
+        transition: all 0.3s;
+        border: 2px solid transparent;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .game-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--accent);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .game-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .game-card:hover::before {
+        opacity: 1;
+      }
+
+      .card-icon {
+        font-size: 3em;
+        margin-bottom: 15px;
+      }
+
+      .card-title {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .card-desc {
+        font-size: 0.9em;
+        opacity: 0.8;
+        line-height: 1.4;
+      }
+
+      .tag {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.7em;
+        font-weight: bold;
+        margin-top: 10px;
+        background: var(--accent);
+      }
+
+      .tag.new {
+        background: var(--success);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      .game-area {
+        display: none;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 20px;
+        padding: 30px;
+        backdrop-filter: blur(10px);
+      }
+
+      .game-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .back-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: all 0.3s;
+      }
+
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateX(-5px);
+      }
+
+      .status-bar {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        font-size: 1.2em;
+      }
+
+      .player-indicator {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        transition: all 0.3s;
+      }
+
+      .player-indicator.active {
+        background: var(--success);
+        box-shadow: 0 0 20px rgba(0, 184, 148, 0.5);
+      }
+
+      .board-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 400px;
+        position: relative;
+      }
+
+      #game-board {
+        display: grid;
+        gap: 8px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        position: relative;
+        transition: transform 0.5s;
+      }
+
+      .cell {
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        color: var(--dark);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cell:hover:not(.taken) {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        background: white;
+      }
+
+      .cell.taken {
+        cursor: not-allowed;
+      }
+
+      .cell.x {
+        color: #e74c3c;
+        animation: placeMark 0.5s;
+      }
+
+      .cell.o {
+        color: #3498db;
+        animation: placeMark 0.5s;
+      }
+
+      .cell.winning {
+        background: var(--success);
+        color: white;
+        animation: winPulse 1s infinite;
+      }
+
+      @keyframes placeMark {
+        0% {
+          transform: scale(0) rotate(0deg);
+        }
+        50% {
+          transform: scale(1.2) rotate(180deg);
+        }
+        100% {
+          transform: scale(1) rotate(360deg);
+        }
+      }
+
+      @keyframes winPulse {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 20px var(--success);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 0 40px var(--success);
+        }
+      }
+
+      /* Special Effects */
+      .cell.fire {
+        background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+        color: white;
+        animation: flicker 0.5s infinite alternate;
+      }
+
+      @keyframes flicker {
+        0% {
+          box-shadow: 0 0 10px #ff6b6b;
+        }
+        100% {
+          box-shadow:
+            0 0 30px #ee5a6f,
+            0 0 50px #ff6b6b;
+        }
+      }
+
+      .cell.ice {
+        background: linear-gradient(135deg, #74b9ff, #0984e3);
+        color: white;
+        animation: freeze 2s infinite;
+      }
+
+      @keyframes freeze {
+        0%,
+        100% {
+          box-shadow: 0 0 10px #74b9ff;
+        }
+        50% {
+          box-shadow: 0 0 30px #0984e3;
+        }
+      }
+
+      .cell.memory-fade {
+        opacity: 0.1;
+        transition: opacity 2s;
+      }
+
+      .controls {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 10px;
+        font-size: 1em;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 2px solid transparent;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn-primary {
+        background: var(--primary);
+      }
+
+      .btn-warning {
+        background: var(--warning);
+        color: var(--dark);
+      }
+
+      .btn-danger {
+        background: var(--danger);
+      }
+
+      .difficulty-selector {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        justify-content: center;
+      }
+
+      .diff-btn {
+        padding: 8px 16px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        background: transparent;
+        color: white;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .diff-btn.active {
+        background: white;
+        color: var(--primary);
+        border-color: white;
+      }
+
+      /* Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(5px);
+      }
+
+      .modal-content {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        animation: modalPop 0.3s;
+      }
+
+      @keyframes modalPop {
+        0% {
+          transform: scale(0.5);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .modal h2 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+      }
+
+      .modal p {
+        font-size: 1.2em;
+        margin-bottom: 30px;
+        opacity: 0.9;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin: 20px 0;
+      }
+
+      .stat-item {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 15px;
+        border-radius: 10px;
+      }
+
+      .stat-value {
+        font-size: 2em;
+        font-weight: bold;
+        color: var(--accent);
+      }
+
+      .chaos-indicator {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(255, 0, 0, 0.8);
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-weight: bold;
+        display: none;
+        animation: chaosPulse 1s infinite;
+      }
+
+      @keyframes chaosPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+
+      .gravity-arrow {
+        position: absolute;
+        left: -40px;
+        font-size: 2em;
+        animation: bounce 1s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 2em;
+        }
+        .cell {
+          width: 60px;
+          height: 60px;
+          font-size: 2em;
+        }
+        .main-menu {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 420px) {
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+          padding: 12px;
         }
 
         header {
-            text-align: center;
-            margin-bottom: 30px;
-            position: relative;
+          margin-bottom: 16px;
         }
 
         h1 {
-            font-size: 3em;
-            text-shadow: 0 0 20px rgba(255,255,255,0.5);
-            margin-bottom: 10px;
-            background: linear-gradient(to right, #fff, #a29bfe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+          font-size: 1.6em;
         }
 
         .subtitle {
-            opacity: 0.9;
-            font-size: 1.2em;
+          font-size: 0.95em;
         }
 
         .main-menu {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+          gap: 12px;
         }
 
         .game-card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 25px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .game-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .game-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .game-card:hover::before {
-            opacity: 1;
+          padding: 15px;
+          border-radius: 14px;
         }
 
         .card-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
+          font-size: 2em;
+          margin-bottom: 10px;
         }
 
         .card-title {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .card-desc {
-            font-size: 0.9em;
-            opacity: 0.8;
-            line-height: 1.4;
-        }
-
-        .tag {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.7em;
-            font-weight: bold;
-            margin-top: 10px;
-            background: var(--accent);
-        }
-
-        .tag.new {
-            background: var(--success);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+          font-size: 1.1em;
         }
 
         .game-area {
-            display: none;
-            background: rgba(0,0,0,0.3);
-            border-radius: 20px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-        }
-
-        .game-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .back-btn {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s;
-        }
-
-        .back-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateX(-5px);
+          padding: 14px;
+          border-radius: 14px;
         }
 
         .status-bar {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            font-size: 1.2em;
+          gap: 8px;
+          font-size: 0.95em;
+          flex-direction: column;
+          align-items: stretch;
+          width: 100%;
         }
 
         .player-indicator {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            transition: all 0.3s;
-        }
-
-        .player-indicator.active {
-            background: var(--success);
-            box-shadow: 0 0 20px rgba(0,184,148,0.5);
-        }
-
-        .board-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 400px;
-            position: relative;
+          justify-content: center;
+          padding: 8px 10px;
         }
 
         #game-board {
-            display: grid;
-            gap: 8px;
-            padding: 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            position: relative;
-            transition: transform 0.5s;
+          gap: 6px;
+          padding: 12px;
         }
 
         .cell {
-            width: 80px;
-            height: 80px;
-            background: rgba(255,255,255,0.9);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            color: var(--dark);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cell:hover:not(.taken) {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            background: white;
-        }
-
-        .cell.taken {
-            cursor: not-allowed;
-        }
-
-        .cell.x {
-            color: #e74c3c;
-            animation: placeMark 0.5s;
-        }
-
-        .cell.o {
-            color: #3498db;
-            animation: placeMark 0.5s;
-        }
-
-        .cell.winning {
-            background: var(--success);
-            color: white;
-            animation: winPulse 1s infinite;
-        }
-
-        @keyframes placeMark {
-            0% { transform: scale(0) rotate(0deg); }
-            50% { transform: scale(1.2) rotate(180deg); }
-            100% { transform: scale(1) rotate(360deg); }
-        }
-
-        @keyframes winPulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 20px var(--success); }
-            50% { transform: scale(1.05); box-shadow: 0 0 40px var(--success); }
-        }
-
-        /* Special Effects */
-        .cell.fire {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
-            color: white;
-            animation: flicker 0.5s infinite alternate;
-        }
-
-        @keyframes flicker {
-            0% { box-shadow: 0 0 10px #ff6b6b; }
-            100% { box-shadow: 0 0 30px #ee5a6f, 0 0 50px #ff6b6b; }
-        }
-
-        .cell.ice {
-            background: linear-gradient(135deg, #74b9ff, #0984e3);
-            color: white;
-            animation: freeze 2s infinite;
-        }
-
-        @keyframes freeze {
-            0%, 100% { box-shadow: 0 0 10px #74b9ff; }
-            50% { box-shadow: 0 0 30px #0984e3; }
-        }
-
-        .cell.memory-fade {
-            opacity: 0.1;
-            transition: opacity 2s;
+          width: 52px;
+          height: 52px;
+          font-size: 1.55em;
+          border-radius: 9px;
         }
 
         .controls {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
+          gap: 8px;
         }
 
         .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 2px solid transparent;
+          padding: 10px 12px;
+          font-size: 0.88em;
         }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .btn-primary {
-            background: var(--primary);
-        }
-
-        .btn-warning {
-            background: var(--warning);
-            color: var(--dark);
-        }
-
-        .btn-danger {
-            background: var(--danger);
-        }
-
-        .difficulty-selector {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            justify-content: center;
-        }
-
-        .diff-btn {
-            padding: 8px 16px;
-            border: 2px solid rgba(255,255,255,0.3);
-            background: transparent;
-            color: white;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .diff-btn.active {
-            background: white;
-            color: var(--primary);
-            border-color: white;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            animation: modalPop 0.3s;
-        }
-
-        @keyframes modalPop {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .modal h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-
-        .modal p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .stat-item {
-            background: rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 10px;
-        }
-
-        .stat-value {
-            font-size: 2em;
-            font-weight: bold;
-            color: var(--accent);
-        }
-
-        .chaos-indicator {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,0,0,0.8);
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            display: none;
-            animation: chaosPulse 1s infinite;
-        }
-
-        @keyframes chaosPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .gravity-arrow {
-            position: absolute;
-            left: -40px;
-            font-size: 2em;
-            animation: bounce 1s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @media (max-width: 600px) {
-            h1 { font-size: 2em; }
-            .cell { width: 60px; height: 60px; font-size: 2em; }
-            .main-menu { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 420px) {
-            .container {
-                padding: 12px;
-            }
-
-            header {
-                margin-bottom: 16px;
-            }
-
-            h1 {
-                font-size: 1.6em;
-            }
-
-            .subtitle {
-                font-size: 0.95em;
-            }
-
-            .main-menu {
-                gap: 12px;
-            }
-
-            .game-card {
-                padding: 15px;
-                border-radius: 14px;
-            }
-
-            .card-icon {
-                font-size: 2em;
-                margin-bottom: 10px;
-            }
-
-            .card-title {
-                font-size: 1.1em;
-            }
-
-            .game-area {
-                padding: 14px;
-                border-radius: 14px;
-            }
-
-            .status-bar {
-                gap: 8px;
-                font-size: 0.95em;
-                flex-direction: column;
-                align-items: stretch;
-                width: 100%;
-            }
-
-            .player-indicator {
-                justify-content: center;
-                padding: 8px 10px;
-            }
-
-            #game-board {
-                gap: 6px;
-                padding: 12px;
-            }
-
-            .cell {
-                width: 52px;
-                height: 52px;
-                font-size: 1.55em;
-                border-radius: 9px;
-            }
-
-            .controls {
-                gap: 8px;
-            }
-
-            .btn {
-                padding: 10px 12px;
-                font-size: 0.88em;
-            }
-        }
+      }
     </style>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <header>
-            <h1>🎮 TIC TAC TOE: NEXUS</h1>
-            <p class="subtitle">The Ultimate Tic Tac Toe Experience</p>
-        </header>
+      <header>
+        <h1>🎮 TIC TAC TOE: NEXUS</h1>
+        <p class="subtitle">The Ultimate Tic Tac Toe Experience</p>
+      </header>
 
-        <!-- Main Menu -->
-        <div id="main-menu" class="main-menu">
-            <div class="game-card" onclick="selectMode('classic')">
-                <div class="card-icon">⭕</div>
-                <div class="card-title">Classic Mode</div>
-                <div class="card-desc">Traditional 3x3 with standard rules. Perfect for quick matches!</div>
-                <span class="tag">Standard</span>
-            </div>
-
-            <div class="game-card" onclick="selectMode('ultimate')">
-                <div class="card-icon">🎯</div>
-                <div class="card-title">Ultimate TTT</div>
-                <div class="card-desc">Nested 3x3 boards. Win small boards to claim the big board!</div>
-                <span class="tag">Strategic</span>
-            </div>
-
-            <div class="game-card" onclick="selectMode('chaos')">
-                <div class="card-icon">🌀</div>
-                <div class="card-title">Chaos Mode</div>
-                <div class="card-desc">Board rotates 90° every 3 moves! Cells randomly swap. Pure madness!</div>
-                <span class="tag new">UNIQUE</span>
-            </div>
-
-            <div class="game-card" onclick="selectMode('memory')">
-                <div class="card-icon">🧠</div>
-                <div class="card-title">Memory Mode</div>
-                <div class="card-desc">Your marks fade after 5 seconds. Test your memory!</div>
-                <span class="tag new">UNIQUE</span>
-            </div>
-
-            <div class="game-card" onclick="selectMode('gravity')">
-                <div class="card-icon">🌍</div>
-                <div class="card-title">Gravity Mode</div>
-                <div class="card-desc">Pieces fall to the bottom. Connect 4 meets Tic Tac Toe!</div>
-                <span class="tag new">UNIQUE</span>
-            </div>
-
-            <div class="game-card" onclick="selectMode('elemental')">
-                <div class="card-icon">⚡</div>
-                <div class="card-title">Elemental Battle</div>
-                <div class="card-desc">Fire spreads, Ice blocks, Lightning clears rows!</div>
-                <span class="tag new">UNIQUE</span>
-            </div>
-
-            <div class="game-card" onclick="selectMode('gomoku')">
-                <div class="card-icon">⚫</div>
-                <div class="card-title">Gomoku (5-in-a-row)</div>
-                <div class="card-desc">15x15 board. First to get 5 in a row wins!</div>
-                <span class="tag">Classic</span>
-            </div>
-
-            <div class="game-card" onclick="selectMode('misere')">
-                <div class="card-icon">🎭</div>
-                <div class="card-title">Misère (Reverse)</div>
-                <div class="card-desc">Force your opponent to make 3 in a row. Strategy inverted!</div>
-                <span class="tag">Mind Bend</span>
-            </div>
-
-            <div class="game-card" onclick="showStats()">
-                <div class="card-icon">📊</div>
-                <div class="card-title">Statistics</div>
-                <div class="card-desc">Track your wins, win rates, and favorite modes.</div>
-                <span class="tag">Stats</span>
-            </div>
+      <!-- Main Menu -->
+      <div id="main-menu" class="main-menu">
+        <div class="game-card" onclick="selectMode('classic')">
+          <div class="card-icon">⭕</div>
+          <div class="card-title">Classic Mode</div>
+          <div class="card-desc">
+            Traditional 3x3 with standard rules. Perfect for quick matches!
+          </div>
+          <span class="tag">Standard</span>
         </div>
 
-        <!-- Game Area -->
-        <div id="game-area" class="game-area">
-            <div class="game-header">
-                <button class="back-btn" onclick="backToMenu()">← Back to Menu</button>
-                <div class="status-bar">
-                    <div class="player-indicator active" id="p1-indicator">
-                        <span>❌ Player 1</span>
-                    </div>
-                    <div class="player-indicator" id="p2-indicator">
-                        <span>⭕ Player 2/AI</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="difficulty-selector" id="difficulty-selector">
-                <button class="diff-btn active" onclick="setDifficulty('easy')">Easy</button>
-                <button class="diff-btn" onclick="setDifficulty('medium')">Medium</button>
-                <button class="diff-btn" onclick="setDifficulty('hard')">Hard</button>
-                <button class="diff-btn" onclick="setDifficulty('impossible')">Impossible</button>
-            </div>
-
-            <div class="board-container">
-                <div class="gravity-arrow" id="gravity-arrow" style="display: none;">⬇️</div>
-                <div class="chaos-indicator" id="chaos-indicator">🌀 CHAOS INCOMING!</div>
-                <div id="game-board"></div>
-            </div>
-
-            <div class="controls">
-                <button class="btn btn-warning" onclick="undoMove()">↩️ Undo</button>
-                <button class="btn btn-primary" onclick="resetGame()">🔄 New Game</button>
-                <button class="btn btn-danger" onclick="backToMenu()">🏠 Menu</button>
-            </div>
-
-            <div id="elemental-controls" style="display: none; margin-top: 15px; text-align: center;">
-                <p style="margin-bottom: 10px;">Select Element:</p>
-                <button class="btn" style="background: #e74c3c;" onclick="setElement('fire')">🔥 Fire</button>
-                <button class="btn" style="background: #3498db;" onclick="setElement('ice')">❄️ Ice</button>
-                <button class="btn" style="background: #f39c12;" onclick="setElement('lightning')">⚡ Lightning</button>
-            </div>
+        <div class="game-card" onclick="selectMode('ultimate')">
+          <div class="card-icon">🎯</div>
+          <div class="card-title">Ultimate TTT</div>
+          <div class="card-desc">
+            Nested 3x3 boards. Win small boards to claim the big board!
+          </div>
+          <span class="tag">Strategic</span>
         </div>
+
+        <div class="game-card" onclick="selectMode('chaos')">
+          <div class="card-icon">🌀</div>
+          <div class="card-title">Chaos Mode</div>
+          <div class="card-desc">
+            Board rotates 90° every 3 moves! Cells randomly swap. Pure madness!
+          </div>
+          <span class="tag new">UNIQUE</span>
+        </div>
+
+        <div class="game-card" onclick="selectMode('memory')">
+          <div class="card-icon">🧠</div>
+          <div class="card-title">Memory Mode</div>
+          <div class="card-desc">
+            Your marks fade after 5 seconds. Test your memory!
+          </div>
+          <span class="tag new">UNIQUE</span>
+        </div>
+
+        <div class="game-card" onclick="selectMode('gravity')">
+          <div class="card-icon">🌍</div>
+          <div class="card-title">Gravity Mode</div>
+          <div class="card-desc">
+            Pieces fall to the bottom. Connect 4 meets Tic Tac Toe!
+          </div>
+          <span class="tag new">UNIQUE</span>
+        </div>
+
+        <div class="game-card" onclick="selectMode('elemental')">
+          <div class="card-icon">⚡</div>
+          <div class="card-title">Elemental Battle</div>
+          <div class="card-desc">
+            Fire spreads, Ice blocks, Lightning clears rows!
+          </div>
+          <span class="tag new">UNIQUE</span>
+        </div>
+
+        <div class="game-card" onclick="selectMode('gomoku')">
+          <div class="card-icon">⚫</div>
+          <div class="card-title">Gomoku (5-in-a-row)</div>
+          <div class="card-desc">
+            15x15 board. First to get 5 in a row wins!
+          </div>
+          <span class="tag">Classic</span>
+        </div>
+
+        <div class="game-card" onclick="selectMode('misere')">
+          <div class="card-icon">🎭</div>
+          <div class="card-title">Misère (Reverse)</div>
+          <div class="card-desc">
+            Force your opponent to make 3 in a row. Strategy inverted!
+          </div>
+          <span class="tag">Mind Bend</span>
+        </div>
+
+        <div class="game-card" onclick="showStats()">
+          <div class="card-icon">📊</div>
+          <div class="card-title">Statistics</div>
+          <div class="card-desc">
+            Track your wins, win rates, and favorite modes.
+          </div>
+          <span class="tag">Stats</span>
+        </div>
+      </div>
+
+      <!-- Game Area -->
+      <div id="game-area" class="game-area">
+        <div class="game-header">
+          <button class="back-btn" onclick="backToMenu()">
+            ← Back to Menu
+          </button>
+          <div class="status-bar">
+            <div class="player-indicator active" id="p1-indicator">
+              <span>❌ Player 1</span>
+            </div>
+            <div class="player-indicator" id="p2-indicator">
+              <span>⭕ Player 2/AI</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="difficulty-selector" id="difficulty-selector">
+          <button class="diff-btn active" onclick="setDifficulty('easy')">
+            Easy
+          </button>
+          <button class="diff-btn" onclick="setDifficulty('medium')">
+            Medium
+          </button>
+          <button class="diff-btn" onclick="setDifficulty('hard')">Hard</button>
+          <button class="diff-btn" onclick="setDifficulty('impossible')">
+            Impossible
+          </button>
+        </div>
+
+        <div class="board-container">
+          <div class="gravity-arrow" id="gravity-arrow" style="display: none">
+            ⬇️
+          </div>
+          <div class="chaos-indicator" id="chaos-indicator">
+            🌀 CHAOS INCOMING!
+          </div>
+          <div id="game-board"></div>
+        </div>
+
+        <div class="controls">
+          <button class="btn btn-warning" onclick="undoMove()">↩️ Undo</button>
+          <button class="btn btn-primary" onclick="resetGame()">
+            🔄 New Game
+          </button>
+          <button class="btn btn-danger" onclick="backToMenu()">🏠 Menu</button>
+        </div>
+
+        <div
+          id="elemental-controls"
+          style="display: none; margin-top: 15px; text-align: center"
+        >
+          <p style="margin-bottom: 10px">Select Element:</p>
+          <button
+            class="btn"
+            style="background: #e74c3c"
+            onclick="setElement('fire')"
+          >
+            🔥 Fire
+          </button>
+          <button
+            class="btn"
+            style="background: #3498db"
+            onclick="setElement('ice')"
+          >
+            ❄️ Ice
+          </button>
+          <button
+            class="btn"
+            style="background: #f39c12"
+            onclick="setElement('lightning')"
+          >
+            ⚡ Lightning
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Game Over Modal -->
     <div class="modal" id="game-over-modal">
-        <div class="modal-content">
-            <h2 id="winner-text">Player X Wins!</h2>
-            <p id="game-stats">Game Statistics</p>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-value" id="stat-moves">0</div>
-                    <div>Total Moves</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="stat-time">0:00</div>
-                    <div>Time</div>
-                </div>
-            </div>
-            <button class="btn btn-primary" onclick="closeModal(); resetGame();" style="margin-top: 20px;">Play Again</button>
-            <button class="btn" onclick="closeModal(); backToMenu();" style="margin-left: 10px;">Main Menu</button>
+      <div class="modal-content">
+        <h2 id="winner-text">Player X Wins!</h2>
+        <p id="game-stats">Game Statistics</p>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-value" id="stat-moves">0</div>
+            <div>Total Moves</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="stat-time">0:00</div>
+            <div>Time</div>
+          </div>
         </div>
+        <button
+          class="btn btn-primary"
+          onclick="
+            closeModal()
+            resetGame()
+          "
+          style="margin-top: 20px"
+        >
+          Play Again
+        </button>
+        <button
+          class="btn"
+          onclick="
+            closeModal()
+            backToMenu()
+          "
+          style="margin-left: 10px"
+        >
+          Main Menu
+        </button>
+      </div>
     </div>
 
     <!-- Stats Modal -->
     <div class="modal" id="stats-modal">
-        <div class="modal-content">
-            <h2>📊 Your Statistics</h2>
-            <div class="stats-grid" id="full-stats">
-                <!-- Populated by JS -->
-            </div>
-            <button class="btn btn-primary" onclick="closeModal()">Close</button>
+      <div class="modal-content">
+        <h2>📊 Your Statistics</h2>
+        <div class="stats-grid" id="full-stats">
+          <!-- Populated by JS -->
         </div>
+        <button class="btn btn-primary" onclick="closeModal()">Close</button>
+      </div>
     </div>
 
     <script>
-        // Game State
-        let currentMode = 'classic';
-        let currentPlayer = 'x';
-        let gameBoard = [];
-        let gameActive = false;
-        let boardSize = 3;
-        let moves = [];
-        let moveCount = 0;
-        let startTime;
-        let timerInterval;
-        let difficulty = 'easy';
-        let currentElement = 'fire';
-        let chaosCounter = 0;
-        let memoryTimer = null;
+      // Game State
+      let currentMode = 'classic'
+      let currentPlayer = 'x'
+      let gameBoard = []
+      let gameActive = false
+      let boardSize = 3
+      let moves = []
+      let moveCount = 0
+      let startTime
+      let timerInterval
+      let difficulty = 'easy'
+      let currentElement = 'fire'
+      let chaosCounter = 0
+      let memoryTimer = null
 
-        // Statistics
-        let stats = {
-            classic: { played: 0, won: 0 },
-            ultimate: { played: 0, won: 0 },
-            chaos: { played: 0, won: 0 },
-            memory: { played: 0, won: 0 },
-            gravity: { played: 0, won: 0 },
-            elemental: { played: 0, won: 0 },
-            gomoku: { played: 0, won: 0 },
-            misere: { played: 0, won: 0 }
-        };
+      // Statistics
+      let stats = {
+        classic: { played: 0, won: 0 },
+        ultimate: { played: 0, won: 0 },
+        chaos: { played: 0, won: 0 },
+        memory: { played: 0, won: 0 },
+        gravity: { played: 0, won: 0 },
+        elemental: { played: 0, won: 0 },
+        gomoku: { played: 0, won: 0 },
+        misere: { played: 0, won: 0 },
+      }
 
-        // Load stats from localStorage
-        function loadStats() {
-            const saved = localStorage.getItem('tictactoe-nexus-stats');
-            if (saved) stats = JSON.parse(saved);
+      // Load stats from localStorage
+      function loadStats() {
+        const saved = localStorage.getItem('tictactoe-nexus-stats')
+        if (saved) stats = JSON.parse(saved)
+      }
+
+      function saveStats() {
+        localStorage.setItem('tictactoe-nexus-stats', JSON.stringify(stats))
+      }
+
+      function selectMode(mode) {
+        if (mode === 'stats') {
+          showStats()
+          return
+        }
+        currentMode = mode
+        document.getElementById('main-menu').style.display = 'none'
+        document.getElementById('game-area').style.display = 'block'
+
+        // Configure based on mode
+        if (mode === 'gomoku') {
+          boardSize = 15
+          document.getElementById('difficulty-selector').style.display = 'none'
+        } else if (mode === 'ultimate') {
+          boardSize = 9 // 3x3 of 3x3
+          document.getElementById('difficulty-selector').style.display = 'flex'
+        } else {
+          boardSize = 3
+          document.getElementById('difficulty-selector').style.display = 'flex'
         }
 
-        function saveStats() {
-            localStorage.setItem('tictactoe-nexus-stats', JSON.stringify(stats));
+        if (mode === 'elemental') {
+          document.getElementById('elemental-controls').style.display = 'block'
+        } else {
+          document.getElementById('elemental-controls').style.display = 'none'
         }
 
-        function selectMode(mode) {
-            if (mode === 'stats') {
-                showStats();
-                return;
+        if (mode === 'gravity') {
+          document.getElementById('gravity-arrow').style.display = 'block'
+        } else {
+          document.getElementById('gravity-arrow').style.display = 'none'
+        }
+
+        initGame()
+      }
+
+      function backToMenu() {
+        clearInterval(timerInterval)
+        document.getElementById('game-area').style.display = 'none'
+        document.getElementById('main-menu').style.display = 'grid'
+        if (memoryTimer) clearTimeout(memoryTimer)
+      }
+
+      function setDifficulty(level) {
+        difficulty = level
+        document
+          .querySelectorAll('.diff-btn')
+          .forEach((btn) => btn.classList.remove('active'))
+        event.target.classList.add('active')
+        resetGame()
+      }
+
+      function setElement(element) {
+        currentElement = element
+        document.querySelectorAll('#elemental-controls .btn').forEach((btn) => {
+          btn.style.transform = 'scale(1)'
+          btn.style.boxShadow = 'none'
+        })
+        event.target.style.transform = 'scale(1.1)'
+        event.target.style.boxShadow = '0 0 20px currentColor'
+      }
+
+      function initGame() {
+        const board = document.getElementById('game-board')
+        board.innerHTML = ''
+        gameBoard = []
+        moves = []
+        moveCount = 0
+        currentPlayer = 'x'
+        chaosCounter = 0
+        gameActive = true
+        startTime = Date.now()
+
+        // Update timer
+        if (timerInterval) clearInterval(timerInterval)
+        timerInterval = setInterval(updateTimer, 1000)
+
+        // Create board
+        if (currentMode === 'ultimate') {
+          createUltimateBoard(board)
+        } else {
+          createStandardBoard(board)
+        }
+
+        stats[currentMode].played++
+        saveStats()
+        updatePlayerIndicator()
+      }
+
+      function createStandardBoard(board) {
+        board.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`
+
+        for (let i = 0; i < boardSize * boardSize; i++) {
+          const cell = document.createElement('div')
+          cell.className = 'cell'
+          cell.dataset.index = i
+          cell.onclick = () => cellClick(i)
+          board.appendChild(cell)
+          gameBoard.push('')
+        }
+      }
+
+      function createUltimateBoard(board) {
+        board.style.gridTemplateColumns = 'repeat(3, 1fr)'
+        board.style.gap = '10px'
+
+        for (let b = 0; b < 9; b++) {
+          const miniBoard = document.createElement('div')
+          miniBoard.className = 'cell'
+          miniBoard.style.display = 'grid'
+          miniBoard.style.gridTemplateColumns = 'repeat(3, 1fr)'
+          miniBoard.style.gap = '2px'
+          miniBoard.style.padding = '5px'
+          miniBoard.style.background = 'rgba(255,255,255,0.2)'
+
+          for (let c = 0; c < 9; c++) {
+            const cell = document.createElement('div')
+            cell.style.width = '30px'
+            cell.style.height = '30px'
+            cell.style.background = 'rgba(255,255,255,0.9)'
+            cell.style.borderRadius = '4px'
+            cell.style.display = 'flex'
+            cell.style.alignItems = 'center'
+            cell.style.justifyContent = 'center'
+            cell.style.fontSize = '1em'
+            cell.style.cursor = 'pointer'
+            cell.onclick = () => ultimateCellClick(b, c)
+            miniBoard.appendChild(cell)
+          }
+
+          board.appendChild(miniBoard)
+          gameBoard.push(Array(9).fill(''))
+        }
+      }
+
+      function cellClick(index) {
+        if (!gameActive || gameBoard[index] !== '') return
+
+        // Gravity mode - find lowest empty cell in column
+        if (currentMode === 'gravity') {
+          const col = index % boardSize
+          let row = boardSize - 1
+          while (row >= 0) {
+            const cellIndex = row * boardSize + col
+            if (gameBoard[cellIndex] === '') {
+              index = cellIndex
+              break
             }
-            currentMode = mode;
-            document.getElementById('main-menu').style.display = 'none';
-            document.getElementById('game-area').style.display = 'block';
+            row--
+          }
+          if (row < 0) return // Column full
+        }
 
-            // Configure based on mode
-            if (mode === 'gomoku') {
-                boardSize = 15;
-                document.getElementById('difficulty-selector').style.display = 'none';
-            } else if (mode === 'ultimate') {
-                boardSize = 9; // 3x3 of 3x3
-                document.getElementById('difficulty-selector').style.display = 'flex';
+        makeMove(index)
+
+        // Chaos mode check
+        if (currentMode === 'chaos') {
+          chaosCounter++
+          if (chaosCounter % 3 === 0) {
+            setTimeout(triggerChaos, 500)
+          }
+        }
+
+        // Memory mode - fade after 5 seconds
+        if (currentMode === 'memory') {
+          setTimeout(() => fadeMemory(index), 5000)
+        }
+
+        // Check win
+        if (checkWin()) {
+          endGame(false)
+        } else if (checkDraw()) {
+          endGame(true)
+        } else {
+          currentPlayer = currentPlayer === 'x' ? 'o' : 'x'
+          updatePlayerIndicator()
+
+          // AI Turn
+          if (
+            currentPlayer === 'o' &&
+            !document.getElementById('difficulty-selector').style.display ===
+              'none'
+          ) {
+            setTimeout(aiMove, 500)
+          }
+        }
+      }
+
+      function makeMove(index) {
+        gameBoard[index] = currentPlayer
+        moves.push({ index, player: currentPlayer, element: currentElement })
+        moveCount++
+
+        const cell = document.querySelector(`[data-index="${index}"]`)
+
+        if (currentMode === 'elemental') {
+          cell.classList.add(currentElement)
+          cell.textContent =
+            currentElement === 'fire'
+              ? '🔥'
+              : currentElement === 'ice'
+                ? '❄️'
+                : '⚡'
+          applyElementalEffect(index)
+        } else {
+          cell.textContent = currentPlayer === 'x' ? '❌' : '⭕'
+          cell.classList.add(currentPlayer)
+        }
+
+        cell.classList.add('taken')
+      }
+
+      function applyElementalEffect(index) {
+        const row = Math.floor(index / boardSize)
+        const col = index % boardSize
+
+        if (currentElement === 'fire') {
+          // Spread to adjacent cells (visually only)
+          const adjacent = [-1, 1, -boardSize, boardSize]
+          adjacent.forEach((offset) => {
+            const adj = index + offset
+            if (
+              adj >= 0 &&
+              adj < boardSize * boardSize &&
+              gameBoard[adj] === ''
+            ) {
+              const cell = document.querySelector(`[data-index="${adj}"]`)
+              cell.style.background = 'rgba(255, 100, 100, 0.3)'
+              setTimeout(() => {
+                if (gameBoard[adj] === '') cell.style.background = ''
+              }, 1000)
+            }
+          })
+        } else if (currentElement === 'lightning') {
+          // Clear entire row visually
+          for (let c = 0; c < boardSize; c++) {
+            const cellIndex = row * boardSize + c
+            const cell = document.querySelector(`[data-index="${cellIndex}"]`)
+            cell.style.animation = 'flicker 0.5s'
+          }
+        }
+      }
+
+      function fadeMemory(index) {
+        const cell = document.querySelector(`[data-index="${index}"]`)
+        if (cell && gameBoard[index] !== '') {
+          cell.classList.add('memory-fade')
+          cell.textContent = '?'
+        }
+      }
+
+      function triggerChaos() {
+        const indicator = document.getElementById('chaos-indicator')
+        indicator.style.display = 'block'
+
+        setTimeout(() => {
+          // Rotate board 90 degrees
+          const newBoard = []
+          for (let i = 0; i < boardSize; i++) {
+            for (let j = 0; j < boardSize; j++) {
+              newBoard[i * boardSize + j] =
+                gameBoard[(boardSize - 1 - j) * boardSize + i]
+            }
+          }
+
+          // Random swaps
+          for (let i = 0; i < 3; i++) {
+            const idx1 = Math.floor(Math.random() * gameBoard.length)
+            const idx2 = Math.floor(Math.random() * gameBoard.length)
+            ;[newBoard[idx1], newBoard[idx2]] = [newBoard[idx2], newBoard[idx1]]
+          }
+
+          gameBoard = newBoard
+          renderBoard()
+          indicator.style.display = 'none'
+
+          // Check if chaos caused a win
+          if (checkWin()) endGame(false)
+        }, 1000)
+      }
+
+      function renderBoard() {
+        const cells = document.querySelectorAll('.cell')
+        gameBoard.forEach((mark, i) => {
+          if (cells[i]) {
+            cells[i].textContent =
+              mark === 'x' ? '❌' : mark === 'o' ? '⭕' : ''
+            cells[i].className = 'cell' + (mark ? ' taken ' + mark : '')
+          }
+        })
+      }
+
+      function aiMove() {
+        if (!gameActive) return
+
+        let move
+
+        if (difficulty === 'easy') {
+          // Random move
+          const available = gameBoard
+            .map((v, i) => (v === '' ? i : null))
+            .filter((v) => v !== null)
+          move = available[Math.floor(Math.random() * available.length)]
+        } else if (difficulty === 'medium') {
+          // Try to win or block, else random
+          move = findWinningMove('o') || findWinningMove('x') || getRandomMove()
+        } else {
+          // Minimax for hard/impossible
+          move = getBestMove()
+        }
+
+        if (move !== undefined) cellClick(move)
+      }
+
+      function findWinningMove(player) {
+        for (let i = 0; i < gameBoard.length; i++) {
+          if (gameBoard[i] === '') {
+            gameBoard[i] = player
+            const wins = checkWin(true)
+            gameBoard[i] = ''
+            if (wins) return i
+          }
+        }
+        return null
+      }
+
+      function getRandomMove() {
+        const available = gameBoard
+          .map((v, i) => (v === '' ? i : null))
+          .filter((v) => v !== null)
+        return available[Math.floor(Math.random() * available.length)]
+      }
+
+      function getBestMove() {
+        // Simple minimax for 3x3
+        let bestScore = -Infinity
+        let move
+
+        for (let i = 0; i < gameBoard.length; i++) {
+          if (gameBoard[i] === '') {
+            gameBoard[i] = 'o'
+            let score = minimax(gameBoard, 0, false)
+            gameBoard[i] = ''
+            if (score > bestScore) {
+              bestScore = score
+              move = i
+            }
+          }
+        }
+        return move
+      }
+
+      function minimax(board, depth, isMaximizing) {
+        if (checkWin(true)) return isMaximizing ? -10 + depth : 10 - depth
+        if (checkDraw()) return 0
+
+        if (isMaximizing) {
+          let bestScore = -Infinity
+          for (let i = 0; i < board.length; i++) {
+            if (board[i] === '') {
+              board[i] = 'o'
+              let score = minimax(board, depth + 1, false)
+              board[i] = ''
+              bestScore = Math.max(score, bestScore)
+            }
+          }
+          return bestScore
+        } else {
+          let bestScore = Infinity
+          for (let i = 0; i < board.length; i++) {
+            if (board[i] === '') {
+              board[i] = 'x'
+              let score = minimax(board, depth + 1, true)
+              board[i] = ''
+              bestScore = Math.min(score, bestScore)
+            }
+          }
+          return bestScore
+        }
+      }
+
+      function checkWin(simulation = false) {
+        // Standard win check
+        const wins = []
+
+        // Rows
+        for (let i = 0; i < boardSize; i++) {
+          const row = []
+          for (let j = 0; j < boardSize; j++) row.push(i * boardSize + j)
+          wins.push(row)
+        }
+
+        // Columns
+        for (let i = 0; i < boardSize; i++) {
+          const col = []
+          for (let j = 0; j < boardSize; j++) col.push(j * boardSize + i)
+          wins.push(col)
+        }
+
+        // Diagonals
+        const diag1 = [],
+          diag2 = []
+        for (let i = 0; i < boardSize; i++) {
+          diag1.push(i * boardSize + i)
+          diag2.push(i * boardSize + (boardSize - 1 - i))
+        }
+        wins.push(diag1, diag2)
+
+        // Gomoku needs 5 in a row
+        const needed = currentMode === 'gomoku' ? 5 : 3
+
+        for (const line of wins) {
+          let count = 0
+          let lastPlayer = null
+          for (const idx of line) {
+            if (gameBoard[idx] !== '' && gameBoard[idx] === lastPlayer) {
+              count++
+              if (count === needed) {
+                if (!simulation && currentMode !== 'misere') highlightWin(line)
+                return true
+              }
             } else {
-                boardSize = 3;
-                document.getElementById('difficulty-selector').style.display = 'flex';
+              lastPlayer = gameBoard[idx]
+              count = lastPlayer ? 1 : 0
             }
-
-            if (mode === 'elemental') {
-                document.getElementById('elemental-controls').style.display = 'block';
-            } else {
-                document.getElementById('elemental-controls').style.display = 'none';
-            }
-
-            if (mode === 'gravity') {
-                document.getElementById('gravity-arrow').style.display = 'block';
-            } else {
-                document.getElementById('gravity-arrow').style.display = 'none';
-            }
-
-            initGame();
+          }
         }
 
-        function backToMenu() {
-            clearInterval(timerInterval);
-            document.getElementById('game-area').style.display = 'none';
-            document.getElementById('main-menu').style.display = 'grid';
-            if (memoryTimer) clearTimeout(memoryTimer);
+        return false
+      }
+
+      function highlightWin(line) {
+        line.forEach((idx) => {
+          document
+            .querySelector(`[data-index="${idx}"]`)
+            .classList.add('winning')
+        })
+      }
+
+      function checkDraw() {
+        return gameBoard.every((cell) => cell !== '')
+      }
+
+      function updatePlayerIndicator() {
+        document
+          .getElementById('p1-indicator')
+          .classList.toggle('active', currentPlayer === 'x')
+        document
+          .getElementById('p2-indicator')
+          .classList.toggle('active', currentPlayer === 'o')
+      }
+
+      function updateTimer() {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000)
+        const mins = Math.floor(elapsed / 60)
+        const secs = elapsed % 60
+        // Could display somewhere if needed
+      }
+
+      function undoMove() {
+        if (moves.length === 0) return
+        const lastMove = moves.pop()
+        gameBoard[lastMove.index] = ''
+        moveCount--
+
+        const cell = document.querySelector(`[data-index="${lastMove.index}"]`)
+        cell.textContent = ''
+        cell.className = 'cell'
+        cell.style.background = ''
+
+        currentPlayer = lastMove.player
+        updatePlayerIndicator()
+      }
+
+      function resetGame() {
+        initGame()
+      }
+
+      function endGame(draw) {
+        gameActive = false
+        clearInterval(timerInterval)
+
+        const winner = draw ? null : currentPlayer
+
+        if (!draw && currentMode !== 'misere') {
+          stats[currentMode].won++
+          saveStats()
+        } else if (currentMode === 'misere' && draw) {
+          // In misere, draw means you avoided losing
+          stats[currentMode].won++
+          saveStats()
         }
 
-        function setDifficulty(level) {
-            difficulty = level;
-            document.querySelectorAll('.diff-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            resetGame();
-        }
-
-        function setElement(element) {
-            currentElement = element;
-            document.querySelectorAll('#elemental-controls .btn').forEach(btn => {
-                btn.style.transform = 'scale(1)';
-                btn.style.boxShadow = 'none';
-            });
-            event.target.style.transform = 'scale(1.1)';
-            event.target.style.boxShadow = '0 0 20px currentColor';
-        }
-
-        function initGame() {
-            const board = document.getElementById('game-board');
-            board.innerHTML = '';
-            gameBoard = [];
-            moves = [];
-            moveCount = 0;
-            currentPlayer = 'x';
-            chaosCounter = 0;
-            gameActive = true;
-            startTime = Date.now();
-
-            // Update timer
-            if (timerInterval) clearInterval(timerInterval);
-            timerInterval = setInterval(updateTimer, 1000);
-
-            // Create board
-            if (currentMode === 'ultimate') {
-                createUltimateBoard(board);
-            } else {
-                createStandardBoard(board);
-            }
-
-            stats[currentMode].played++;
-            saveStats();
-            updatePlayerIndicator();
-        }
-
-        function createStandardBoard(board) {
-            board.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
-
-            for (let i = 0; i < boardSize * boardSize; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'cell';
-                cell.dataset.index = i;
-                cell.onclick = () => cellClick(i);
-                board.appendChild(cell);
-                gameBoard.push('');
-            }
-        }
-
-        function createUltimateBoard(board) {
-            board.style.gridTemplateColumns = 'repeat(3, 1fr)';
-            board.style.gap = '10px';
-
-            for (let b = 0; b < 9; b++) {
-                const miniBoard = document.createElement('div');
-                miniBoard.className = 'cell';
-                miniBoard.style.display = 'grid';
-                miniBoard.style.gridTemplateColumns = 'repeat(3, 1fr)';
-                miniBoard.style.gap = '2px';
-                miniBoard.style.padding = '5px';
-                miniBoard.style.background = 'rgba(255,255,255,0.2)';
-
-                for (let c = 0; c < 9; c++) {
-                    const cell = document.createElement('div');
-                    cell.style.width = '30px';
-                    cell.style.height = '30px';
-                    cell.style.background = 'rgba(255,255,255,0.9)';
-                    cell.style.borderRadius = '4px';
-                    cell.style.display = 'flex';
-                    cell.style.alignItems = 'center';
-                    cell.style.justifyContent = 'center';
-                    cell.style.fontSize = '1em';
-                    cell.style.cursor = 'pointer';
-                    cell.onclick = () => ultimateCellClick(b, c);
-                    miniBoard.appendChild(cell);
-                }
-
-                board.appendChild(miniBoard);
-                gameBoard.push(Array(9).fill(''));
-            }
-        }
-
-        function cellClick(index) {
-            if (!gameActive || gameBoard[index] !== '') return;
-
-            // Gravity mode - find lowest empty cell in column
-            if (currentMode === 'gravity') {
-                const col = index % boardSize;
-                let row = boardSize - 1;
-                while (row >= 0) {
-                    const cellIndex = row * boardSize + col;
-                    if (gameBoard[cellIndex] === '') {
-                        index = cellIndex;
-                        break;
-                    }
-                    row--;
-                }
-                if (row < 0) return; // Column full
-            }
-
-            makeMove(index);
-
-            // Chaos mode check
-            if (currentMode === 'chaos') {
-                chaosCounter++;
-                if (chaosCounter % 3 === 0) {
-                    setTimeout(triggerChaos, 500);
-                }
-            }
-
-            // Memory mode - fade after 5 seconds
-            if (currentMode === 'memory') {
-                setTimeout(() => fadeMemory(index), 5000);
-            }
-
-            // Check win
-            if (checkWin()) {
-                endGame(false);
-            } else if (checkDraw()) {
-                endGame(true);
-            } else {
-                currentPlayer = currentPlayer === 'x' ? 'o' : 'x';
-                updatePlayerIndicator();
-
-                // AI Turn
-                if (currentPlayer === 'o' && !document.getElementById('difficulty-selector').style.display === 'none') {
-                    setTimeout(aiMove, 500);
-                }
-            }
-        }
-
-        function makeMove(index) {
-            gameBoard[index] = currentPlayer;
-            moves.push({ index, player: currentPlayer, element: currentElement });
-            moveCount++;
-
-            const cell = document.querySelector(`[data-index="${index}"]`);
-
-            if (currentMode === 'elemental') {
-                cell.classList.add(currentElement);
-                cell.textContent = currentElement === 'fire' ? '🔥' : currentElement === 'ice' ? '❄️' : '⚡';
-                applyElementalEffect(index);
-            } else {
-                cell.textContent = currentPlayer === 'x' ? '❌' : '⭕';
-                cell.classList.add(currentPlayer);
-            }
-
-            cell.classList.add('taken');
-        }
-
-        function applyElementalEffect(index) {
-            const row = Math.floor(index / boardSize);
-            const col = index % boardSize;
-
-            if (currentElement === 'fire') {
-                // Spread to adjacent cells (visually only)
-                const adjacent = [-1, 1, -boardSize, boardSize];
-                adjacent.forEach(offset => {
-                    const adj = index + offset;
-                    if (adj >= 0 && adj < boardSize * boardSize && gameBoard[adj] === '') {
-                        const cell = document.querySelector(`[data-index="${adj}"]`);
-                        cell.style.background = 'rgba(255, 100, 100, 0.3)';
-                        setTimeout(() => {
-                            if (gameBoard[adj] === '') cell.style.background = '';
-                        }, 1000);
-                    }
-                });
-            } else if (currentElement === 'lightning') {
-                // Clear entire row visually
-                for (let c = 0; c < boardSize; c++) {
-                    const cellIndex = row * boardSize + c;
-                    const cell = document.querySelector(`[data-index="${cellIndex}"]`);
-                    cell.style.animation = 'flicker 0.5s';
-                }
-            }
-        }
-
-        function fadeMemory(index) {
-            const cell = document.querySelector(`[data-index="${index}"]`);
-            if (cell && gameBoard[index] !== '') {
-                cell.classList.add('memory-fade');
-                cell.textContent = '?';
-            }
-        }
-
-        function triggerChaos() {
-            const indicator = document.getElementById('chaos-indicator');
-            indicator.style.display = 'block';
-
-            setTimeout(() => {
-                // Rotate board 90 degrees
-                const newBoard = [];
-                for (let i = 0; i < boardSize; i++) {
-                    for (let j = 0; j < boardSize; j++) {
-                        newBoard[i * boardSize + j] = gameBoard[(boardSize - 1 - j) * boardSize + i];
-                    }
-                }
-
-                // Random swaps
-                for (let i = 0; i < 3; i++) {
-                    const idx1 = Math.floor(Math.random() * gameBoard.length);
-                    const idx2 = Math.floor(Math.random() * gameBoard.length);
-                    [newBoard[idx1], newBoard[idx2]] = [newBoard[idx2], newBoard[idx1]];
-                }
-
-                gameBoard = newBoard;
-                renderBoard();
-                indicator.style.display = 'none';
-
-                // Check if chaos caused a win
-                if (checkWin()) endGame(false);
-            }, 1000);
-        }
-
-        function renderBoard() {
-            const cells = document.querySelectorAll('.cell');
-            gameBoard.forEach((mark, i) => {
-                if (cells[i]) {
-                    cells[i].textContent = mark === 'x' ? '❌' : mark === 'o' ? '⭕' : '';
-                    cells[i].className = 'cell' + (mark ? ' taken ' + mark : '');
-                }
-            });
-        }
-
-        function aiMove() {
-            if (!gameActive) return;
-
-            let move;
-
-            if (difficulty === 'easy') {
-                // Random move
-                const available = gameBoard.map((v, i) => v === '' ? i : null).filter(v => v !== null);
-                move = available[Math.floor(Math.random() * available.length)];
-            } else if (difficulty === 'medium') {
-                // Try to win or block, else random
-                move = findWinningMove('o') || findWinningMove('x') || getRandomMove();
-            } else {
-                // Minimax for hard/impossible
-                move = getBestMove();
-            }
-
-            if (move !== undefined) cellClick(move);
-        }
-
-        function findWinningMove(player) {
-            for (let i = 0; i < gameBoard.length; i++) {
-                if (gameBoard[i] === '') {
-                    gameBoard[i] = player;
-                    const wins = checkWin(true);
-                    gameBoard[i] = '';
-                    if (wins) return i;
-                }
-            }
-            return null;
-        }
-
-        function getRandomMove() {
-            const available = gameBoard.map((v, i) => v === '' ? i : null).filter(v => v !== null);
-            return available[Math.floor(Math.random() * available.length)];
-        }
-
-        function getBestMove() {
-            // Simple minimax for 3x3
-            let bestScore = -Infinity;
-            let move;
-
-            for (let i = 0; i < gameBoard.length; i++) {
-                if (gameBoard[i] === '') {
-                    gameBoard[i] = 'o';
-                    let score = minimax(gameBoard, 0, false);
-                    gameBoard[i] = '';
-                    if (score > bestScore) {
-                        bestScore = score;
-                        move = i;
-                    }
-                }
-            }
-            return move;
-        }
-
-        function minimax(board, depth, isMaximizing) {
-            if (checkWin(true)) return isMaximizing ? -10 + depth : 10 - depth;
-            if (checkDraw()) return 0;
-
-            if (isMaximizing) {
-                let bestScore = -Infinity;
-                for (let i = 0; i < board.length; i++) {
-                    if (board[i] === '') {
-                        board[i] = 'o';
-                        let score = minimax(board, depth + 1, false);
-                        board[i] = '';
-                        bestScore = Math.max(score, bestScore);
-                    }
-                }
-                return bestScore;
-            } else {
-                let bestScore = Infinity;
-                for (let i = 0; i < board.length; i++) {
-                    if (board[i] === '') {
-                        board[i] = 'x';
-                        let score = minimax(board, depth + 1, true);
-                        board[i] = '';
-                        bestScore = Math.min(score, bestScore);
-                    }
-                }
-                return bestScore;
-            }
-        }
-
-        function checkWin(simulation = false) {
-            // Standard win check
-            const wins = [];
-
-            // Rows
-            for (let i = 0; i < boardSize; i++) {
-                const row = [];
-                for (let j = 0; j < boardSize; j++) row.push(i * boardSize + j);
-                wins.push(row);
-            }
-
-            // Columns
-            for (let i = 0; i < boardSize; i++) {
-                const col = [];
-                for (let j = 0; j < boardSize; j++) col.push(j * boardSize + i);
-                wins.push(col);
-            }
-
-            // Diagonals
-            const diag1 = [], diag2 = [];
-            for (let i = 0; i < boardSize; i++) {
-                diag1.push(i * boardSize + i);
-                diag2.push(i * boardSize + (boardSize - 1 - i));
-            }
-            wins.push(diag1, diag2);
-
-            // Gomoku needs 5 in a row
-            const needed = currentMode === 'gomoku' ? 5 : 3;
-
-            for (const line of wins) {
-                let count = 0;
-                let lastPlayer = null;
-                for (const idx of line) {
-                    if (gameBoard[idx] !== '' && gameBoard[idx] === lastPlayer) {
-                        count++;
-                        if (count === needed) {
-                            if (!simulation && currentMode !== 'misere') highlightWin(line);
-                            return true;
-                        }
-                    } else {
-                        lastPlayer = gameBoard[idx];
-                        count = lastPlayer ? 1 : 0;
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        function highlightWin(line) {
-            line.forEach(idx => {
-                document.querySelector(`[data-index="${idx}"]`).classList.add('winning');
-            });
-        }
-
-        function checkDraw() {
-            return gameBoard.every(cell => cell !== '');
-        }
-
-        function updatePlayerIndicator() {
-            document.getElementById('p1-indicator').classList.toggle('active', currentPlayer === 'x');
-            document.getElementById('p2-indicator').classList.toggle('active', currentPlayer === 'o');
-        }
-
-        function updateTimer() {
-            const elapsed = Math.floor((Date.now() - startTime) / 1000);
-            const mins = Math.floor(elapsed / 60);
-            const secs = elapsed % 60;
-            // Could display somewhere if needed
-        }
-
-        function undoMove() {
-            if (moves.length === 0) return;
-            const lastMove = moves.pop();
-            gameBoard[lastMove.index] = '';
-            moveCount--;
-
-            const cell = document.querySelector(`[data-index="${lastMove.index}"]`);
-            cell.textContent = '';
-            cell.className = 'cell';
-            cell.style.background = '';
-
-            currentPlayer = lastMove.player;
-            updatePlayerIndicator();
-        }
-
-        function resetGame() {
-            initGame();
-        }
-
-        function endGame(draw) {
-            gameActive = false;
-            clearInterval(timerInterval);
-
-            const winner = draw ? null : currentPlayer;
-
-            if (!draw && currentMode !== 'misere') {
-                stats[currentMode].won++;
-                saveStats();
-            } else if (currentMode === 'misere' && draw) {
-                // In misere, draw means you avoided losing
-                stats[currentMode].won++;
-                saveStats();
-            }
-
-            const elapsed = Math.floor((Date.now() - startTime) / 1000);
-            document.getElementById('winner-text').textContent = draw ? "It's a Draw!" : `Player ${winner === 'x' ? '❌' : '⭕'} Wins!`;
-            document.getElementById('stat-moves').textContent = moveCount;
-            document.getElementById('stat-time').textContent = `${Math.floor(elapsed / 60)}:${(elapsed % 60).toString().padStart(2, '0')}`;
-
-            document.getElementById('game-over-modal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
-        }
-
-        function showStats() {
-            const grid = document.getElementById('full-stats');
-            grid.innerHTML = '';
-
-            for (const [mode, data] of Object.entries(stats)) {
-                const winRate = data.played > 0 ? Math.round((data.won / data.played) * 100) : 0;
-                grid.innerHTML += `
+        const elapsed = Math.floor((Date.now() - startTime) / 1000)
+        document.getElementById('winner-text').textContent = draw
+          ? "It's a Draw!"
+          : `Player ${winner === 'x' ? '❌' : '⭕'} Wins!`
+        document.getElementById('stat-moves').textContent = moveCount
+        document.getElementById('stat-time').textContent =
+          `${Math.floor(elapsed / 60)}:${(elapsed % 60).toString().padStart(2, '0')}`
+
+        document.getElementById('game-over-modal').style.display = 'flex'
+      }
+
+      function closeModal() {
+        document
+          .querySelectorAll('.modal')
+          .forEach((m) => (m.style.display = 'none'))
+      }
+
+      function showStats() {
+        const grid = document.getElementById('full-stats')
+        grid.innerHTML = ''
+
+        for (const [mode, data] of Object.entries(stats)) {
+          const winRate =
+            data.played > 0 ? Math.round((data.won / data.played) * 100) : 0
+          grid.innerHTML += `
                     <div class="stat-item">
                         <div style="font-size: 0.8em; text-transform: uppercase;">${mode}</div>
                         <div class="stat-value">${winRate}%</div>
                         <div style="font-size: 0.7em;">${data.won}/${data.played}</div>
                     </div>
-                `;
-            }
-
-            document.getElementById('stats-modal').style.display = 'flex';
+                `
         }
 
-        // Ultimate Tic Tac Toe logic
-        let activeBoard = -1; // Which mini-board is active (-1 = any)
+        document.getElementById('stats-modal').style.display = 'flex'
+      }
 
-        function ultimateCellClick(boardIdx, cellIdx) {
-            if (!gameActive) return;
-            if (activeBoard !== -1 && activeBoard !== boardIdx) return;
-            if (gameBoard[boardIdx][cellIdx] !== '') return;
+      // Ultimate Tic Tac Toe logic
+      let activeBoard = -1 // Which mini-board is active (-1 = any)
 
-            // Make move
-            gameBoard[boardIdx][cellIdx] = currentPlayer;
+      function ultimateCellClick(boardIdx, cellIdx) {
+        if (!gameActive) return
+        if (activeBoard !== -1 && activeBoard !== boardIdx) return
+        if (gameBoard[boardIdx][cellIdx] !== '') return
 
-            // Update display
-            const miniBoard = document.getElementById('game-board').children[boardIdx];
-            const cell = miniBoard.children[cellIdx];
-            cell.textContent = currentPlayer === 'x' ? '❌' : '⭕';
-            cell.style.color = currentPlayer === 'x' ? '#e74c3c' : '#3498db';
+        // Make move
+        gameBoard[boardIdx][cellIdx] = currentPlayer
 
-            // Check if mini-board is won
-            if (checkUltimateWin(boardIdx)) {
-                miniBoard.style.background = currentPlayer === 'x' ? '#e74c3c' : '#3498db';
-                // Check if game is won
-                if (checkUltimateGameWin()) {
-                    endGame(false);
-                    return;
-                }
-            }
+        // Update display
+        const miniBoard =
+          document.getElementById('game-board').children[boardIdx]
+        const cell = miniBoard.children[cellIdx]
+        cell.textContent = currentPlayer === 'x' ? '❌' : '⭕'
+        cell.style.color = currentPlayer === 'x' ? '#e74c3c' : '#3498db'
 
-            // Set next active board
-            activeBoard = cellIdx;
-            if (checkUltimateWin(activeBoard) || gameBoard[activeBoard].every(c => c !== '')) {
-                activeBoard = -1; // Can play anywhere if target board is full/won
-            }
-
-            currentPlayer = currentPlayer === 'x' ? 'o' : 'x';
-            updatePlayerIndicator();
+        // Check if mini-board is won
+        if (checkUltimateWin(boardIdx)) {
+          miniBoard.style.background =
+            currentPlayer === 'x' ? '#e74c3c' : '#3498db'
+          // Check if game is won
+          if (checkUltimateGameWin()) {
+            endGame(false)
+            return
+          }
         }
 
-        function checkUltimateWin(boardIdx) {
-            const b = gameBoard[boardIdx];
-            const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-            return wins.some(([a,b1,c]) => b[a] !== '' && b[a] === b[b1] && b[a] === b[c]);
+        // Set next active board
+        activeBoard = cellIdx
+        if (
+          checkUltimateWin(activeBoard) ||
+          gameBoard[activeBoard].every((c) => c !== '')
+        ) {
+          activeBoard = -1 // Can play anywhere if target board is full/won
         }
 
-        function checkUltimateGameWin() {
-            // Simplified - check if 3 mini-boards in a row are won by same player
-            return false; // Implement full logic if needed
-        }
+        currentPlayer = currentPlayer === 'x' ? 'o' : 'x'
+        updatePlayerIndicator()
+      }
 
-        // Initialize
-        loadStats();
+      function checkUltimateWin(boardIdx) {
+        const b = gameBoard[boardIdx]
+        const wins = [
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          [0, 4, 8],
+          [2, 4, 6],
+        ]
+        return wins.some(
+          ([a, b1, c]) => b[a] !== '' && b[a] === b[b1] && b[a] === b[c]
+        )
+      }
+
+      function checkUltimateGameWin() {
+        // Simplified - check if 3 mini-boards in a row are won by same player
+        return false // Implement full logic if needed
+      }
+
+      // Initialize
+      loadStats()
     </script>
-</body>
+  </body>
 </html>

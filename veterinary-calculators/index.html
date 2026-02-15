@@ -1,104 +1,219 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Veterinary Drug, Dog, Cat, and Clinic Calculators – VetLudics</title>
-    <meta name="description" content="Use veterinary calculators for drug dosing, dog/cat CRI, fluids, blood gas, toxicity, transfusion, and emergency clinic math.">
-    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Veterinary Drug, Dog, Cat, and Clinic Calculators – VetLudics">
-    <meta property="og:description" content="A hub of veterinary calculators for drug dosing, fluid therapy, CRI setup, and emergency planning.">
-    <meta property="og:url" content="https://parthchaudhari.com/veterinary-calculators/">
-    <link rel="canonical" href="https://parthchaudhari.com/veterinary-calculators/">
-    <link rel="preload" href="/assets/css/tokens.css" as="style">
-    <link rel="preload" href="/assets/css/portal.css" as="style">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Use veterinary calculators for drug dosing, dog/cat CRI, fluids, blood gas, toxicity, transfusion, and emergency clinic math."
+    />
+    <meta
+      name="robots"
+      content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Veterinary Drug, Dog, Cat, and Clinic Calculators – VetLudics"
+    />
+    <meta
+      property="og:description"
+      content="A hub of veterinary calculators for drug dosing, fluid therapy, CRI setup, and emergency planning."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/veterinary-calculators/"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/veterinary-calculators/"
+    />
+    <link rel="preload" href="/assets/css/tokens.css" as="style" />
+    <link rel="preload" href="/assets/css/portal.css" as="style" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "MedicalWebPage",
-      "name": "Veterinary Calculators Hub",
-      "url": "https://parthchaudhari.com/veterinary-calculators/",
-      "about": [
-        "Veterinary drug calculator",
-        "Dog and cat dose calculator",
-        "Veterinary clinic calculator workflows"
-      ],
-      "mainEntity": {
-        "@type": "ItemList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Dose Calculator", "url": "https://parthchaudhari.com/tools/dose-calculator.html" },
-          { "@type": "ListItem", "position": 2, "name": "Fluid Calculator", "url": "https://parthchaudhari.com/tools/fluid-calculator.html" },
-          { "@type": "ListItem", "position": 3, "name": "Advanced CRI Calculator", "url": "https://parthchaudhari.com/tools/cri-calculator.html" },
-          { "@type": "ListItem", "position": 4, "name": "Toxicity Calculator Suite", "url": "https://parthchaudhari.com/tools/toxin-decontamination-planner.html" }
-        ]
+      {
+        "@context": "https://schema.org",
+        "@type": "MedicalWebPage",
+        "name": "Veterinary Calculators Hub",
+        "url": "https://parthchaudhari.com/veterinary-calculators/",
+        "about": [
+          "Veterinary drug calculator",
+          "Dog and cat dose calculator",
+          "Veterinary clinic calculator workflows"
+        ],
+        "mainEntity": {
+          "@type": "ItemList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Dose Calculator",
+              "url": "https://parthchaudhari.com/tools/dose-calculator.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Fluid Calculator",
+              "url": "https://parthchaudhari.com/tools/fluid-calculator.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Advanced CRI Calculator",
+              "url": "https://parthchaudhari.com/tools/cri-calculator.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Toxicity Calculator Suite",
+              "url": "https://parthchaudhari.com/tools/toxin-decontamination-planner.html"
+            }
+          ]
+        }
       }
-    }
     </script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Tools</p>
-            <h1 class="pc-fork-title">Veterinary Calculators for Dosing, Fluids, and ICU Planning</h1>
-            <p class="pc-fork-copy">This calculator hub is built for students, interns, and clinicians who need fast and repeatable clinical math. It reduces manual errors during exam prep, case review, and emergency simulation blocks.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn" href="/tools/">Open All Tools</a>
-                <a class="pc-btn pc-btn--secondary" href="/veterinary-calculators-guide/">Study the Calculators Guide</a>
-                <a class="pc-btn pc-btn--secondary" href="/study/navle/practice/">Practice NAVLE Questions</a>
-                <a class="pc-btn pc-btn--secondary" href="/pricing/">Unlock Unlimited Practice (Premium)</a>
-            </div>
-            <p class="pc-last-reviewed">Last reviewed: February 13, 2026</p>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Tools</p>
+        <h1 class="pc-fork-title">
+          Veterinary Calculators for Dosing, Fluids, and ICU Planning
+        </h1>
+        <p class="pc-fork-copy">
+          This calculator hub is built for students, interns, and clinicians who
+          need fast and repeatable clinical math. It reduces manual errors
+          during exam prep, case review, and emergency simulation blocks.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn" href="/tools/">Open All Tools</a>
+          <a
+            class="pc-btn pc-btn--secondary"
+            href="/veterinary-calculators-guide/"
+            >Study the Calculators Guide</a
+          >
+          <a class="pc-btn pc-btn--secondary" href="/study/navle/practice/"
+            >Practice NAVLE Questions</a
+          >
+          <a class="pc-btn pc-btn--secondary" href="/pricing/"
+            >Unlock Unlimited Practice (Premium)</a
+          >
+        </div>
+        <p class="pc-last-reviewed">Last reviewed: February 13, 2026</p>
+      </section>
 
-        <section class="pc-bridge-section" aria-label="Key calculator links">
-            <h2 class="pc-bridge-title">Key Calculator Links</h2>
-            <p class="pc-tool-subtitle">This hub is designed to match common Google intents like veterinary calculator, veterinary drug calculator, dog calculator, cat calculator, and veterinary clinic calculator workflows.</p>
-            <ul class="pc-link-list">
-                <li><a href="/tools/dose-calculator.html">Veterinary dose calculator for mg/kg and concentration math</a></li>
-                <li><a href="/tools/fluid-calculator.html">Fluid rate calculator for dehydration deficit and maintenance</a></li>
-                <li><a href="/tools/cri-calculator.html">CRI calculator for infusion concentration and mL/hr targets</a></li>
-                <li><a href="/tools/toxin-decontamination-planner.html">Toxicity calculator for chocolate, xylitol, and rodenticide triage</a></li>
-                <li><a href="/tools/glucose-curve-generator.html">Glucose curve calculator for diabetic monitoring</a></li>
-                <li><a href="/tools/unit-converter.html">Unit converter for CBC and chemistry interpretation</a></li>
-                <li><a href="/tools/emergency-drug-chart.html">Emergency drug chart with rapid dose references</a></li>
-            </ul>
-        </section>
+      <section class="pc-bridge-section" aria-label="Key calculator links">
+        <h2 class="pc-bridge-title">Key Calculator Links</h2>
+        <p class="pc-tool-subtitle">
+          This hub is designed to match common Google intents like veterinary
+          calculator, veterinary drug calculator, dog calculator, cat
+          calculator, and veterinary clinic calculator workflows.
+        </p>
+        <ul class="pc-link-list">
+          <li>
+            <a href="/tools/dose-calculator.html"
+              >Veterinary dose calculator for mg/kg and concentration math</a
+            >
+          </li>
+          <li>
+            <a href="/tools/fluid-calculator.html"
+              >Fluid rate calculator for dehydration deficit and maintenance</a
+            >
+          </li>
+          <li>
+            <a href="/tools/cri-calculator.html"
+              >CRI calculator for infusion concentration and mL/hr targets</a
+            >
+          </li>
+          <li>
+            <a href="/tools/toxin-decontamination-planner.html"
+              >Toxicity calculator for chocolate, xylitol, and rodenticide
+              triage</a
+            >
+          </li>
+          <li>
+            <a href="/tools/glucose-curve-generator.html"
+              >Glucose curve calculator for diabetic monitoring</a
+            >
+          </li>
+          <li>
+            <a href="/tools/unit-converter.html"
+              >Unit converter for CBC and chemistry interpretation</a
+            >
+          </li>
+          <li>
+            <a href="/tools/emergency-drug-chart.html"
+              >Emergency drug chart with rapid dose references</a
+            >
+          </li>
+        </ul>
+      </section>
 
-        <section class="pc-bridge-section" aria-label="Related hubs">
-            <h2 class="pc-bridge-title">Related Learning Hubs</h2>
-            <ul class="pc-link-list">
-                <li><a href="/dog-cat-normal-values/">Dog and cat normal values reference page</a></li>
-                <li><a href="/emergency-triage-algorithms/">Emergency triage algorithms for first-hour decisions</a></li>
-                <li><a href="/bridge/">Clinical practice questions to apply calculation decisions</a></li>
-            </ul>
-            <div class="pc-note-box">
-                <p>Educational only. Calculator outputs are learning aids and must be validated against current formularies, diagnostics, and supervising clinician guidance.</p>
-            </div>
-        </section>
+      <section class="pc-bridge-section" aria-label="Related hubs">
+        <h2 class="pc-bridge-title">Related Learning Hubs</h2>
+        <ul class="pc-link-list">
+          <li>
+            <a href="/dog-cat-normal-values/"
+              >Dog and cat normal values reference page</a
+            >
+          </li>
+          <li>
+            <a href="/emergency-triage-algorithms/"
+              >Emergency triage algorithms for first-hour decisions</a
+            >
+          </li>
+          <li>
+            <a href="/bridge/"
+              >Clinical practice questions to apply calculation decisions</a
+            >
+          </li>
+        </ul>
+        <div class="pc-note-box">
+          <p>
+            Educational only. Calculator outputs are learning aids and must be
+            validated against current formularies, diagnostics, and supervising
+            clinician guidance.
+          </p>
+        </div>
+      </section>
     </main>
-</body>
+  </body>
 </html>

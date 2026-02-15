@@ -1,142 +1,234 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Advanced CRI Calculator | VetLudics Tools</title>
-    <meta name="description" content="Advanced veterinary CRI preparation calculator with dilution, bag preparation, administration rates, and safety checks.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Advanced CRI Calculator | VetLudics Tools">
-    <meta property="og:description" content="Calculate CRI prep steps, concentration, infusion rates, and verification in one workflow.">
-    <meta property="og:url" content="https://parthchaudhari.com/tools/cri-calculator.html">
-    <link rel="canonical" href="https://parthchaudhari.com/tools/cri-calculator.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Advanced veterinary CRI preparation calculator with dilution, bag preparation, administration rates, and safety checks."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Advanced CRI Calculator | VetLudics Tools"
+    />
+    <meta
+      property="og:description"
+      content="Calculate CRI prep steps, concentration, infusion rates, and verification in one workflow."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/tools/cri-calculator.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/tools/cri-calculator.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/cri-calculator.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Phase 2 Clinical</p>
-            <h1 class="pc-fork-title">Advanced CRI Calculator</h1>
-            <p class="pc-fork-copy">Compute CRI preparation from ordered rate to final bag concentration, infusion setting, and back-calculation verification.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Phase 2 Clinical</p>
+        <h1 class="pc-fork-title">Advanced CRI Calculator</h1>
+        <p class="pc-fork-copy">
+          Compute CRI preparation from ordered rate to final bag concentration,
+          infusion setting, and back-calculation verification.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="cri-title">
-            <h2 id="cri-title" class="pc-bridge-title">CRI Inputs</h2>
-            <form id="cri-form" class="pc-calculator-grid" novalidate>
-                <label class="pc-calculator-field" for="cri-drug">
-                    <span>Drug</span>
-                    <select id="cri-drug" class="pc-input"></select>
-                </label>
-                <label class="pc-calculator-field" for="cri-weight">
-                    <span>Weight (kg)</span>
-                    <input id="cri-weight" class="pc-input" type="number" min="0.2" step="0.1" value="18" required>
-                </label>
-                <label class="pc-calculator-field" for="cri-rate">
-                    <span>Target Rate</span>
-                    <input id="cri-rate" class="pc-input" type="number" min="0.001" step="any" required>
-                </label>
-                <label class="pc-calculator-field" for="cri-unit">
-                    <span>Rate Unit</span>
-                    <select id="cri-unit" class="pc-input">
-                        <option value="mcg_kg_min">mcg/kg/min</option>
-                        <option value="mcg_kg_hr">mcg/kg/hr</option>
-                        <option value="mg_kg_hr">mg/kg/hr</option>
-                        <option value="mg_kg_day">mg/kg/day</option>
-                        <option value="mg_kg_min">mg/kg/min</option>
-                        <option value="u_kg_min">U/kg/min</option>
-                    </select>
-                </label>
-                <label class="pc-calculator-field" for="cri-concentration">
-                    <span>Stock Concentration (mg/mL or U/mL)</span>
-                    <input id="cri-concentration" class="pc-input" type="number" min="0.0001" step="any" required>
-                </label>
-                <label class="pc-calculator-field" for="cri-bag">
-                    <span>Bag Volume (mL)</span>
-                    <input id="cri-bag" class="pc-input" type="number" min="10" step="1" value="1000" required>
-                </label>
-                <label class="pc-calculator-field" for="cri-duration">
-                    <span>Duration (hours)</span>
-                    <input id="cri-duration" class="pc-input" type="number" min="0.5" step="0.5" value="24" required>
-                </label>
-                <div class="pc-calculator-actions">
-                    <button type="submit" class="pc-btn pc-btn--primary">Calculate CRI Prep</button>
-                </div>
-            </form>
-        </section>
+      <section class="pc-bridge-section" aria-labelledby="cri-title">
+        <h2 id="cri-title" class="pc-bridge-title">CRI Inputs</h2>
+        <form id="cri-form" class="pc-calculator-grid" novalidate>
+          <label class="pc-calculator-field" for="cri-drug">
+            <span>Drug</span>
+            <select id="cri-drug" class="pc-input"></select>
+          </label>
+          <label class="pc-calculator-field" for="cri-weight">
+            <span>Weight (kg)</span>
+            <input
+              id="cri-weight"
+              class="pc-input"
+              type="number"
+              min="0.2"
+              step="0.1"
+              value="18"
+              required
+            />
+          </label>
+          <label class="pc-calculator-field" for="cri-rate">
+            <span>Target Rate</span>
+            <input
+              id="cri-rate"
+              class="pc-input"
+              type="number"
+              min="0.001"
+              step="any"
+              required
+            />
+          </label>
+          <label class="pc-calculator-field" for="cri-unit">
+            <span>Rate Unit</span>
+            <select id="cri-unit" class="pc-input">
+              <option value="mcg_kg_min">mcg/kg/min</option>
+              <option value="mcg_kg_hr">mcg/kg/hr</option>
+              <option value="mg_kg_hr">mg/kg/hr</option>
+              <option value="mg_kg_day">mg/kg/day</option>
+              <option value="mg_kg_min">mg/kg/min</option>
+              <option value="u_kg_min">U/kg/min</option>
+            </select>
+          </label>
+          <label class="pc-calculator-field" for="cri-concentration">
+            <span>Stock Concentration (mg/mL or U/mL)</span>
+            <input
+              id="cri-concentration"
+              class="pc-input"
+              type="number"
+              min="0.0001"
+              step="any"
+              required
+            />
+          </label>
+          <label class="pc-calculator-field" for="cri-bag">
+            <span>Bag Volume (mL)</span>
+            <input
+              id="cri-bag"
+              class="pc-input"
+              type="number"
+              min="10"
+              step="1"
+              value="1000"
+              required
+            />
+          </label>
+          <label class="pc-calculator-field" for="cri-duration">
+            <span>Duration (hours)</span>
+            <input
+              id="cri-duration"
+              class="pc-input"
+              type="number"
+              min="0.5"
+              step="0.5"
+              value="24"
+              required
+            />
+          </label>
+          <div class="pc-calculator-actions">
+            <button type="submit" class="pc-btn pc-btn--primary">
+              Calculate CRI Prep
+            </button>
+          </div>
+        </form>
+      </section>
 
-        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="cri-result-title">
-            <h2 id="cri-result-title" class="pc-bridge-title">CRI Preparation Output</h2>
-            <div class="pc-stat-grid pc-stat-grid--results">
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Drug Needed</p>
-                    <p id="cri-total-mg" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Drug to Add</p>
-                    <p id="cri-drug-ml" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Remove from Bag</p>
-                    <p id="cri-remove-ml" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Final Concentration</p>
-                    <p id="cri-final-conc" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Pump Rate</p>
-                    <p id="cri-admin-mlhr" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Back-Calculated Rate</p>
-                    <p id="cri-verify" class="pc-stat-number">-</p>
-                </article>
-            </div>
-            <div id="cri-safety" class="pc-calculator-warning" hidden></div>
-            <article class="pc-bridge-card pc-bridge-card--inline">
-                <h3>Preparation Steps</h3>
-                <p id="cri-steps" class="pc-calculator-note">Select a CRI and calculate to generate preparation instructions.</p>
-                <p id="cri-meta" class="pc-calculator-note">-</p>
-            </article>
-            <article class="pc-tool-module">
-                <h3>Critical Safety Reminder</h3>
-                <p>Verify vial concentration before preparing CRI. Independent double-check is recommended for all infusions.</p>
-                <p>If the patient has concurrent CRIs, confirm line compatibility and total fluid load before starting.</p>
-            </article>
-            <p class="pc-disclaimer">
-                Educational reference support only. Core equations align with standard CRI dilution math and common emergency texts (Cole; Plumb's; ACVECC fluid guidance). Confirm hospital protocol before administration.
-            </p>
-            <p class="pc-disclaimer">
-                Approved reference baseline (reviewed February 13, 2026):
-                Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
-            </p>
-        </section>
+      <section
+        class="pc-bridge-section"
+        aria-live="polite"
+        aria-labelledby="cri-result-title"
+      >
+        <h2 id="cri-result-title" class="pc-bridge-title">
+          CRI Preparation Output
+        </h2>
+        <div class="pc-stat-grid pc-stat-grid--results">
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Drug Needed</p>
+            <p id="cri-total-mg" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Drug to Add</p>
+            <p id="cri-drug-ml" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Remove from Bag</p>
+            <p id="cri-remove-ml" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Final Concentration</p>
+            <p id="cri-final-conc" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Pump Rate</p>
+            <p id="cri-admin-mlhr" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Back-Calculated Rate</p>
+            <p id="cri-verify" class="pc-stat-number">-</p>
+          </article>
+        </div>
+        <div id="cri-safety" class="pc-calculator-warning" hidden></div>
+        <article class="pc-bridge-card pc-bridge-card--inline">
+          <h3>Preparation Steps</h3>
+          <p id="cri-steps" class="pc-calculator-note">
+            Select a CRI and calculate to generate preparation instructions.
+          </p>
+          <p id="cri-meta" class="pc-calculator-note">-</p>
+        </article>
+        <article class="pc-tool-module">
+          <h3>Critical Safety Reminder</h3>
+          <p>
+            Verify vial concentration before preparing CRI. Independent
+            double-check is recommended for all infusions.
+          </p>
+          <p>
+            If the patient has concurrent CRIs, confirm line compatibility and
+            total fluid load before starting.
+          </p>
+        </article>
+        <p class="pc-disclaimer">
+          Educational reference support only. Core equations align with standard
+          CRI dilution math and common emergency texts (Cole; Plumb's; ACVECC
+          fluid guidance). Confirm hospital protocol before administration.
+        </p>
+        <p class="pc-disclaimer">
+          Approved reference baseline (reviewed February 13, 2026): Drug label
+          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
+          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
+          BCS charts, ACVIM cardiology consensus guideline references, Dental
+          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
+          breed search, and RECOVER CPR guidelines.
+        </p>
+      </section>
     </main>
-</body>
+  </body>
 </html>

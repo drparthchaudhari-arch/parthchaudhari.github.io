@@ -1,136 +1,136 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
 
 :root {
-    /* Light Mode (Default) */
-    --pc-bg-primary: #EDF4FB;
-    --pc-bg-secondary: #FFFFFF;
-    --pc-bg-tertiary: #E2EDF8;
-    --pc-text-primary: #0F1B2D;
-    --pc-text-secondary: #2F445E;
-    --pc-text-muted: #536C84;
-    --pc-border: #B7CADF;
+  /* Light Mode (Default) */
+  --pc-bg-primary: #edf4fb;
+  --pc-bg-secondary: #ffffff;
+  --pc-bg-tertiary: #e2edf8;
+  --pc-text-primary: #0f1b2d;
+  --pc-text-secondary: #2f445e;
+  --pc-text-muted: #536c84;
+  --pc-border: #b7cadf;
 
-    /* Brand Colors (constant) */
-    --pc-teal: #0C607D;
-    --pc-teal-light: #1B7F9E;
-    --pc-teal-dark: #07465D;
-    --pc-coral: #C4512A;
-    --pc-coral-light: #E5784D;
-    --pc-coral-dark: #A84321;
-    --pc-mint: #00F5D4;
-    --pc-mint-dark: #00D4B8;
-    --pc-bone: #EDF4FB;
-    --pc-navy: #121826;
+  /* Brand Colors (constant) */
+  --pc-teal: #0c607d;
+  --pc-teal-light: #1b7f9e;
+  --pc-teal-dark: #07465d;
+  --pc-coral: #c4512a;
+  --pc-coral-light: #e5784d;
+  --pc-coral-dark: #a84321;
+  --pc-mint: #00f5d4;
+  --pc-mint-dark: #00d4b8;
+  --pc-bone: #edf4fb;
+  --pc-navy: #121826;
 
-    /* Semantic */
-    --pc-success: #1F7F50;
-    --pc-warning: #B15F16;
-    --pc-error: #BF2F2F;
-    --pc-info: #1E74C9;
+  /* Semantic */
+  --pc-success: #1f7f50;
+  --pc-warning: #b15f16;
+  --pc-error: #bf2f2f;
+  --pc-info: #1e74c9;
 
-    /* Spacing Scale */
-    --pc-space-xs: 0.25rem;
-    --pc-space-sm: 0.5rem;
-    --pc-space-md: 1rem;
-    --pc-space-lg: 1.5rem;
-    --pc-space-xl: 2rem;
-    --pc-space-2xl: 3rem;
-    --pc-space-3xl: 4rem;
+  /* Spacing Scale */
+  --pc-space-xs: 0.25rem;
+  --pc-space-sm: 0.5rem;
+  --pc-space-md: 1rem;
+  --pc-space-lg: 1.5rem;
+  --pc-space-xl: 2rem;
+  --pc-space-2xl: 3rem;
+  --pc-space-3xl: 4rem;
 
-    /* Typography */
-    --pc-font-heading: 'Plus Jakarta Sans', 'Avenir Next', 'Segoe UI', sans-serif;
-    --pc-font-body: 'Manrope', 'Avenir Next', 'Segoe UI', sans-serif;
-    --pc-font-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, Monaco, monospace;
-    --pc-font-display: var(--pc-font-heading);
+  /* Typography */
+  --pc-font-heading: 'Plus Jakarta Sans', 'Avenir Next', 'Segoe UI', sans-serif;
+  --pc-font-body: 'Manrope', 'Avenir Next', 'Segoe UI', sans-serif;
+  --pc-font-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, Monaco, monospace;
+  --pc-font-display: var(--pc-font-heading);
 
-    --pc-text-xs: 0.75rem;
-    --pc-text-sm: 0.875rem;
-    --pc-text-base: 1rem;
-    --pc-text-lg: 1.125rem;
-    --pc-text-xl: 1.25rem;
-    --pc-text-2xl: 1.5rem;
-    --pc-text-3xl: 2rem;
-    --pc-text-4xl: 2.5rem;
+  --pc-text-xs: 0.75rem;
+  --pc-text-sm: 0.875rem;
+  --pc-text-base: 1rem;
+  --pc-text-lg: 1.125rem;
+  --pc-text-xl: 1.25rem;
+  --pc-text-2xl: 1.5rem;
+  --pc-text-3xl: 2rem;
+  --pc-text-4xl: 2.5rem;
 
-    /* Shadows */
-    --pc-shadow-sm: 0 1px 2px rgba(12, 32, 56, 0.08);
-    --pc-shadow-md: 0 8px 18px rgba(10, 40, 72, 0.12);
-    --pc-shadow-lg: 0 16px 34px rgba(8, 30, 56, 0.16);
-    --pc-shadow-xl: 0 24px 56px rgba(5, 24, 45, 0.2);
+  /* Shadows */
+  --pc-shadow-sm: 0 1px 2px rgba(12, 32, 56, 0.08);
+  --pc-shadow-md: 0 8px 18px rgba(10, 40, 72, 0.12);
+  --pc-shadow-lg: 0 16px 34px rgba(8, 30, 56, 0.16);
+  --pc-shadow-xl: 0 24px 56px rgba(5, 24, 45, 0.2);
 
-    /* Radii */
-    --pc-radius-sm: 0.375rem;
-    --pc-radius-md: 0.625rem;
-    --pc-radius-lg: 0.95rem;
-    --pc-radius-xl: 1.35rem;
-    --pc-radius-full: 9999px;
+  /* Radii */
+  --pc-radius-sm: 0.375rem;
+  --pc-radius-md: 0.625rem;
+  --pc-radius-lg: 0.95rem;
+  --pc-radius-xl: 1.35rem;
+  --pc-radius-full: 9999px;
 
-    /* Transitions */
-    --pc-transition-fast: 150ms ease;
-    --pc-transition-base: 250ms ease;
-    --pc-transition-slow: 350ms ease;
+  /* Transitions */
+  --pc-transition-fast: 150ms ease;
+  --pc-transition-base: 250ms ease;
+  --pc-transition-slow: 350ms ease;
 
-    /* Compatibility aliases for existing components */
-    --pc-bg: var(--pc-bg-primary);
-    --pc-surface: var(--pc-bg-secondary);
-    --pc-surface-strong: var(--pc-bg-tertiary);
-    --pc-text: var(--pc-text-primary);
-    --pc-primary: var(--pc-teal);
-    --pc-accent: var(--pc-coral);
-    --pc-focus: var(--pc-mint);
-    --pc-cta-bg: var(--pc-teal);
-    --pc-cta-text: #FFFFFF;
-    --pc-cta-alt-bg: var(--pc-coral);
-    --pc-cta-alt-text: #FFFFFF;
+  /* Compatibility aliases for existing components */
+  --pc-bg: var(--pc-bg-primary);
+  --pc-surface: var(--pc-bg-secondary);
+  --pc-surface-strong: var(--pc-bg-tertiary);
+  --pc-text: var(--pc-text-primary);
+  --pc-primary: var(--pc-teal);
+  --pc-accent: var(--pc-coral);
+  --pc-focus: var(--pc-mint);
+  --pc-cta-bg: var(--pc-teal);
+  --pc-cta-text: #ffffff;
+  --pc-cta-alt-bg: var(--pc-coral);
+  --pc-cta-alt-text: #ffffff;
 }
 
-[data-theme="dark"] {
-    --pc-bg-primary: #121826;
-    --pc-bg-secondary: #1A202C;
-    --pc-bg-tertiary: #2D3748;
-    --pc-text-primary: #F7F7F2;
-    --pc-text-secondary: #C2CFDF;
-    --pc-text-muted: #97A9BD;
-    --pc-border: #3C4B61;
+[data-theme='dark'] {
+  --pc-bg-primary: #121826;
+  --pc-bg-secondary: #1a202c;
+  --pc-bg-tertiary: #2d3748;
+  --pc-text-primary: #f7f7f2;
+  --pc-text-secondary: #c2cfdf;
+  --pc-text-muted: #97a9bd;
+  --pc-border: #3c4b61;
 
-    /* Adjust brand colors for dark mode visibility */
-    --pc-teal: #56D0C2;
-    --pc-coral: #FF9C79;
-    --pc-mint: #00F5D4;
+  /* Adjust brand colors for dark mode visibility */
+  --pc-teal: #56d0c2;
+  --pc-coral: #ff9c79;
+  --pc-mint: #00f5d4;
 
-    --pc-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --pc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
-    --pc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
-    --pc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.45);
+  --pc-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --pc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --pc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+  --pc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.45);
 
-    /* Compatibility aliases */
-    --pc-bg: var(--pc-bg-primary);
-    --pc-surface: var(--pc-bg-secondary);
-    --pc-surface-strong: var(--pc-bg-tertiary);
-    --pc-text: var(--pc-text-primary);
-    --pc-primary: var(--pc-teal);
-    --pc-accent: var(--pc-coral);
-    --pc-focus: var(--pc-mint);
-    --pc-cta-bg: var(--pc-teal);
-    --pc-cta-text: #121826;
-    --pc-cta-alt-bg: var(--pc-coral);
-    --pc-cta-alt-text: #121826;
+  /* Compatibility aliases */
+  --pc-bg: var(--pc-bg-primary);
+  --pc-surface: var(--pc-bg-secondary);
+  --pc-surface-strong: var(--pc-bg-tertiary);
+  --pc-text: var(--pc-text-primary);
+  --pc-primary: var(--pc-teal);
+  --pc-accent: var(--pc-coral);
+  --pc-focus: var(--pc-mint);
+  --pc-cta-bg: var(--pc-teal);
+  --pc-cta-text: #121826;
+  --pc-cta-alt-bg: var(--pc-coral);
+  --pc-cta-alt-text: #121826;
 }
 
 /* Preserve dual-mode behavior with distinct accent emphasis */
-[data-mode="pro"] {
-    --pc-primary: var(--pc-teal);
-    --pc-accent: var(--pc-coral);
-    --pc-cta-bg: var(--pc-teal);
+[data-mode='pro'] {
+  --pc-primary: var(--pc-teal);
+  --pc-accent: var(--pc-coral);
+  --pc-cta-bg: var(--pc-teal);
 }
 
-[data-mode="play"] {
-    --pc-primary: var(--pc-teal);
-    --pc-accent: var(--pc-mint);
-    --pc-cta-bg: var(--pc-coral);
+[data-mode='play'] {
+  --pc-primary: var(--pc-teal);
+  --pc-accent: var(--pc-mint);
+  --pc-cta-bg: var(--pc-coral);
 }
 
-[data-mode="play"][data-theme="dark"] {
-    --pc-cta-bg: var(--pc-coral-light);
-    --pc-cta-text: #121826;
+[data-mode='play'][data-theme='dark'] {
+  --pc-cta-bg: var(--pc-coral-light);
+  --pc-cta-text: #121826;
 }

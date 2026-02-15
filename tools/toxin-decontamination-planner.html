@@ -1,155 +1,292 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Toxicity Calculator Suite | VetLudics Tools</title>
-    <meta name="description" content="Veterinary toxicity calculator suite for chocolate, xylitol, and rodenticide risk stratification with decontamination timing support.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Toxicity Calculator Suite | VetLudics Tools">
-    <meta property="og:description" content="Estimate dose-per-kg risk and immediate toxicology actions in one workflow.">
-    <meta property="og:url" content="https://parthchaudhari.com/tools/toxin-decontamination-planner.html">
-    <link rel="canonical" href="https://parthchaudhari.com/tools/toxin-decontamination-planner.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Veterinary toxicity calculator suite for chocolate, xylitol, and rodenticide risk stratification with decontamination timing support."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Toxicity Calculator Suite | VetLudics Tools"
+    />
+    <meta
+      property="og:description"
+      content="Estimate dose-per-kg risk and immediate toxicology actions in one workflow."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/tools/toxin-decontamination-planner.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/tools/toxin-decontamination-planner.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/toxin-decontamination-planner.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Phase 2 Clinical</p>
-            <h1 class="pc-fork-title">Toxicity Calculator Suite</h1>
-            <p class="pc-fork-copy">Select chocolate, xylitol, or rodenticide ingestion and generate dose-based risk stratification with action prompts.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Phase 2 Clinical</p>
+        <h1 class="pc-fork-title">Toxicity Calculator Suite</h1>
+        <p class="pc-fork-copy">
+          Select chocolate, xylitol, or rodenticide ingestion and generate
+          dose-based risk stratification with action prompts.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="tox-form-title">
-            <h2 id="tox-form-title" class="pc-bridge-title">Toxicology Inputs</h2>
-            <form id="tox-form" class="pc-calculator-grid" novalidate>
-                <label class="pc-calculator-field" for="tox-mode">
-                    <span>Calculator Mode</span>
-                    <select id="tox-mode" class="pc-input">
-                        <option value="chocolate">Chocolate Toxicity</option>
-                        <option value="xylitol">Xylitol Toxicity</option>
-                        <option value="rodenticide">Rodenticide Toxicity</option>
-                    </select>
-                </label>
-                <label class="pc-calculator-field" for="tox-weight">
-                    <span>Weight (kg)</span>
-                    <input id="tox-weight" class="pc-input" type="number" min="0.5" step="0.1" value="10" required>
-                </label>
-                <label class="pc-calculator-field" for="tox-hours">
-                    <span>Hours Since Ingestion</span>
-                    <input id="tox-hours" class="pc-input" type="number" min="0" step="0.1" value="1" required>
-                </label>
+      <section class="pc-bridge-section" aria-labelledby="tox-form-title">
+        <h2 id="tox-form-title" class="pc-bridge-title">Toxicology Inputs</h2>
+        <form id="tox-form" class="pc-calculator-grid" novalidate>
+          <label class="pc-calculator-field" for="tox-mode">
+            <span>Calculator Mode</span>
+            <select id="tox-mode" class="pc-input">
+              <option value="chocolate">Chocolate Toxicity</option>
+              <option value="xylitol">Xylitol Toxicity</option>
+              <option value="rodenticide">Rodenticide Toxicity</option>
+            </select>
+          </label>
+          <label class="pc-calculator-field" for="tox-weight">
+            <span>Weight (kg)</span>
+            <input
+              id="tox-weight"
+              class="pc-input"
+              type="number"
+              min="0.5"
+              step="0.1"
+              value="10"
+              required
+            />
+          </label>
+          <label class="pc-calculator-field" for="tox-hours">
+            <span>Hours Since Ingestion</span>
+            <input
+              id="tox-hours"
+              class="pc-input"
+              type="number"
+              min="0"
+              step="0.1"
+              value="1"
+              required
+            />
+          </label>
 
-                <div id="tox-panel-chocolate" class="pc-calculator-field" data-tox-panel="chocolate">
-                    <span>Chocolate Type</span>
-                    <select id="tox-chocolate-type" class="pc-input">
-                        <option value="white">White chocolate</option>
-                        <option value="milk">Milk chocolate</option>
-                        <option value="dark">Dark chocolate</option>
-                        <option value="semiSweet">Semi-sweet</option>
-                        <option value="baking">Baking chocolate</option>
-                        <option value="cocoaPowder">Cocoa powder</option>
-                    </select>
-                    <label for="tox-chocolate-amount"><span>Amount Ingested (oz)</span><input id="tox-chocolate-amount" class="pc-input" type="number" min="0" step="0.1" value="1"></label>
-                </div>
+          <div
+            id="tox-panel-chocolate"
+            class="pc-calculator-field"
+            data-tox-panel="chocolate"
+          >
+            <span>Chocolate Type</span>
+            <select id="tox-chocolate-type" class="pc-input">
+              <option value="white">White chocolate</option>
+              <option value="milk">Milk chocolate</option>
+              <option value="dark">Dark chocolate</option>
+              <option value="semiSweet">Semi-sweet</option>
+              <option value="baking">Baking chocolate</option>
+              <option value="cocoaPowder">Cocoa powder</option>
+            </select>
+            <label for="tox-chocolate-amount"
+              ><span>Amount Ingested (oz)</span
+              ><input
+                id="tox-chocolate-amount"
+                class="pc-input"
+                type="number"
+                min="0"
+                step="0.1"
+                value="1"
+            /></label>
+          </div>
 
-                <div id="tox-panel-xylitol" class="pc-calculator-field" data-tox-panel="xylitol" hidden>
-                    <span>Xylitol Product</span>
-                    <select id="tox-xylitol-product" class="pc-input">
-                        <option value="gum">Sugar-free gum (avg 500 mg/piece)</option>
-                        <option value="peanutButter">Sugar-free peanut butter (1080 mg/tbsp)</option>
-                        <option value="mouthwash">Mouthwash (200 mg/mL)</option>
-                        <option value="custom">Custom mg per unit</option>
-                    </select>
-                    <label for="tox-xylitol-amount"><span>Amount (pieces/tbsp/mL)</span><input id="tox-xylitol-amount" class="pc-input" type="number" min="0" step="0.1" value="1"></label>
-                    <label for="tox-xylitol-custom" id="tox-xylitol-custom-wrap" hidden><span>Custom mg per unit</span><input id="tox-xylitol-custom" class="pc-input" type="number" min="0" step="1" value="500"></label>
-                </div>
+          <div
+            id="tox-panel-xylitol"
+            class="pc-calculator-field"
+            data-tox-panel="xylitol"
+            hidden
+          >
+            <span>Xylitol Product</span>
+            <select id="tox-xylitol-product" class="pc-input">
+              <option value="gum">Sugar-free gum (avg 500 mg/piece)</option>
+              <option value="peanutButter">
+                Sugar-free peanut butter (1080 mg/tbsp)
+              </option>
+              <option value="mouthwash">Mouthwash (200 mg/mL)</option>
+              <option value="custom">Custom mg per unit</option>
+            </select>
+            <label for="tox-xylitol-amount"
+              ><span>Amount (pieces/tbsp/mL)</span
+              ><input
+                id="tox-xylitol-amount"
+                class="pc-input"
+                type="number"
+                min="0"
+                step="0.1"
+                value="1"
+            /></label>
+            <label for="tox-xylitol-custom" id="tox-xylitol-custom-wrap" hidden
+              ><span>Custom mg per unit</span
+              ><input
+                id="tox-xylitol-custom"
+                class="pc-input"
+                type="number"
+                min="0"
+                step="1"
+                value="500"
+            /></label>
+          </div>
 
-                <div id="tox-panel-rodenticide" class="pc-calculator-field" data-tox-panel="rodenticide" hidden>
-                    <span>Active Ingredient</span>
-                    <select id="tox-rodenticide-type" class="pc-input">
-                        <option value="warfarin">Warfarin (1st-gen anticoagulant)</option>
-                        <option value="bromadiolone">Bromadiolone (2nd-gen anticoagulant)</option>
-                        <option value="bromethalin">Bromethalin (neurotoxic)</option>
-                        <option value="cholecalciferol">Cholecalciferol (vitamin D3)</option>
-                        <option value="zincPhosphide">Zinc phosphide</option>
-                    </select>
-                    <label for="tox-rodenticide-amount"><span>Bait Ingested (grams)</span><input id="tox-rodenticide-amount" class="pc-input" type="number" min="0" step="0.1" value="5"></label>
-                    <label for="tox-rodenticide-percent"><span>Active Ingredient (%)</span><input id="tox-rodenticide-percent" class="pc-input" type="number" min="0" step="0.01" value="0.005"></label>
-                </div>
+          <div
+            id="tox-panel-rodenticide"
+            class="pc-calculator-field"
+            data-tox-panel="rodenticide"
+            hidden
+          >
+            <span>Active Ingredient</span>
+            <select id="tox-rodenticide-type" class="pc-input">
+              <option value="warfarin">Warfarin (1st-gen anticoagulant)</option>
+              <option value="bromadiolone">
+                Bromadiolone (2nd-gen anticoagulant)
+              </option>
+              <option value="bromethalin">Bromethalin (neurotoxic)</option>
+              <option value="cholecalciferol">
+                Cholecalciferol (vitamin D3)
+              </option>
+              <option value="zincPhosphide">Zinc phosphide</option>
+            </select>
+            <label for="tox-rodenticide-amount"
+              ><span>Bait Ingested (grams)</span
+              ><input
+                id="tox-rodenticide-amount"
+                class="pc-input"
+                type="number"
+                min="0"
+                step="0.1"
+                value="5"
+            /></label>
+            <label for="tox-rodenticide-percent"
+              ><span>Active Ingredient (%)</span
+              ><input
+                id="tox-rodenticide-percent"
+                class="pc-input"
+                type="number"
+                min="0"
+                step="0.01"
+                value="0.005"
+            /></label>
+          </div>
 
-                <div class="pc-calculator-field">
-                    <span>Contraindication / Risk Flags</span>
-                    <label><input id="tox-neuro" type="checkbox"> Neurologic signs or mentation compromise</label><br>
-                    <label><input id="tox-corrosive" type="checkbox"> Possible corrosive ingestion</label><br>
-                    <label><input id="tox-hydrocarbon" type="checkbox"> Hydrocarbon exposure concern</label>
-                </div>
+          <div class="pc-calculator-field">
+            <span>Contraindication / Risk Flags</span>
+            <label
+              ><input id="tox-neuro" type="checkbox" /> Neurologic signs or
+              mentation compromise</label
+            ><br />
+            <label
+              ><input id="tox-corrosive" type="checkbox" /> Possible corrosive
+              ingestion</label
+            ><br />
+            <label
+              ><input id="tox-hydrocarbon" type="checkbox" /> Hydrocarbon
+              exposure concern</label
+            >
+          </div>
 
-                <div class="pc-calculator-actions">
-                    <button type="submit" class="pc-btn pc-btn--primary">Calculate Toxicity Risk</button>
-                </div>
-            </form>
-        </section>
+          <div class="pc-calculator-actions">
+            <button type="submit" class="pc-btn pc-btn--primary">
+              Calculate Toxicity Risk
+            </button>
+          </div>
+        </form>
+      </section>
 
-        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="tox-output-title">
-            <h2 id="tox-output-title" class="pc-bridge-title">Risk Output</h2>
-            <div class="pc-stat-grid pc-stat-grid--results">
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Estimated Dose</p>
-                    <p id="tox-dose" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Risk Tier</p>
-                    <p id="tox-risk" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Emesis Window</p>
-                    <p id="tox-emesis" class="pc-stat-number">-</p>
-                </article>
-            </div>
-            <div id="tox-alert" class="pc-calculator-warning" hidden></div>
-            <article class="pc-bridge-card pc-bridge-card--inline">
-                <h3>Recommended Action</h3>
-                <p id="tox-action" class="pc-calculator-note">Select ingestion details and run the calculator.</p>
-                <p id="tox-monitoring" class="pc-calculator-note">-</p>
-            </article>
-            <article class="pc-tool-module">
-                <h3>Emergency Contacts</h3>
-                <p>ASPCA Animal Poison Control: 888-426-4435</p>
-                <p>Pet Poison Helpline: 855-764-7661</p>
-            </article>
-            <p class="pc-disclaimer">Educational triage support only. Dose variability, co-ingestants, and patient comorbidity can change toxicity risk substantially.</p>
-            <p class="pc-disclaimer">
-                Approved reference baseline (reviewed February 13, 2026):
-                Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
-            </p>
-        </section>
+      <section
+        class="pc-bridge-section"
+        aria-live="polite"
+        aria-labelledby="tox-output-title"
+      >
+        <h2 id="tox-output-title" class="pc-bridge-title">Risk Output</h2>
+        <div class="pc-stat-grid pc-stat-grid--results">
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Estimated Dose</p>
+            <p id="tox-dose" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Risk Tier</p>
+            <p id="tox-risk" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Emesis Window</p>
+            <p id="tox-emesis" class="pc-stat-number">-</p>
+          </article>
+        </div>
+        <div id="tox-alert" class="pc-calculator-warning" hidden></div>
+        <article class="pc-bridge-card pc-bridge-card--inline">
+          <h3>Recommended Action</h3>
+          <p id="tox-action" class="pc-calculator-note">
+            Select ingestion details and run the calculator.
+          </p>
+          <p id="tox-monitoring" class="pc-calculator-note">-</p>
+        </article>
+        <article class="pc-tool-module">
+          <h3>Emergency Contacts</h3>
+          <p>ASPCA Animal Poison Control: 888-426-4435</p>
+          <p>Pet Poison Helpline: 855-764-7661</p>
+        </article>
+        <p class="pc-disclaimer">
+          Educational triage support only. Dose variability, co-ingestants, and
+          patient comorbidity can change toxicity risk substantially.
+        </p>
+        <p class="pc-disclaimer">
+          Approved reference baseline (reviewed February 13, 2026): Drug label
+          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
+          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
+          BCS charts, ACVIM cardiology consensus guideline references, Dental
+          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
+          breed search, and RECOVER CPR guidelines.
+        </p>
+      </section>
     </main>
-</body>
+  </body>
 </html>

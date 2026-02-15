@@ -1,78 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<title>Today's Plan | NAVLE Study | Parth Chaudhari</title>
-  <meta name="description" content="Your daily veterinary study plan. Cases, games, and progress tracking.">
-  <link rel="stylesheet" href="/assets/css/tokens.css">
-  <link rel="stylesheet" href="/assets/css/portal.css">
-  <script src="/assets/js/nav-status.js" defer></script>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>Today's Plan | NAVLE Study | Parth Chaudhari</title>
+    <meta
+      name="description"
+      content="Your daily veterinary study plan. Cases, games, and progress tracking."
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page">
-  <!-- Nav (same as other pages) -->
-  <nav class="pc-nav">
-    <a href="/" class="pc-nav__brand">Parth Chaudhari</a>
-    <div class="pc-nav__links">
-      <a href="/" class="pc-nav__link">Home</a>
-      <a href="/today/" class="pc-nav__link pc-nav__link--active">Today</a>
-      <a href="/bridge/" class="pc-nav__link">Bridge</a>
-      <a href="/study/" class="pc-nav__link">Study</a>
-      <a href="/account/" class="pc-nav__link">Profile</a>
-      <a href="/play/" class="pc-nav__link">Play</a>
-    </div>
-    <button class="pc-nav-toggle" data-pc-theme-toggle>Theme</button>
-  </nav>
-
-  <main class="pc-today-page">
-    <!-- Header with streak -->
-    <header class="pc-today-header">
-      <div class="pc-streak-display">
-        <span class="pc-streak-icon">🔥</span>
-        <span class="pc-streak-count" id="streak-count">0</span>
-        <span class="pc-streak-label">day streak</span>
+  </head>
+  <body class="pc-page">
+    <!-- Nav (same as other pages) -->
+    <nav class="pc-nav">
+      <a href="/" class="pc-nav__brand">Parth Chaudhari</a>
+      <div class="pc-nav__links">
+        <a href="/" class="pc-nav__link">Home</a>
+        <a href="/today/" class="pc-nav__link pc-nav__link--active">Today</a>
+        <a href="/bridge/" class="pc-nav__link">Bridge</a>
+        <a href="/study/" class="pc-nav__link">Study</a>
+        <a href="/account/" class="pc-nav__link">Profile</a>
+        <a href="/play/" class="pc-nav__link">Play</a>
       </div>
-      <h1>Today's Plan</h1>
-      <p class="pc-today-date" id="today-date">Loading...</p>
-    </header>
+      <button class="pc-nav-toggle" data-pc-theme-toggle>Theme</button>
+    </nav>
 
-    <!-- Progress summary -->
-    <div class="pc-today-progress">
-      <div class="pc-progress-card">
-        <span class="pc-progress-number" id="completed-count">0</span>
-        <span class="pc-progress-label">Completed</span>
+    <main class="pc-today-page">
+      <!-- Header with streak -->
+      <header class="pc-today-header">
+        <div class="pc-streak-display">
+          <span class="pc-streak-icon">🔥</span>
+          <span class="pc-streak-count" id="streak-count">0</span>
+          <span class="pc-streak-label">day streak</span>
+        </div>
+        <h1>Today's Plan</h1>
+        <p class="pc-today-date" id="today-date">Loading...</p>
+      </header>
+
+      <!-- Progress summary -->
+      <div class="pc-today-progress">
+        <div class="pc-progress-card">
+          <span class="pc-progress-number" id="completed-count">0</span>
+          <span class="pc-progress-label">Completed</span>
+        </div>
+        <div class="pc-progress-card">
+          <span class="pc-progress-number" id="remaining-count">3</span>
+          <span class="pc-progress-label">Remaining</span>
+        </div>
       </div>
-      <div class="pc-progress-card">
-        <span class="pc-progress-number" id="remaining-count">3</span>
-        <span class="pc-progress-label">Remaining</span>
+
+      <!-- Task list -->
+      <div class="pc-today-tasks" id="today-tasks">
+        <p class="pc-loading">Loading today's tasks...</p>
       </div>
-    </div>
 
-    <!-- Task list -->
-    <div class="pc-today-tasks" id="today-tasks">
-      <p class="pc-loading">Loading today's tasks...</p>
-    </div>
+      <!-- Study break suggestion (hidden until 2+ completed) -->
+      <div class="pc-study-break" id="study-break" hidden>
+        <h3>🎮 Time for a Study Break?</h3>
+        <p>
+          You've completed 2 tasks! Reinforce your learning with a quick game.
+        </p>
+        <a href="/play/vetlex/" class="pc-btn pc-btn--coral"
+          >Play VetLex (5 min)</a
+        >
+      </div>
 
-    <!-- Study break suggestion (hidden until 2+ completed) -->
-    <div class="pc-study-break" id="study-break" hidden>
-      <h3>🎮 Time for a Study Break?</h3>
-      <p>You've completed 2 tasks! Reinforce your learning with a quick game.</p>
-      <a href="/play/vetlex/" class="pc-btn pc-btn--coral">Play VetLex (5 min)</a>
-    </div>
+      <!-- Completion celebration (hidden until all done) -->
+      <div class="pc-completion-celebration" id="completion-celebration" hidden>
+        <h2>🎉 All Tasks Complete!</h2>
+        <p>Great job today. Come back tomorrow for new tasks.</p>
+        <div class="pc-streak-message" id="streak-message"></div>
+      </div>
+    </main>
 
-    <!-- Completion celebration (hidden until all done) -->
-    <div class="pc-completion-celebration" id="completion-celebration" hidden>
-      <h2>🎉 All Tasks Complete!</h2>
-      <p>Great job today. Come back tomorrow for new tasks.</p>
-      <div class="pc-streak-message" id="streak-message"></div>
-    </div>
-  </main>
-
-  <script src="/assets/js/storage.js"></script>
-  <script src="/assets/js/today.js"></script>
-  <script src="/assets/js/theme-toggle.js"></script>
-</body>
+    <script src="/assets/js/storage.js"></script>
+    <script src="/assets/js/today.js"></script>
+    <script src="/assets/js/theme-toggle.js"></script>
+  </body>
 </html>

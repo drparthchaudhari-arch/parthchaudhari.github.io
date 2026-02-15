@@ -1,114 +1,188 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Dose Calculator | VetLudics Tools</title>
-    <meta name="description" content="Free veterinary dose calculator with species, drug, concentration, and max safety checks.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Dose Calculator | VetLudics Tools">
-    <meta property="og:description" content="Calculate mg, mL, and daily totals with max dose warnings.">
-    <meta property="og:url" content="https://parthchaudhari.com/tools/dose-calculator.html">
-    <link rel="canonical" href="https://parthchaudhari.com/tools/dose-calculator.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Free veterinary dose calculator with species, drug, concentration, and max safety checks."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Dose Calculator | VetLudics Tools" />
+    <meta
+      property="og:description"
+      content="Calculate mg, mL, and daily totals with max dose warnings."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/tools/dose-calculator.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/tools/dose-calculator.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/dose-calculator.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Free Tool</p>
-            <h1 class="pc-fork-title">Dose Calculator</h1>
-            <p class="pc-fork-copy">Select species, weight, and drug to calculate dose per administration, mL volume, and daily totals with safety alerts across a broad clinical drug library.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Free Tool</p>
+        <h1 class="pc-fork-title">Dose Calculator</h1>
+        <p class="pc-fork-copy">
+          Select species, weight, and drug to calculate dose per administration,
+          mL volume, and daily totals with safety alerts across a broad clinical
+          drug library.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="dose-form-title">
-            <h2 id="dose-form-title" class="pc-bridge-title">Calculate Dose</h2>
-            <form id="dose-form" class="pc-calculator-grid" novalidate>
-                <label class="pc-calculator-field" for="species">
-                    <span>Species</span>
-                    <select id="species" class="pc-input">
-                        <option value="dog">Dog</option>
-                        <option value="cat">Cat</option>
-                    </select>
-                </label>
+      <section class="pc-bridge-section" aria-labelledby="dose-form-title">
+        <h2 id="dose-form-title" class="pc-bridge-title">Calculate Dose</h2>
+        <form id="dose-form" class="pc-calculator-grid" novalidate>
+          <label class="pc-calculator-field" for="species">
+            <span>Species</span>
+            <select id="species" class="pc-input">
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+            </select>
+          </label>
 
-                <label class="pc-calculator-field" for="weight">
-                    <span>Weight (kg)</span>
-                    <input id="weight" class="pc-input" type="number" min="0.2" step="0.1" value="10" aria-describedby="dose-form-message" required>
-                </label>
+          <label class="pc-calculator-field" for="weight">
+            <span>Weight (kg)</span>
+            <input
+              id="weight"
+              class="pc-input"
+              type="number"
+              min="0.2"
+              step="0.1"
+              value="10"
+              aria-describedby="dose-form-message"
+              required
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="drug-select">
-                    <span>Drug</span>
-                    <select id="drug-select" class="pc-input" onchange="updateConcentrations()">
-                        <option value="">Loading drugs...</option>
-                    </select>
-                </label>
+          <label class="pc-calculator-field" for="drug-select">
+            <span>Drug</span>
+            <select
+              id="drug-select"
+              class="pc-input"
+              onchange="updateConcentrations()"
+            >
+              <option value="">Loading drugs...</option>
+            </select>
+          </label>
 
-                <label class="pc-calculator-field" for="concentration">
-                    <span>Concentration (mg/mL)</span>
-                    <input id="concentration" class="pc-input" type="number" min="0.1" step="0.1" placeholder="e.g. 50" list="dose-concentration-list" aria-describedby="concentration-hint dose-form-message" required>
-                    <datalist id="dose-concentration-list"></datalist>
-                </label>
+          <label class="pc-calculator-field" for="concentration">
+            <span>Concentration (mg/mL)</span>
+            <input
+              id="concentration"
+              class="pc-input"
+              type="number"
+              min="0.1"
+              step="0.1"
+              placeholder="e.g. 50"
+              list="dose-concentration-list"
+              aria-describedby="concentration-hint dose-form-message"
+              required
+            />
+            <datalist id="dose-concentration-list"></datalist>
+          </label>
 
-                <p id="concentration-hint" class="pc-calculator-note">Choose a drug to auto-fill concentration options.</p>
-                <p id="drug-reference-hint" class="pc-calculator-note">Choose a drug to see reference context.</p>
-                <p id="dose-form-message" class="pc-account-message" aria-live="polite" role="status"></p>
+          <p id="concentration-hint" class="pc-calculator-note">
+            Choose a drug to auto-fill concentration options.
+          </p>
+          <p id="drug-reference-hint" class="pc-calculator-note">
+            Choose a drug to see reference context.
+          </p>
+          <p
+            id="dose-form-message"
+            class="pc-account-message"
+            aria-live="polite"
+            role="status"
+          ></p>
 
-                <div class="pc-calculator-actions">
-                    <button type="submit" class="pc-btn pc-btn--primary">Calculate</button>
-                </div>
-            </form>
-        </section>
+          <div class="pc-calculator-actions">
+            <button type="submit" class="pc-btn pc-btn--primary">
+              Calculate
+            </button>
+          </div>
+        </form>
+      </section>
 
-        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="dose-result-title">
-            <h2 id="dose-result-title" class="pc-bridge-title">Result</h2>
-            <div class="pc-stat-grid pc-stat-grid--results">
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">mg per dose</p>
-                    <p id="result-mg" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">mL per dose</p>
-                    <p id="result-ml" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Total daily (mg)</p>
-                    <p id="result-total" class="pc-stat-number">-</p>
-                </article>
-            </div>
-            <p id="result-warning" class="pc-calculator-warning"></p>
-            <p class="pc-disclaimer">Always confirm final dosing with current label directions, renal/hepatic status, and patient-specific contraindications.</p>
-            <p class="pc-disclaimer">
-                Approved reference baseline (reviewed February 13, 2026):
-                Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
-            </p>
-
-        </section>
+      <section
+        class="pc-bridge-section"
+        aria-live="polite"
+        aria-labelledby="dose-result-title"
+      >
+        <h2 id="dose-result-title" class="pc-bridge-title">Result</h2>
+        <div class="pc-stat-grid pc-stat-grid--results">
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">mg per dose</p>
+            <p id="result-mg" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">mL per dose</p>
+            <p id="result-ml" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Total daily (mg)</p>
+            <p id="result-total" class="pc-stat-number">-</p>
+          </article>
+        </div>
+        <p id="result-warning" class="pc-calculator-warning"></p>
+        <p class="pc-disclaimer">
+          Always confirm final dosing with current label directions,
+          renal/hepatic status, and patient-specific contraindications.
+        </p>
+        <p class="pc-disclaimer">
+          Approved reference baseline (reviewed February 13, 2026): Drug label
+          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
+          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
+          BCS charts, ACVIM cardiology consensus guideline references, Dental
+          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
+          breed search, and RECOVER CPR guidelines.
+        </p>
+      </section>
     </main>
-</body>
+  </body>
 </html>

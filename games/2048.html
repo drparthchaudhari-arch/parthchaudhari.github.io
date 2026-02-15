@@ -1,1913 +1,2311 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>2048: Ultimate Dimension</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      :root {
+        --bg: #0f0f1a;
+        --panel: rgba(30, 30, 50, 0.6);
+        --text: #ffffff;
+        --primary: #00d4ff;
+        --secondary: #ff00a0;
+        --tertiary: #ffd700;
+        --success: #00ff88;
+        --danger: #ff3366;
+        --warning: #ffaa00;
+      }
+
+      body {
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        background: linear-gradient(
+          135deg,
+          #0f0f1a 0%,
+          #1a1a2e 50%,
+          #16213e 100%
+        );
+        color: var(--text);
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+        touch-action: pan-y pinch-zoom;
+      }
+
+      #particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .container {
+        position: relative;
+        z-index: 10;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      header {
+        text-align: center;
+        padding: 20px 0;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        font-size: 3em;
+        background: linear-gradient(45deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+        margin-bottom: 10px;
+        letter-spacing: -2px;
+      }
+
+      .tagline {
+        color: #8892b0;
+        font-size: 1.1em;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+      }
+
+      .main-layout {
+        display: grid;
+        grid-template-columns: 300px 1fr 300px;
+        gap: 30px;
+        align-items: start;
+      }
+
+      @media (max-width: 1024px) {
+        .main-layout {
+          grid-template-columns: 1fr;
+          max-width: 600px;
+          margin: 0 auto;
         }
 
-        :root {
-            --bg: #0f0f1a;
-            --panel: rgba(30, 30, 50, 0.6);
-            --text: #ffffff;
-            --primary: #00d4ff;
-            --secondary: #ff00a0;
-            --tertiary: #ffd700;
-            --success: #00ff88;
-            --danger: #ff3366;
-            --warning: #ffaa00;
+        /* Show the board first on mobile, then controls below. */
+        .game-board-container {
+          order: 1;
         }
 
-        body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
-            color: var(--text);
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-            touch-action: pan-y pinch-zoom;
+        .main-layout > .panel:first-of-type {
+          order: 2;
         }
 
-        #particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
+        .main-layout > .panel:last-of-type {
+          order: 3;
         }
+      }
 
+      .panel {
+        background: var(--panel);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        padding: 25px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      }
+
+      .game-board-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .stats-bar {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+        width: 100%;
+      }
+
+      .stat-box {
+        text-align: center;
+        padding: 15px 25px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        min-width: 100px;
+      }
+
+      .stat-label {
+        font-size: 0.75em;
+        color: #8892b0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 5px;
+      }
+
+      .stat-value {
+        font-size: 1.8em;
+        font-weight: bold;
+        color: var(--primary);
+        font-family: 'Courier New', monospace;
+      }
+
+      .game-wrapper {
+        position: relative;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .game-grid {
+        display: grid;
+        gap: 12px;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 12px;
+        border-radius: 12px;
+        position: relative;
+        touch-action: none;
+      }
+
+      .grid-cell {
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8em;
+        font-weight: bold;
+        position: relative;
+        transition: all 0.15s ease;
+      }
+
+      @media (max-width: 600px) {
+        .grid-cell {
+          width: 60px;
+          height: 60px;
+          font-size: 1.3em;
+        }
+      }
+
+      .tile {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        background: #eee4da;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8em;
+        font-weight: bold;
+        transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 10;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      @media (max-width: 600px) {
+        .tile {
+          width: 60px;
+          height: 60px;
+          font-size: 1.3em;
+        }
+      }
+
+      @media (max-width: 420px) {
         .container {
-            position: relative;
-            z-index: 10;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+          padding: 12px;
         }
 
         header {
-            text-align: center;
-            padding: 20px 0;
-            margin-bottom: 20px;
+          padding: 10px 0;
+          margin-bottom: 10px;
         }
 
         h1 {
-            font-size: 3em;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
-            margin-bottom: 10px;
-            letter-spacing: -2px;
+          font-size: 2.1em;
+          letter-spacing: -1px;
         }
 
         .tagline {
-            color: #8892b0;
-            font-size: 1.1em;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .main-layout {
-            display: grid;
-            grid-template-columns: 300px 1fr 300px;
-            gap: 30px;
-            align-items: start;
-        }
-
-        @media (max-width: 1024px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-                max-width: 600px;
-                margin: 0 auto;
-            }
-
-            /* Show the board first on mobile, then controls below. */
-            .game-board-container {
-                order: 1;
-            }
-
-            .main-layout > .panel:first-of-type {
-                order: 2;
-            }
-
-            .main-layout > .panel:last-of-type {
-                order: 3;
-            }
+          font-size: 0.88em;
+          letter-spacing: 1.6px;
         }
 
         .panel {
-            background: var(--panel);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 25px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        .game-board-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+          padding: 14px;
+          border-radius: 16px;
         }
 
         .stats-bar {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 20px;
-            width: 100%;
+          gap: 8px;
         }
 
         .stat-box {
-            text-align: center;
-            padding: 15px 25px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            min-width: 100px;
-        }
-
-        .stat-label {
-            font-size: 0.75em;
-            color: #8892b0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
+          min-width: 82px;
+          padding: 10px 12px;
         }
 
         .stat-value {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: var(--primary);
-            font-family: 'Courier New', monospace;
+          font-size: 1.35em;
         }
 
         .game-wrapper {
-            position: relative;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
+          padding: 10px;
         }
 
         .game-grid {
-            display: grid;
-            gap: 12px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 12px;
-            border-radius: 12px;
-            position: relative;
-            touch-action: none;
+          gap: 8px;
+          padding: 8px;
         }
 
-        .grid-cell {
-            width: 80px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8em;
-            font-weight: bold;
-            position: relative;
-            transition: all 0.15s ease;
-        }
-
-        @media (max-width: 600px) {
-            .grid-cell {
-                width: 60px;
-                height: 60px;
-                font-size: 1.3em;
-            }
-        }
-
+        .grid-cell,
         .tile {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background: #eee4da;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8em;
-            font-weight: bold;
-            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 10;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+          width: 52px;
+          height: 52px;
+          font-size: 1.1em;
         }
+      }
 
-        @media (max-width: 600px) {
-            .tile {
-                width: 60px;
-                height: 60px;
-                font-size: 1.3em;
-            }
+      .tile-new {
+        animation: pop 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .tile-merged {
+        animation: merge 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 20;
+      }
+
+      @keyframes pop {
+        0% {
+          transform: scale(0);
+          opacity: 0;
         }
-
-        @media (max-width: 420px) {
-            .container {
-                padding: 12px;
-            }
-
-            header {
-                padding: 10px 0;
-                margin-bottom: 10px;
-            }
-
-            h1 {
-                font-size: 2.1em;
-                letter-spacing: -1px;
-            }
-
-            .tagline {
-                font-size: 0.88em;
-                letter-spacing: 1.6px;
-            }
-
-            .panel {
-                padding: 14px;
-                border-radius: 16px;
-            }
-
-            .stats-bar {
-                gap: 8px;
-            }
-
-            .stat-box {
-                min-width: 82px;
-                padding: 10px 12px;
-            }
-
-            .stat-value {
-                font-size: 1.35em;
-            }
-
-            .game-wrapper {
-                padding: 10px;
-            }
-
-            .game-grid {
-                gap: 8px;
-                padding: 8px;
-            }
-
-            .grid-cell,
-            .tile {
-                width: 52px;
-                height: 52px;
-                font-size: 1.1em;
-            }
+        50% {
+          transform: scale(1.2);
         }
-
-        .tile-new {
-            animation: pop 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        100% {
+          transform: scale(1);
+          opacity: 1;
         }
+      }
 
-        .tile-merged {
-            animation: merge 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 20;
+      @keyframes merge {
+        0% {
+          transform: scale(1);
         }
-
-        @keyframes pop {
-            0% { transform: scale(0); opacity: 0; }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); opacity: 1; }
+        50% {
+          transform: scale(1.2);
+          background: #fff;
         }
-
-        @keyframes merge {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); background: #fff; }
-            100% { transform: scale(1); }
+        100% {
+          transform: scale(1);
         }
+      }
 
-        .tile-superposition {
-            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            animation: quantum 2s infinite;
+      .tile-superposition {
+        background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        animation: quantum 2s infinite;
+      }
+
+      @keyframes quantum {
+        0%,
+        100% {
+          opacity: 0.8;
+          box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
         }
-
-        @keyframes quantum {
-            0%, 100% { opacity: 0.8; box-shadow: 0 0 20px rgba(102, 126, 234, 0.5); }
-            50% { opacity: 1; box-shadow: 0 0 40px rgba(118, 75, 162, 0.8); }
+        50% {
+          opacity: 1;
+          box-shadow: 0 0 40px rgba(118, 75, 162, 0.8);
         }
+      }
 
-        .controls {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
+      .controls {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .btn {
+        background: linear-gradient(
+          135deg,
+          rgba(0, 212, 255, 0.1),
+          rgba(255, 0, 160, 0.1)
+        );
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 0.95em;
+        transition: all 0.3s;
+        font-family: inherit;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        border-color: var(--primary);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .btn.primary {
+        background: var(--primary);
+        color: #000;
+        border-color: var(--primary);
+      }
+
+      .btn.danger {
+        border-color: var(--danger);
+        color: var(--danger);
+      }
+
+      .btn.warning {
+        border-color: var(--warning);
+        color: var(--warning);
+      }
+
+      .powerups {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .powerup-btn {
+        padding: 15px;
+        background: rgba(0, 0, 0, 0.3);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .powerup-btn:hover:not(:disabled) {
+        border-color: var(--tertiary);
+        transform: translateY(-2px);
+      }
+
+      .powerup-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+
+      .powerup-icon {
+        font-size: 1.5em;
+        margin-bottom: 5px;
+      }
+
+      .powerup-name {
+        font-size: 0.8em;
+        color: #8892b0;
+      }
+
+      .powerup-count {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: var(--tertiary);
+        color: #000;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 0.8em;
+      }
+
+      .menu-section {
+        margin-bottom: 25px;
+      }
+
+      .menu-title {
+        font-size: 0.9em;
+        color: #8892b0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .mode-selector {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .mode-btn {
+        padding: 15px;
+        background: rgba(0, 0, 0, 0.3);
+        border: 2px solid transparent;
+        border-radius: 12px;
+        cursor: pointer;
+        text-align: left;
+        transition: all 0.3s;
+        color: white;
+        font-family: inherit;
+      }
+
+      .mode-btn:hover,
+      .mode-btn.active {
+        border-color: var(--primary);
+        background: rgba(0, 212, 255, 0.1);
+      }
+
+      .mode-btn .mode-name {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .mode-btn .mode-desc {
+        font-size: 0.8em;
+        color: #8892b0;
+      }
+
+      .size-selector {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 10px;
+      }
+
+      .size-btn {
+        width: 50px;
+        height: 50px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        background: rgba(0, 0, 0, 0.3);
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
+
+      .size-btn:hover,
+      .size-btn.active {
+        border-color: var(--secondary);
+        background: rgba(255, 0, 160, 0.2);
+        color: var(--secondary);
+      }
+
+      .theme-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+
+      .theme-btn {
+        aspect-ratio: 1;
+        border: 3px solid transparent;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s;
+        position: relative;
+      }
+
+      .theme-btn:hover,
+      .theme-btn.active {
+        transform: scale(1.1);
+        border-color: white;
+      }
+
+      .theme-btn.active::after {
+        content: '✓';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.5em;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .timer-display {
+        font-family: 'Courier New', monospace;
+        font-size: 2em;
+        color: var(--tertiary);
+        text-align: center;
+        margin: 20px 0;
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+      }
+
+      .timer-display.warning {
+        color: var(--danger);
+        animation: pulse 1s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
         }
-
-        .btn {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 160, 0.1));
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 0.95em;
-            transition: all 0.3s;
-            font-family: inherit;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
+        50% {
+          opacity: 0.5;
         }
+      }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
-            border-color: var(--primary);
-        }
+      .achievement {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 212, 255, 0.9),
+          rgba(255, 0, 160, 0.9)
+        );
+        padding: 20px 30px;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        transform: translateX(400px);
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+        max-width: 300px;
+      }
 
-        .btn:active {
-            transform: translateY(0);
-        }
+      .achievement.show {
+        transform: translateX(0);
+      }
 
-        .btn.primary {
-            background: var(--primary);
-            color: #000;
-            border-color: var(--primary);
-        }
+      .achievement-title {
+        font-weight: bold;
+        font-size: 1.1em;
+        margin-bottom: 5px;
+      }
 
-        .btn.danger {
-            border-color: var(--danger);
-            color: var(--danger);
-        }
+      .achievement-desc {
+        font-size: 0.9em;
+        opacity: 0.9;
+      }
 
-        .btn.warning {
-            border-color: var(--warning);
-            color: var(--warning);
-        }
+      .save-slots {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-height: 200px;
+        overflow-y: auto;
+      }
 
-        .powerups {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 20px;
-        }
+      .save-slot {
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s;
+      }
 
-        .powerup-btn {
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
+      .save-slot:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: var(--primary);
+      }
 
-        .powerup-btn:hover:not(:disabled) {
-            border-color: var(--tertiary);
-            transform: translateY(-2px);
-        }
+      .save-info {
+        text-align: left;
+      }
 
-        .powerup-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
+      .save-date {
+        font-size: 0.8em;
+        color: #8892b0;
+      }
 
-        .powerup-icon {
-            font-size: 1.5em;
-            margin-bottom: 5px;
-        }
+      .save-score {
+        color: var(--primary);
+        font-weight: bold;
+      }
 
-        .powerup-name {
-            font-size: 0.8em;
-            color: #8892b0;
-        }
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+      }
 
-        .powerup-count {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: var(--tertiary);
-            color: #000;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.8em;
-        }
+      .modal.active {
+        opacity: 1;
+        pointer-events: all;
+      }
 
-        .menu-section {
-            margin-bottom: 25px;
-        }
+      .modal-content {
+        background: var(--panel);
+        padding: 40px;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        transform: scale(0.9);
+        transition: transform 0.3s;
+      }
 
-        .menu-title {
-            font-size: 0.9em;
-            color: #8892b0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+      .modal.active .modal-content {
+        transform: scale(1);
+      }
 
-        .mode-selector {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+      .modal-title {
+        font-size: 2em;
+        margin-bottom: 20px;
+        color: var(--primary);
+      }
 
-        .mode-btn {
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid transparent;
-            border-radius: 12px;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.3s;
-            color: white;
-            font-family: inherit;
-        }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin: 20px 0;
+      }
 
-        .mode-btn:hover, .mode-btn.active {
-            border-color: var(--primary);
-            background: rgba(0, 212, 255, 0.1);
-        }
+      .stat-item {
+        padding: 15px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 12px;
+      }
 
-        .mode-btn .mode-name {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 4px;
-        }
+      .stat-big {
+        font-size: 2em;
+        color: var(--tertiary);
+        font-weight: bold;
+      }
 
-        .mode-btn .mode-desc {
-            font-size: 0.8em;
-            color: #8892b0;
-        }
+      .heat-map {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        opacity: 0.3;
+        border-radius: 12px;
+      }
 
-        .size-selector {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 10px;
-        }
+      .combo-display {
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 1.5em;
+        color: var(--tertiary);
+        font-weight: bold;
+        opacity: 0;
+        transition: all 0.3s;
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+      }
 
-        .size-btn {
-            width: 50px;
-            height: 50px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            background: rgba(0, 0, 0, 0.3);
-            color: white;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
+      .combo-display.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-10px);
+      }
 
-        .size-btn:hover, .size-btn.active {
-            border-color: var(--secondary);
-            background: rgba(255, 0, 160, 0.2);
-            color: var(--secondary);
-        }
-
-        .theme-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-
-        .theme-btn {
-            aspect-ratio: 1;
-            border: 3px solid transparent;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .theme-btn:hover, .theme-btn.active {
-            transform: scale(1.1);
-            border-color: white;
-        }
-
-        .theme-btn.active::after {
-            content: '✓';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1.5em;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .timer-display {
-            font-family: 'Courier New', monospace;
-            font-size: 2em;
-            color: var(--tertiary);
-            text-align: center;
-            margin: 20px 0;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-        }
-
-        .timer-display.warning {
-            color: var(--danger);
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .achievement {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.9), rgba(255, 0, 160, 0.9));
-            padding: 20px 30px;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            transform: translateX(400px);
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000;
-            max-width: 300px;
-        }
-
-        .achievement.show {
-            transform: translateX(0);
-        }
-
-        .achievement-title {
-            font-weight: bold;
-            font-size: 1.1em;
-            margin-bottom: 5px;
-        }
-
-        .achievement-desc {
-            font-size: 0.9em;
-            opacity: 0.9;
-        }
-
-        .save-slots {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .save-slot {
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s;
-        }
-
-        .save-slot:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--primary);
-        }
-
-        .save-info {
-            text-align: left;
-        }
-
-        .save-date {
-            font-size: 0.8em;
-            color: #8892b0;
-        }
-
-        .save-score {
-            color: var(--primary);
-            font-weight: bold;
-        }
-
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-
-        .modal.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .modal-content {
-            background: var(--panel);
-            padding: 40px;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            transform: scale(0.9);
-            transition: transform 0.3s;
-        }
-
-        .modal.active .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-title {
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .stat-item {
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
-        }
-
-        .stat-big {
-            font-size: 2em;
-            color: var(--tertiary);
-            font-weight: bold;
-        }
-
-        .heat-map {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            opacity: 0.3;
-            border-radius: 12px;
-        }
-
-        .combo-display {
-            position: absolute;
-            top: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.5em;
-            color: var(--tertiary);
-            font-weight: bold;
-            opacity: 0;
-            transition: all 0.3s;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-        }
-
-        .combo-display.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(-10px);
-        }
-
-        .hidden { display: none !important; }
+      .hidden {
+        display: none !important;
+      }
     </style>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <canvas id="particles"></canvas>
 
     <div class="container">
-        <header>
-            <h1>2048 Ultimate</h1>
-            <div class="tagline">Multi-Dimensional Puzzle Experience</div>
-        </header>
+      <header>
+        <h1>2048 Ultimate</h1>
+        <div class="tagline">Multi-Dimensional Puzzle Experience</div>
+      </header>
 
-        <div class="main-layout">
-            <!-- Left Panel: Controls & Modes -->
-            <div class="panel">
-                <div class="menu-section">
-                    <div class="menu-title">🎮 Game Mode</div>
-                    <div class="mode-selector">
-                        <button class="mode-btn active" onclick="game.setMode('classic')">
-                            <span class="mode-name">Classic</span>
-                            <span class="mode-desc">Traditional 2048 gameplay</span>
-                        </button>
-                        <button class="mode-btn" onclick="game.setMode('time')">
-                            <span class="mode-name">Time Attack</span>
-                            <span class="mode-desc">2 minutes to reach 2048</span>
-                        </button>
-                        <button class="mode-btn" onclick="game.setMode('survival')">
-                            <span class="mode-name">Survival</span>
-                            <span class="mode-desc">+5s per merge, don't run out!</span>
-                        </button>
-                        <button class="mode-btn" onclick="game.setMode('zen')">
-                            <span class="mode-name">Zen Mode</span>
-                            <span class="mode-desc">No spawn limits, relax</span>
-                        </button>
-                        <button class="mode-btn" onclick="game.setMode('quantum')">
-                            <span class="mode-name">Quantum</span>
-                            <span class="mode-desc">Tiles in superposition</span>
-                        </button>
-                        <button class="mode-btn" onclick="game.setMode('gravity')">
-                            <span class="mode-name">Gravity</span>
-                            <span class="mode-desc">Tiles fall to bottom</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="menu-section">
-                    <div class="menu-title">📐 Grid Size</div>
-                    <div class="size-selector">
-                        <button class="size-btn" onclick="game.setSize(3)">3×3</button>
-                        <button class="size-btn active" onclick="game.setSize(4)">4×4</button>
-                        <button class="size-btn" onclick="game.setSize(5)">5×5</button>
-                        <button class="size-btn" onclick="game.setSize(6)">6×6</button>
-                    </div>
-                </div>
-
-                <div class="menu-section">
-                    <div class="menu-title">🎨 Theme</div>
-                    <div class="theme-grid">
-                        <button class="theme-btn active" style="background: linear-gradient(135deg, #1a1a2e, #16213e)" onclick="game.setTheme('dark')" title="Dark"></button>
-                        <button class="theme-btn" style="background: linear-gradient(135deg, #ff00a0, #00d4ff)" onclick="game.setTheme('neon')" title="Neon"></button>
-                        <button class="theme-btn" style="background: linear-gradient(135deg, #2d5016, #3a7d23)" onclick="game.setTheme('matrix')" title="Matrix"></button>
-                        <button class="theme-btn" style="background: linear-gradient(135deg, #ffb3ba, #bae1ff)" onclick="game.setTheme('pastel')" title="Pastel"></button>
-                        <button class="theme-btn" style="background: linear-gradient(135deg, #1a0f2e, #0f2e1a)" onclick="game.setTheme('cosmic')" title="Cosmic"></button>
-                        <button class="theme-btn" style="background: linear-gradient(135deg, #8b4513, #d2691e)" onclick="game.setTheme('wood')" title="Wood"></button>
-                    </div>
-                </div>
-
-                <div class="menu-section">
-                    <div class="menu-title">💾 Save Slots</div>
-                    <div class="save-slots" id="saveSlots"></div>
-                    <div style="display: flex; gap: 10px; margin-top: 10px;">
-                        <button class="btn" onclick="game.saveGame()" style="flex: 1;">Save</button>
-                        <button class="btn" onclick="game.exportSave()" style="flex: 1;">Export</button>
-                    </div>
-                    <input type="file" id="importFile" style="display: none;" accept=".json" onchange="game.importSave(this)">
-                    <button class="btn" onclick="document.getElementById('importFile').click()" style="width: 100%; margin-top: 10px;">Import Save</button>
-                </div>
+      <div class="main-layout">
+        <!-- Left Panel: Controls & Modes -->
+        <div class="panel">
+          <div class="menu-section">
+            <div class="menu-title">🎮 Game Mode</div>
+            <div class="mode-selector">
+              <button class="mode-btn active" onclick="game.setMode('classic')">
+                <span class="mode-name">Classic</span>
+                <span class="mode-desc">Traditional 2048 gameplay</span>
+              </button>
+              <button class="mode-btn" onclick="game.setMode('time')">
+                <span class="mode-name">Time Attack</span>
+                <span class="mode-desc">2 minutes to reach 2048</span>
+              </button>
+              <button class="mode-btn" onclick="game.setMode('survival')">
+                <span class="mode-name">Survival</span>
+                <span class="mode-desc">+5s per merge, don't run out!</span>
+              </button>
+              <button class="mode-btn" onclick="game.setMode('zen')">
+                <span class="mode-name">Zen Mode</span>
+                <span class="mode-desc">No spawn limits, relax</span>
+              </button>
+              <button class="mode-btn" onclick="game.setMode('quantum')">
+                <span class="mode-name">Quantum</span>
+                <span class="mode-desc">Tiles in superposition</span>
+              </button>
+              <button class="mode-btn" onclick="game.setMode('gravity')">
+                <span class="mode-name">Gravity</span>
+                <span class="mode-desc">Tiles fall to bottom</span>
+              </button>
             </div>
+          </div>
 
-            <!-- Center: Game Board -->
-            <div class="game-board-container">
-                <div class="stats-bar">
-                    <div class="stat-box">
-                        <div class="stat-label">Score</div>
-                        <div class="stat-value" id="score">0</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">Best</div>
-                        <div class="stat-value" id="bestScore">0</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">Moves</div>
-                        <div class="stat-value" id="moves">0</div>
-                    </div>
-                </div>
-
-                <div class="timer-display hidden" id="timer">02:00</div>
-
-                <div class="game-wrapper">
-                    <div class="combo-display" id="comboDisplay">Combo x2!</div>
-                    <div class="game-grid" id="gameGrid"></div>
-                    <canvas class="heat-map" id="heatMap"></canvas>
-                </div>
-
-                <div class="controls">
-                    <button class="btn primary" onclick="game.newGame()">New Game</button>
-                    <button class="btn warning" onclick="game.undo()" id="undoBtn">Undo (3)</button>
-                    <button class="btn" onclick="game.toggleAI()">AI Assist</button>
-                    <button class="btn danger" onclick="game.showStats()">Statistics</button>
-                </div>
+          <div class="menu-section">
+            <div class="menu-title">📐 Grid Size</div>
+            <div class="size-selector">
+              <button class="size-btn" onclick="game.setSize(3)">3×3</button>
+              <button class="size-btn active" onclick="game.setSize(4)">
+                4×4
+              </button>
+              <button class="size-btn" onclick="game.setSize(5)">5×5</button>
+              <button class="size-btn" onclick="game.setSize(6)">6×6</button>
             </div>
+          </div>
 
-            <!-- Right Panel: Power-ups & Info -->
-            <div class="panel">
-                <div class="menu-section">
-                    <div class="menu-title">⚡ Power-ups</div>
-                    <div class="powerups">
-                        <button class="powerup-btn" onclick="game.usePowerup('shuffle')" id="btnShuffle">
-                            <span class="powerup-count" id="countShuffle">2</span>
-                            <div class="powerup-icon">🔀</div>
-                            <div class="powerup-name">Shuffle</div>
-                        </button>
-                        <button class="powerup-btn" onclick="game.usePowerup('delete')" id="btnDelete">
-                            <span class="powerup-count" id="countDelete">2</span>
-                            <div class="powerup-icon">🗑️</div>
-                            <div class="powerup-name">Delete</div>
-                        </button>
-                        <button class="powerup-btn" onclick="game.usePowerup('double')" id="btnDouble">
-                            <span class="powerup-count" id="countDouble">1</span>
-                            <div class="powerup-icon">2️⃣</div>
-                            <div class="powerup-name">Double</div>
-                        </button>
-                        <button class="powerup-btn" onclick="game.usePowerup('freeze')" id="btnFreeze">
-                            <span class="powerup-count" id="countFreeze">1</span>
-                            <div class="powerup-icon">❄️</div>
-                            <div class="powerup-name">Freeze</div>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="menu-section">
-                    <div class="menu-title">📊 Current Stats</div>
-                    <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; font-size: 0.9em; line-height: 1.8;">
-                        <div style="display: flex; justify-content: space-between;">
-                            <span style="color: #8892b0;">Highest Tile:</span>
-                            <span id="statHighest" style="color: var(--primary); font-weight: bold;">-</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span style="color: #8892b0;">Merges:</span>
-                            <span id="statMerges" style="color: var(--primary);">0</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span style="color: #8892b0;">Time:</span>
-                            <span id="statTime" style="color: var(--primary);">00:00</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span style="color: #8892b0;">Combo:</span>
-                            <span id="statCombo" style="color: var(--tertiary);">0</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="menu-section">
-                    <div class="menu-title">🎯 Next Goal</div>
-                    <div style="background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(255,0,160,0.1)); padding: 20px; border-radius: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.1);">
-                        <div style="font-size: 2em; font-weight: bold; color: var(--tertiary);" id="nextGoal">2048</div>
-                        <div style="color: #8892b0; margin-top: 5px;">Keep merging!</div>
-                    </div>
-                </div>
-
-                <div class="menu-section">
-                    <div class="menu-title">⌨️ Controls</div>
-                    <div style="font-size: 0.85em; color: #8892b0; line-height: 2;">
-                        <div>Arrow Keys / WASD - Move</div>
-                        <div>U - Undo</div>
-                        <div>N - New Game</div>
-                        <div>Space - Pause</div>
-                    </div>
-                </div>
+          <div class="menu-section">
+            <div class="menu-title">🎨 Theme</div>
+            <div class="theme-grid">
+              <button
+                class="theme-btn active"
+                style="background: linear-gradient(135deg, #1a1a2e, #16213e)"
+                onclick="game.setTheme('dark')"
+                title="Dark"
+              ></button>
+              <button
+                class="theme-btn"
+                style="background: linear-gradient(135deg, #ff00a0, #00d4ff)"
+                onclick="game.setTheme('neon')"
+                title="Neon"
+              ></button>
+              <button
+                class="theme-btn"
+                style="background: linear-gradient(135deg, #2d5016, #3a7d23)"
+                onclick="game.setTheme('matrix')"
+                title="Matrix"
+              ></button>
+              <button
+                class="theme-btn"
+                style="background: linear-gradient(135deg, #ffb3ba, #bae1ff)"
+                onclick="game.setTheme('pastel')"
+                title="Pastel"
+              ></button>
+              <button
+                class="theme-btn"
+                style="background: linear-gradient(135deg, #1a0f2e, #0f2e1a)"
+                onclick="game.setTheme('cosmic')"
+                title="Cosmic"
+              ></button>
+              <button
+                class="theme-btn"
+                style="background: linear-gradient(135deg, #8b4513, #d2691e)"
+                onclick="game.setTheme('wood')"
+                title="Wood"
+              ></button>
             </div>
+          </div>
+
+          <div class="menu-section">
+            <div class="menu-title">💾 Save Slots</div>
+            <div class="save-slots" id="saveSlots"></div>
+            <div style="display: flex; gap: 10px; margin-top: 10px">
+              <button class="btn" onclick="game.saveGame()" style="flex: 1">
+                Save
+              </button>
+              <button class="btn" onclick="game.exportSave()" style="flex: 1">
+                Export
+              </button>
+            </div>
+            <input
+              type="file"
+              id="importFile"
+              style="display: none"
+              accept=".json"
+              onchange="game.importSave(this)"
+            />
+            <button
+              class="btn"
+              onclick="document.getElementById('importFile').click()"
+              style="width: 100%; margin-top: 10px"
+            >
+              Import Save
+            </button>
+          </div>
         </div>
+
+        <!-- Center: Game Board -->
+        <div class="game-board-container">
+          <div class="stats-bar">
+            <div class="stat-box">
+              <div class="stat-label">Score</div>
+              <div class="stat-value" id="score">0</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Best</div>
+              <div class="stat-value" id="bestScore">0</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Moves</div>
+              <div class="stat-value" id="moves">0</div>
+            </div>
+          </div>
+
+          <div class="timer-display hidden" id="timer">02:00</div>
+
+          <div class="game-wrapper">
+            <div class="combo-display" id="comboDisplay">Combo x2!</div>
+            <div class="game-grid" id="gameGrid"></div>
+            <canvas class="heat-map" id="heatMap"></canvas>
+          </div>
+
+          <div class="controls">
+            <button class="btn primary" onclick="game.newGame()">
+              New Game
+            </button>
+            <button class="btn warning" onclick="game.undo()" id="undoBtn">
+              Undo (3)
+            </button>
+            <button class="btn" onclick="game.toggleAI()">AI Assist</button>
+            <button class="btn danger" onclick="game.showStats()">
+              Statistics
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Panel: Power-ups & Info -->
+        <div class="panel">
+          <div class="menu-section">
+            <div class="menu-title">⚡ Power-ups</div>
+            <div class="powerups">
+              <button
+                class="powerup-btn"
+                onclick="game.usePowerup('shuffle')"
+                id="btnShuffle"
+              >
+                <span class="powerup-count" id="countShuffle">2</span>
+                <div class="powerup-icon">🔀</div>
+                <div class="powerup-name">Shuffle</div>
+              </button>
+              <button
+                class="powerup-btn"
+                onclick="game.usePowerup('delete')"
+                id="btnDelete"
+              >
+                <span class="powerup-count" id="countDelete">2</span>
+                <div class="powerup-icon">🗑️</div>
+                <div class="powerup-name">Delete</div>
+              </button>
+              <button
+                class="powerup-btn"
+                onclick="game.usePowerup('double')"
+                id="btnDouble"
+              >
+                <span class="powerup-count" id="countDouble">1</span>
+                <div class="powerup-icon">2️⃣</div>
+                <div class="powerup-name">Double</div>
+              </button>
+              <button
+                class="powerup-btn"
+                onclick="game.usePowerup('freeze')"
+                id="btnFreeze"
+              >
+                <span class="powerup-count" id="countFreeze">1</span>
+                <div class="powerup-icon">❄️</div>
+                <div class="powerup-name">Freeze</div>
+              </button>
+            </div>
+          </div>
+
+          <div class="menu-section">
+            <div class="menu-title">📊 Current Stats</div>
+            <div
+              style="
+                background: rgba(0, 0, 0, 0.3);
+                padding: 15px;
+                border-radius: 12px;
+                font-size: 0.9em;
+                line-height: 1.8;
+              "
+            >
+              <div style="display: flex; justify-content: space-between">
+                <span style="color: #8892b0">Highest Tile:</span>
+                <span
+                  id="statHighest"
+                  style="color: var(--primary); font-weight: bold"
+                  >-</span
+                >
+              </div>
+              <div style="display: flex; justify-content: space-between">
+                <span style="color: #8892b0">Merges:</span>
+                <span id="statMerges" style="color: var(--primary)">0</span>
+              </div>
+              <div style="display: flex; justify-content: space-between">
+                <span style="color: #8892b0">Time:</span>
+                <span id="statTime" style="color: var(--primary)">00:00</span>
+              </div>
+              <div style="display: flex; justify-content: space-between">
+                <span style="color: #8892b0">Combo:</span>
+                <span id="statCombo" style="color: var(--tertiary)">0</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-section">
+            <div class="menu-title">🎯 Next Goal</div>
+            <div
+              style="
+                background: linear-gradient(
+                  135deg,
+                  rgba(0, 212, 255, 0.1),
+                  rgba(255, 0, 160, 0.1)
+                );
+                padding: 20px;
+                border-radius: 12px;
+                text-align: center;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+              "
+            >
+              <div
+                style="
+                  font-size: 2em;
+                  font-weight: bold;
+                  color: var(--tertiary);
+                "
+                id="nextGoal"
+              >
+                2048
+              </div>
+              <div style="color: #8892b0; margin-top: 5px">Keep merging!</div>
+            </div>
+          </div>
+
+          <div class="menu-section">
+            <div class="menu-title">⌨️ Controls</div>
+            <div style="font-size: 0.85em; color: #8892b0; line-height: 2">
+              <div>Arrow Keys / WASD - Move</div>
+              <div>U - Undo</div>
+              <div>N - New Game</div>
+              <div>Space - Pause</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Achievement Popup -->
     <div class="achievement" id="achievement">
-        <div class="achievement-title">Achievement Unlocked!</div>
-        <div class="achievement-desc">Description here</div>
+      <div class="achievement-title">Achievement Unlocked!</div>
+      <div class="achievement-desc">Description here</div>
     </div>
 
     <!-- Game Over Modal -->
     <div class="modal" id="gameOverModal">
-        <div class="modal-content">
-            <div class="modal-title" id="modalTitle">Game Over!</div>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-label">Final Score</div>
-                    <div class="stat-big" id="finalScore">0</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Best Tile</div>
-                    <div class="stat-big" id="finalTile">0</div>
-                </div>
-            </div>
-            <div id="newRecord" class="hidden" style="color: var(--tertiary); font-size: 1.2em; margin-bottom: 20px; animation: pulse 1s infinite;">
-                🏆 New Record!
-            </div>
-            <div style="display: flex; gap: 15px; justify-content: center;">
-                <button class="btn primary" onclick="game.newGame(); closeModal()">Play Again</button>
-                <button class="btn" onclick="closeModal()">Menu</button>
-            </div>
+      <div class="modal-content">
+        <div class="modal-title" id="modalTitle">Game Over!</div>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-label">Final Score</div>
+            <div class="stat-big" id="finalScore">0</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Best Tile</div>
+            <div class="stat-big" id="finalTile">0</div>
+          </div>
         </div>
+        <div
+          id="newRecord"
+          class="hidden"
+          style="
+            color: var(--tertiary);
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            animation: pulse 1s infinite;
+          "
+        >
+          🏆 New Record!
+        </div>
+        <div style="display: flex; gap: 15px; justify-content: center">
+          <button
+            class="btn primary"
+            onclick="
+              game.newGame()
+              closeModal()
+            "
+          >
+            Play Again
+          </button>
+          <button class="btn" onclick="closeModal()">Menu</button>
+        </div>
+      </div>
     </div>
 
     <!-- Stats Modal -->
     <div class="modal" id="statsModal">
-        <div class="modal-content" style="max-width: 600px;">
-            <div class="modal-title">📈 Statistics</div>
-            <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr);">
-                <div class="stat-item">
-                    <div class="stat-label">Games Played</div>
-                    <div class="stat-big" id="totalGames">0</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Win Rate</div>
-                    <div class="stat-big" id="winRate">0%</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Highest Score</div>
-                    <div class="stat-big" id="statsHighScore">0</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Total Time</div>
-                    <div class="stat-big" id="totalTime">0h</div>
-                </div>
-            </div>
-            <button class="btn" onclick="closeModal()" style="margin-top: 20px;">Close</button>
+      <div class="modal-content" style="max-width: 600px">
+        <div class="modal-title">📈 Statistics</div>
+        <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr)">
+          <div class="stat-item">
+            <div class="stat-label">Games Played</div>
+            <div class="stat-big" id="totalGames">0</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Win Rate</div>
+            <div class="stat-big" id="winRate">0%</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Highest Score</div>
+            <div class="stat-big" id="statsHighScore">0</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Total Time</div>
+            <div class="stat-big" id="totalTime">0h</div>
+          </div>
         </div>
+        <button class="btn" onclick="closeModal()" style="margin-top: 20px">
+          Close
+        </button>
+      </div>
     </div>
 
     <script>
-        // Particle System
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+      // Particle System
+      const canvas = document.getElementById('particles')
+      const ctx = canvas.getContext('2d')
+      let particles = []
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+      function resizeCanvas() {
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
+      }
+      window.addEventListener('resize', resizeCanvas)
+      resizeCanvas()
+
+      class Particle {
+        constructor() {
+          this.reset()
         }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        reset() {
+          this.x = Math.random() * canvas.width
+          this.y = Math.random() * canvas.height
+          this.size = Math.random() * 3
+          this.speedX = (Math.random() - 0.5) * 0.5
+          this.speedY = (Math.random() - 0.5) * 0.5
+          this.opacity = Math.random() * 0.5
+          this.color = Math.random() > 0.5 ? '0, 212, 255' : '255, 0, 160'
+        }
+        update() {
+          this.x += this.speedX
+          this.y += this.speedY
+          if (this.x < 0 || this.x > canvas.width) this.speedX *= -1
+          if (this.y < 0 || this.y > canvas.height) this.speedY *= -1
+        }
+        draw() {
+          ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`
+          ctx.beginPath()
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+          ctx.fill()
+        }
+      }
 
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.5;
-                this.opacity = Math.random() * 0.5;
-                this.color = Math.random() > 0.5 ? '0, 212, 255' : '255, 0, 160';
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
-            draw() {
-                ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+      for (let i = 0; i < 50; i++) particles.push(new Particle())
+
+      function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        particles.forEach((p) => {
+          p.update()
+          p.draw()
+        })
+        requestAnimationFrame(animateParticles)
+      }
+      animateParticles()
+
+      // Game Class
+      class Game2048 {
+        constructor() {
+          this.size = 4
+          this.grid = []
+          this.score = 0
+          this.moves = 0
+          this.timer = 0
+          this.timerInterval = null
+          this.undoStack = []
+          this.mode = 'classic'
+          this.theme = 'dark'
+          this.powerups = { shuffle: 2, delete: 2, double: 1, freeze: 1 }
+          this.combo = 0
+          this.lastMergeTime = 0
+          this.highestTile = 0
+          this.totalMerges = 0
+          this.isPaused = false
+          this.aiActive = false
+          this.saveSlots = this.loadFromStorage('saveSlots') || []
+          this.stats = this.loadFromStorage('stats') || {
+            gamesPlayed: 0,
+            gamesWon: 0,
+            totalScore: 0,
+            highestScore: 0,
+            totalTime: 0,
+            highestTile: 0,
+          }
+
+          this.themes = {
+            dark: {
+              bg: '#1a1a2e',
+              text: '#ffffff',
+              tiles: {
+                0: '#1e1e3f',
+                2: '#eee4da',
+                4: '#ede0c8',
+                8: '#f2b179',
+                16: '#f59563',
+                32: '#f67c5f',
+                64: '#f65e3b',
+                128: '#edcf72',
+                256: '#edcc61',
+                512: '#edc850',
+                1024: '#edc53f',
+                2048: '#edc22e',
+                4096: '#3c3a32',
+                8192: '#3c3a32',
+              },
+            },
+            neon: {
+              bg: '#0a0a0f',
+              text: '#00ff88',
+              tiles: {
+                0: '#0f0f1a',
+                2: '#ff00a0',
+                4: '#00d4ff',
+                8: '#ffd700',
+                16: '#ff00a0',
+                32: '#00d4ff',
+                64: '#ffd700',
+                128: '#ff00a0',
+                256: '#00d4ff',
+                512: '#ffd700',
+                1024: '#ff00a0',
+                2048: '#00d4ff',
+                4096: '#ffd700',
+                8192: '#ffffff',
+              },
+            },
+            matrix: {
+              bg: '#0d0208',
+              text: '#00ff41',
+              tiles: {
+                0: '#003b00',
+                2: '#008f11',
+                4: '#00ff41',
+                8: '#008f11',
+                16: '#00ff41',
+                32: '#008f11',
+                64: '#00ff41',
+                128: '#008f11',
+                256: '#00ff41',
+                512: '#008f11',
+                1024: '#00ff41',
+                2048: '#ffffff',
+                4096: '#008f11',
+                8192: '#00ff41',
+              },
+            },
+            pastel: {
+              bg: '#faf3f0',
+              text: '#5a5a5a',
+              tiles: {
+                0: '#ffe5d9',
+                2: '#ffb3ba',
+                4: '#bae1ff',
+                8: '#ffffba',
+                16: '#ffdfba',
+                32: '#ffb3ba',
+                64: '#bae1ff',
+                128: '#ffffba',
+                256: '#ffdfba',
+                512: '#ffb3ba',
+                1024: '#bae1ff',
+                2048: '#ffffba',
+                4096: '#ffdfba',
+                8192: '#ffb3ba',
+              },
+            },
+            cosmic: {
+              bg: '#0b0d17',
+              text: '#a78bfa',
+              tiles: {
+                0: '#1a1d3a',
+                2: '#4c1d95',
+                4: '#5b21b6',
+                8: '#7c3aed',
+                16: '#8b5cf6',
+                32: '#a78bfa',
+                64: '#c4b5fd',
+                128: '#ddd6fe',
+                256: '#ede9fe',
+                512: '#f5f3ff',
+                1024: '#fcd34d',
+                2048: '#fbbf24',
+                4096: '#f59e0b',
+                8192: '#d97706',
+              },
+            },
+            wood: {
+              bg: '#3e2723',
+              text: '#d7ccc8',
+              tiles: {
+                0: '#4e342e',
+                2: '#d7ccc8',
+                4: '#bcaaa4',
+                8: '#a1887f',
+                16: '#8d6e63',
+                32: '#795548',
+                64: '#6d4c41',
+                128: '#5d4037',
+                256: '#4e342e',
+                512: '#3e2723',
+                1024: '#d7ccc8',
+                2048: '#bcaaa4',
+                4096: '#a1887f',
+                8192: '#8d6e63',
+              },
+            },
+          }
+
+          this.init()
         }
 
-        for (let i = 0; i < 50; i++) particles.push(new Particle());
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animateParticles);
+        init() {
+          this.newGame()
+          this.updateSaveSlots()
+          this.setupInput()
+          this.loadBestScore()
         }
-        animateParticles();
 
-        // Game Class
-        class Game2048 {
-            constructor() {
-                this.size = 4;
-                this.grid = [];
-                this.score = 0;
-                this.moves = 0;
-                this.timer = 0;
-                this.timerInterval = null;
-                this.undoStack = [];
-                this.mode = 'classic';
-                this.theme = 'dark';
-                this.powerups = { shuffle: 2, delete: 2, double: 1, freeze: 1 };
-                this.combo = 0;
-                this.lastMergeTime = 0;
-                this.highestTile = 0;
-                this.totalMerges = 0;
-                this.isPaused = false;
-                this.aiActive = false;
-                this.saveSlots = this.loadFromStorage('saveSlots') || [];
-                this.stats = this.loadFromStorage('stats') || {
-                    gamesPlayed: 0,
-                    gamesWon: 0,
-                    totalScore: 0,
-                    highestScore: 0,
-                    totalTime: 0,
-                    highestTile: 0
-                };
+        newGame() {
+          this.grid = Array(this.size * this.size).fill(0)
+          this.score = 0
+          this.moves = 0
+          this.undoStack = []
+          this.combo = 0
+          this.highestTile = 0
+          this.totalMerges = 0
+          this.isPaused = false
+          this.powerups = { shuffle: 2, delete: 2, double: 1, freeze: 1 }
 
-                this.themes = {
-                    dark: { bg: '#1a1a2e', text: '#ffffff', tiles: {
-                        0: '#1e1e3f', 2: '#eee4da', 4: '#ede0c8', 8: '#f2b179', 16: '#f59563',
-                        32: '#f67c5f', 64: '#f65e3b', 128: '#edcf72', 256: '#edcc61', 512: '#edc850',
-                        1024: '#edc53f', 2048: '#edc22e', 4096: '#3c3a32', 8192: '#3c3a32'
-                    }},
-                    neon: { bg: '#0a0a0f', text: '#00ff88', tiles: {
-                        0: '#0f0f1a', 2: '#ff00a0', 4: '#00d4ff', 8: '#ffd700', 16: '#ff00a0',
-                        32: '#00d4ff', 64: '#ffd700', 128: '#ff00a0', 256: '#00d4ff', 512: '#ffd700',
-                        1024: '#ff00a0', 2048: '#00d4ff', 4096: '#ffd700', 8192: '#ffffff'
-                    }},
-                    matrix: { bg: '#0d0208', text: '#00ff41', tiles: {
-                        0: '#003b00', 2: '#008f11', 4: '#00ff41', 8: '#008f11', 16: '#00ff41',
-                        32: '#008f11', 64: '#00ff41', 128: '#008f11', 256: '#00ff41', 512: '#008f11',
-                        1024: '#00ff41', 2048: '#ffffff', 4096: '#008f11', 8192: '#00ff41'
-                    }},
-                    pastel: { bg: '#faf3f0', text: '#5a5a5a', tiles: {
-                        0: '#ffe5d9', 2: '#ffb3ba', 4: '#bae1ff', 8: '#ffffba', 16: '#ffdfba',
-                        32: '#ffb3ba', 64: '#bae1ff', 128: '#ffffba', 256: '#ffdfba', 512: '#ffb3ba',
-                        1024: '#bae1ff', 2048: '#ffffba', 4096: '#ffdfba', 8192: '#ffb3ba'
-                    }},
-                    cosmic: { bg: '#0b0d17', text: '#a78bfa', tiles: {
-                        0: '#1a1d3a', 2: '#4c1d95', 4: '#5b21b6', 8: '#7c3aed', 16: '#8b5cf6',
-                        32: '#a78bfa', 64: '#c4b5fd', 128: '#ddd6fe', 256: '#ede9fe', 512: '#f5f3ff',
-                        1024: '#fcd34d', 2048: '#fbbf24', 4096: '#f59e0b', 8192: '#d97706'
-                    }},
-                    wood: { bg: '#3e2723', text: '#d7ccc8', tiles: {
-                        0: '#4e342e', 2: '#d7ccc8', 4: '#bcaaa4', 8: '#a1887f', 16: '#8d6e63',
-                        32: '#795548', 64: '#6d4c41', 128: '#5d4037', 256: '#4e342e', 512: '#3e2723',
-                        1024: '#d7ccc8', 2048: '#bcaaa4', 4096: '#a1887f', 8192: '#8d6e63'
-                    }}
-                };
+          if (this.timerInterval) clearInterval(this.timerInterval)
+          this.timer =
+            this.mode === 'time' ? 120 : this.mode === 'survival' ? 30 : 0
 
-                this.init();
+          this.updateDisplay()
+          this.addRandomTile()
+          this.addRandomTile()
+          this.render()
+          this.startTimer()
+
+          document.getElementById('comboDisplay').classList.remove('show')
+          this.updatePowerupButtons()
+        }
+
+        setSize(size) {
+          this.size = size
+          document.querySelectorAll('.size-btn').forEach((btn, idx) => {
+            btn.classList.toggle('active', [3, 4, 5, 6][idx] === size)
+          })
+          this.newGame()
+        }
+
+        setMode(mode) {
+          this.mode = mode
+          document.querySelectorAll('.mode-btn').forEach((btn) => {
+            btn.classList.toggle(
+              'active',
+              btn.onclick.toString().includes(mode)
+            )
+          })
+
+          const timerEl = document.getElementById('timer')
+          if (mode === 'time' || mode === 'survival') {
+            timerEl.classList.remove('hidden')
+          } else {
+            timerEl.classList.add('hidden')
+          }
+
+          this.newGame()
+        }
+
+        setTheme(themeName) {
+          this.theme = themeName
+          const theme = this.themes[themeName]
+          document.body.style.background = theme.bg
+          document.body.style.color = theme.text
+
+          document.querySelectorAll('.theme-btn').forEach((btn, idx) => {
+            const themes = [
+              'dark',
+              'neon',
+              'matrix',
+              'pastel',
+              'cosmic',
+              'wood',
+            ]
+            btn.classList.toggle('active', themes[idx] === themeName)
+          })
+
+          this.render()
+        }
+
+        addRandomTile() {
+          const empty = this.grid
+            .map((v, i) => (v === 0 ? i : -1))
+            .filter((i) => i !== -1)
+          if (empty.length === 0) return false
+
+          const idx = empty[Math.floor(Math.random() * empty.length)]
+          const value = Math.random() < 0.9 ? 2 : 4
+
+          if (this.mode === 'quantum') {
+            this.grid[idx] = {
+              value: value,
+              superposition: true,
+              possible: [2, 4],
+            }
+          } else {
+            this.grid[idx] = value
+          }
+
+          return true
+        }
+
+        render() {
+          const gridEl = document.getElementById('gameGrid')
+          const theme = this.themes[this.theme]
+
+          gridEl.style.gridTemplateColumns = `repeat(${this.size}, 1fr)`
+          gridEl.innerHTML = ''
+
+          // Create cells
+          for (let i = 0; i < this.size * this.size; i++) {
+            const cell = document.createElement('div')
+            cell.className = 'grid-cell'
+            cell.style.background = theme.tiles[0]
+            gridEl.appendChild(cell)
+          }
+
+          // Create tiles
+          this.grid.forEach((tile, i) => {
+            if (tile === 0) return
+
+            const tileEl = document.createElement('div')
+            tileEl.className = 'tile'
+
+            const value = typeof tile === 'object' ? tile.value : tile
+            const isSuperposition =
+              typeof tile === 'object' && tile.superposition
+
+            tileEl.textContent = isSuperposition ? '?' : value
+            tileEl.style.background = theme.tiles[value] || '#000'
+
+            if (isSuperposition) {
+              tileEl.classList.add('tile-superposition')
+              tileEl.title = `Superposition: ${tile.possible.join(' or ')}`
+            } else {
+              tileEl.style.color = value > 4 ? '#fff' : '#776e65'
+              if (value >= 1000) tileEl.style.fontSize = '1.3em'
+              if (value >= 10000) tileEl.style.fontSize = '1em'
             }
 
-            init() {
-                this.newGame();
-                this.updateSaveSlots();
-                this.setupInput();
-                this.loadBestScore();
+            const row = Math.floor(i / this.size)
+            const col = i % this.size
+            tileEl.style.left = `${col * 92 + 12}px`
+            tileEl.style.top = `${row * 92 + 12}px`
+
+            if (tileEl.classList.contains('tile-new')) {
+              tileEl.style.animation = 'pop 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
             }
 
-            newGame() {
-                this.grid = Array(this.size * this.size).fill(0);
-                this.score = 0;
-                this.moves = 0;
-                this.undoStack = [];
-                this.combo = 0;
-                this.highestTile = 0;
-                this.totalMerges = 0;
-                this.isPaused = false;
-                this.powerups = { shuffle: 2, delete: 2, double: 1, freeze: 1 };
+            gridEl.appendChild(tileEl)
+          })
 
-                if (this.timerInterval) clearInterval(this.timerInterval);
-                this.timer = this.mode === 'time' ? 120 : (this.mode === 'survival' ? 30 : 0);
+          // Update stats
+          document.getElementById('score').textContent = this.score
+          document.getElementById('moves').textContent = this.moves
+          document.getElementById('statHighest').textContent =
+            this.highestTile || '-'
+          document.getElementById('statMerges').textContent = this.totalMerges
+          document.getElementById('statCombo').textContent = this.combo
+          document.getElementById('nextGoal').textContent = this.getNextGoal()
 
-                this.updateDisplay();
-                this.addRandomTile();
-                this.addRandomTile();
-                this.render();
-                this.startTimer();
+          // Update heat map
+          this.updateHeatMap()
+        }
 
-                document.getElementById('comboDisplay').classList.remove('show');
-                this.updatePowerupButtons();
+        getNextGoal() {
+          const goals = [128, 256, 512, 1024, 2048, 4096, 8192]
+          for (let goal of goals) {
+            if (this.highestTile < goal) return goal
+          }
+          return 16384
+        }
+
+        updateHeatMap() {
+          const canvas = document.getElementById('heatMap')
+          const ctx = canvas.getContext('2d')
+          canvas.width = canvas.offsetWidth
+          canvas.height = canvas.offsetHeight
+
+          const cellWidth = canvas.width / this.size
+          const cellHeight = canvas.height / this.size
+
+          // Calculate danger levels (corners are safest)
+          for (let i = 0; i < this.size; i++) {
+            for (let j = 0; j < this.size; j++) {
+              const idx = i * this.size + j
+              const value =
+                typeof this.grid[idx] === 'object'
+                  ? this.grid[idx].value
+                  : this.grid[idx]
+
+              let intensity = 0
+              if (value > 0) {
+                // Higher values in center = more dangerous
+                const centerDist =
+                  Math.abs(i - (this.size - 1) / 2) +
+                  Math.abs(j - (this.size - 1) / 2)
+                intensity = (value / 2048) * (1 - centerDist / this.size) * 0.3
+              }
+
+              ctx.fillStyle = `rgba(255, 0, 0, ${intensity})`
+              ctx.fillRect(j * cellWidth, i * cellHeight, cellWidth, cellHeight)
             }
+          }
+        }
 
-            setSize(size) {
-                this.size = size;
-                document.querySelectorAll('.size-btn').forEach((btn, idx) => {
-                    btn.classList.toggle('active', [3,4,5,6][idx] === size);
-                });
-                this.newGame();
-            }
+        move(direction) {
+          if (this.isPaused) return
 
-            setMode(mode) {
-                this.mode = mode;
-                document.querySelectorAll('.mode-btn').forEach(btn => {
-                    btn.classList.toggle('active', btn.onclick.toString().includes(mode));
-                });
+          const previous = [...this.grid]
+          let moved = false
+          let merged = false
+          let mergedValues = []
 
-                const timerEl = document.getElementById('timer');
-                if (mode === 'time' || mode === 'survival') {
-                    timerEl.classList.remove('hidden');
+          const vectors = {
+            up: { x: 0, y: -1 },
+            down: { x: 0, y: 1 },
+            left: { x: -1, y: 0 },
+            right: { x: 1, y: 0 },
+          }
+
+          const vec = vectors[direction]
+
+          // Traverse grid in correct order
+          const traversals = this.buildTraversals(vec)
+
+          traversals.x.forEach((x) => {
+            traversals.y.forEach((y) => {
+              const pos = { x, y }
+              const tile = this.cellContent(pos)
+
+              if (tile) {
+                const positions = this.findFarthestPosition(pos, vec)
+                const next = this.cellContent(positions.next)
+
+                // Merge
+                const tileValue = typeof tile === 'object' ? tile.value : tile
+
+                if (next && !next.merged && this.equalTiles(tile, next)) {
+                  const nextValue = typeof next === 'object' ? next.value : next
+                  const newValue = tileValue + nextValue
+
+                  // Collapse superposition if quantum mode
+                  if (this.mode === 'quantum') {
+                    this.grid[positions.next.y * this.size + positions.next.x] =
+                      {
+                        value: newValue,
+                        superposition: false,
+                        merged: true,
+                      }
+                  } else {
+                    this.grid[positions.next.y * this.size + positions.next.x] =
+                      newValue
+                  }
+
+                  this.grid[y * this.size + x] = 0
+
+                  this.score += newValue
+                  this.totalMerges++
+                  mergedValues.push(newValue)
+                  merged = true
+
+                  if (newValue > this.highestTile) {
+                    this.highestTile = newValue
+                    this.checkAchievements(newValue)
+                  }
                 } else {
-                    timerEl.classList.add('hidden');
+                  // Move
+                  this.grid[
+                    positions.farthest.y * this.size + positions.farthest.x
+                  ] = tile
+                  if (
+                    x !== positions.farthest.x ||
+                    y !== positions.farthest.y
+                  ) {
+                    this.grid[y * this.size + x] = 0
+                    moved = true
+                  }
                 }
+              }
+            })
+          })
 
-                this.newGame();
+          // Gravity mode: apply gravity after move
+          if (this.mode === 'gravity') {
+            this.applyGravity()
+          }
+
+          if (moved || merged) {
+            this.moves++
+            this.undoStack.push({
+              grid: previous,
+              score: this.score - (merged ? 0 : 0),
+            })
+            if (this.undoStack.length > 10) this.undoStack.shift()
+
+            // Combo system
+            const now = Date.now()
+            if (merged && now - this.lastMergeTime < 3000) {
+              this.combo++
+              this.showCombo()
+              this.score += this.combo * 10
+            } else {
+              this.combo = 0
+            }
+            this.lastMergeTime = now
+
+            // Survival mode: add time
+            if (this.mode === 'survival' && merged) {
+              this.timer += 5
+              this.showAchievement('Time Bonus!', `+5 seconds for merging`)
             }
 
-            setTheme(themeName) {
-                this.theme = themeName;
-                const theme = this.themes[themeName];
-                document.body.style.background = theme.bg;
-                document.body.style.color = theme.text;
+            this.addRandomTile()
+            this.render()
+            this.updateUndoButton()
 
-                document.querySelectorAll('.theme-btn').forEach((btn, idx) => {
-                    const themes = ['dark', 'neon', 'matrix', 'pastel', 'cosmic', 'wood'];
-                    btn.classList.toggle('active', themes[idx] === themeName);
-                });
+            if (this.checkWin()) {
+              this.endGame(true)
+            } else if (this.checkGameOver()) {
+              this.endGame(false)
+            }
+          }
+        }
 
-                this.render();
+        equalTiles(a, b) {
+          const valA = typeof a === 'object' ? a.value : a
+          const valB = typeof b === 'object' ? b.value : b
+          return valA === valB
+        }
+
+        buildTraversals(vec) {
+          const traversals = { x: [], y: [] }
+          for (let pos = 0; pos < this.size; pos++) {
+            traversals.x.push(pos)
+            traversals.y.push(pos)
+          }
+
+          if (vec.x === 1) traversals.x.reverse()
+          if (vec.y === 1) traversals.y.reverse()
+
+          return traversals
+        }
+
+        cellContent(pos) {
+          if (
+            pos.x < 0 ||
+            pos.x >= this.size ||
+            pos.y < 0 ||
+            pos.y >= this.size
+          )
+            return null
+          return this.grid[pos.y * this.size + pos.x]
+        }
+
+        findFarthestPosition(pos, vec) {
+          let previous
+          let current = { x: pos.x, y: pos.y }
+
+          do {
+            previous = current
+            current = { x: previous.x + vec.x, y: previous.y + vec.y }
+          } while (this.withinBounds(current) && this.cellAvailable(current))
+
+          return {
+            farthest: previous,
+            next: current,
+          }
+        }
+
+        withinBounds(pos) {
+          return (
+            pos.x >= 0 && pos.x < this.size && pos.y >= 0 && pos.y < this.size
+          )
+        }
+
+        cellAvailable(pos) {
+          return this.cellContent(pos) === 0
+        }
+
+        applyGravity() {
+          for (let x = 0; x < this.size; x++) {
+            let column = []
+            for (let y = 0; y < this.size; y++) {
+              column.push(this.grid[y * this.size + x])
             }
 
-            addRandomTile() {
-                const empty = this.grid.map((v, i) => v === 0 ? i : -1).filter(i => i !== -1);
-                if (empty.length === 0) return false;
+            // Remove zeros
+            column = column.filter((v) => v !== 0)
 
-                const idx = empty[Math.floor(Math.random() * empty.length)];
-                const value = Math.random() < 0.9 ? 2 : 4;
+            // Pad with zeros at top
+            while (column.length < this.size) {
+              column.unshift(0)
+            }
 
-                if (this.mode === 'quantum') {
-                    this.grid[idx] = { value: value, superposition: true, possible: [2, 4] };
-                } else {
-                    this.grid[idx] = value;
+            // Place back
+            for (let y = 0; y < this.size; y++) {
+              this.grid[y * this.size + x] = column[y]
+            }
+          }
+        }
+
+        checkWin() {
+          return this.highestTile >= 2048
+        }
+
+        checkGameOver() {
+          // Check for available moves
+          for (let i = 0; i < this.size * this.size; i++) {
+            if (this.grid[i] === 0) return false
+          }
+
+          // Check for possible merges
+          for (let y = 0; y < this.size; y++) {
+            for (let x = 0; x < this.size; x++) {
+              const idx = y * this.size + x
+              const tile = this.grid[idx]
+              if (!tile) continue
+
+              const value = typeof tile === 'object' ? tile.value : tile
+
+              // Check right
+              if (x < this.size - 1) {
+                const right = this.grid[idx + 1]
+                if (
+                  right &&
+                  (typeof right === 'object' ? right.value : right) === value
+                )
+                  return false
+              }
+
+              // Check down
+              if (y < this.size - 1) {
+                const down = this.grid[idx + this.size]
+                if (
+                  down &&
+                  (typeof down === 'object' ? down.value : down) === value
+                )
+                  return false
+              }
+            }
+          }
+
+          return true
+        }
+
+        undo() {
+          if (this.undoStack.length === 0) return
+
+          const state = this.undoStack.pop()
+          this.grid = state.grid
+          this.score = state.score
+          this.moves = Math.max(0, this.moves - 1)
+          this.render()
+          this.updateUndoButton()
+        }
+
+        updateUndoButton() {
+          document.getElementById('undoBtn').textContent =
+            `Undo (${this.undoStack.length})`
+        }
+
+        usePowerup(type) {
+          if (this.powerups[type] <= 0) return
+
+          switch (type) {
+            case 'shuffle':
+              // Shuffle all tiles
+              const tiles = this.grid
+                .filter((v) => v !== 0)
+                .sort(() => Math.random() - 0.5)
+              this.grid = this.grid.map((v) => (v !== 0 ? tiles.shift() : 0))
+              this.powerups.shuffle--
+              this.showAchievement('Shuffled!', 'Tiles randomized')
+              break
+
+            case 'delete':
+              // Delete lowest value tile
+              let lowest = null
+              let lowestIdx = -1
+              for (let i = 0; i < this.grid.length; i++) {
+                if (this.grid[i] !== 0) {
+                  const val =
+                    typeof this.grid[i] === 'object'
+                      ? this.grid[i].value
+                      : this.grid[i]
+                  if (!lowest || val < lowest) {
+                    lowest = val
+                    lowestIdx = i
+                  }
                 }
+              }
+              if (lowestIdx !== -1) {
+                this.grid[lowestIdx] = 0
+                this.powerups.delete--
+                this.showAchievement('Deleted!', `Removed ${lowest}`)
+              }
+              break
 
-                return true;
-            }
-
-            render() {
-                const gridEl = document.getElementById('gameGrid');
-                const theme = this.themes[this.theme];
-
-                gridEl.style.gridTemplateColumns = `repeat(${this.size}, 1fr)`;
-                gridEl.innerHTML = '';
-
-                // Create cells
-                for (let i = 0; i < this.size * this.size; i++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'grid-cell';
-                    cell.style.background = theme.tiles[0];
-                    gridEl.appendChild(cell);
+            case 'double':
+              // Double highest tile
+              let highest = 0
+              let highestIdx = -1
+              for (let i = 0; i < this.grid.length; i++) {
+                if (this.grid[i] !== 0) {
+                  const val =
+                    typeof this.grid[i] === 'object'
+                      ? this.grid[i].value
+                      : this.grid[i]
+                  if (val > highest) {
+                    highest = val
+                    highestIdx = i
+                  }
                 }
-
-                // Create tiles
-                this.grid.forEach((tile, i) => {
-                    if (tile === 0) return;
-
-                    const tileEl = document.createElement('div');
-                    tileEl.className = 'tile';
-
-                    const value = typeof tile === 'object' ? tile.value : tile;
-                    const isSuperposition = typeof tile === 'object' && tile.superposition;
-
-                    tileEl.textContent = isSuperposition ? '?' : value;
-                    tileEl.style.background = theme.tiles[value] || '#000';
-
-                    if (isSuperposition) {
-                        tileEl.classList.add('tile-superposition');
-                        tileEl.title = `Superposition: ${tile.possible.join(' or ')}`;
-                    } else {
-                        tileEl.style.color = value > 4 ? '#fff' : '#776e65';
-                        if (value >= 1000) tileEl.style.fontSize = '1.3em';
-                        if (value >= 10000) tileEl.style.fontSize = '1em';
-                    }
-
-                    const row = Math.floor(i / this.size);
-                    const col = i % this.size;
-                    tileEl.style.left = `${col * 92 + 12}px`;
-                    tileEl.style.top = `${row * 92 + 12}px`;
-
-                    if (tileEl.classList.contains('tile-new')) {
-                        tileEl.style.animation = 'pop 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-                    }
-
-                    gridEl.appendChild(tileEl);
-                });
-
-                // Update stats
-                document.getElementById('score').textContent = this.score;
-                document.getElementById('moves').textContent = this.moves;
-                document.getElementById('statHighest').textContent = this.highestTile || '-';
-                document.getElementById('statMerges').textContent = this.totalMerges;
-                document.getElementById('statCombo').textContent = this.combo;
-                document.getElementById('nextGoal').textContent = this.getNextGoal();
-
-                // Update heat map
-                this.updateHeatMap();
-            }
-
-            getNextGoal() {
-                const goals = [128, 256, 512, 1024, 2048, 4096, 8192];
-                for (let goal of goals) {
-                    if (this.highestTile < goal) return goal;
-                }
-                return 16384;
-            }
-
-            updateHeatMap() {
-                const canvas = document.getElementById('heatMap');
-                const ctx = canvas.getContext('2d');
-                canvas.width = canvas.offsetWidth;
-                canvas.height = canvas.offsetHeight;
-
-                const cellWidth = canvas.width / this.size;
-                const cellHeight = canvas.height / this.size;
-
-                // Calculate danger levels (corners are safest)
-                for (let i = 0; i < this.size; i++) {
-                    for (let j = 0; j < this.size; j++) {
-                        const idx = i * this.size + j;
-                        const value = typeof this.grid[idx] === 'object' ? this.grid[idx].value : this.grid[idx];
-
-                        let intensity = 0;
-                        if (value > 0) {
-                            // Higher values in center = more dangerous
-                            const centerDist = Math.abs(i - (this.size-1)/2) + Math.abs(j - (this.size-1)/2);
-                            intensity = (value / 2048) * (1 - centerDist / this.size) * 0.3;
-                        }
-
-                        ctx.fillStyle = `rgba(255, 0, 0, ${intensity})`;
-                        ctx.fillRect(j * cellWidth, i * cellHeight, cellWidth, cellHeight);
-                    }
-                }
-            }
-
-            move(direction) {
-                if (this.isPaused) return;
-
-                const previous = [...this.grid];
-                let moved = false;
-                let merged = false;
-                let mergedValues = [];
-
-                const vectors = {
-                    up: { x: 0, y: -1 },
-                    down: { x: 0, y: 1 },
-                    left: { x: -1, y: 0 },
-                    right: { x: 1, y: 0 }
-                };
-
-                const vec = vectors[direction];
-
-                // Traverse grid in correct order
-                const traversals = this.buildTraversals(vec);
-
-                traversals.x.forEach(x => {
-                    traversals.y.forEach(y => {
-                        const pos = { x, y };
-                        const tile = this.cellContent(pos);
-
-                        if (tile) {
-                            const positions = this.findFarthestPosition(pos, vec);
-                            const next = this.cellContent(positions.next);
-
-                            // Merge
-                            const tileValue = typeof tile === 'object' ? tile.value : tile;
-
-                            if (next && !next.merged && this.equalTiles(tile, next)) {
-                                const nextValue = typeof next === 'object' ? next.value : next;
-                                const newValue = tileValue + nextValue;
-
-                                // Collapse superposition if quantum mode
-                                if (this.mode === 'quantum') {
-                                    this.grid[positions.next.y * this.size + positions.next.x] = {
-                                        value: newValue,
-                                        superposition: false,
-                                        merged: true
-                                    };
-                                } else {
-                                    this.grid[positions.next.y * this.size + positions.next.x] = newValue;
-                                }
-
-                                this.grid[y * this.size + x] = 0;
-
-                                this.score += newValue;
-                                this.totalMerges++;
-                                mergedValues.push(newValue);
-                                merged = true;
-
-                                if (newValue > this.highestTile) {
-                                    this.highestTile = newValue;
-                                    this.checkAchievements(newValue);
-                                }
-                            } else {
-                                // Move
-                                this.grid[positions.farthest.y * this.size + positions.farthest.x] = tile;
-                                if (x !== positions.farthest.x || y !== positions.farthest.y) {
-                                    this.grid[y * this.size + x] = 0;
-                                    moved = true;
-                                }
-                            }
-                        }
-                    });
-                });
-
-                // Gravity mode: apply gravity after move
-                if (this.mode === 'gravity') {
-                    this.applyGravity();
-                }
-
-                if (moved || merged) {
-                    this.moves++;
-                    this.undoStack.push({ grid: previous, score: this.score - (merged ? 0 : 0) });
-                    if (this.undoStack.length > 10) this.undoStack.shift();
-
-                    // Combo system
-                    const now = Date.now();
-                    if (merged && now - this.lastMergeTime < 3000) {
-                        this.combo++;
-                        this.showCombo();
-                        this.score += this.combo * 10;
-                    } else {
-                        this.combo = 0;
-                    }
-                    this.lastMergeTime = now;
-
-                    // Survival mode: add time
-                    if (this.mode === 'survival' && merged) {
-                        this.timer += 5;
-                        this.showAchievement('Time Bonus!', `+5 seconds for merging`);
-                    }
-
-                    this.addRandomTile();
-                    this.render();
-                    this.updateUndoButton();
-
-                    if (this.checkWin()) {
-                        this.endGame(true);
-                    } else if (this.checkGameOver()) {
-                        this.endGame(false);
-                    }
-                }
-            }
-
-            equalTiles(a, b) {
-                const valA = typeof a === 'object' ? a.value : a;
-                const valB = typeof b === 'object' ? b.value : b;
-                return valA === valB;
-            }
-
-            buildTraversals(vec) {
-                const traversals = { x: [], y: [] };
-                for (let pos = 0; pos < this.size; pos++) {
-                    traversals.x.push(pos);
-                    traversals.y.push(pos);
-                }
-
-                if (vec.x === 1) traversals.x.reverse();
-                if (vec.y === 1) traversals.y.reverse();
-
-                return traversals;
-            }
-
-            cellContent(pos) {
-                if (pos.x < 0 || pos.x >= this.size || pos.y < 0 || pos.y >= this.size) return null;
-                return this.grid[pos.y * this.size + pos.x];
-            }
-
-            findFarthestPosition(pos, vec) {
-                let previous;
-                let current = { x: pos.x, y: pos.y };
-
-                do {
-                    previous = current;
-                    current = { x: previous.x + vec.x, y: previous.y + vec.y };
-                } while (this.withinBounds(current) && this.cellAvailable(current));
-
-                return {
-                    farthest: previous,
-                    next: current
-                };
-            }
-
-            withinBounds(pos) {
-                return pos.x >= 0 && pos.x < this.size && pos.y >= 0 && pos.y < this.size;
-            }
-
-            cellAvailable(pos) {
-                return this.cellContent(pos) === 0;
-            }
-
-            applyGravity() {
-                for (let x = 0; x < this.size; x++) {
-                    let column = [];
-                    for (let y = 0; y < this.size; y++) {
-                        column.push(this.grid[y * this.size + x]);
-                    }
-
-                    // Remove zeros
-                    column = column.filter(v => v !== 0);
-
-                    // Pad with zeros at top
-                    while (column.length < this.size) {
-                        column.unshift(0);
-                    }
-
-                    // Place back
-                    for (let y = 0; y < this.size; y++) {
-                        this.grid[y * this.size + x] = column[y];
-                    }
-                }
-            }
-
-            checkWin() {
-                return this.highestTile >= 2048;
-            }
-
-            checkGameOver() {
-                // Check for available moves
-                for (let i = 0; i < this.size * this.size; i++) {
-                    if (this.grid[i] === 0) return false;
-                }
-
-                // Check for possible merges
-                for (let y = 0; y < this.size; y++) {
-                    for (let x = 0; x < this.size; x++) {
-                        const idx = y * this.size + x;
-                        const tile = this.grid[idx];
-                        if (!tile) continue;
-
-                        const value = typeof tile === 'object' ? tile.value : tile;
-
-                        // Check right
-                        if (x < this.size - 1) {
-                            const right = this.grid[idx + 1];
-                            if (right && (typeof right === 'object' ? right.value : right) === value) return false;
-                        }
-
-                        // Check down
-                        if (y < this.size - 1) {
-                            const down = this.grid[idx + this.size];
-                            if (down && (typeof down === 'object' ? down.value : down) === value) return false;
-                        }
-                    }
-                }
-
-                return true;
-            }
-
-            undo() {
-                if (this.undoStack.length === 0) return;
-
-                const state = this.undoStack.pop();
-                this.grid = state.grid;
-                this.score = state.score;
-                this.moves = Math.max(0, this.moves - 1);
-                this.render();
-                this.updateUndoButton();
-            }
-
-            updateUndoButton() {
-                document.getElementById('undoBtn').textContent = `Undo (${this.undoStack.length})`;
-            }
-
-            usePowerup(type) {
-                if (this.powerups[type] <= 0) return;
-
-                switch(type) {
-                    case 'shuffle':
-                        // Shuffle all tiles
-                        const tiles = this.grid.filter(v => v !== 0).sort(() => Math.random() - 0.5);
-                        this.grid = this.grid.map(v => v !== 0 ? tiles.shift() : 0);
-                        this.powerups.shuffle--;
-                        this.showAchievement('Shuffled!', 'Tiles randomized');
-                        break;
-
-                    case 'delete':
-                        // Delete lowest value tile
-                        let lowest = null;
-                        let lowestIdx = -1;
-                        for (let i = 0; i < this.grid.length; i++) {
-                            if (this.grid[i] !== 0) {
-                                const val = typeof this.grid[i] === 'object' ? this.grid[i].value : this.grid[i];
-                                if (!lowest || val < lowest) {
-                                    lowest = val;
-                                    lowestIdx = i;
-                                }
-                            }
-                        }
-                        if (lowestIdx !== -1) {
-                            this.grid[lowestIdx] = 0;
-                            this.powerups.delete--;
-                            this.showAchievement('Deleted!', `Removed ${lowest}`);
-                        }
-                        break;
-
-                    case 'double':
-                        // Double highest tile
-                        let highest = 0;
-                        let highestIdx = -1;
-                        for (let i = 0; i < this.grid.length; i++) {
-                            if (this.grid[i] !== 0) {
-                                const val = typeof this.grid[i] === 'object' ? this.grid[i].value : this.grid[i];
-                                if (val > highest) {
-                                    highest = val;
-                                    highestIdx = i;
-                                }
-                            }
-                        }
-                        if (highestIdx !== -1) {
-                            const newVal = highest * 2;
-                            this.grid[highestIdx] = newVal;
-                            this.score += newVal;
-                            if (newVal > this.highestTile) this.highestTile = newVal;
-                            this.powerups.double--;
-                            this.showAchievement('Doubled!', `${highest} → ${newVal}`);
-                        }
-                        break;
-
-                    case 'freeze':
-                        // Freeze timer for 30s
-                        if (this.mode === 'time' || this.mode === 'survival') {
-                            this.isPaused = true;
-                            setTimeout(() => { this.isPaused = false; }, 30000);
-                            this.powerups.freeze--;
-                            this.showAchievement('Frozen!', 'Time stopped for 30s');
-                        }
-                        break;
-                }
-
-                this.updatePowerupButtons();
-                this.render();
-            }
-
-            updatePowerupButtons() {
-                document.getElementById('countShuffle').textContent = this.powerups.shuffle;
-                document.getElementById('countDelete').textContent = this.powerups.delete;
-                document.getElementById('countDouble').textContent = this.powerups.double;
-                document.getElementById('countFreeze').textContent = this.powerups.freeze;
-
-                document.getElementById('btnShuffle').disabled = this.powerups.shuffle === 0;
-                document.getElementById('btnDelete').disabled = this.powerups.delete === 0;
-                document.getElementById('btnDouble').disabled = this.powerups.double === 0;
-                document.getElementById('btnFreeze').disabled = this.powerups.freeze === 0 || (this.mode !== 'time' && this.mode !== 'survival');
-            }
-
-            startTimer() {
-                if (this.timerInterval) clearInterval(this.timerInterval);
-
-                if (this.mode === 'time' || this.mode === 'survival') {
-                    this.timerInterval = setInterval(() => {
-                        if (!this.isPaused) {
-                            if (this.mode === 'survival') {
-                                this.timer -= 0.1;
-                            } else {
-                                this.timer--;
-                            }
-
-                            const mins = Math.floor(Math.abs(this.timer) / 60);
-                            const secs = Math.floor(Math.abs(this.timer) % 60);
-                            const timerEl = document.getElementById('timer');
-                            timerEl.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-
-                            if (this.timer <= 10) {
-                                timerEl.classList.add('warning');
-                            } else {
-                                timerEl.classList.remove('warning');
-                            }
-
-                            if (this.timer <= 0 && this.mode === 'survival') {
-                                this.endGame(false);
-                            }
-                        }
-                    }, 1000);
-                } else {
-                    this.timerInterval = setInterval(() => {
-                        if (!this.isPaused) {
-                            this.timer++;
-                            const mins = Math.floor(this.timer / 60);
-                            const secs = this.timer % 60;
-                            document.getElementById('statTime').textContent =
-                                `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-                        }
-                    }, 1000);
-                }
-            }
-
-            setupInput() {
-                // Keyboard
-                document.addEventListener('keydown', (e) => {
-                    switch(e.key) {
-                        case 'ArrowUp': case 'w': case 'W': this.move('up'); break;
-                        case 'ArrowDown': case 's': case 'S': this.move('down'); break;
-                        case 'ArrowLeft': case 'a': case 'A': this.move('left'); break;
-                        case 'ArrowRight': case 'd': case 'D': this.move('right'); break;
-                        case 'u': case 'U': this.undo(); break;
-                        case 'n': case 'N': this.newGame(); break;
-                        case ' ': this.isPaused = !this.isPaused; break;
-                    }
-                });
-
-                // Touch
-                let touchStartX, touchStartY;
-                const grid = document.getElementById('gameGrid');
-
-                grid.addEventListener('touchstart', (e) => {
-                    touchStartX = e.touches[0].clientX;
-                    touchStartY = e.touches[0].clientY;
-                }, { passive: true });
-
-                grid.addEventListener('touchend', (e) => {
-                    if (!touchStartX || !touchStartY) return;
-
-                    const dx = e.changedTouches[0].clientX - touchStartX;
-                    const dy = e.changedTouches[0].clientY - touchStartY;
-
-                    if (Math.abs(dx) > Math.abs(dy)) {
-                        if (Math.abs(dx) > 30) {
-                            this.move(dx > 0 ? 'right' : 'left');
-                        }
-                    } else {
-                        if (Math.abs(dy) > 30) {
-                            this.move(dy > 0 ? 'down' : 'up');
-                        }
-                    }
-
-                    touchStartX = null;
-                    touchStartY = null;
-                }, { passive: true });
-
-                // Mouse drag support
-                let mouseDown = false;
-                let mouseStartX, mouseStartY;
-
-                grid.addEventListener('mousedown', (e) => {
-                    mouseDown = true;
-                    mouseStartX = e.clientX;
-                    mouseStartY = e.clientY;
-                });
-
-                grid.addEventListener('mouseup', (e) => {
-                    if (!mouseDown) return;
-                    mouseDown = false;
-
-                    const dx = e.clientX - mouseStartX;
-                    const dy = e.clientY - mouseStartY;
-
-                    if (Math.abs(dx) > Math.abs(dy)) {
-                        if (Math.abs(dx) > 30) {
-                            this.move(dx > 0 ? 'right' : 'left');
-                        }
-                    } else {
-                        if (Math.abs(dy) > 30) {
-                            this.move(dy > 0 ? 'down' : 'up');
-                        }
-                    }
-                });
-            }
-
-            toggleAI() {
-                this.aiActive = !this.aiActive;
-                if (this.aiActive) {
-                    this.showAchievement('AI Assist', 'AI will suggest moves');
-                    this.runAI();
-                }
-            }
-
-            runAI() {
-                if (!this.aiActive) return;
-
-                // Simple AI: prefer moves that keep high values in corners
-                const moves = ['up', 'down', 'left', 'right'];
-                const scores = moves.map(dir => this.evaluateMove(dir));
-                const bestMove = moves[scores.indexOf(Math.max(...scores))];
-
+              }
+              if (highestIdx !== -1) {
+                const newVal = highest * 2
+                this.grid[highestIdx] = newVal
+                this.score += newVal
+                if (newVal > this.highestTile) this.highestTile = newVal
+                this.powerups.double--
+                this.showAchievement('Doubled!', `${highest} → ${newVal}`)
+              }
+              break
+
+            case 'freeze':
+              // Freeze timer for 30s
+              if (this.mode === 'time' || this.mode === 'survival') {
+                this.isPaused = true
                 setTimeout(() => {
-                    if (this.aiActive) {
-                        this.move(bestMove);
-                        this.runAI();
-                    }
-                }, 500);
-            }
+                  this.isPaused = false
+                }, 30000)
+                this.powerups.freeze--
+                this.showAchievement('Frozen!', 'Time stopped for 30s')
+              }
+              break
+          }
 
-            evaluateMove(direction) {
-                // Simplified evaluation
-                let score = 0;
-                const cornerWeights = [10, 5, 5, 1]; // TL, TR, BL, BR
+          this.updatePowerupButtons()
+          this.render()
+        }
 
-                for (let i = 0; i < this.size; i++) {
-                    for (let j = 0; j < this.size; j++) {
-                        const idx = i * this.size + j;
-                        const val = typeof this.grid[idx] === 'object' ? this.grid[idx].value : this.grid[idx];
+        updatePowerupButtons() {
+          document.getElementById('countShuffle').textContent =
+            this.powerups.shuffle
+          document.getElementById('countDelete').textContent =
+            this.powerups.delete
+          document.getElementById('countDouble').textContent =
+            this.powerups.double
+          document.getElementById('countFreeze').textContent =
+            this.powerups.freeze
 
-                        // Prefer corners for high values
-                        if (val > 0) {
-                            if ((i === 0 && j === 0) || (i === 0 && j === this.size-1) ||
-                                (i === this.size-1 && j === 0) || (i === this.size-1 && j === this.size-1)) {
-                                score += val * 2;
-                            }
-                        }
-                    }
-                }
+          document.getElementById('btnShuffle').disabled =
+            this.powerups.shuffle === 0
+          document.getElementById('btnDelete').disabled =
+            this.powerups.delete === 0
+          document.getElementById('btnDouble').disabled =
+            this.powerups.double === 0
+          document.getElementById('btnFreeze').disabled =
+            this.powerups.freeze === 0 ||
+            (this.mode !== 'time' && this.mode !== 'survival')
+        }
 
-                return score + Math.random() * 100; // Add randomness
-            }
+        startTimer() {
+          if (this.timerInterval) clearInterval(this.timerInterval)
 
-            showCombo() {
-                const display = document.getElementById('comboDisplay');
-                display.textContent = `Combo x${this.combo}!`;
-                display.classList.add('show');
-                setTimeout(() => display.classList.remove('show'), 2000);
-            }
-
-            checkAchievements(value) {
-                const achievements = {
-                    128: 'First Merge!',
-                    512: 'Getting Serious',
-                    1024: 'Halfway There',
-                    2048: 'Victory!',
-                    4096: 'Beyond Limit',
-                    8192: 'Legendary'
-                };
-
-                if (achievements[value] && !this.stats.achievements?.includes(value)) {
-                    this.showAchievement('New Tile!', `${value} unlocked`);
-                    if (!this.stats.achievements) this.stats.achievements = [];
-                    this.stats.achievements.push(value);
-                    this.saveToStorage('stats', this.stats);
-                }
-            }
-
-            showAchievement(title, desc) {
-                const popup = document.getElementById('achievement');
-                popup.querySelector('.achievement-title').textContent = title;
-                popup.querySelector('.achievement-desc').textContent = desc;
-                popup.classList.add('show');
-                setTimeout(() => popup.classList.remove('show'), 3000);
-            }
-
-            endGame(won) {
-                if (this.timerInterval) clearInterval(this.timerInterval);
-
-                this.stats.gamesPlayed++;
-                this.stats.totalScore += this.score;
-                this.stats.totalTime += this.timer;
-
-                if (won) this.stats.gamesWon++;
-                if (this.score > this.stats.highestScore) {
-                    this.stats.highestScore = this.score;
-                    document.getElementById('newRecord').classList.remove('hidden');
+          if (this.mode === 'time' || this.mode === 'survival') {
+            this.timerInterval = setInterval(() => {
+              if (!this.isPaused) {
+                if (this.mode === 'survival') {
+                  this.timer -= 0.1
                 } else {
-                    document.getElementById('newRecord').classList.add('hidden');
+                  this.timer--
                 }
 
-                this.saveToStorage('stats', this.stats);
+                const mins = Math.floor(Math.abs(this.timer) / 60)
+                const secs = Math.floor(Math.abs(this.timer) % 60)
+                const timerEl = document.getElementById('timer')
+                timerEl.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
 
-                document.getElementById('finalScore').textContent = this.score;
-                document.getElementById('finalTile').textContent = this.highestTile;
-                document.getElementById('modalTitle').textContent = won ? '🎉 Victory!' : 'Game Over';
-
-                document.getElementById('gameOverModal').classList.add('active');
-            }
-
-            showStats() {
-                document.getElementById('totalGames').textContent = this.stats.gamesPlayed;
-                document.getElementById('winRate').textContent =
-                    this.stats.gamesPlayed > 0 ?
-                    Math.round((this.stats.gamesWon / this.stats.gamesPlayed) * 100) + '%' : '0%';
-                document.getElementById('statsHighScore').textContent = this.stats.highestScore;
-                document.getElementById('totalTime').textContent =
-                    Math.round(this.stats.totalTime / 3600 * 10) / 10 + 'h';
-
-                document.getElementById('statsModal').classList.add('active');
-            }
-
-            saveGame() {
-                const saveData = {
-                    grid: this.grid,
-                    score: this.score,
-                    moves: this.moves,
-                    timer: this.timer,
-                    mode: this.mode,
-                    size: this.size,
-                    highestTile: this.highestTile,
-                    powerups: this.powerups,
-                    date: new Date().toLocaleString()
-                };
-
-                if (this.saveSlots.length >= 5) {
-                    this.saveSlots.shift();
+                if (this.timer <= 10) {
+                  timerEl.classList.add('warning')
+                } else {
+                  timerEl.classList.remove('warning')
                 }
 
-                this.saveSlots.push(saveData);
-                this.saveToStorage('saveSlots', this.saveSlots);
-                this.updateSaveSlots();
-                this.showAchievement('Game Saved!', 'Saved to slot ' + this.saveSlots.length);
+                if (this.timer <= 0 && this.mode === 'survival') {
+                  this.endGame(false)
+                }
+              }
+            }, 1000)
+          } else {
+            this.timerInterval = setInterval(() => {
+              if (!this.isPaused) {
+                this.timer++
+                const mins = Math.floor(this.timer / 60)
+                const secs = this.timer % 60
+                document.getElementById('statTime').textContent =
+                  `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+              }
+            }, 1000)
+          }
+        }
+
+        setupInput() {
+          // Keyboard
+          document.addEventListener('keydown', (e) => {
+            switch (e.key) {
+              case 'ArrowUp':
+              case 'w':
+              case 'W':
+                this.move('up')
+                break
+              case 'ArrowDown':
+              case 's':
+              case 'S':
+                this.move('down')
+                break
+              case 'ArrowLeft':
+              case 'a':
+              case 'A':
+                this.move('left')
+                break
+              case 'ArrowRight':
+              case 'd':
+              case 'D':
+                this.move('right')
+                break
+              case 'u':
+              case 'U':
+                this.undo()
+                break
+              case 'n':
+              case 'N':
+                this.newGame()
+                break
+              case ' ':
+                this.isPaused = !this.isPaused
+                break
             }
+          })
 
-            loadSave(index) {
-                const save = this.saveSlots[index];
-                if (!save) return;
+          // Touch
+          let touchStartX, touchStartY
+          const grid = document.getElementById('gameGrid')
 
-                this.grid = save.grid;
-                this.score = save.score;
-                this.moves = save.moves;
-                this.timer = save.timer;
-                this.highestTile = save.highestTile;
-                this.powerups = save.powerups;
-                this.size = save.size;
+          grid.addEventListener(
+            'touchstart',
+            (e) => {
+              touchStartX = e.touches[0].clientX
+              touchStartY = e.touches[0].clientY
+            },
+            { passive: true }
+          )
 
-                this.setMode(save.mode);
-                this.render();
-                this.showAchievement('Game Loaded!', 'Restored previous session');
+          grid.addEventListener(
+            'touchend',
+            (e) => {
+              if (!touchStartX || !touchStartY) return
+
+              const dx = e.changedTouches[0].clientX - touchStartX
+              const dy = e.changedTouches[0].clientY - touchStartY
+
+              if (Math.abs(dx) > Math.abs(dy)) {
+                if (Math.abs(dx) > 30) {
+                  this.move(dx > 0 ? 'right' : 'left')
+                }
+              } else {
+                if (Math.abs(dy) > 30) {
+                  this.move(dy > 0 ? 'down' : 'up')
+                }
+              }
+
+              touchStartX = null
+              touchStartY = null
+            },
+            { passive: true }
+          )
+
+          // Mouse drag support
+          let mouseDown = false
+          let mouseStartX, mouseStartY
+
+          grid.addEventListener('mousedown', (e) => {
+            mouseDown = true
+            mouseStartX = e.clientX
+            mouseStartY = e.clientY
+          })
+
+          grid.addEventListener('mouseup', (e) => {
+            if (!mouseDown) return
+            mouseDown = false
+
+            const dx = e.clientX - mouseStartX
+            const dy = e.clientY - mouseStartY
+
+            if (Math.abs(dx) > Math.abs(dy)) {
+              if (Math.abs(dx) > 30) {
+                this.move(dx > 0 ? 'right' : 'left')
+              }
+            } else {
+              if (Math.abs(dy) > 30) {
+                this.move(dy > 0 ? 'down' : 'up')
+              }
             }
+          })
+        }
 
-            updateSaveSlots() {
-                const container = document.getElementById('saveSlots');
-                container.innerHTML = '';
+        toggleAI() {
+          this.aiActive = !this.aiActive
+          if (this.aiActive) {
+            this.showAchievement('AI Assist', 'AI will suggest moves')
+            this.runAI()
+          }
+        }
 
-                this.saveSlots.forEach((save, idx) => {
-                    const slot = document.createElement('div');
-                    slot.className = 'save-slot';
-                    slot.innerHTML = `
+        runAI() {
+          if (!this.aiActive) return
+
+          // Simple AI: prefer moves that keep high values in corners
+          const moves = ['up', 'down', 'left', 'right']
+          const scores = moves.map((dir) => this.evaluateMove(dir))
+          const bestMove = moves[scores.indexOf(Math.max(...scores))]
+
+          setTimeout(() => {
+            if (this.aiActive) {
+              this.move(bestMove)
+              this.runAI()
+            }
+          }, 500)
+        }
+
+        evaluateMove(direction) {
+          // Simplified evaluation
+          let score = 0
+          const cornerWeights = [10, 5, 5, 1] // TL, TR, BL, BR
+
+          for (let i = 0; i < this.size; i++) {
+            for (let j = 0; j < this.size; j++) {
+              const idx = i * this.size + j
+              const val =
+                typeof this.grid[idx] === 'object'
+                  ? this.grid[idx].value
+                  : this.grid[idx]
+
+              // Prefer corners for high values
+              if (val > 0) {
+                if (
+                  (i === 0 && j === 0) ||
+                  (i === 0 && j === this.size - 1) ||
+                  (i === this.size - 1 && j === 0) ||
+                  (i === this.size - 1 && j === this.size - 1)
+                ) {
+                  score += val * 2
+                }
+              }
+            }
+          }
+
+          return score + Math.random() * 100 // Add randomness
+        }
+
+        showCombo() {
+          const display = document.getElementById('comboDisplay')
+          display.textContent = `Combo x${this.combo}!`
+          display.classList.add('show')
+          setTimeout(() => display.classList.remove('show'), 2000)
+        }
+
+        checkAchievements(value) {
+          const achievements = {
+            128: 'First Merge!',
+            512: 'Getting Serious',
+            1024: 'Halfway There',
+            2048: 'Victory!',
+            4096: 'Beyond Limit',
+            8192: 'Legendary',
+          }
+
+          if (
+            achievements[value] &&
+            !this.stats.achievements?.includes(value)
+          ) {
+            this.showAchievement('New Tile!', `${value} unlocked`)
+            if (!this.stats.achievements) this.stats.achievements = []
+            this.stats.achievements.push(value)
+            this.saveToStorage('stats', this.stats)
+          }
+        }
+
+        showAchievement(title, desc) {
+          const popup = document.getElementById('achievement')
+          popup.querySelector('.achievement-title').textContent = title
+          popup.querySelector('.achievement-desc').textContent = desc
+          popup.classList.add('show')
+          setTimeout(() => popup.classList.remove('show'), 3000)
+        }
+
+        endGame(won) {
+          if (this.timerInterval) clearInterval(this.timerInterval)
+
+          this.stats.gamesPlayed++
+          this.stats.totalScore += this.score
+          this.stats.totalTime += this.timer
+
+          if (won) this.stats.gamesWon++
+          if (this.score > this.stats.highestScore) {
+            this.stats.highestScore = this.score
+            document.getElementById('newRecord').classList.remove('hidden')
+          } else {
+            document.getElementById('newRecord').classList.add('hidden')
+          }
+
+          this.saveToStorage('stats', this.stats)
+
+          document.getElementById('finalScore').textContent = this.score
+          document.getElementById('finalTile').textContent = this.highestTile
+          document.getElementById('modalTitle').textContent = won
+            ? '🎉 Victory!'
+            : 'Game Over'
+
+          document.getElementById('gameOverModal').classList.add('active')
+        }
+
+        showStats() {
+          document.getElementById('totalGames').textContent =
+            this.stats.gamesPlayed
+          document.getElementById('winRate').textContent =
+            this.stats.gamesPlayed > 0
+              ? Math.round(
+                  (this.stats.gamesWon / this.stats.gamesPlayed) * 100
+                ) + '%'
+              : '0%'
+          document.getElementById('statsHighScore').textContent =
+            this.stats.highestScore
+          document.getElementById('totalTime').textContent =
+            Math.round((this.stats.totalTime / 3600) * 10) / 10 + 'h'
+
+          document.getElementById('statsModal').classList.add('active')
+        }
+
+        saveGame() {
+          const saveData = {
+            grid: this.grid,
+            score: this.score,
+            moves: this.moves,
+            timer: this.timer,
+            mode: this.mode,
+            size: this.size,
+            highestTile: this.highestTile,
+            powerups: this.powerups,
+            date: new Date().toLocaleString(),
+          }
+
+          if (this.saveSlots.length >= 5) {
+            this.saveSlots.shift()
+          }
+
+          this.saveSlots.push(saveData)
+          this.saveToStorage('saveSlots', this.saveSlots)
+          this.updateSaveSlots()
+          this.showAchievement(
+            'Game Saved!',
+            'Saved to slot ' + this.saveSlots.length
+          )
+        }
+
+        loadSave(index) {
+          const save = this.saveSlots[index]
+          if (!save) return
+
+          this.grid = save.grid
+          this.score = save.score
+          this.moves = save.moves
+          this.timer = save.timer
+          this.highestTile = save.highestTile
+          this.powerups = save.powerups
+          this.size = save.size
+
+          this.setMode(save.mode)
+          this.render()
+          this.showAchievement('Game Loaded!', 'Restored previous session')
+        }
+
+        updateSaveSlots() {
+          const container = document.getElementById('saveSlots')
+          container.innerHTML = ''
+
+          this.saveSlots.forEach((save, idx) => {
+            const slot = document.createElement('div')
+            slot.className = 'save-slot'
+            slot.innerHTML = `
                         <div class="save-info">
                             <div style="font-weight: bold; color: var(--primary);">${save.mode.toUpperCase()} ${save.size}×${save.size}</div>
                             <div class="save-date">${save.date}</div>
                         </div>
                         <div class="save-score">${save.score}</div>
-                    `;
-                    slot.onclick = () => this.loadSave(idx);
-                    container.appendChild(slot);
-                });
-            }
-
-            exportSave() {
-                const data = {
-                    saves: this.saveSlots,
-                    stats: this.stats,
-                    version: '1.0'
-                };
-                const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `2048-ultimate-save-${Date.now()}.json`;
-                a.click();
-                URL.revokeObjectURL(url);
-                this.showAchievement('Exported!', 'Save file downloaded');
-            }
-
-            importSave(input) {
-                const file = input.files[0];
-                if (!file) return;
-
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    try {
-                        const data = JSON.parse(e.target.result);
-                        if (data.saves) {
-                            this.saveSlots = data.saves;
-                            this.saveToStorage('saveSlots', this.saveSlots);
-                            this.updateSaveSlots();
-                        }
-                        if (data.stats) {
-                            this.stats = data.stats;
-                            this.saveToStorage('stats', this.stats);
-                        }
-                        this.showAchievement('Imported!', 'Save data restored');
-                    } catch (err) {
-                        alert('Invalid save file');
-                    }
-                };
-                reader.readAsText(file);
-            }
-
-            saveToStorage(key, value) {
-                localStorage.setItem('2048ultimate_' + key, JSON.stringify(value));
-            }
-
-            loadFromStorage(key) {
-                const data = localStorage.getItem('2048ultimate_' + key);
-                return data ? JSON.parse(data) : null;
-            }
-
-            loadBestScore() {
-                const best = this.loadFromStorage('bestScore');
-                if (best) {
-                    document.getElementById('bestScore').textContent = best;
-                }
-            }
-
-            updateDisplay() {
-                document.getElementById('score').textContent = this.score;
-                document.getElementById('bestScore').textContent = Math.max(
-                    parseInt(document.getElementById('bestScore').textContent) || 0,
-                    this.score
-                );
-            }
+                    `
+            slot.onclick = () => this.loadSave(idx)
+            container.appendChild(slot)
+          })
         }
 
-        const game = new Game2048();
-
-        function closeModal() {
-            document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
+        exportSave() {
+          const data = {
+            saves: this.saveSlots,
+            stats: this.stats,
+            version: '1.0',
+          }
+          const blob = new Blob([JSON.stringify(data)], {
+            type: 'application/json',
+          })
+          const url = URL.createObjectURL(blob)
+          const a = document.createElement('a')
+          a.href = url
+          a.download = `2048-ultimate-save-${Date.now()}.json`
+          a.click()
+          URL.revokeObjectURL(url)
+          this.showAchievement('Exported!', 'Save file downloaded')
         }
 
-        // Prevent arrow key scrolling
-        window.addEventListener("keydown", function(e) {
-            if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Space"].indexOf(e.code) > -1) {
-                e.preventDefault();
+        importSave(input) {
+          const file = input.files[0]
+          if (!file) return
+
+          const reader = new FileReader()
+          reader.onload = (e) => {
+            try {
+              const data = JSON.parse(e.target.result)
+              if (data.saves) {
+                this.saveSlots = data.saves
+                this.saveToStorage('saveSlots', this.saveSlots)
+                this.updateSaveSlots()
+              }
+              if (data.stats) {
+                this.stats = data.stats
+                this.saveToStorage('stats', this.stats)
+              }
+              this.showAchievement('Imported!', 'Save data restored')
+            } catch (err) {
+              alert('Invalid save file')
             }
-        }, false);
+          }
+          reader.readAsText(file)
+        }
+
+        saveToStorage(key, value) {
+          localStorage.setItem('2048ultimate_' + key, JSON.stringify(value))
+        }
+
+        loadFromStorage(key) {
+          const data = localStorage.getItem('2048ultimate_' + key)
+          return data ? JSON.parse(data) : null
+        }
+
+        loadBestScore() {
+          const best = this.loadFromStorage('bestScore')
+          if (best) {
+            document.getElementById('bestScore').textContent = best
+          }
+        }
+
+        updateDisplay() {
+          document.getElementById('score').textContent = this.score
+          document.getElementById('bestScore').textContent = Math.max(
+            parseInt(document.getElementById('bestScore').textContent) || 0,
+            this.score
+          )
+        }
+      }
+
+      const game = new Game2048()
+
+      function closeModal() {
+        document
+          .querySelectorAll('.modal')
+          .forEach((m) => m.classList.remove('active'))
+      }
+
+      // Prevent arrow key scrolling
+      window.addEventListener(
+        'keydown',
+        function (e) {
+          if (
+            [
+              'ArrowUp',
+              'ArrowDown',
+              'ArrowLeft',
+              'ArrowRight',
+              'Space',
+            ].indexOf(e.code) > -1
+          ) {
+            e.preventDefault()
+          }
+        },
+        false
+      )
     </script>
-</body>
+  </body>
 </html>

@@ -1,494 +1,642 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Memory Match | VetLudics</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        :root {
-            --primary: #0d7377;
-            --primary-light: #14a085;
-            --secondary: #32e0c4;
-            --dark: #1a1a2e;
-            --darker: #16213e;
-            --white: #ffffff;
-            --transition: all 0.25s ease;
-        }
+      :root {
+        --primary: #0d7377;
+        --primary-light: #14a085;
+        --secondary: #32e0c4;
+        --dark: #1a1a2e;
+        --darker: #16213e;
+        --white: #ffffff;
+        --transition: all 0.25s ease;
+      }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            min-height: 100vh;
-            font-family: 'Inter', sans-serif;
-            color: var(--white);
-            background: radial-gradient(circle at 12% 10%, #1e3859 0%, transparent 42%),
-                        radial-gradient(circle at 82% 85%, #1c2747 0%, transparent 44%),
-                        linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
-            padding: 1rem;
-        }
+      body {
+        min-height: 100vh;
+        font-family: 'Inter', sans-serif;
+        color: var(--white);
+        background:
+          radial-gradient(circle at 12% 10%, #1e3859 0%, transparent 42%),
+          radial-gradient(circle at 82% 85%, #1c2747 0%, transparent 44%),
+          linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+        padding: 1rem;
+      }
 
-        .page-wrap {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+      .page-wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
 
+      .top-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-bottom: 1rem;
+      }
+
+      .top-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        text-decoration: none;
+        color: var(--secondary);
+        font-weight: 600;
+      }
+
+      .panel {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 16px;
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        margin-bottom: 0.35rem;
+      }
+
+      .subtitle {
+        color: rgba(255, 255, 255, 0.74);
+        margin-bottom: 1rem;
+      }
+
+      .control-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .control-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+
+      .control-item label {
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.75);
+        font-weight: 600;
+      }
+
+      .control-item select {
+        width: 100%;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        background: rgba(0, 0, 0, 0.3);
+        color: var(--white);
+        padding: 0.55rem;
+        font-size: 0.92rem;
+      }
+
+      .btn-game {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-light) 100%
+        );
+        color: var(--white);
+        border: none;
+        padding: 0.8rem 1.1rem;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        width: 100%;
+        margin-top: 0.25rem;
+      }
+
+      .btn-game:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px rgba(13, 115, 119, 0.35);
+      }
+
+      .game-panel {
+        margin-top: 0.9rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 12px;
+        padding: 0.8rem;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+      }
+
+      .memory-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.45rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .memory-stat {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+        padding: 0.5rem;
+        text-align: center;
+      }
+
+      .memory-stat-value {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--secondary);
+        line-height: 1.1;
+      }
+
+      .memory-stat-label {
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.65);
+        margin-top: 0.2rem;
+      }
+
+      .memory-board-wrap {
+        max-height: 560px;
+        overflow: auto;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 0.55rem;
+        background: rgba(0, 0, 0, 0.25);
+      }
+
+      .memory-grid {
+        display: grid;
+        grid-template-columns: repeat(
+          var(--memory-cols, 4),
+          var(--memory-cell-size, 58px)
+        );
+        gap: 6px;
+        width: max-content;
+        margin: 0 auto;
+      }
+
+      .memory-card {
+        width: var(--memory-cell-size, 58px);
+        height: var(--memory-cell-size, 58px);
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-light)
+        );
+        color: var(--white);
+        font-size: calc(var(--memory-cell-size, 58px) * 0.4);
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+        transition:
+          transform 0.15s ease,
+          background 0.2s ease;
+        padding: 0;
+      }
+
+      .memory-card:hover {
+        transform: translateY(-1px);
+      }
+
+      .memory-card.flipped {
+        background: rgba(255, 255, 255, 0.9);
+        color: #132;
+      }
+
+      .memory-card.matched {
+        background: rgba(46, 204, 113, 0.6);
+        border-color: rgba(46, 204, 113, 0.9);
+        color: #0b1b10;
+      }
+
+      .micro-text {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.82rem;
+        margin-top: 0.55rem;
+      }
+
+      @media (max-width: 700px) {
         .top-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .top-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            text-decoration: none;
-            color: var(--secondary);
-            font-weight: 600;
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 0.45rem;
         }
 
         .panel {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 16px;
-            padding: 1rem;
-        }
-
-        h1 {
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            margin-bottom: 0.35rem;
-        }
-
-        .subtitle {
-            color: rgba(255, 255, 255, 0.74);
-            margin-bottom: 1rem;
-        }
-
-        .control-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .control-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-        }
-
-        .control-item label {
-            font-size: 0.82rem;
-            color: rgba(255, 255, 255, 0.75);
-            font-weight: 600;
-        }
-
-        .control-item select {
-            width: 100%;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.24);
-            background: rgba(0, 0, 0, 0.3);
-            color: var(--white);
-            padding: 0.55rem;
-            font-size: 0.92rem;
-        }
-
-        .btn-game {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: var(--white);
-            border: none;
-            padding: 0.8rem 1.1rem;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-            margin-top: 0.25rem;
-        }
-
-        .btn-game:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 24px rgba(13, 115, 119, 0.35);
-        }
-
-        .game-panel {
-            margin-top: 0.9rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
-            padding: 0.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.09);
-        }
-
-        .memory-stats {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 0.45rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .memory-stat {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            padding: 0.5rem;
-            text-align: center;
-        }
-
-        .memory-stat-value {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--secondary);
-            line-height: 1.1;
-        }
-
-        .memory-stat-label {
-            font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.65);
-            margin-top: 0.2rem;
+          padding: 0.85rem;
         }
 
         .memory-board-wrap {
-            max-height: 560px;
-            overflow: auto;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 0.55rem;
-            background: rgba(0, 0, 0, 0.25);
+          max-height: 68dvh;
+        }
+      }
+
+      @media (max-width: 520px) {
+        body {
+          padding: 0.75rem;
         }
 
-        .memory-grid {
-            display: grid;
-            grid-template-columns: repeat(var(--memory-cols, 4), var(--memory-cell-size, 58px));
-            gap: 6px;
-            width: max-content;
-            margin: 0 auto;
+        .memory-stats {
+          grid-template-columns: 1fr;
         }
 
-        .memory-card {
-            width: var(--memory-cell-size, 58px);
-            height: var(--memory-cell-size, 58px);
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: var(--white);
-            font-size: calc(var(--memory-cell-size, 58px) * 0.4);
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            user-select: none;
-            transition: transform 0.15s ease, background 0.2s ease;
-            padding: 0;
+        .memory-stat {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          text-align: left;
         }
 
-        .memory-card:hover {
-            transform: translateY(-1px);
+        .memory-stat-label {
+          margin-top: 0;
         }
-
-        .memory-card.flipped {
-            background: rgba(255, 255, 255, 0.9);
-            color: #132;
-        }
-
-        .memory-card.matched {
-            background: rgba(46, 204, 113, 0.6);
-            border-color: rgba(46, 204, 113, 0.9);
-            color: #0b1b10;
-        }
-
-        .micro-text {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.82rem;
-            margin-top: 0.55rem;
-        }
-
-        @media (max-width: 700px) {
-            .top-links {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 0.45rem;
-            }
-
-            .panel {
-                padding: 0.85rem;
-            }
-
-            .memory-board-wrap {
-                max-height: 68dvh;
-            }
-        }
-
-        @media (max-width: 520px) {
-            body {
-                padding: 0.75rem;
-            }
-
-            .memory-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .memory-stat {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                text-align: left;
-            }
-
-            .memory-stat-label {
-                margin-top: 0;
-            }
-        }
+      }
     </style>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="page-wrap">
-        <div class="top-links">
-            <a class="top-link" href="games.html"><i class="fas fa-arrow-left"></i> Back to Games</a>
-            <a class="top-link" href="index.html"><i class="fas fa-house"></i> Home</a>
+      <div class="top-links">
+        <a class="top-link" href="games.html"
+          ><i class="fas fa-arrow-left"></i> Back to Games</a
+        >
+        <a class="top-link" href="index.html"
+          ><i class="fas fa-house"></i> Home</a
+        >
+      </div>
+
+      <section class="panel">
+        <h1>Memory Match</h1>
+        <p class="subtitle">
+          Select your board size and theme, then start a new game.
+        </p>
+
+        <div class="control-row">
+          <div class="control-item">
+            <label for="memorySizeSelect">Grid Size</label>
+            <select id="memorySizeSelect"></select>
+          </div>
+          <div class="control-item">
+            <label for="memoryThemeSelect">Theme</label>
+            <select id="memoryThemeSelect">
+              <option value="animals">Animals</option>
+              <option value="nature">Nature + Symbols</option>
+              <option value="mixed">Mixed</option>
+            </select>
+          </div>
         </div>
 
-        <section class="panel">
-            <h1>Memory Match</h1>
-            <p class="subtitle">Select your board size and theme, then start a new game.</p>
+        <button class="btn-game" id="memoryStartBtn">Start Memory Game</button>
 
-            <div class="control-row">
-                <div class="control-item">
-                    <label for="memorySizeSelect">Grid Size</label>
-                    <select id="memorySizeSelect"></select>
-                </div>
-                <div class="control-item">
-                    <label for="memoryThemeSelect">Theme</label>
-                    <select id="memoryThemeSelect">
-                        <option value="animals">Animals</option>
-                        <option value="nature">Nature + Symbols</option>
-                        <option value="mixed">Mixed</option>
-                    </select>
-                </div>
+        <div class="game-panel">
+          <div class="memory-stats">
+            <div class="memory-stat">
+              <div class="memory-stat-value" id="memoryMoves">0</div>
+              <div class="memory-stat-label">MOVES</div>
             </div>
-
-            <button class="btn-game" id="memoryStartBtn">Start Memory Game</button>
-
-            <div class="game-panel">
-                <div class="memory-stats">
-                    <div class="memory-stat">
-                        <div class="memory-stat-value" id="memoryMoves">0</div>
-                        <div class="memory-stat-label">MOVES</div>
-                    </div>
-                    <div class="memory-stat">
-                        <div class="memory-stat-value" id="memoryMatches">0</div>
-                        <div class="memory-stat-label">MATCHES</div>
-                    </div>
-                    <div class="memory-stat">
-                        <div class="memory-stat-value" id="memoryTime">0:00</div>
-                        <div class="memory-stat-label">TIME</div>
-                    </div>
-                </div>
-                <div class="memory-board-wrap">
-                    <div class="memory-grid" id="memoryGrid"></div>
-                </div>
-                <p class="micro-text">Tip: for very large boards, scroll inside the game panel.</p>
+            <div class="memory-stat">
+              <div class="memory-stat-value" id="memoryMatches">0</div>
+              <div class="memory-stat-label">MATCHES</div>
             </div>
-        </section>
+            <div class="memory-stat">
+              <div class="memory-stat-value" id="memoryTime">0:00</div>
+              <div class="memory-stat-label">TIME</div>
+            </div>
+          </div>
+          <div class="memory-board-wrap">
+            <div class="memory-grid" id="memoryGrid"></div>
+          </div>
+          <p class="micro-text">
+            Tip: for very large boards, scroll inside the game panel.
+          </p>
+        </div>
+      </section>
     </div>
 
     <script>
-        function shuffle(array) {
-            const arr = [...array];
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            return arr;
+      function shuffle(array) {
+        const arr = [...array]
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1))
+          ;[arr[i], arr[j]] = [arr[j], arr[i]]
+        }
+        return arr
+      }
+
+      const memorySizeSelect = document.getElementById('memorySizeSelect')
+      const memoryThemeSelect = document.getElementById('memoryThemeSelect')
+      const memoryStartBtn = document.getElementById('memoryStartBtn')
+      const memoryGrid = document.getElementById('memoryGrid')
+      const memoryMovesEl = document.getElementById('memoryMoves')
+      const memoryMatchesEl = document.getElementById('memoryMatches')
+      const memoryTimeEl = document.getElementById('memoryTime')
+
+      const memoryThemes = {
+        animals: [
+          '🐶',
+          '🐱',
+          '🐭',
+          '🐹',
+          '🐰',
+          '🦊',
+          '🐻',
+          '🐼',
+          '🐨',
+          '🐯',
+          '🦁',
+          '🐮',
+          '🐷',
+          '🐸',
+          '🐵',
+          '🐔',
+          '🐧',
+          '🐦',
+          '🦉',
+          '🦄',
+          '🐺',
+          '🐗',
+          '🐴',
+          '🦓',
+          '🦌',
+          '🐘',
+          '🦏',
+          '🦒',
+          '🦘',
+          '🐐',
+          '🐏',
+          '🦙',
+          '🐪',
+          '🦥',
+          '🦦',
+          '🦨',
+          '🦔',
+          '🐿️',
+          '🦝',
+          '🦇',
+          '🐢',
+          '🐍',
+          '🦎',
+          '🦂',
+          '🦀',
+          '🐙',
+          '🦑',
+          '🐠',
+          '🐟',
+          '🐬',
+          '🐳',
+          '🦈',
+          '🐊',
+          '🦜',
+          '🦚',
+          '🦢',
+          '🦩',
+          '🐓',
+          '🐇',
+          '🐕',
+        ],
+        nature: [
+          '🌲',
+          '🌳',
+          '🌴',
+          '🌵',
+          '🌿',
+          '🍀',
+          '🌻',
+          '🌷',
+          '🌹',
+          '🌺',
+          '🍁',
+          '🍂',
+          '🍄',
+          '🌎',
+          '🌞',
+          '🌙',
+          '⭐',
+          '⚡',
+          '🔥',
+          '💧',
+          '🌊',
+          '❄️',
+          '☁️',
+          '⛰️',
+          '🏝️',
+          '🍇',
+          '🍉',
+          '🍎',
+          '🍋',
+          '🍓',
+          '🥝',
+          '🥥',
+          '🥕',
+          '🌽',
+          '🍞',
+          '🧀',
+          '🍯',
+          '🎯',
+          '🎲',
+          '🎵',
+          '🔔',
+          '💎',
+          '🧭',
+          '⌛',
+          '🧠',
+          '💡',
+          '🔷',
+          '🔶',
+          '🔺',
+          '⬜',
+          '⬛',
+          '🟢',
+          '🔵',
+          '🟣',
+          '🟡',
+          '🟥',
+          '🔐',
+          '🧩',
+          '🧱',
+          '📘',
+        ],
+      }
+
+      let memoryDeck = []
+      let memoryFlipped = []
+      let memoryMatchedPairs = 0
+      let memoryMoves = 0
+      let memorySeconds = 0
+      let memoryLock = false
+      let memoryTimer = null
+
+      function fillMemorySizeOptions() {
+        for (let size = 2; size <= 50; size += 2) {
+          const opt = document.createElement('option')
+          opt.value = String(size)
+          opt.textContent = `${size}x${size}`
+          if (size === 4) opt.selected = true
+          memorySizeSelect.appendChild(opt)
+        }
+      }
+
+      function getMemoryPool(theme) {
+        if (theme === 'mixed') {
+          return [...memoryThemes.animals, ...memoryThemes.nature]
+        }
+        return memoryThemes[theme] || memoryThemes.animals
+      }
+
+      function getExpandedSymbols(theme, requiredPairs) {
+        const basePool = getMemoryPool(theme)
+        const symbols = []
+        let idx = 0
+
+        while (symbols.length < requiredPairs) {
+          const base = basePool[idx % basePool.length]
+          const cycle = Math.floor(idx / basePool.length)
+          symbols.push(cycle === 0 ? base : `${base}${cycle + 1}`)
+          idx++
         }
 
-        const memorySizeSelect = document.getElementById('memorySizeSelect');
-        const memoryThemeSelect = document.getElementById('memoryThemeSelect');
-        const memoryStartBtn = document.getElementById('memoryStartBtn');
-        const memoryGrid = document.getElementById('memoryGrid');
-        const memoryMovesEl = document.getElementById('memoryMoves');
-        const memoryMatchesEl = document.getElementById('memoryMatches');
-        const memoryTimeEl = document.getElementById('memoryTime');
+        return symbols
+      }
 
-        const memoryThemes = {
-            animals: [
-                '🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐸','🐵','🐔','🐧','🐦','🦉','🦄',
-                '🐺','🐗','🐴','🦓','🦌','🐘','🦏','🦒','🦘','🐐','🐏','🦙','🐪','🦥','🦦','🦨','🦔','🐿️','🦝','🦇',
-                '🐢','🐍','🦎','🦂','🦀','🐙','🦑','🐠','🐟','🐬','🐳','🦈','🐊','🦜','🦚','🦢','🦩','🐓','🐇','🐕'
-            ],
-            nature: [
-                '🌲','🌳','🌴','🌵','🌿','🍀','🌻','🌷','🌹','🌺','🍁','🍂','🍄','🌎','🌞','🌙','⭐','⚡','🔥','💧',
-                '🌊','❄️','☁️','⛰️','🏝️','🍇','🍉','🍎','🍋','🍓','🥝','🥥','🥕','🌽','🍞','🧀','🍯','🎯','🎲','🎵',
-                '🔔','💎','🧭','⌛','🧠','💡','🔷','🔶','🔺','⬜','⬛','🟢','🔵','🟣','🟡','🟥','🔐','🧩','🧱','📘'
-            ]
-        };
+      function getMemoryCellSize(size) {
+        if (size <= 4) return 66
+        if (size <= 6) return 58
+        if (size <= 10) return 44
+        if (size <= 14) return 36
+        if (size <= 20) return 30
+        if (size <= 30) return 24
+        if (size <= 40) return 20
+        return 18
+      }
 
-        let memoryDeck = [];
-        let memoryFlipped = [];
-        let memoryMatchedPairs = 0;
-        let memoryMoves = 0;
-        let memorySeconds = 0;
-        let memoryLock = false;
-        let memoryTimer = null;
+      function formatDuration(seconds) {
+        const mins = Math.floor(seconds / 60)
+        const secs = seconds % 60
+        return `${mins}:${secs.toString().padStart(2, '0')}`
+      }
 
-        function fillMemorySizeOptions() {
-            for (let size = 2; size <= 50; size += 2) {
-                const opt = document.createElement('option');
-                opt.value = String(size);
-                opt.textContent = `${size}x${size}`;
-                if (size === 4) opt.selected = true;
-                memorySizeSelect.appendChild(opt);
-            }
+      function resetMemoryStats() {
+        memoryMatchedPairs = 0
+        memoryMoves = 0
+        memorySeconds = 0
+        memoryLock = false
+        memoryFlipped = []
+
+        memoryMovesEl.textContent = '0'
+        memoryMatchesEl.textContent = '0'
+        memoryTimeEl.textContent = '0:00'
+
+        if (memoryTimer) {
+          clearInterval(memoryTimer)
         }
 
-        function getMemoryPool(theme) {
-            if (theme === 'mixed') {
-                return [...memoryThemes.animals, ...memoryThemes.nature];
-            }
-            return memoryThemes[theme] || memoryThemes.animals;
+        memoryTimer = setInterval(() => {
+          memorySeconds++
+          memoryTimeEl.textContent = formatDuration(memorySeconds)
+        }, 1000)
+      }
+
+      function initMemoryGame() {
+        const size = parseInt(memorySizeSelect.value, 10)
+        const totalCards = size * size
+        const pairCount = totalCards / 2
+        const theme = memoryThemeSelect.value
+
+        const symbolSet = getExpandedSymbols(theme, pairCount)
+        memoryDeck = shuffle([...symbolSet, ...symbolSet])
+
+        const cellSize = getMemoryCellSize(size)
+        memoryGrid.style.setProperty('--memory-cols', String(size))
+        memoryGrid.style.setProperty('--memory-cell-size', `${cellSize}px`)
+        memoryGrid.style.gap = size > 30 ? '2px' : size > 16 ? '4px' : '6px'
+
+        memoryGrid.innerHTML = ''
+        resetMemoryStats()
+
+        memoryDeck.forEach((symbol, index) => {
+          const card = document.createElement('button')
+          card.type = 'button'
+          card.className = 'memory-card'
+          card.dataset.symbol = symbol
+          card.dataset.index = String(index)
+          card.textContent = '?'
+          card.addEventListener('click', () => flipMemoryCard(card))
+          memoryGrid.appendChild(card)
+        })
+      }
+
+      function flipMemoryCard(card) {
+        if (
+          memoryLock ||
+          card.classList.contains('flipped') ||
+          card.classList.contains('matched')
+        ) {
+          return
         }
 
-        function getExpandedSymbols(theme, requiredPairs) {
-            const basePool = getMemoryPool(theme);
-            const symbols = [];
-            let idx = 0;
+        card.classList.add('flipped')
+        card.textContent = card.dataset.symbol
+        memoryFlipped.push(card)
 
-            while (symbols.length < requiredPairs) {
-                const base = basePool[idx % basePool.length];
-                const cycle = Math.floor(idx / basePool.length);
-                symbols.push(cycle === 0 ? base : `${base}${cycle + 1}`);
-                idx++;
-            }
-
-            return symbols;
+        if (memoryFlipped.length < 2) {
+          return
         }
 
-        function getMemoryCellSize(size) {
-            if (size <= 4) return 66;
-            if (size <= 6) return 58;
-            if (size <= 10) return 44;
-            if (size <= 14) return 36;
-            if (size <= 20) return 30;
-            if (size <= 30) return 24;
-            if (size <= 40) return 20;
-            return 18;
-        }
+        memoryMoves++
+        memoryMovesEl.textContent = String(memoryMoves)
 
-        function formatDuration(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${mins}:${secs.toString().padStart(2, '0')}`;
-        }
+        const [first, second] = memoryFlipped
+        if (first.dataset.symbol === second.dataset.symbol) {
+          first.classList.add('matched')
+          second.classList.add('matched')
+          memoryFlipped = []
+          memoryMatchedPairs++
+          memoryMatchesEl.textContent = String(memoryMatchedPairs)
 
-        function resetMemoryStats() {
-            memoryMatchedPairs = 0;
-            memoryMoves = 0;
-            memorySeconds = 0;
-            memoryLock = false;
-            memoryFlipped = [];
-
-            memoryMovesEl.textContent = '0';
-            memoryMatchesEl.textContent = '0';
-            memoryTimeEl.textContent = '0:00';
-
-            if (memoryTimer) {
-                clearInterval(memoryTimer);
-            }
-
-            memoryTimer = setInterval(() => {
-                memorySeconds++;
-                memoryTimeEl.textContent = formatDuration(memorySeconds);
-            }, 1000);
-        }
-
-        function initMemoryGame() {
-            const size = parseInt(memorySizeSelect.value, 10);
-            const totalCards = size * size;
-            const pairCount = totalCards / 2;
-            const theme = memoryThemeSelect.value;
-
-            const symbolSet = getExpandedSymbols(theme, pairCount);
-            memoryDeck = shuffle([...symbolSet, ...symbolSet]);
-
-            const cellSize = getMemoryCellSize(size);
-            memoryGrid.style.setProperty('--memory-cols', String(size));
-            memoryGrid.style.setProperty('--memory-cell-size', `${cellSize}px`);
-            memoryGrid.style.gap = size > 30 ? '2px' : size > 16 ? '4px' : '6px';
-
-            memoryGrid.innerHTML = '';
-            resetMemoryStats();
-
-            memoryDeck.forEach((symbol, index) => {
-                const card = document.createElement('button');
-                card.type = 'button';
-                card.className = 'memory-card';
-                card.dataset.symbol = symbol;
-                card.dataset.index = String(index);
-                card.textContent = '?';
-                card.addEventListener('click', () => flipMemoryCard(card));
-                memoryGrid.appendChild(card);
-            });
-        }
-
-        function flipMemoryCard(card) {
-            if (memoryLock || card.classList.contains('flipped') || card.classList.contains('matched')) {
-                return;
-            }
-
-            card.classList.add('flipped');
-            card.textContent = card.dataset.symbol;
-            memoryFlipped.push(card);
-
-            if (memoryFlipped.length < 2) {
-                return;
-            }
-
-            memoryMoves++;
-            memoryMovesEl.textContent = String(memoryMoves);
-
-            const [first, second] = memoryFlipped;
-            if (first.dataset.symbol === second.dataset.symbol) {
-                first.classList.add('matched');
-                second.classList.add('matched');
-                memoryFlipped = [];
-                memoryMatchedPairs++;
-                memoryMatchesEl.textContent = String(memoryMatchedPairs);
-
-                if (memoryMatchedPairs === memoryDeck.length / 2) {
-                    clearInterval(memoryTimer);
-                    setTimeout(() => {
-                        alert(`Completed! ${memoryDeck.length} cards matched in ${memoryMoves} moves.`);
-                    }, 120);
-                }
-                return;
-            }
-
-            memoryLock = true;
+          if (memoryMatchedPairs === memoryDeck.length / 2) {
+            clearInterval(memoryTimer)
             setTimeout(() => {
-                first.classList.remove('flipped');
-                second.classList.remove('flipped');
-                first.textContent = '?';
-                second.textContent = '?';
-                memoryFlipped = [];
-                memoryLock = false;
-            }, 500);
+              alert(
+                `Completed! ${memoryDeck.length} cards matched in ${memoryMoves} moves.`
+              )
+            }, 120)
+          }
+          return
         }
 
-        memoryStartBtn.addEventListener('click', initMemoryGame);
-        fillMemorySizeOptions();
-        initMemoryGame();
+        memoryLock = true
+        setTimeout(() => {
+          first.classList.remove('flipped')
+          second.classList.remove('flipped')
+          first.textContent = '?'
+          second.textContent = '?'
+          memoryFlipped = []
+          memoryLock = false
+        }, 500)
+      }
+
+      memoryStartBtn.addEventListener('click', initMemoryGame)
+      fillMemorySizeOptions()
+      initMemoryGame()
     </script>
-</body>
+  </body>
 </html>

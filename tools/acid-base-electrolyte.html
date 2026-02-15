@@ -1,99 +1,208 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Blood Gas + Acid-Base Analyzer | VetLudics Tools</title>
-    <meta name="description" content="Interpret acid-base and blood gas patterns with compensation checks, corrected anion gap, delta ratio, and base excess.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Blood Gas + Acid-Base Analyzer | VetLudics Tools">
-    <meta property="og:description" content="Phase 2 blood gas interpretation assistant for clinic and study use.">
-    <meta property="og:url" content="https://parthchaudhari.com/tools/acid-base-electrolyte.html">
-    <link rel="canonical" href="https://parthchaudhari.com/tools/acid-base-electrolyte.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Interpret acid-base and blood gas patterns with compensation checks, corrected anion gap, delta ratio, and base excess."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Blood Gas + Acid-Base Analyzer | VetLudics Tools"
+    />
+    <meta
+      property="og:description"
+      content="Phase 2 blood gas interpretation assistant for clinic and study use."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/tools/acid-base-electrolyte.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/tools/acid-base-electrolyte.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/acid-base-electrolyte.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Phase 2 Clinical</p>
-            <h1 class="pc-fork-title">Blood Gas + Acid-Base Analyzer</h1>
-            <p class="pc-fork-copy">Interpret primary disorder, compensation, corrected anion gap, and delta ratio while preserving quick electrolyte corrections.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Phase 2 Clinical</p>
+        <h1 class="pc-fork-title">Blood Gas + Acid-Base Analyzer</h1>
+        <p class="pc-fork-copy">
+          Interpret primary disorder, compensation, corrected anion gap, and
+          delta ratio while preserving quick electrolyte corrections.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="ab-input-title">
-            <h2 id="ab-input-title" class="pc-bridge-title">Blood Gas and Chemistry Inputs</h2>
-            <form id="ab-form" class="pc-calculator-grid" novalidate>
-                <label class="pc-calculator-field" for="ab-species">
-                    <span>Species</span>
-                    <select id="ab-species" class="pc-input">
-                        <option value="canine">Canine</option>
-                        <option value="feline">Feline</option>
-                    </select>
-                </label>
-                <label class="pc-calculator-field" for="ab-ph"><span>pH</span><input id="ab-ph" class="pc-input" type="number" step="0.001" placeholder="7.31"></label>
-                <label class="pc-calculator-field" for="ab-pco2"><span>pCO2 (mmHg)</span><input id="ab-pco2" class="pc-input" type="number" step="0.1" placeholder="34"></label>
-                <label class="pc-calculator-field" for="ab-hco3"><span>HCO3 (mEq/L)</span><input id="ab-hco3" class="pc-input" type="number" step="0.1" placeholder="16"></label>
-                <label class="pc-calculator-field" for="ab-na"><span>Na (mEq/L)</span><input id="ab-na" class="pc-input" type="number" step="0.1"></label>
-                <label class="pc-calculator-field" for="ab-cl"><span>Cl (mEq/L)</span><input id="ab-cl" class="pc-input" type="number" step="0.1"></label>
-                <label class="pc-calculator-field" for="ab-albumin"><span>Albumin (g/dL)</span><input id="ab-albumin" class="pc-input" type="number" step="0.1"></label>
-                <label class="pc-calculator-field" for="ab-glucose"><span>Glucose (mg/dL)</span><input id="ab-glucose" class="pc-input" type="number" step="0.1"></label>
-                <label class="pc-calculator-field" for="ab-bun"><span>BUN (mg/dL)</span><input id="ab-bun" class="pc-input" type="number" step="0.1"></label>
-                <label class="pc-calculator-field" for="ab-ca"><span>Total Ca (mg/dL)</span><input id="ab-ca" class="pc-input" type="number" step="0.1"></label>
-                <div class="pc-calculator-actions">
-                    <button type="submit" class="pc-btn pc-btn--primary">Interpret Panel</button>
-                </div>
-            </form>
-        </section>
+      <section class="pc-bridge-section" aria-labelledby="ab-input-title">
+        <h2 id="ab-input-title" class="pc-bridge-title">
+          Blood Gas and Chemistry Inputs
+        </h2>
+        <form id="ab-form" class="pc-calculator-grid" novalidate>
+          <label class="pc-calculator-field" for="ab-species">
+            <span>Species</span>
+            <select id="ab-species" class="pc-input">
+              <option value="canine">Canine</option>
+              <option value="feline">Feline</option>
+            </select>
+          </label>
+          <label class="pc-calculator-field" for="ab-ph"
+            ><span>pH</span
+            ><input
+              id="ab-ph"
+              class="pc-input"
+              type="number"
+              step="0.001"
+              placeholder="7.31"
+          /></label>
+          <label class="pc-calculator-field" for="ab-pco2"
+            ><span>pCO2 (mmHg)</span
+            ><input
+              id="ab-pco2"
+              class="pc-input"
+              type="number"
+              step="0.1"
+              placeholder="34"
+          /></label>
+          <label class="pc-calculator-field" for="ab-hco3"
+            ><span>HCO3 (mEq/L)</span
+            ><input
+              id="ab-hco3"
+              class="pc-input"
+              type="number"
+              step="0.1"
+              placeholder="16"
+          /></label>
+          <label class="pc-calculator-field" for="ab-na"
+            ><span>Na (mEq/L)</span
+            ><input id="ab-na" class="pc-input" type="number" step="0.1"
+          /></label>
+          <label class="pc-calculator-field" for="ab-cl"
+            ><span>Cl (mEq/L)</span
+            ><input id="ab-cl" class="pc-input" type="number" step="0.1"
+          /></label>
+          <label class="pc-calculator-field" for="ab-albumin"
+            ><span>Albumin (g/dL)</span
+            ><input id="ab-albumin" class="pc-input" type="number" step="0.1"
+          /></label>
+          <label class="pc-calculator-field" for="ab-glucose"
+            ><span>Glucose (mg/dL)</span
+            ><input id="ab-glucose" class="pc-input" type="number" step="0.1"
+          /></label>
+          <label class="pc-calculator-field" for="ab-bun"
+            ><span>BUN (mg/dL)</span
+            ><input id="ab-bun" class="pc-input" type="number" step="0.1"
+          /></label>
+          <label class="pc-calculator-field" for="ab-ca"
+            ><span>Total Ca (mg/dL)</span
+            ><input id="ab-ca" class="pc-input" type="number" step="0.1"
+          /></label>
+          <div class="pc-calculator-actions">
+            <button type="submit" class="pc-btn pc-btn--primary">
+              Interpret Panel
+            </button>
+          </div>
+        </form>
+      </section>
 
-        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="ab-result-title">
-            <h2 id="ab-result-title" class="pc-bridge-title">Interpretation</h2>
-            <div class="pc-stat-grid pc-stat-grid--results">
-                <article class="pc-stat-card"><p class="pc-stat-label">Primary Disorder</p><p id="ab-primary" class="pc-stat-number">-</p></article>
-                <article class="pc-stat-card"><p class="pc-stat-label">Corrected AG</p><p id="ab-cag" class="pc-stat-number">-</p></article>
-                <article class="pc-stat-card"><p class="pc-stat-label">Delta Ratio</p><p id="ab-delta" class="pc-stat-number">-</p></article>
-                <article class="pc-stat-card"><p class="pc-stat-label">Base Excess</p><p id="ab-be" class="pc-stat-number">-</p></article>
-                <article class="pc-stat-card"><p class="pc-stat-label">Corrected Na</p><p id="ab-cna" class="pc-stat-number">-</p></article>
-                <article class="pc-stat-card"><p class="pc-stat-label">Corrected Ca</p><p id="ab-cca" class="pc-stat-number">-</p></article>
-            </div>
-            <article class="pc-bridge-card pc-bridge-card--inline">
-                <h3>Compensation + Notes</h3>
-                <p id="ab-comp" class="pc-calculator-note">Enter blood gas values for compensation assessment.</p>
-                <p id="ab-note" class="pc-calculator-note">-</p>
-                <p id="ab-osm" class="pc-calculator-note">-</p>
-            </article>
-            <div id="ab-alert" class="pc-calculator-warning" hidden></div>
-            <p class="pc-disclaimer">This tool supports pattern recognition and does not replace full acid-base interpretation at the bedside.</p>
-            <p class="pc-disclaimer">
-                Approved reference baseline (reviewed February 13, 2026):
-                Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
-            </p>
-        </section>
+      <section
+        class="pc-bridge-section"
+        aria-live="polite"
+        aria-labelledby="ab-result-title"
+      >
+        <h2 id="ab-result-title" class="pc-bridge-title">Interpretation</h2>
+        <div class="pc-stat-grid pc-stat-grid--results">
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Primary Disorder</p>
+            <p id="ab-primary" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Corrected AG</p>
+            <p id="ab-cag" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Delta Ratio</p>
+            <p id="ab-delta" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Base Excess</p>
+            <p id="ab-be" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Corrected Na</p>
+            <p id="ab-cna" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Corrected Ca</p>
+            <p id="ab-cca" class="pc-stat-number">-</p>
+          </article>
+        </div>
+        <article class="pc-bridge-card pc-bridge-card--inline">
+          <h3>Compensation + Notes</h3>
+          <p id="ab-comp" class="pc-calculator-note">
+            Enter blood gas values for compensation assessment.
+          </p>
+          <p id="ab-note" class="pc-calculator-note">-</p>
+          <p id="ab-osm" class="pc-calculator-note">-</p>
+        </article>
+        <div id="ab-alert" class="pc-calculator-warning" hidden></div>
+        <p class="pc-disclaimer">
+          This tool supports pattern recognition and does not replace full
+          acid-base interpretation at the bedside.
+        </p>
+        <p class="pc-disclaimer">
+          Approved reference baseline (reviewed February 13, 2026): Drug label
+          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
+          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
+          BCS charts, ACVIM cardiology consensus guideline references, Dental
+          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
+          breed search, and RECOVER CPR guidelines.
+        </p>
+      </section>
     </main>
-</body>
+  </body>
 </html>

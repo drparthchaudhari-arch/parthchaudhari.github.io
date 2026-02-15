@@ -1,11 +1,13 @@
 # Supabase Setup Guide
 
 ## Step 1: Create Project
+
 - supabase.com -> New Project -> Free Tier
 - Choose region closest to users
 - Save database password
 
 ## Step 2: Run SQL
+
 Go to SQL Editor and run:
 
 ```sql
@@ -53,7 +55,9 @@ create policy "Users can update own leaderboard" on leaderboard for all using ( 
 ```
 
 ### Phase 7 NAVLE Freemium Schema
+
 Run `supabase/migrations/20260213_navle_freemium.sql` after the base schema above. It adds:
+
 - `profiles.questions_today`
 - `profiles.last_question_date`
 - `profiles.subscription_status`
@@ -61,32 +65,40 @@ Run `supabase/migrations/20260213_navle_freemium.sql` after the base schema abov
 - `answers` table for per-question analytics (with RLS policies)
 
 ### RLS hotfix for sync/profile writes
+
 If you see `new row violates row-level security policy for table "profiles"`, run:
 
 - `supabase/migrations/20260213_sync_rls_hotfix.sql`
 
 ### Foreign key error on user_progress
+
 If you see:
+
 - `insert or update on table "user_progress" violates foreign key constraint "user_progress_user_id_fkey"`
 
 It means `user_progress.user_id` is being written before a matching `profiles.id` row exists.
 
 Fix:
+
 1. Run `supabase/migrations/20260213_sync_rls_hotfix.sql` to ensure `profiles` insert policy exists.
 2. Ensure the user has a profile row (created automatically by app sync once policy is correct).
 3. Retry Sync.
 
 ### Recommended hardening (one-time)
+
 Run:
+
 - `supabase/migrations/20260213_profile_autoprovision.sql`
 - `supabase/migrations/20260215_account_deletion_and_consent.sql`
 
 This adds an `auth.users` trigger that auto-creates/updates `profiles` rows, which prevents future `user_progress_user_id_fkey` sync failures.
 The 20260215 migration also adds:
+
 - `delete_my_account()` RPC for hard account deletion
 - `record_user_consent()` RPC + `user_consents` table for consent proof logging
 
 ## Step 3: Configure Auth
+
 - Authentication -> Providers -> Enable Email
 - Turn OFF "Confirm email" (optional)
 - Site URL: `https://parthchaudhari.com`
@@ -94,28 +106,31 @@ The 20260215 migration also adds:
   - `https://parthchaudhari.com/study/navle/practice/`
 
 ## Step 4: Configure CORS
+
 - API -> Settings -> Add your domain:
   - `https://parthchaudhari.com`
   - `https://www.parthchaudhari.com`
 
 ## Step 5: Get Keys
+
 - Project Settings -> API
 - Copy URL and anon key
 - Paste into `window.SUPABASE_CONFIG` on your site, for example in a small script loaded before `assets/js/supabase-config.js`:
 
 ```html
 <script>
-window.SUPABASE_CONFIG = {
-  url: 'https://your-project.supabase.co',
-  anonKey: 'your-anon-key'
-};
+  window.SUPABASE_CONFIG = {
+    url: 'https://your-project.supabase.co',
+    anonKey: 'your-anon-key',
+  }
 </script>
 ```
 
 ## Optional: Put config directly in `assets/js/supabase-config.js`
+
 ```js
 window.SUPABASE_CONFIG = {
   url: 'https://your-project.supabase.co',
-  anonKey: 'your-anon-key'
-};
+  anonKey: 'your-anon-key',
+}
 ```

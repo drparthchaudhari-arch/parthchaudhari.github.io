@@ -1,133 +1,337 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Clinical Validation Matrix | VetLudics</title>
-    <meta name="description" content="Clinical validation matrix for VetLudics calculators with formula-level sources, guideline links, and verification status.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Clinical Validation Matrix | VetLudics">
-    <meta property="og:description" content="Reference-linked verification table for veterinary calculator formulas and outputs.">
-    <meta property="og:url" content="https://parthchaudhari.com/reference/clinical-validation.html">
-    <link rel="canonical" href="https://parthchaudhari.com/reference/clinical-validation.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Clinical validation matrix for VetLudics calculators with formula-level sources, guideline links, and verification status."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Clinical Validation Matrix | VetLudics"
+    />
+    <meta
+      property="og:description"
+      content="Reference-linked verification table for veterinary calculator formulas and outputs."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/reference/clinical-validation.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/reference/clinical-validation.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Validation</p>
-            <h1 class="pc-fork-title">Clinical Validation Matrix</h1>
-            <p class="pc-fork-copy">Formula-level verification map for calculator outputs. This page separates reference-verified math from protocol-dependent clinical dosing decisions.</p>
-            <p class="pc-last-reviewed">Last reviewed: February 13, 2026</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
-                <a class="pc-btn pc-btn--secondary" href="/reference/">Back to References</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Validation</p>
+        <h1 class="pc-fork-title">Clinical Validation Matrix</h1>
+        <p class="pc-fork-copy">
+          Formula-level verification map for calculator outputs. This page
+          separates reference-verified math from protocol-dependent clinical
+          dosing decisions.
+        </p>
+        <p class="pc-last-reviewed">Last reviewed: February 13, 2026</p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+          <a class="pc-btn pc-btn--secondary" href="/reference/"
+            >Back to References</a
+          >
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-label="Validation status table">
-            <h2 class="pc-bridge-title">Calculator Verification Status</h2>
-            <div class="pc-table-wrap">
-                <table class="pc-table">
-                    <thead>
-                        <tr>
-                            <th>Calculator</th>
-                            <th>Output Data Verified</th>
-                            <th>Primary Source(s)</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Fluid Calculator</td>
-                            <td>Deficit, maintenance, hourly planning, shock aliquot reminders</td>
-                            <td><a href="https://www.merckvetmanual.com/multimedia/table/fluid-requirements-of-critically-ill-patients" target="_blank" rel="noopener noreferrer">Merck Vet Manual fluid table</a>, <a href="https://www.aaha.org/resources/2024-aaha-fluid-therapy-guidelines-for-dogs-and-cats/" target="_blank" rel="noopener noreferrer">AAHA 2024 fluid guidelines</a></td>
-                            <td><span class="pc-home-window-badge">Reference-Verified</span></td>
-                        </tr>
-                        <tr>
-                            <td>Electrolyte Replacement Planner</td>
-                            <td>K replacement dose-band conversion to mEq/L and mEq/hr safety checks</td>
-                            <td><a href="https://www.aaha.org/resources/2024-aaha-fluid-therapy-guidelines-for-dogs-and-cats/" target="_blank" rel="noopener noreferrer">AAHA 2024 fluid/electrolyte guidance</a></td>
-                            <td><span class="pc-home-window-badge">Reference-Verified</span></td>
-                        </tr>
-                        <tr>
-                            <td>Transfusion + Component Planner</td>
-                            <td>Volume-needed and expected PCV rise equations, blood-volume factors</td>
-                            <td><a href="https://www.merckvetmanual.com/multimedia/table/calculated-volume-of-blood-product-for-transfusion" target="_blank" rel="noopener noreferrer">Merck transfusion table</a></td>
-                            <td><span class="pc-home-window-badge">Reference-Verified</span></td>
-                        </tr>
-                        <tr>
-                            <td>Nutrition RER/MER</td>
-                            <td>RER formula and species/life-stage MER multipliers</td>
-                            <td><a href="https://www.merckvetmanual.com/multimedia/table/rer-factors-used-to-estimate-mer" target="_blank" rel="noopener noreferrer">Merck RER/MER factors</a>, <a href="https://www.aaha.org/resources/2021-aaha-nutritional-assessment-guidelines-for-dogs-and-cats/" target="_blank" rel="noopener noreferrer">AAHA nutritional assessment</a></td>
-                            <td><span class="pc-home-window-badge">Reference-Verified</span></td>
-                        </tr>
-                        <tr>
-                            <td>Glucose Curve Generator</td>
-                            <td>Nadir-target logic, species-specific control thresholds, interpretation prompts</td>
-                            <td><a href="https://www.aaha.org/resources/2018-aaha-diabetes-management-guidelines-for-dogs-and-cats/" target="_blank" rel="noopener noreferrer">AAHA diabetes guidelines</a></td>
-                            <td><span class="pc-home-window-badge">Reference-Verified</span></td>
-                        </tr>
-                        <tr>
-                            <td>Insulin CRI Planner (DKA)</td>
-                            <td>U/hr, infusion-rate math, reference bag-mix comparison</td>
-                            <td><a href="https://www.merckvetmanual.com/endocrine-system/the-pancreas/diabetes-mellitus-in-animals" target="_blank" rel="noopener noreferrer">Merck DKA insulin CRI guidance</a></td>
-                            <td><span class="pc-home-window-badge">Reference-Verified</span></td>
-                        </tr>
-                        <tr>
-                            <td>Acid-Base + Blood Gas</td>
-                            <td>Anion gap, corrected AG, Winter compensation, delta-ratio patterning</td>
-                            <td>Standard acid-base equations (DiBartola/Winter framework)</td>
-                            <td><span class="pc-home-window-badge">Reference-Verified</span></td>
-                        </tr>
-                        <tr>
-                            <td>Dose Calculator + Emergency Drug Chart + CRI Advanced + Renal Adjuster</td>
-                            <td>Drug- and concentration-dependent dosing outputs</td>
-                            <td><a href="https://dailymed.nlm.nih.gov/dailymed/" target="_blank" rel="noopener noreferrer">DailyMed</a>, <a href="https://recoverinitiative.org/" target="_blank" rel="noopener noreferrer">RECOVER</a>, local formulary protocol</td>
-                            <td><span class="pc-home-window-badge">Protocol-Dependent</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <p class="pc-calculator-note">Protocol-dependent means output math is correct but final dose selection must be verified against current product label, patient status, and local clinician protocol.</p>
-        </section>
+      <section class="pc-bridge-section" aria-label="Validation status table">
+        <h2 class="pc-bridge-title">Calculator Verification Status</h2>
+        <div class="pc-table-wrap">
+          <table class="pc-table">
+            <thead>
+              <tr>
+                <th>Calculator</th>
+                <th>Output Data Verified</th>
+                <th>Primary Source(s)</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Fluid Calculator</td>
+                <td>
+                  Deficit, maintenance, hourly planning, shock aliquot reminders
+                </td>
+                <td>
+                  <a
+                    href="https://www.merckvetmanual.com/multimedia/table/fluid-requirements-of-critically-ill-patients"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Merck Vet Manual fluid table</a
+                  >,
+                  <a
+                    href="https://www.aaha.org/resources/2024-aaha-fluid-therapy-guidelines-for-dogs-and-cats/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >AAHA 2024 fluid guidelines</a
+                  >
+                </td>
+                <td>
+                  <span class="pc-home-window-badge">Reference-Verified</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Electrolyte Replacement Planner</td>
+                <td>
+                  K replacement dose-band conversion to mEq/L and mEq/hr safety
+                  checks
+                </td>
+                <td>
+                  <a
+                    href="https://www.aaha.org/resources/2024-aaha-fluid-therapy-guidelines-for-dogs-and-cats/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >AAHA 2024 fluid/electrolyte guidance</a
+                  >
+                </td>
+                <td>
+                  <span class="pc-home-window-badge">Reference-Verified</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Transfusion + Component Planner</td>
+                <td>
+                  Volume-needed and expected PCV rise equations, blood-volume
+                  factors
+                </td>
+                <td>
+                  <a
+                    href="https://www.merckvetmanual.com/multimedia/table/calculated-volume-of-blood-product-for-transfusion"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Merck transfusion table</a
+                  >
+                </td>
+                <td>
+                  <span class="pc-home-window-badge">Reference-Verified</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Nutrition RER/MER</td>
+                <td>RER formula and species/life-stage MER multipliers</td>
+                <td>
+                  <a
+                    href="https://www.merckvetmanual.com/multimedia/table/rer-factors-used-to-estimate-mer"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Merck RER/MER factors</a
+                  >,
+                  <a
+                    href="https://www.aaha.org/resources/2021-aaha-nutritional-assessment-guidelines-for-dogs-and-cats/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >AAHA nutritional assessment</a
+                  >
+                </td>
+                <td>
+                  <span class="pc-home-window-badge">Reference-Verified</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Glucose Curve Generator</td>
+                <td>
+                  Nadir-target logic, species-specific control thresholds,
+                  interpretation prompts
+                </td>
+                <td>
+                  <a
+                    href="https://www.aaha.org/resources/2018-aaha-diabetes-management-guidelines-for-dogs-and-cats/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >AAHA diabetes guidelines</a
+                  >
+                </td>
+                <td>
+                  <span class="pc-home-window-badge">Reference-Verified</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Insulin CRI Planner (DKA)</td>
+                <td>U/hr, infusion-rate math, reference bag-mix comparison</td>
+                <td>
+                  <a
+                    href="https://www.merckvetmanual.com/endocrine-system/the-pancreas/diabetes-mellitus-in-animals"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Merck DKA insulin CRI guidance</a
+                  >
+                </td>
+                <td>
+                  <span class="pc-home-window-badge">Reference-Verified</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Acid-Base + Blood Gas</td>
+                <td>
+                  Anion gap, corrected AG, Winter compensation, delta-ratio
+                  patterning
+                </td>
+                <td>
+                  Standard acid-base equations (DiBartola/Winter framework)
+                </td>
+                <td>
+                  <span class="pc-home-window-badge">Reference-Verified</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Dose Calculator + Emergency Drug Chart + CRI Advanced + Renal
+                  Adjuster
+                </td>
+                <td>Drug- and concentration-dependent dosing outputs</td>
+                <td>
+                  <a
+                    href="https://dailymed.nlm.nih.gov/dailymed/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >DailyMed</a
+                  >,
+                  <a
+                    href="https://recoverinitiative.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >RECOVER</a
+                  >, local formulary protocol
+                </td>
+                <td>
+                  <span class="pc-home-window-badge">Protocol-Dependent</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="pc-calculator-note">
+          Protocol-dependent means output math is correct but final dose
+          selection must be verified against current product label, patient
+          status, and local clinician protocol.
+        </p>
+      </section>
 
-        <section class="pc-bridge-section" aria-label="Reference baseline links">
-            <h2 class="pc-bridge-title">Reference Baseline Links</h2>
-            <ul class="pc-link-list">
-                <li><a href="https://dailymed.nlm.nih.gov/dailymed/" target="_blank" rel="noopener noreferrer">Drug Label Search (DailyMed)</a></li>
-                <li><a href="https://www.iris-kidney.com/iris-guidelines-1" target="_blank" rel="noopener noreferrer">IRIS Stages</a></li>
-                <li><a href="https://recoverinitiative.org/" target="_blank" rel="noopener noreferrer">RECOVER CPR Guidelines</a></li>
-                <li><a href="https://www.aaha.org/resources/2024-aaha-fluid-therapy-guidelines-for-dogs-and-cats/" target="_blank" rel="noopener noreferrer">AAHA 2024 Fluid Therapy Guidelines</a></li>
-                <li><a href="https://www.aaha.org/resources/2018-aaha-diabetes-management-guidelines-for-dogs-and-cats/" target="_blank" rel="noopener noreferrer">AAHA 2018 Diabetes Guidelines</a></li>
-                <li><a href="https://www.merckvetmanual.com/multimedia/table/fluid-requirements-of-critically-ill-patients" target="_blank" rel="noopener noreferrer">Merck Fluid Requirements Table</a></li>
-                <li><a href="https://www.merckvetmanual.com/multimedia/table/calculated-volume-of-blood-product-for-transfusion" target="_blank" rel="noopener noreferrer">Merck Transfusion Formula Table</a></li>
-                <li><a href="https://www.merckvetmanual.com/multimedia/table/rer-factors-used-to-estimate-mer" target="_blank" rel="noopener noreferrer">Merck RER/MER Factors Table</a></li>
-                <li><a href="https://www.merckvetmanual.com/endocrine-system/the-pancreas/diabetes-mellitus-in-animals" target="_blank" rel="noopener noreferrer">Merck DKA / Insulin CRI Reference</a></li>
-            </ul>
-        </section>
+      <section class="pc-bridge-section" aria-label="Reference baseline links">
+        <h2 class="pc-bridge-title">Reference Baseline Links</h2>
+        <ul class="pc-link-list">
+          <li>
+            <a
+              href="https://dailymed.nlm.nih.gov/dailymed/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Drug Label Search (DailyMed)</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.iris-kidney.com/iris-guidelines-1"
+              target="_blank"
+              rel="noopener noreferrer"
+              >IRIS Stages</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://recoverinitiative.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >RECOVER CPR Guidelines</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.aaha.org/resources/2024-aaha-fluid-therapy-guidelines-for-dogs-and-cats/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >AAHA 2024 Fluid Therapy Guidelines</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.aaha.org/resources/2018-aaha-diabetes-management-guidelines-for-dogs-and-cats/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >AAHA 2018 Diabetes Guidelines</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.merckvetmanual.com/multimedia/table/fluid-requirements-of-critically-ill-patients"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Merck Fluid Requirements Table</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.merckvetmanual.com/multimedia/table/calculated-volume-of-blood-product-for-transfusion"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Merck Transfusion Formula Table</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.merckvetmanual.com/multimedia/table/rer-factors-used-to-estimate-mer"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Merck RER/MER Factors Table</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.merckvetmanual.com/endocrine-system/the-pancreas/diabetes-mellitus-in-animals"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Merck DKA / Insulin CRI Reference</a
+            >
+          </li>
+        </ul>
+      </section>
     </main>
-</body>
+  </body>
 </html>

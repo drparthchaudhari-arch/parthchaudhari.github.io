@@ -1,183 +1,292 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="play" data-theme="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Play Veterinary Games | VetLudics</title>
-    <meta name="description" content="Arcade dashboard for veterinary games with quick play links and progress stats.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Play Veterinary Games | VetLudics">
-    <meta property="og:description" content="Play quick veterinary puzzle games with a clean game-only dashboard.">
-    <meta property="og:url" content="https://parthchaudhari.com/play/">
-    <link rel="canonical" href="https://parthchaudhari.com/play/">
-    <link rel="stylesheet" href="../assets/css/tokens.css">
-    <link rel="stylesheet" href="../assets/css/portal.css">
+    <meta
+      name="description"
+      content="Arcade dashboard for veterinary games with quick play links and progress stats."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Play Veterinary Games | VetLudics" />
+    <meta
+      property="og:description"
+      content="Play quick veterinary puzzle games with a clean game-only dashboard."
+    />
+    <meta property="og:url" content="https://parthchaudhari.com/play/" />
+    <link rel="canonical" href="https://parthchaudhari.com/play/" />
+    <link rel="stylesheet" href="../assets/css/tokens.css" />
+    <link rel="stylesheet" href="../assets/css/portal.css" />
     <script src="../assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/storage.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--play">
+  </head>
+  <body class="pc-page pc-page--play">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <a class="pc-nav-link" href="/about.html">About Me</a>
-                <a class="pc-nav-link pc-is-active" href="/play/">Play</a>
-                <a class="pc-nav-link" href="/bridge/">Bridge</a>
-                <a class="pc-nav-link" href="/search.html">Search</a>
-                <a class="pc-nav-link" href="/account/"><span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>Account</a>
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Play</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Night</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/about.html">About Me</a>
+          <a class="pc-nav-link pc-is-active" href="/play/">Play</a>
+          <a class="pc-nav-link" href="/bridge/">Bridge</a>
+          <a class="pc-nav-link" href="/search.html">Search</a>
+          <a class="pc-nav-link" href="/account/"
+            ><span
+              class="pc-auth-indicator"
+              data-pc-auth-indicator
+              aria-hidden="true"
+              >○</span
+            >Account</a
+          >
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Play</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Night</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-play-shell" role="main">
-        <section class="pc-arcade-stats" aria-label="Player stats">
-            <div class="pc-arcade-stat"><span class="pc-arcade-label">Level</span><strong>1</strong></div>
-            <div class="pc-arcade-stat"><span class="pc-arcade-label">Streak</span><strong>0 days</strong></div>
-            <div class="pc-arcade-stat pc-arcade-stat--xp">
-                <span class="pc-arcade-label">XP</span>
-                <div class="pc-xp-track" aria-label="XP progress">
-                    <div class="pc-xp-fill" style="width: 0%;"></div>
-                </div>
-                <small>0 / 100</small>
+      <section class="pc-arcade-stats" aria-label="Player stats">
+        <div class="pc-arcade-stat">
+          <span class="pc-arcade-label">Level</span><strong>1</strong>
+        </div>
+        <div class="pc-arcade-stat">
+          <span class="pc-arcade-label">Streak</span><strong>0 days</strong>
+        </div>
+        <div class="pc-arcade-stat pc-arcade-stat--xp">
+          <span class="pc-arcade-label">XP</span>
+          <div class="pc-xp-track" aria-label="XP progress">
+            <div class="pc-xp-fill" style="width: 0%"></div>
+          </div>
+          <small>0 / 100</small>
+        </div>
+        <div class="pc-arcade-stat">
+          <span class="pc-arcade-label">VetPoints</span><strong>0</strong>
+        </div>
+      </section>
+
+      <section class="pc-game-grid" aria-label="Game list">
+        <article
+          class="pc-game-card"
+          data-pc-game-card
+          data-pc-game-id="sudoku"
+          data-game-id="sudoku"
+        >
+          <div class="pc-game-thumb pc-game-thumb--sudoku">
+            <span class="pc-game-thumb__chip">
+              <span class="pc-game-thumb__icon" aria-hidden="true">▦</span>
+              <span class="pc-game-thumb__label">Sudoku</span>
+            </span>
+          </div>
+          <div class="pc-game-body">
+            <span class="pc-badge">Logic</span>
+            <span
+              class="pc-played-badge"
+              data-pc-played-badge
+              id="badge-sudoku"
+              hidden
+              >Played Today</span
+            >
+            <h2>Sudoku</h2>
+            <p class="pc-difficulty">Difficulty: ●●●●○</p>
+            <div class="pc-panel-actions">
+              <a class="pc-btn pc-game-launch-btn" href="/play/sudoku/"
+                >Launch Game</a
+              >
             </div>
-            <div class="pc-arcade-stat"><span class="pc-arcade-label">VetPoints</span><strong>0</strong></div>
-        </section>
+          </div>
+        </article>
 
-        <section class="pc-game-grid" aria-label="Game list">
-            <article class="pc-game-card" data-pc-game-card data-pc-game-id="sudoku" data-game-id="sudoku">
-                <div class="pc-game-thumb pc-game-thumb--sudoku">
-                    <span class="pc-game-thumb__chip">
-                        <span class="pc-game-thumb__icon" aria-hidden="true">▦</span>
-                        <span class="pc-game-thumb__label">Sudoku</span>
-                    </span>
-                </div>
-                <div class="pc-game-body">
-                    <span class="pc-badge">Logic</span>
-                    <span class="pc-played-badge" data-pc-played-badge id="badge-sudoku" hidden>Played Today</span>
-                    <h2>Sudoku</h2>
-                    <p class="pc-difficulty">Difficulty: ●●●●○</p>
-                    <div class="pc-panel-actions">
-                        <a class="pc-btn pc-game-launch-btn" href="/play/sudoku/">Launch Game</a>
-                    </div>
-                </div>
-            </article>
+        <article
+          class="pc-game-card"
+          data-pc-game-card
+          data-pc-game-id="memory-match"
+          data-game-id="memory-match"
+        >
+          <div class="pc-game-thumb pc-game-thumb--memory">
+            <span class="pc-game-thumb__chip">
+              <span class="pc-game-thumb__icon" aria-hidden="true">🃏</span>
+              <span class="pc-game-thumb__label">Memory Match</span>
+            </span>
+          </div>
+          <div class="pc-game-body">
+            <span class="pc-badge">Anatomy</span>
+            <span
+              class="pc-played-badge"
+              data-pc-played-badge
+              id="badge-memory-match"
+              hidden
+              >Played Today</span
+            >
+            <h2>Memory Match</h2>
+            <p class="pc-difficulty">Difficulty: ●●○○○</p>
+            <div class="pc-panel-actions">
+              <a class="pc-btn pc-game-launch-btn" href="/play/memory-match/"
+                >Launch Game</a
+              >
+            </div>
+          </div>
+        </article>
 
-            <article class="pc-game-card" data-pc-game-card data-pc-game-id="memory-match" data-game-id="memory-match">
-                <div class="pc-game-thumb pc-game-thumb--memory">
-                    <span class="pc-game-thumb__chip">
-                        <span class="pc-game-thumb__icon" aria-hidden="true">🃏</span>
-                        <span class="pc-game-thumb__label">Memory Match</span>
-                    </span>
-                </div>
-                <div class="pc-game-body">
-                    <span class="pc-badge">Anatomy</span>
-                    <span class="pc-played-badge" data-pc-played-badge id="badge-memory-match" hidden>Played Today</span>
-                    <h2>Memory Match</h2>
-                    <p class="pc-difficulty">Difficulty: ●●○○○</p>
-                    <div class="pc-panel-actions">
-                        <a class="pc-btn pc-game-launch-btn" href="/play/memory-match/">Launch Game</a>
-                    </div>
-                </div>
-            </article>
+        <article
+          class="pc-game-card"
+          data-pc-game-card
+          data-pc-game-id="2048"
+          data-game-id="2048"
+        >
+          <div class="pc-game-thumb pc-game-thumb--2048">
+            <span class="pc-game-thumb__chip">
+              <span class="pc-game-thumb__icon" aria-hidden="true">🔢</span>
+              <span class="pc-game-thumb__label">2048</span>
+            </span>
+          </div>
+          <div class="pc-game-body">
+            <span class="pc-badge">Pharm</span>
+            <span
+              class="pc-played-badge"
+              data-pc-played-badge
+              id="badge-2048"
+              hidden
+              >Played Today</span
+            >
+            <h2>2048</h2>
+            <p class="pc-difficulty">Difficulty: ●●●○○</p>
+            <div class="pc-panel-actions">
+              <a class="pc-btn pc-game-launch-btn" href="/play/2048/"
+                >Launch Game</a
+              >
+            </div>
+          </div>
+        </article>
 
-            <article class="pc-game-card" data-pc-game-card data-pc-game-id="2048" data-game-id="2048">
-                <div class="pc-game-thumb pc-game-thumb--2048">
-                    <span class="pc-game-thumb__chip">
-                        <span class="pc-game-thumb__icon" aria-hidden="true">🔢</span>
-                        <span class="pc-game-thumb__label">2048</span>
-                    </span>
-                </div>
-                <div class="pc-game-body">
-                    <span class="pc-badge">Pharm</span>
-                    <span class="pc-played-badge" data-pc-played-badge id="badge-2048" hidden>Played Today</span>
-                    <h2>2048</h2>
-                    <p class="pc-difficulty">Difficulty: ●●●○○</p>
-                    <div class="pc-panel-actions">
-                        <a class="pc-btn pc-game-launch-btn" href="/play/2048/">Launch Game</a>
-                    </div>
-                </div>
-            </article>
+        <article
+          class="pc-game-card"
+          data-pc-game-card
+          data-pc-game-id="tictactoe"
+          data-game-id="tictactoe"
+        >
+          <div class="pc-game-thumb pc-game-thumb--ttt">
+            <span class="pc-game-thumb__chip">
+              <span class="pc-game-thumb__icon" aria-hidden="true">✕◯</span>
+              <span class="pc-game-thumb__label">Tic-Tac-Toe</span>
+            </span>
+          </div>
+          <div class="pc-game-body">
+            <span class="pc-badge">Surgery</span>
+            <span
+              class="pc-played-badge"
+              data-pc-played-badge
+              id="badge-tictactoe"
+              hidden
+              >Played Today</span
+            >
+            <h2>Tic-Tac-Toe</h2>
+            <p class="pc-difficulty">Difficulty: ●●○○○</p>
+            <div class="pc-panel-actions">
+              <a class="pc-btn pc-game-launch-btn" href="/play/tictactoe/"
+                >Launch Game</a
+              >
+            </div>
+          </div>
+        </article>
 
-            <article class="pc-game-card" data-pc-game-card data-pc-game-id="tictactoe" data-game-id="tictactoe">
-                <div class="pc-game-thumb pc-game-thumb--ttt">
-                    <span class="pc-game-thumb__chip">
-                        <span class="pc-game-thumb__icon" aria-hidden="true">✕◯</span>
-                        <span class="pc-game-thumb__label">Tic-Tac-Toe</span>
-                    </span>
-                </div>
-                <div class="pc-game-body">
-                    <span class="pc-badge">Surgery</span>
-                    <span class="pc-played-badge" data-pc-played-badge id="badge-tictactoe" hidden>Played Today</span>
-                    <h2>Tic-Tac-Toe</h2>
-                    <p class="pc-difficulty">Difficulty: ●●○○○</p>
-                    <div class="pc-panel-actions">
-                        <a class="pc-btn pc-game-launch-btn" href="/play/tictactoe/">Launch Game</a>
-                    </div>
-                </div>
-            </article>
-
-            <article class="pc-game-card" data-pc-game-card data-pc-game-id="iq-challenge" data-game-id="iq-challenge">
-                <div class="pc-game-thumb pc-game-thumb--iq">
-                    <span class="pc-game-thumb__chip">
-                        <span class="pc-game-thumb__icon" aria-hidden="true">🧠</span>
-                        <span class="pc-game-thumb__label">IQ Challenge</span>
-                    </span>
-                </div>
-                <div class="pc-game-body">
-                    <span class="pc-badge">Emergency</span>
-                    <span class="pc-played-badge" data-pc-played-badge id="badge-iq-challenge" hidden>Played Today</span>
-                    <h2>IQ Challenge</h2>
-                    <p class="pc-difficulty">Difficulty: ●●●●○</p>
-                    <div class="pc-panel-actions">
-                        <a class="pc-btn pc-game-launch-btn" href="/play/iq-challenge/">Launch Game</a>
-                    </div>
-                </div>
-            </article>
-        </section>
-        <p class="pc-license-attribution">2048 attribution: © 2014 Gabriele Cirulli - MIT License.</p>
+        <article
+          class="pc-game-card"
+          data-pc-game-card
+          data-pc-game-id="iq-challenge"
+          data-game-id="iq-challenge"
+        >
+          <div class="pc-game-thumb pc-game-thumb--iq">
+            <span class="pc-game-thumb__chip">
+              <span class="pc-game-thumb__icon" aria-hidden="true">🧠</span>
+              <span class="pc-game-thumb__label">IQ Challenge</span>
+            </span>
+          </div>
+          <div class="pc-game-body">
+            <span class="pc-badge">Emergency</span>
+            <span
+              class="pc-played-badge"
+              data-pc-played-badge
+              id="badge-iq-challenge"
+              hidden
+              >Played Today</span
+            >
+            <h2>IQ Challenge</h2>
+            <p class="pc-difficulty">Difficulty: ●●●●○</p>
+            <div class="pc-panel-actions">
+              <a class="pc-btn pc-game-launch-btn" href="/play/iq-challenge/"
+                >Launch Game</a
+              >
+            </div>
+          </div>
+        </article>
+      </section>
+      <p class="pc-license-attribution">
+        2048 attribution: © 2014 Gabriele Cirulli - MIT License.
+      </p>
     </main>
     <script src="/assets/js/portal.js"></script>
     <script>
-    (function() {
+      ;(function () {
         function initPlayBadges() {
-            if (!window.PCStorage) return;
+          if (!window.PCStorage) return
 
-            var games = ['vetlex', 'sudoku', 'memory-match', '2048', 'tictactoe', 'iq-challenge'];
-            games.forEach(function(gameId) {
-                var badge = document.getElementById('badge-' + gameId);
-                if (!badge) return;
-                badge.hidden = !PCStorage.wasGamePlayedToday(gameId);
-            });
+          var games = [
+            'vetlex',
+            'sudoku',
+            'memory-match',
+            '2048',
+            'tictactoe',
+            'iq-challenge',
+          ]
+          games.forEach(function (gameId) {
+            var badge = document.getElementById('badge-' + gameId)
+            if (!badge) return
+            badge.hidden = !PCStorage.wasGamePlayedToday(gameId)
+          })
 
-            var launchButtons = document.querySelectorAll('.pc-game-launch-btn');
-            for (var i = 0; i < launchButtons.length; i += 1) {
-                launchButtons[i].addEventListener('click', function() {
-                    var card = this.closest('.pc-game-card');
-                    var gameId = card && card.dataset ? card.dataset.gameId : '';
-                    if (!gameId) return;
-                    PCStorage.recordGameLaunch(gameId);
-                });
-            }
+          var launchButtons = document.querySelectorAll('.pc-game-launch-btn')
+          for (var i = 0; i < launchButtons.length; i += 1) {
+            launchButtons[i].addEventListener('click', function () {
+              var card = this.closest('.pc-game-card')
+              var gameId = card && card.dataset ? card.dataset.gameId : ''
+              if (!gameId) return
+              PCStorage.recordGameLaunch(gameId)
+            })
+          }
         }
 
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initPlayBadges, { once: true });
+          document.addEventListener('DOMContentLoaded', initPlayBadges, {
+            once: true,
+          })
         } else {
-            initPlayBadges();
+          initPlayBadges()
         }
-    })();
+      })()
     </script>
-</body>
+  </body>
 </html>

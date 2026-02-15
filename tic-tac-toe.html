@@ -1,421 +1,446 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Tic Tac Toe Levels | VetLudics</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        :root {
-            --primary: #0d7377;
-            --primary-light: #14a085;
-            --secondary: #32e0c4;
-            --accent: #f39c12;
-            --dark: #1a1a2e;
-            --darker: #16213e;
-            --white: #ffffff;
-            --transition: all 0.25s ease;
-        }
+      :root {
+        --primary: #0d7377;
+        --primary-light: #14a085;
+        --secondary: #32e0c4;
+        --accent: #f39c12;
+        --dark: #1a1a2e;
+        --darker: #16213e;
+        --white: #ffffff;
+        --transition: all 0.25s ease;
+      }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            min-height: 100vh;
-            font-family: 'Inter', sans-serif;
-            color: var(--white);
-            background: radial-gradient(circle at 12% 10%, #1e3859 0%, transparent 42%),
-                        radial-gradient(circle at 82% 85%, #1c2747 0%, transparent 44%),
-                        linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
-            padding: 1rem;
-        }
+      body {
+        min-height: 100vh;
+        font-family: 'Inter', sans-serif;
+        color: var(--white);
+        background:
+          radial-gradient(circle at 12% 10%, #1e3859 0%, transparent 42%),
+          radial-gradient(circle at 82% 85%, #1c2747 0%, transparent 44%),
+          linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+        padding: 1rem;
+      }
 
-        .page-wrap {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+      .page-wrap {
+        max-width: 900px;
+        margin: 0 auto;
+      }
 
+      .top-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-bottom: 1rem;
+      }
+
+      .top-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        text-decoration: none;
+        color: var(--secondary);
+        font-weight: 600;
+      }
+
+      .panel {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 16px;
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        margin-bottom: 0.35rem;
+      }
+
+      .subtitle {
+        color: rgba(255, 255, 255, 0.74);
+        margin-bottom: 1rem;
+      }
+
+      .control-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+        align-items: end;
+      }
+
+      .control-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+
+      .control-item label {
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.75);
+        font-weight: 600;
+      }
+
+      .control-item select {
+        width: 100%;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        background: rgba(0, 0, 0, 0.3);
+        color: var(--white);
+        padding: 0.55rem;
+        font-size: 0.92rem;
+      }
+
+      .btn-game {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-light) 100%
+        );
+        color: var(--white);
+        border: none;
+        padding: 0.8rem 1.1rem;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        width: 100%;
+        margin-top: 0.25rem;
+      }
+
+      .btn-game:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px rgba(13, 115, 119, 0.35);
+      }
+
+      .ttt-status {
+        text-align: center;
+        margin: 0.6rem 0 0.75rem;
+        font-size: 1rem;
+        color: var(--secondary);
+        font-weight: 600;
+        min-height: 1.4rem;
+      }
+
+      .ttt-board-wrap {
+        overflow: auto;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 0.55rem;
+        background: rgba(0, 0, 0, 0.2);
+      }
+
+      .ttt-grid {
+        display: grid;
+        grid-template-columns: repeat(
+          var(--ttt-size, 3),
+          var(--ttt-cell-size, 74px)
+        );
+        gap: 8px;
+        width: max-content;
+        margin: 0 auto;
+      }
+
+      .ttt-cell {
+        width: var(--ttt-cell-size, 74px);
+        height: var(--ttt-cell-size, 74px);
+        border-radius: 10px;
+        border: 2px solid var(--primary);
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+        font-size: calc(var(--ttt-cell-size, 74px) * 0.52);
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        padding: 0;
+      }
+
+      .ttt-cell:hover {
+        background: rgba(255, 255, 255, 0.16);
+      }
+
+      .ttt-cell.x {
+        color: var(--secondary);
+      }
+
+      .ttt-cell.o {
+        color: var(--accent);
+      }
+
+      @media (max-width: 700px) {
         .top-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .top-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            text-decoration: none;
-            color: var(--secondary);
-            font-weight: 600;
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 0.45rem;
         }
 
         .panel {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 16px;
-            padding: 1rem;
-        }
-
-        h1 {
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            margin-bottom: 0.35rem;
-        }
-
-        .subtitle {
-            color: rgba(255, 255, 255, 0.74);
-            margin-bottom: 1rem;
-        }
-
-        .control-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-            align-items: end;
-        }
-
-        .control-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-        }
-
-        .control-item label {
-            font-size: 0.82rem;
-            color: rgba(255, 255, 255, 0.75);
-            font-weight: 600;
-        }
-
-        .control-item select {
-            width: 100%;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.24);
-            background: rgba(0, 0, 0, 0.3);
-            color: var(--white);
-            padding: 0.55rem;
-            font-size: 0.92rem;
-        }
-
-        .btn-game {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: var(--white);
-            border: none;
-            padding: 0.8rem 1.1rem;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-            margin-top: 0.25rem;
-        }
-
-        .btn-game:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 24px rgba(13, 115, 119, 0.35);
+          padding: 0.85rem;
         }
 
         .ttt-status {
-            text-align: center;
-            margin: 0.6rem 0 0.75rem;
-            font-size: 1rem;
-            color: var(--secondary);
-            font-weight: 600;
-            min-height: 1.4rem;
+          font-size: 0.92rem;
         }
+      }
 
-        .ttt-board-wrap {
-            overflow: auto;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 0.55rem;
-            background: rgba(0, 0, 0, 0.2);
+      @media (max-width: 520px) {
+        body {
+          padding: 0.75rem;
         }
 
         .ttt-grid {
-            display: grid;
-            grid-template-columns: repeat(var(--ttt-size, 3), var(--ttt-cell-size, 74px));
-            gap: 8px;
-            width: max-content;
-            margin: 0 auto;
+          gap: 6px;
         }
-
-        .ttt-cell {
-            width: var(--ttt-cell-size, 74px);
-            height: var(--ttt-cell-size, 74px);
-            border-radius: 10px;
-            border: 2px solid var(--primary);
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--white);
-            font-size: calc(var(--ttt-cell-size, 74px) * 0.52);
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            padding: 0;
-        }
-
-        .ttt-cell:hover {
-            background: rgba(255, 255, 255, 0.16);
-        }
-
-        .ttt-cell.x {
-            color: var(--secondary);
-        }
-
-        .ttt-cell.o {
-            color: var(--accent);
-        }
-
-        @media (max-width: 700px) {
-            .top-links {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 0.45rem;
-            }
-
-            .panel {
-                padding: 0.85rem;
-            }
-
-            .ttt-status {
-                font-size: 0.92rem;
-            }
-        }
-
-        @media (max-width: 520px) {
-            body {
-                padding: 0.75rem;
-            }
-
-            .ttt-grid {
-                gap: 6px;
-            }
-        }
+      }
     </style>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="page-wrap">
-        <div class="top-links">
-            <a class="top-link" href="games.html"><i class="fas fa-arrow-left"></i> Back to Games</a>
-            <a class="top-link" href="index.html"><i class="fas fa-house"></i> Home</a>
+      <div class="top-links">
+        <a class="top-link" href="games.html"
+          ><i class="fas fa-arrow-left"></i> Back to Games</a
+        >
+        <a class="top-link" href="index.html"
+          ><i class="fas fa-house"></i> Home</a
+        >
+      </div>
+
+      <section class="panel">
+        <h1>Tic Tac Toe Levels</h1>
+        <p class="subtitle">
+          Choose a board size. You play as X and the computer plays as O.
+        </p>
+
+        <div class="control-row">
+          <div class="control-item">
+            <label for="tttLevelSelect">Board Level</label>
+            <select id="tttLevelSelect">
+              <option value="3">3x3</option>
+              <option value="4">4x4</option>
+              <option value="5">5x5</option>
+            </select>
+          </div>
         </div>
 
-        <section class="panel">
-            <h1>Tic Tac Toe Levels</h1>
-            <p class="subtitle">Choose a board size. You play as X and the computer plays as O.</p>
+        <button class="btn-game" id="tttStartBtn">Start Tic Tac Toe</button>
+        <div class="ttt-status" id="tttStatus">
+          Select a level and start the game.
+        </div>
 
-            <div class="control-row">
-                <div class="control-item">
-                    <label for="tttLevelSelect">Board Level</label>
-                    <select id="tttLevelSelect">
-                        <option value="3">3x3</option>
-                        <option value="4">4x4</option>
-                        <option value="5">5x5</option>
-                    </select>
-                </div>
-            </div>
-
-            <button class="btn-game" id="tttStartBtn">Start Tic Tac Toe</button>
-            <div class="ttt-status" id="tttStatus">Select a level and start the game.</div>
-
-            <div class="ttt-board-wrap">
-                <div class="ttt-grid" id="tttGrid"></div>
-            </div>
-        </section>
+        <div class="ttt-board-wrap">
+          <div class="ttt-grid" id="tttGrid"></div>
+        </div>
+      </section>
     </div>
 
     <script>
-        const tttLevelSelect = document.getElementById('tttLevelSelect');
-        const tttStartBtn = document.getElementById('tttStartBtn');
-        const tttGrid = document.getElementById('tttGrid');
-        const tttStatus = document.getElementById('tttStatus');
+      const tttLevelSelect = document.getElementById('tttLevelSelect')
+      const tttStartBtn = document.getElementById('tttStartBtn')
+      const tttGrid = document.getElementById('tttGrid')
+      const tttStatus = document.getElementById('tttStatus')
 
-        let tttSize = 3;
-        let tttWinLength = 3;
-        let tttBoard = [];
-        let tttActive = false;
+      let tttSize = 3
+      let tttWinLength = 3
+      let tttBoard = []
+      let tttActive = false
 
-        function tttCellSize(size) {
-            if (size === 3) return 78;
-            if (size === 4) return 66;
-            return 56;
+      function tttCellSize(size) {
+        if (size === 3) return 78
+        if (size === 4) return 66
+        return 56
+      }
+
+      function createTttGrid() {
+        tttGrid.innerHTML = ''
+        tttGrid.style.setProperty('--ttt-size', String(tttSize))
+        tttGrid.style.setProperty(
+          '--ttt-cell-size',
+          `${tttCellSize(tttSize)}px`
+        )
+
+        for (let i = 0; i < tttBoard.length; i++) {
+          const cell = document.createElement('button')
+          cell.type = 'button'
+          cell.className = 'ttt-cell'
+          cell.dataset.index = String(i)
+          cell.addEventListener('click', () => playTttMove(i))
+          tttGrid.appendChild(cell)
         }
+      }
 
-        function createTttGrid() {
-            tttGrid.innerHTML = '';
-            tttGrid.style.setProperty('--ttt-size', String(tttSize));
-            tttGrid.style.setProperty('--ttt-cell-size', `${tttCellSize(tttSize)}px`);
+      function getTttValue(row, col) {
+        return tttBoard[row * tttSize + col]
+      }
 
-            for (let i = 0; i < tttBoard.length; i++) {
-                const cell = document.createElement('button');
-                cell.type = 'button';
-                cell.className = 'ttt-cell';
-                cell.dataset.index = String(i);
-                cell.addEventListener('click', () => playTttMove(i));
-                tttGrid.appendChild(cell);
+      function checkTttWinner(player) {
+        const directions = [
+          [1, 0],
+          [0, 1],
+          [1, 1],
+          [1, -1],
+        ]
+
+        for (let row = 0; row < tttSize; row++) {
+          for (let col = 0; col < tttSize; col++) {
+            if (getTttValue(row, col) !== player) {
+              continue
             }
-        }
 
-        function getTttValue(row, col) {
-            return tttBoard[row * tttSize + col];
-        }
+            for (const [dx, dy] of directions) {
+              let count = 1
+              let r = row
+              let c = col
 
-        function checkTttWinner(player) {
-            const directions = [
-                [1, 0],
-                [0, 1],
-                [1, 1],
-                [1, -1]
-            ];
-
-            for (let row = 0; row < tttSize; row++) {
-                for (let col = 0; col < tttSize; col++) {
-                    if (getTttValue(row, col) !== player) {
-                        continue;
-                    }
-
-                    for (const [dx, dy] of directions) {
-                        let count = 1;
-                        let r = row;
-                        let c = col;
-
-                        while (count < tttWinLength) {
-                            r += dy;
-                            c += dx;
-                            if (r < 0 || r >= tttSize || c < 0 || c >= tttSize) {
-                                break;
-                            }
-                            if (getTttValue(r, c) !== player) {
-                                break;
-                            }
-                            count++;
-                        }
-
-                        if (count >= tttWinLength) {
-                            return true;
-                        }
-                    }
+              while (count < tttWinLength) {
+                r += dy
+                c += dx
+                if (r < 0 || r >= tttSize || c < 0 || c >= tttSize) {
+                  break
                 }
-            }
-
-            return false;
-        }
-
-        function updateTttView() {
-            const cells = tttGrid.querySelectorAll('.ttt-cell');
-            cells.forEach((cell, idx) => {
-                const value = tttBoard[idx];
-                cell.textContent = value;
-                cell.className = `ttt-cell ${value ? value.toLowerCase() : ''}`;
-            });
-        }
-
-        function findCriticalMove(player) {
-            for (let i = 0; i < tttBoard.length; i++) {
-                if (tttBoard[i] !== '') continue;
-                tttBoard[i] = player;
-                const wins = checkTttWinner(player);
-                tttBoard[i] = '';
-                if (wins) return i;
-            }
-            return -1;
-        }
-
-        function chooseTttMove() {
-            let move = findCriticalMove('O');
-            if (move !== -1) return move;
-
-            move = findCriticalMove('X');
-            if (move !== -1) return move;
-
-            const center = Math.floor((tttSize * tttSize) / 2);
-            if (tttBoard[center] === '') return center;
-
-            const preferred = [];
-            const last = tttSize - 1;
-            preferred.push(0, last, last * tttSize, last * tttSize + last);
-
-            for (const idx of preferred) {
-                if (tttBoard[idx] === '') return idx;
-            }
-
-            const empty = tttBoard
-                .map((value, idx) => (value === '' ? idx : -1))
-                .filter(idx => idx !== -1);
-
-            return empty[Math.floor(Math.random() * empty.length)];
-        }
-
-        function finishTtt(message) {
-            tttStatus.textContent = message;
-            tttActive = false;
-        }
-
-        function playTttMove(index) {
-            if (!tttActive || tttBoard[index] !== '') {
-                return;
-            }
-
-            tttBoard[index] = 'X';
-            updateTttView();
-
-            if (checkTttWinner('X')) {
-                finishTtt('You win this round.');
-                return;
-            }
-
-            if (tttBoard.every(cell => cell !== '')) {
-                finishTtt('Draw game.');
-                return;
-            }
-
-            tttStatus.textContent = 'Computer thinking...';
-
-            setTimeout(() => {
-                const aiMove = chooseTttMove();
-                if (aiMove === undefined) return;
-                tttBoard[aiMove] = 'O';
-                updateTttView();
-
-                if (checkTttWinner('O')) {
-                    finishTtt('Computer wins this round.');
-                    return;
+                if (getTttValue(r, c) !== player) {
+                  break
                 }
+                count++
+              }
 
-                if (tttBoard.every(cell => cell !== '')) {
-                    finishTtt('Draw game.');
-                    return;
-                }
-
-                tttStatus.textContent = 'Your turn (X).';
-            }, 300);
+              if (count >= tttWinLength) {
+                return true
+              }
+            }
+          }
         }
 
-        function initTicTacToe() {
-            tttSize = parseInt(tttLevelSelect.value, 10);
-            tttWinLength = tttSize;
-            tttBoard = new Array(tttSize * tttSize).fill('');
-            tttActive = true;
-            tttStatus.textContent = `Level ${tttSize}x${tttSize} | Your turn (X).`;
-            createTttGrid();
+        return false
+      }
+
+      function updateTttView() {
+        const cells = tttGrid.querySelectorAll('.ttt-cell')
+        cells.forEach((cell, idx) => {
+          const value = tttBoard[idx]
+          cell.textContent = value
+          cell.className = `ttt-cell ${value ? value.toLowerCase() : ''}`
+        })
+      }
+
+      function findCriticalMove(player) {
+        for (let i = 0; i < tttBoard.length; i++) {
+          if (tttBoard[i] !== '') continue
+          tttBoard[i] = player
+          const wins = checkTttWinner(player)
+          tttBoard[i] = ''
+          if (wins) return i
+        }
+        return -1
+      }
+
+      function chooseTttMove() {
+        let move = findCriticalMove('O')
+        if (move !== -1) return move
+
+        move = findCriticalMove('X')
+        if (move !== -1) return move
+
+        const center = Math.floor((tttSize * tttSize) / 2)
+        if (tttBoard[center] === '') return center
+
+        const preferred = []
+        const last = tttSize - 1
+        preferred.push(0, last, last * tttSize, last * tttSize + last)
+
+        for (const idx of preferred) {
+          if (tttBoard[idx] === '') return idx
         }
 
-        tttStartBtn.addEventListener('click', initTicTacToe);
-        initTicTacToe();
+        const empty = tttBoard
+          .map((value, idx) => (value === '' ? idx : -1))
+          .filter((idx) => idx !== -1)
+
+        return empty[Math.floor(Math.random() * empty.length)]
+      }
+
+      function finishTtt(message) {
+        tttStatus.textContent = message
+        tttActive = false
+      }
+
+      function playTttMove(index) {
+        if (!tttActive || tttBoard[index] !== '') {
+          return
+        }
+
+        tttBoard[index] = 'X'
+        updateTttView()
+
+        if (checkTttWinner('X')) {
+          finishTtt('You win this round.')
+          return
+        }
+
+        if (tttBoard.every((cell) => cell !== '')) {
+          finishTtt('Draw game.')
+          return
+        }
+
+        tttStatus.textContent = 'Computer thinking...'
+
+        setTimeout(() => {
+          const aiMove = chooseTttMove()
+          if (aiMove === undefined) return
+          tttBoard[aiMove] = 'O'
+          updateTttView()
+
+          if (checkTttWinner('O')) {
+            finishTtt('Computer wins this round.')
+            return
+          }
+
+          if (tttBoard.every((cell) => cell !== '')) {
+            finishTtt('Draw game.')
+            return
+          }
+
+          tttStatus.textContent = 'Your turn (X).'
+        }, 300)
+      }
+
+      function initTicTacToe() {
+        tttSize = parseInt(tttLevelSelect.value, 10)
+        tttWinLength = tttSize
+        tttBoard = new Array(tttSize * tttSize).fill('')
+        tttActive = true
+        tttStatus.textContent = `Level ${tttSize}x${tttSize} | Your turn (X).`
+        createTttGrid()
+      }
+
+      tttStartBtn.addEventListener('click', initTicTacToe)
+      initTicTacToe()
     </script>
-</body>
+  </body>
 </html>

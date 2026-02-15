@@ -1,113 +1,201 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Glucose Curve Generator | VetLudics Tools</title>
-    <meta name="description" content="Generate and interpret veterinary glucose curves with nadir timing, range checks, and insulin adjustment prompts.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Glucose Curve Generator | VetLudics Tools">
-    <meta property="og:description" content="Input serial glucose values and get rapid curve interpretation.">
-    <meta property="og:url" content="https://parthchaudhari.com/tools/glucose-curve-generator.html">
-    <link rel="canonical" href="https://parthchaudhari.com/tools/glucose-curve-generator.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Generate and interpret veterinary glucose curves with nadir timing, range checks, and insulin adjustment prompts."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Glucose Curve Generator | VetLudics Tools"
+    />
+    <meta
+      property="og:description"
+      content="Input serial glucose values and get rapid curve interpretation."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/tools/glucose-curve-generator.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/tools/glucose-curve-generator.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/glucose-curve-generator.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Phase 2 Clinical</p>
-            <h1 class="pc-fork-title">Glucose Curve Generator</h1>
-            <p class="pc-fork-copy">Enter serial glucose values to identify nadir timing, control quality, and adjustment prompts.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Phase 2 Clinical</p>
+        <h1 class="pc-fork-title">Glucose Curve Generator</h1>
+        <p class="pc-fork-copy">
+          Enter serial glucose values to identify nadir timing, control quality,
+          and adjustment prompts.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="gc-input-title">
-            <h2 id="gc-input-title" class="pc-bridge-title">Curve Inputs</h2>
-            <form id="gc-form" class="pc-calculator-grid" novalidate>
-                <label class="pc-calculator-field" for="gc-species">
-                    <span>Species</span>
-                    <select id="gc-species" class="pc-input">
-                        <option value="dog" selected>Dog</option>
-                        <option value="cat">Cat</option>
-                    </select>
-                </label>
-                <label class="pc-calculator-field" for="gc-insulin-type">
-                    <span>Insulin Type</span>
-                    <select id="gc-insulin-type" class="pc-input">
-                        <option value="caninsulin">Caninsulin / Vetsulin</option>
-                        <option value="glargine">Glargine</option>
-                        <option value="detemir">Detemir</option>
-                        <option value="pzi">PZI</option>
-                        <option value="other">Other</option>
-                    </select>
-                </label>
-                <label class="pc-calculator-field" for="gc-insulin-dose"><span>Dose (U/kg)</span><input id="gc-insulin-dose" class="pc-input" type="number" min="0" step="0.01" placeholder="0.3"></label>
-                <label class="pc-calculator-field" for="gc-timepoints"><span>Time Points (hours, comma-separated)</span><input id="gc-timepoints" class="pc-input" type="text" value="0,2,4,6,8,10,12"></label>
-                <label class="pc-calculator-field" for="gc-values"><span>Glucose Values (mg/dL, comma-separated)</span><input id="gc-values" class="pc-input" type="text" value="410,320,210,140,110,190,300"></label>
-                <div class="pc-calculator-actions">
-                    <button type="submit" class="pc-btn pc-btn--primary">Generate Curve Interpretation</button>
-                </div>
-            </form>
-        </section>
+      <section class="pc-bridge-section" aria-labelledby="gc-input-title">
+        <h2 id="gc-input-title" class="pc-bridge-title">Curve Inputs</h2>
+        <form id="gc-form" class="pc-calculator-grid" novalidate>
+          <label class="pc-calculator-field" for="gc-species">
+            <span>Species</span>
+            <select id="gc-species" class="pc-input">
+              <option value="dog" selected>Dog</option>
+              <option value="cat">Cat</option>
+            </select>
+          </label>
+          <label class="pc-calculator-field" for="gc-insulin-type">
+            <span>Insulin Type</span>
+            <select id="gc-insulin-type" class="pc-input">
+              <option value="caninsulin">Caninsulin / Vetsulin</option>
+              <option value="glargine">Glargine</option>
+              <option value="detemir">Detemir</option>
+              <option value="pzi">PZI</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+          <label class="pc-calculator-field" for="gc-insulin-dose"
+            ><span>Dose (U/kg)</span
+            ><input
+              id="gc-insulin-dose"
+              class="pc-input"
+              type="number"
+              min="0"
+              step="0.01"
+              placeholder="0.3"
+          /></label>
+          <label class="pc-calculator-field" for="gc-timepoints"
+            ><span>Time Points (hours, comma-separated)</span
+            ><input
+              id="gc-timepoints"
+              class="pc-input"
+              type="text"
+              value="0,2,4,6,8,10,12"
+          /></label>
+          <label class="pc-calculator-field" for="gc-values"
+            ><span>Glucose Values (mg/dL, comma-separated)</span
+            ><input
+              id="gc-values"
+              class="pc-input"
+              type="text"
+              value="410,320,210,140,110,190,300"
+          /></label>
+          <div class="pc-calculator-actions">
+            <button type="submit" class="pc-btn pc-btn--primary">
+              Generate Curve Interpretation
+            </button>
+          </div>
+        </form>
+      </section>
 
-        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="gc-result-title">
-            <h2 id="gc-result-title" class="pc-bridge-title">Curve Output</h2>
-            <div class="pc-stat-grid pc-stat-grid--results">
-                <article class="pc-stat-card"><p class="pc-stat-label">Maximum</p><p id="gc-max" class="pc-stat-number">-</p></article>
-                <article class="pc-stat-card"><p class="pc-stat-label">Minimum (Nadir)</p><p id="gc-min" class="pc-stat-number">-</p></article>
-                <article class="pc-stat-card"><p class="pc-stat-label">Average</p><p id="gc-avg" class="pc-stat-number">-</p></article>
-                <article class="pc-stat-card"><p class="pc-stat-label">Range</p><p id="gc-range" class="pc-stat-number">-</p></article>
-                <article class="pc-stat-card"><p class="pc-stat-label">Nadir Time</p><p id="gc-nadir-time" class="pc-stat-number">-</p></article>
-                <article class="pc-stat-card"><p class="pc-stat-label">Control Grade</p><p id="gc-grade" class="pc-stat-number">-</p></article>
-            </div>
-            <div id="gc-alert" class="pc-calculator-warning" hidden></div>
-            <article class="pc-bridge-card pc-bridge-card--inline">
-                <h3>Interpretation and Recommendation</h3>
-                <p id="gc-note" class="pc-calculator-note">Enter values to compute curve metrics.</p>
-            </article>
-            <div class="pc-table-wrap">
-                <table class="pc-table">
-                    <thead>
-                        <tr>
-                            <th>Time (h)</th>
-                            <th>Glucose (mg/dL)</th>
-                            <th>Target Band</th>
-                        </tr>
-                    </thead>
-                    <tbody id="gc-table-body"></tbody>
-                </table>
-            </div>
-            <p class="pc-disclaimer">Educational support only. Insulin changes must follow clinician review and patient-specific context.</p>
-            <p class="pc-disclaimer">
-                Approved reference baseline (reviewed February 13, 2026):
-                Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
-            </p>
-        </section>
+      <section
+        class="pc-bridge-section"
+        aria-live="polite"
+        aria-labelledby="gc-result-title"
+      >
+        <h2 id="gc-result-title" class="pc-bridge-title">Curve Output</h2>
+        <div class="pc-stat-grid pc-stat-grid--results">
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Maximum</p>
+            <p id="gc-max" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Minimum (Nadir)</p>
+            <p id="gc-min" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Average</p>
+            <p id="gc-avg" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Range</p>
+            <p id="gc-range" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Nadir Time</p>
+            <p id="gc-nadir-time" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Control Grade</p>
+            <p id="gc-grade" class="pc-stat-number">-</p>
+          </article>
+        </div>
+        <div id="gc-alert" class="pc-calculator-warning" hidden></div>
+        <article class="pc-bridge-card pc-bridge-card--inline">
+          <h3>Interpretation and Recommendation</h3>
+          <p id="gc-note" class="pc-calculator-note">
+            Enter values to compute curve metrics.
+          </p>
+        </article>
+        <div class="pc-table-wrap">
+          <table class="pc-table">
+            <thead>
+              <tr>
+                <th>Time (h)</th>
+                <th>Glucose (mg/dL)</th>
+                <th>Target Band</th>
+              </tr>
+            </thead>
+            <tbody id="gc-table-body"></tbody>
+          </table>
+        </div>
+        <p class="pc-disclaimer">
+          Educational support only. Insulin changes must follow clinician review
+          and patient-specific context.
+        </p>
+        <p class="pc-disclaimer">
+          Approved reference baseline (reviewed February 13, 2026): Drug label
+          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
+          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
+          BCS charts, ACVIM cardiology consensus guideline references, Dental
+          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
+          breed search, and RECOVER CPR guidelines.
+        </p>
+      </section>
     </main>
-</body>
+  </body>
 </html>

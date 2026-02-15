@@ -1,7 +1,7 @@
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 
-const BASE_URL = 'https://parthchaudhari.com';
-const LASTMOD = new Date().toISOString().slice(0, 10);
+const BASE_URL = 'https://parthchaudhari.com'
+const LASTMOD = new Date().toISOString().slice(0, 10)
 
 const CANONICAL_PATHS = [
   '/',
@@ -87,50 +87,57 @@ const CANONICAL_PATHS = [
   '/play/tictactoe/',
   '/play/iq-challenge/',
   '/play/vetlex/',
-  '/search.html'
-];
+  '/search.html',
+]
 
 function loadProgrammaticRoutes() {
-  var manifestPath = 'content/programmatic/manifest.phase3.json';
+  var manifestPath = 'content/programmatic/manifest.phase3.json'
   if (!existsSync(manifestPath)) {
-    return [];
+    return []
   }
 
   try {
-    var manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+    var manifest = JSON.parse(readFileSync(manifestPath, 'utf8'))
     if (!manifest || !Array.isArray(manifest.pages)) {
-      return [];
+      return []
     }
 
     return manifest.pages
-      .filter((page) => page && page.indexable === true && typeof page.route === 'string')
-      .map((page) => page.route);
+      .filter(
+        (page) =>
+          page && page.indexable === true && typeof page.route === 'string'
+      )
+      .map((page) => page.route)
   } catch (error) {
-    console.error('Could not parse programmatic manifest for sitemap:', error);
-    return [];
+    console.error('Could not parse programmatic manifest for sitemap:', error)
+    return []
   }
 }
 
-const PROGRAMMATIC_PATHS = loadProgrammaticRoutes();
-const ALL_CANONICAL_PATHS = Array.from(new Set(CANONICAL_PATHS.concat(PROGRAMMATIC_PATHS)));
+const PROGRAMMATIC_PATHS = loadProgrammaticRoutes()
+const ALL_CANONICAL_PATHS = Array.from(
+  new Set(CANONICAL_PATHS.concat(PROGRAMMATIC_PATHS))
+)
 
 const urlEntries = ALL_CANONICAL_PATHS.map((path) => {
-  const cleanPath = path.startsWith('/') ? path : `/${path}`;
-  const loc = `${BASE_URL}${cleanPath}`;
+  const cleanPath = path.startsWith('/') ? path : `/${path}`
+  const loc = `${BASE_URL}${cleanPath}`
   return [
     '  <url>',
     `    <loc>${loc}</loc>`,
     `    <lastmod>${LASTMOD}</lastmod>`,
-    '  </url>'
-  ].join('\n');
-}).join('\n');
+    '  </url>',
+  ].join('\n')
+}).join('\n')
 
 const xml = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
   urlEntries,
-  '</urlset>'
-].join('\n');
+  '</urlset>',
+].join('\n')
 
-writeFileSync('sitemap.xml', `${xml}\n`, 'utf8');
-console.log(`Generated sitemap.xml with ${ALL_CANONICAL_PATHS.length} canonical URLs.`);
+writeFileSync('sitemap.xml', `${xml}\n`, 'utf8')
+console.log(
+  `Generated sitemap.xml with ${ALL_CANONICAL_PATHS.length} canonical URLs.`
+)

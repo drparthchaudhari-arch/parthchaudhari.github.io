@@ -14,22 +14,58 @@
         "Reference intervals vary by analyzer and laboratory, so this guide is educational and should always be cross-checked with local lab reports."
       ],
       "table": {
-        "columns": [
-          "CBC Parameter",
-          "Typical Dog Range",
-          "Clinical Use Note"
-        ],
+        "columns": ["CBC Parameter", "Typical Dog Range", "Clinical Use Note"],
         "rows": [
-          ["PCV (Hematocrit)", "37-55%", "Interpret with hydration status and trend, not as a single-point diagnosis."],
-          ["Hemoglobin", "12-18 g/dL", "Use with PCV and RBC count to frame anemia severity and oxygen-carrying risk."],
-          ["RBC", "5.5-8.5 x10^6/uL", "Low values need context from reticulocyte response and blood-loss history."],
-          ["WBC", "6-17 x10^3/uL", "Prioritize neutrophil pattern, left shift, and toxic change over total count alone."],
-          ["Platelets", "200-500 x10^3/uL", "Confirm low counts with smear review to exclude clumping artifacts."],
-          ["Neutrophils", "3-12 x10^3/uL", "Persistent neutrophilia with left shift supports active inflammatory demand."],
-          ["Lymphocytes", "1-4.8 x10^3/uL", "Stress leukograms can lower lymphocyte count without primary immune disease."],
-          ["Monocytes", "0.15-1.35 x10^3/uL", "Monocytosis often aligns with chronic inflammation or stress patterns."],
-          ["Eosinophils", "0.1-1.25 x10^3/uL", "Interpret with parasite, allergy, and endocrinopathy context."],
-          ["Reticulocytes", "10-110 x10^3/uL", "Essential for regenerative versus non-regenerative anemia classification."]
+          [
+            "PCV (Hematocrit)",
+            "37-55%",
+            "Interpret with hydration status and trend, not as a single-point diagnosis."
+          ],
+          [
+            "Hemoglobin",
+            "12-18 g/dL",
+            "Use with PCV and RBC count to frame anemia severity and oxygen-carrying risk."
+          ],
+          [
+            "RBC",
+            "5.5-8.5 x10^6/uL",
+            "Low values need context from reticulocyte response and blood-loss history."
+          ],
+          [
+            "WBC",
+            "6-17 x10^3/uL",
+            "Prioritize neutrophil pattern, left shift, and toxic change over total count alone."
+          ],
+          [
+            "Platelets",
+            "200-500 x10^3/uL",
+            "Confirm low counts with smear review to exclude clumping artifacts."
+          ],
+          [
+            "Neutrophils",
+            "3-12 x10^3/uL",
+            "Persistent neutrophilia with left shift supports active inflammatory demand."
+          ],
+          [
+            "Lymphocytes",
+            "1-4.8 x10^3/uL",
+            "Stress leukograms can lower lymphocyte count without primary immune disease."
+          ],
+          [
+            "Monocytes",
+            "0.15-1.35 x10^3/uL",
+            "Monocytosis often aligns with chronic inflammation or stress patterns."
+          ],
+          [
+            "Eosinophils",
+            "0.1-1.25 x10^3/uL",
+            "Interpret with parasite, allergy, and endocrinopathy context."
+          ],
+          [
+            "Reticulocytes",
+            "10-110 x10^3/uL",
+            "Essential for regenerative versus non-regenerative anemia classification."
+          ]
         ]
       },
       "howToUse": [
@@ -109,10 +145,22 @@
         }
       ],
       "relatedLinks": [
-        { "label": "Dog and Cat Normal Values Hub", "href": "/dog-cat-normal-values/" },
-        { "label": "Lab Interpretation Caveats Guide", "href": "/lab-interpretation-caveats/" },
-        { "label": "Unit Converter Tool", "href": "/tools/unit-converter.html" },
-        { "label": "Try 5 Free Practice Questions", "href": "/study/navle/practice/" }
+        {
+          "label": "Dog and Cat Normal Values Hub",
+          "href": "/dog-cat-normal-values/"
+        },
+        {
+          "label": "Lab Interpretation Caveats Guide",
+          "href": "/lab-interpretation-caveats/"
+        },
+        {
+          "label": "Unit Converter Tool",
+          "href": "/tools/unit-converter.html"
+        },
+        {
+          "label": "Try 5 Free Practice Questions",
+          "href": "/study/navle/practice/"
+        }
       ],
       "lastReviewed": "February 13, 2026"
     },
@@ -134,16 +182,56 @@
           "Clinical Use Note"
         ],
         "rows": [
-          ["Creatinine", "0.8-2.4 mg/dL", "Trend with urine concentration and body condition for renal staging accuracy."],
-          ["BUN", "16-36 mg/dL", "Interpret with hydration and GI bleed context before assigning renal etiology."],
-          ["ALT", "20-100 U/L", "Persistent elevation requires hepatobiliary context and trend evaluation."],
-          ["ALP", "10-90 U/L", "Cats often have lower baseline ALP, so moderate rises can still be meaningful."],
-          ["Total Bilirubin", "0.0-0.4 mg/dL", "Correlate with hemolysis, cholestasis, and appetite history."],
-          ["Glucose", "70-150 mg/dL", "Stress hyperglycemia is common; confirm with context before diabetes labeling."],
-          ["Sodium", "147-156 mmol/L", "Use with osmolality and hydration markers in fluid planning."],
-          ["Potassium", "3.4-5.6 mmol/L", "Prioritize ECG correlation in marked potassium derangement."],
-          ["Phosphorus", "2.5-6.0 mg/dL", "Track with renal markers and stage-dependent diet management."],
-          ["Total Calcium", "8.2-10.8 mg/dL", "Confirm significance with albumin and ionized calcium when needed."]
+          [
+            "Creatinine",
+            "0.8-2.4 mg/dL",
+            "Trend with urine concentration and body condition for renal staging accuracy."
+          ],
+          [
+            "BUN",
+            "16-36 mg/dL",
+            "Interpret with hydration and GI bleed context before assigning renal etiology."
+          ],
+          [
+            "ALT",
+            "20-100 U/L",
+            "Persistent elevation requires hepatobiliary context and trend evaluation."
+          ],
+          [
+            "ALP",
+            "10-90 U/L",
+            "Cats often have lower baseline ALP, so moderate rises can still be meaningful."
+          ],
+          [
+            "Total Bilirubin",
+            "0.0-0.4 mg/dL",
+            "Correlate with hemolysis, cholestasis, and appetite history."
+          ],
+          [
+            "Glucose",
+            "70-150 mg/dL",
+            "Stress hyperglycemia is common; confirm with context before diabetes labeling."
+          ],
+          [
+            "Sodium",
+            "147-156 mmol/L",
+            "Use with osmolality and hydration markers in fluid planning."
+          ],
+          [
+            "Potassium",
+            "3.4-5.6 mmol/L",
+            "Prioritize ECG correlation in marked potassium derangement."
+          ],
+          [
+            "Phosphorus",
+            "2.5-6.0 mg/dL",
+            "Track with renal markers and stage-dependent diet management."
+          ],
+          [
+            "Total Calcium",
+            "8.2-10.8 mg/dL",
+            "Confirm significance with albumin and ionized calcium when needed."
+          ]
         ]
       },
       "howToUse": [
@@ -223,10 +311,22 @@
         }
       ],
       "relatedLinks": [
-        { "label": "Dog and Cat Normal Values Hub", "href": "/dog-cat-normal-values/" },
-        { "label": "Osmolality Basics Guide", "href": "/osmolality-basics-veterinary/" },
-        { "label": "Anion Gap Interpretation", "href": "/anion-gap-interpretation/" },
-        { "label": "Electrolyte Replacement Planner", "href": "/tools/electrolyte-replacement-planner.html" }
+        {
+          "label": "Dog and Cat Normal Values Hub",
+          "href": "/dog-cat-normal-values/"
+        },
+        {
+          "label": "Osmolality Basics Guide",
+          "href": "/osmolality-basics-veterinary/"
+        },
+        {
+          "label": "Anion Gap Interpretation",
+          "href": "/anion-gap-interpretation/"
+        },
+        {
+          "label": "Electrolyte Replacement Planner",
+          "href": "/tools/electrolyte-replacement-planner.html"
+        }
       ],
       "lastReviewed": "February 13, 2026"
     },
@@ -248,10 +348,26 @@
           "Educational Risk Framing"
         ],
         "rows": [
-          ["White chocolate", "Very low", "Usually low risk for methylxanthine toxicity, but GI upset and fat load still matter."],
-          ["Milk chocolate", "Lower to moderate", "Risk rises with larger ingestions or small body size."],
-          ["Dark chocolate", "Moderate to high", "Meaningful toxicity risk at lower gram intake than milk chocolate."],
-          ["Baking chocolate/cocoa powder", "High", "Highest practical risk category; treat uncertain histories conservatively."]
+          [
+            "White chocolate",
+            "Very low",
+            "Usually low risk for methylxanthine toxicity, but GI upset and fat load still matter."
+          ],
+          [
+            "Milk chocolate",
+            "Lower to moderate",
+            "Risk rises with larger ingestions or small body size."
+          ],
+          [
+            "Dark chocolate",
+            "Moderate to high",
+            "Meaningful toxicity risk at lower gram intake than milk chocolate."
+          ],
+          [
+            "Baking chocolate/cocoa powder",
+            "High",
+            "Highest practical risk category; treat uncertain histories conservatively."
+          ]
         ]
       },
       "howToUse": [
@@ -331,10 +447,22 @@
         }
       ],
       "relatedLinks": [
-        { "label": "Toxic Dose Calculations Guide", "href": "/toxic-dose-calculations-guide/" },
-        { "label": "Toxin Decontamination Planner", "href": "/tools/toxin-decontamination-planner.html" },
-        { "label": "Sources and Limitations", "href": "/sources-and-limitations/" },
-        { "label": "Try 5 Free Practice Questions", "href": "/study/navle/practice/" }
+        {
+          "label": "Toxic Dose Calculations Guide",
+          "href": "/toxic-dose-calculations-guide/"
+        },
+        {
+          "label": "Toxin Decontamination Planner",
+          "href": "/tools/toxin-decontamination-planner.html"
+        },
+        {
+          "label": "Sources and Limitations",
+          "href": "/sources-and-limitations/"
+        },
+        {
+          "label": "Try 5 Free Practice Questions",
+          "href": "/study/navle/practice/"
+        }
       ],
       "lastReviewed": "February 13, 2026"
     }

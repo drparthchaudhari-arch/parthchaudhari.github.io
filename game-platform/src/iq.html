@@ -1,1229 +1,1525 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<title>Neural Architect Pro - Advanced Cognitive Assessment</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>Neural Architect Pro - Advanced Cognitive Assessment</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        :root {
-            --primary: #00f0ff;
-            --secondary: #ff00aa;
-            --tertiary: #f0ff00;
-            --success: #00ff88;
-            --danger: #ff3366;
-            --dark: #050508;
-            --panel: rgba(20, 25, 40, 0.9);
-            --glass: rgba(255, 255, 255, 0.05);
-        }
+      :root {
+        --primary: #00f0ff;
+        --secondary: #ff00aa;
+        --tertiary: #f0ff00;
+        --success: #00ff88;
+        --danger: #ff3366;
+        --dark: #050508;
+        --panel: rgba(20, 25, 40, 0.9);
+        --glass: rgba(255, 255, 255, 0.05);
+      }
 
-        body {
-            font-family: 'Segoe UI', 'Courier New', monospace;
-            background: var(--dark);
-            color: #fff;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
+      body {
+        font-family: 'Segoe UI', 'Courier New', monospace;
+        background: var(--dark);
+        color: #fff;
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+      }
 
-        #universe {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background: radial-gradient(ellipse at center, #0a0e27 0%, #000000 100%);
-        }
+      #universe {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        background: radial-gradient(
+          ellipse at center,
+          #0a0e27 0%,
+          #000000 100%
+        );
+      }
 
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
+      .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
 
-        .container {
-            position: relative;
-            z-index: 10;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-            min-height: 100vh;
-        }
+      .container {
+        position: relative;
+        z-index: 10;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+        min-height: 100vh;
+      }
 
-        header {
-            text-align: center;
-            padding: 40px 0;
-            border-bottom: 2px solid rgba(0, 240, 255, 0.3);
-            margin-bottom: 40px;
-            position: relative;
-        }
+      header {
+        text-align: center;
+        padding: 40px 0;
+        border-bottom: 2px solid rgba(0, 240, 255, 0.3);
+        margin-bottom: 40px;
+        position: relative;
+      }
 
+      h1 {
+        font-size: 4em;
+        text-transform: uppercase;
+        letter-spacing: 8px;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--secondary),
+          var(--tertiary)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: glow 3s ease-in-out infinite alternate;
+        margin-bottom: 10px;
+      }
+
+      @keyframes glow {
+        from {
+          filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.5));
+        }
+        to {
+          filter: drop-shadow(0 0 40px rgba(255, 0, 170, 0.8));
+        }
+      }
+
+      .subtitle {
+        color: #8892b0;
+        font-size: 1.4em;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+      }
+
+      .main-panel {
+        background: var(--panel);
+        border: 1px solid rgba(0, 240, 255, 0.2);
+        border-radius: 30px;
+        padding: 50px;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
+        min-height: 800px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .main-panel::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(0, 240, 255, 0.03),
+          transparent
+        );
+        animation: rotate 20s linear infinite;
+      }
+
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .screen {
+        position: relative;
+        z-index: 5;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .btn {
+        background: linear-gradient(
+          135deg,
+          rgba(0, 240, 255, 0.1),
+          rgba(255, 0, 170, 0.1)
+        );
+        border: 2px solid var(--primary);
+        color: var(--primary);
+        padding: 20px 50px;
+        font-size: 1.3em;
+        cursor: pointer;
+        border-radius: 50px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        margin: 15px;
+        font-family: inherit;
+        position: relative;
+        overflow: hidden;
+        font-weight: bold;
+      }
+
+      .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .btn:hover::before {
+        left: 100%;
+      }
+
+      .btn:hover {
+        background: var(--primary);
+        color: var(--dark);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 40px rgba(0, 240, 255, 0.4);
+      }
+
+      .btn.secondary {
+        border-color: var(--secondary);
+        color: var(--secondary);
+      }
+
+      .btn.secondary:hover {
+        background: var(--secondary);
+        color: var(--dark);
+        box-shadow: 0 10px 40px rgba(255, 0, 170, 0.4);
+      }
+
+      .btn.large {
+        padding: 25px 60px;
+        font-size: 1.5em;
+      }
+
+      .dashboard {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-bottom: 40px;
+      }
+
+      .stat-card {
+        background: var(--glass);
+        border: 1px solid rgba(0, 240, 255, 0.2);
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary);
+        box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2);
+      }
+
+      .stat-label {
+        font-size: 1em;
+        color: #8892b0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+      }
+
+      .stat-value {
+        font-size: 3em;
+        font-weight: bold;
+        color: var(--primary);
+        text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+      }
+
+      .attempts-tracker {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin: 30px 0;
+      }
+
+      .attempt-node {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.2em;
+        position: relative;
+        transition: all 0.3s;
+      }
+
+      .attempt-node.completed {
+        background: var(--success);
+        border-color: var(--success);
+        color: var(--dark);
+        box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+      }
+
+      .attempt-node.active {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: var(--dark);
+        animation: pulse 2s infinite;
+      }
+
+      .attempt-node.pending {
+        background: rgba(255, 255, 255, 0.05);
+        color: #555;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+        }
+        50% {
+          transform: scale(1.1);
+          box-shadow: 0 0 40px rgba(0, 240, 255, 0.8);
+        }
+      }
+
+      .game-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 15px;
+        border: 1px solid rgba(0, 240, 255, 0.1);
+      }
+
+      .dimension-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 30px;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 240, 255, 0.1),
+          rgba(255, 0, 170, 0.1)
+        );
+        border-radius: 50px;
+        border: 1px solid rgba(0, 240, 255, 0.3);
+      }
+
+      .progress-bar-container {
+        width: 100%;
+        height: 15px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 30px 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          var(--primary),
+          var(--secondary),
+          var(--tertiary)
+        );
+        transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .progress-fill::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        animation: shimmer 2s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      .game-stage {
+        min-height: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      /* Enhanced 3D Cube */
+      .hypercube-container {
+        width: 500px;
+        height: 500px;
+        perspective: 1200px;
+        margin: 40px auto;
+      }
+
+      .hypercube {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .cube-face {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        left: 175px;
+        top: 175px;
+        border: 3px solid var(--primary);
+        background: rgba(0, 20, 40, 0.9);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 3px;
+        box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+        backface-visibility: visible;
+      }
+
+      .cube-cell {
+        background: rgba(0, 240, 255, 0.1);
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2em;
+        border-radius: 4px;
+      }
+
+      .cube-cell:hover {
+        background: rgba(0, 240, 255, 0.4);
+        transform: scale(1.1);
+      }
+
+      .cube-cell.active {
+        background: var(--primary);
+        box-shadow: 0 0 15px var(--primary);
+        color: var(--dark);
+      }
+
+      .cube-cell.missing {
+        background: rgba(255, 0, 170, 0.2);
+        border: 2px dashed var(--secondary);
+        animation: blink 1.5s infinite;
+        color: var(--secondary);
+      }
+
+      .cube-cell.target {
+        background: var(--tertiary);
+        box-shadow: 0 0 20px var(--tertiary);
+        color: var(--dark);
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+          border-color: var(--secondary);
+        }
+        50% {
+          opacity: 0.4;
+          border-color: transparent;
+        }
+      }
+
+      .face-front {
+        transform: rotateY(0deg) translateZ(75px);
+      }
+      .face-back {
+        transform: rotateY(180deg) translateZ(75px);
+      }
+      .face-right {
+        transform: rotateY(90deg) translateZ(75px);
+      }
+      .face-left {
+        transform: rotateY(-90deg) translateZ(75px);
+      }
+      .face-top {
+        transform: rotateX(90deg) translateZ(75px);
+      }
+      .face-bottom {
+        transform: rotateX(-90deg) translateZ(75px);
+      }
+
+      .cube-controls {
+        display: flex;
+        gap: 20px;
+        margin-top: 30px;
+        justify-content: center;
+      }
+
+      .cube-btn {
+        width: 70px;
+        height: 70px;
+        border: 2px solid var(--primary);
+        background: rgba(0, 240, 255, 0.1);
+        color: var(--primary);
+        cursor: pointer;
+        border-radius: 15px;
+        font-size: 2em;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .cube-btn:hover {
+        background: var(--primary);
+        color: var(--dark);
+        transform: scale(1.1);
+        box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+      }
+
+      /* Memory Grid Enhanced */
+      .memory-matrix {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 15px;
+        margin: 40px auto;
+        max-width: 700px;
+        padding: 30px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 20px;
+        border: 2px solid rgba(255, 0, 170, 0.2);
+      }
+
+      .memory-node {
+        aspect-ratio: 1;
+        border: 2px solid rgba(255, 0, 170, 0.3);
+        background: rgba(255, 0, 170, 0.05);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .memory-node::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: radial-gradient(circle, var(--secondary), transparent);
+        transform: translate(-50%, -50%);
+        transition: all 0.4s;
+        border-radius: 50%;
+      }
+
+      .memory-node:hover {
+        transform: translateY(-5px);
+        border-color: var(--secondary);
+        box-shadow: 0 10px 30px rgba(255, 0, 170, 0.3);
+      }
+
+      .memory-node.active::before {
+        width: 150%;
+        height: 150%;
+      }
+
+      .memory-node.pattern {
+        background: var(--secondary);
+        box-shadow: 0 0 30px rgba(255, 0, 170, 0.6);
+        animation: patternPulse 2s infinite;
+      }
+
+      @keyframes patternPulse {
+        0%,
+        100% {
+          box-shadow: 0 0 20px rgba(255, 0, 170, 0.6);
+        }
+        50% {
+          box-shadow: 0 0 40px rgba(255, 0, 170, 0.9);
+        }
+      }
+
+      .memory-node.selected {
+        background: var(--tertiary);
+        border-color: var(--tertiary);
+        transform: scale(0.95);
+      }
+
+      /* Stroop Challenge */
+      .strope-arena {
+        text-align: center;
+        padding: 50px;
+      }
+
+      .strope-word {
+        font-size: 6em;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 10px;
+        margin: 50px 0;
+        transition: all 0.3s;
+        text-shadow: 0 0 40px currentColor;
+        min-height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .color-palette {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 40px;
+      }
+
+      .color-orb {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.2);
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .color-orb::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .color-orb:hover {
+        transform: scale(1.15) translateY(-10px);
+        border-color: white;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      }
+
+      .color-orb:hover::after {
+        opacity: 1;
+      }
+
+      .color-orb:active {
+        transform: scale(0.95);
+      }
+
+      .rule-indicator {
+        display: inline-block;
+        padding: 15px 30px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50px;
+        margin: 20px 0;
+        font-size: 1.2em;
+        border: 2px solid;
+        transition: all 0.3s;
+      }
+
+      /* Speed Math */
+      .math-challenge {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .math-display {
+        font-size: 4em;
+        font-family: 'Courier New', monospace;
+        color: var(--primary);
+        margin: 40px 0;
+        text-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+        min-height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        letter-spacing: 5px;
+      }
+
+      .math-input-group {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        margin: 40px 0;
+      }
+
+      .math-input {
+        background: rgba(0, 0, 0, 0.6);
+        border: 3px solid var(--primary);
+        color: var(--primary);
+        font-size: 2.5em;
+        padding: 20px;
+        width: 250px;
+        text-align: center;
+        border-radius: 15px;
+        font-family: inherit;
+        outline: none;
+        transition: all 0.3s;
+      }
+
+      .math-input:focus {
+        box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+        transform: scale(1.05);
+      }
+
+      .sequence-tracker {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin: 30px 0;
+        flex-wrap: wrap;
+      }
+
+      .sequence-dot {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
+
+      .sequence-dot.correct {
+        background: var(--success);
+        border-color: var(--success);
+        color: var(--dark);
+        animation: pop 0.3s;
+      }
+
+      @keyframes pop {
+        0% {
+          transform: scale(0);
+        }
+        50% {
+          transform: scale(1.3);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* Composite Test */
+      .multitask-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        max-width: 1000px;
+        margin: 40px auto;
+      }
+
+      .task-module {
+        background: rgba(0, 0, 0, 0.4);
+        border: 2px solid rgba(0, 240, 255, 0.2);
+        border-radius: 20px;
+        padding: 30px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .task-module::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+      }
+
+      .task-title {
+        color: var(--primary);
+        font-size: 1.3em;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .tracking-field {
+        height: 250px;
+        background: rgba(0, 20, 40, 0.6);
+        border-radius: 15px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(0, 240, 255, 0.2);
+      }
+
+      .tracking-target {
+        width: 40px;
+        height: 40px;
+        background: radial-gradient(circle, var(--primary), transparent);
+        border-radius: 50%;
+        position: absolute;
+        cursor: pointer;
+        box-shadow: 0 0 30px var(--primary);
+        transition: transform 0.1s;
+      }
+
+      .tracking-target:hover {
+        transform: scale(1.2);
+      }
+
+      .mini-math {
+        font-size: 2em;
+        color: var(--secondary);
+        margin: 20px 0;
+        min-height: 50px;
+      }
+
+      /* Results Screen */
+      .results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin: 40px 0;
+      }
+
+      .result-card {
+        background: var(--glass);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        transition: all 0.3s;
+      }
+
+      .result-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--primary);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      }
+
+      .result-icon {
+        font-size: 3em;
+        margin-bottom: 15px;
+      }
+
+      .result-title {
+        color: var(--primary);
+        font-size: 1.5em;
+        margin-bottom: 10px;
+      }
+
+      .result-score {
+        font-size: 2.5em;
+        font-weight: bold;
+        color: #fff;
+        margin: 15px 0;
+      }
+
+      .iq-circle {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: conic-gradient(
+          var(--primary) 0deg,
+          var(--secondary) 90deg,
+          var(--tertiary) 180deg,
+          var(--primary) 360deg
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 40px auto;
+        position: relative;
+        box-shadow: 0 0 60px rgba(0, 240, 255, 0.3);
+        animation: rotate 10s linear infinite;
+      }
+
+      .iq-circle::before {
+        content: '';
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        background: var(--dark);
+        border-radius: 50%;
+      }
+
+      .iq-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+      }
+
+      .iq-number {
+        font-size: 5em;
+        font-weight: bold;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .iq-label {
+        color: #8892b0;
+        font-size: 1.2em;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+      }
+
+      .archetype-banner {
+        background: linear-gradient(
+          135deg,
+          rgba(0, 240, 255, 0.1),
+          rgba(255, 0, 170, 0.1)
+        );
+        border: 2px solid;
+        border-image: linear-gradient(135deg, var(--primary), var(--secondary))
+          1;
+        padding: 40px;
+        border-radius: 20px;
+        margin: 40px 0;
+        text-align: center;
+      }
+
+      .archetype-title {
+        font-size: 2.5em;
+        color: var(--tertiary);
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+      }
+
+      .history-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 30px 0;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 15px;
+        overflow: hidden;
+      }
+
+      .history-table th,
+      .history-table td {
+        padding: 20px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .history-table th {
+        background: rgba(0, 240, 255, 0.1);
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .history-table tr:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .comparison-chart {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 40px;
+        height: 300px;
+        margin: 40px 0;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 20px;
+        border: 1px solid rgba(0, 240, 255, 0.1);
+      }
+
+      .chart-bar {
+        width: 80px;
+        background: linear-gradient(to top, var(--primary), var(--secondary));
+        border-radius: 10px 10px 0 0;
+        transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        min-height: 20px;
+      }
+
+      .chart-bar::after {
+        content: attr(data-value);
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-weight: bold;
+        color: var(--primary);
+      }
+
+      .chart-label {
+        position: absolute;
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        color: #8892b0;
+        font-size: 0.9em;
+      }
+
+      @media (max-width: 768px) {
         h1 {
-            font-size: 4em;
-            text-transform: uppercase;
-            letter-spacing: 8px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--tertiary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: glow 3s ease-in-out infinite alternate;
-            margin-bottom: 10px;
+          font-size: 2em;
         }
-
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.5)); }
-            to { filter: drop-shadow(0 0 40px rgba(255, 0, 170, 0.8)); }
-        }
-
-        .subtitle {
-            color: #8892b0;
-            font-size: 1.4em;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
         .main-panel {
-            background: var(--panel);
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            border-radius: 30px;
-            padding: 50px;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
-            min-height: 800px;
-            position: relative;
-            overflow: hidden;
+          padding: 20px;
         }
-
-        .main-panel::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 240, 255, 0.03), transparent);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .screen {
-            position: relative;
-            z-index: 5;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 170, 0.1));
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            padding: 20px 50px;
-            font-size: 1.3em;
-            cursor: pointer;
-            border-radius: 50px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            margin: 15px;
-            font-family: inherit;
-            position: relative;
-            overflow: hidden;
-            font-weight: bold;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn:hover {
-            background: var(--primary);
-            color: var(--dark);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 40px rgba(0, 240, 255, 0.4);
-        }
-
-        .btn.secondary {
-            border-color: var(--secondary);
-            color: var(--secondary);
-        }
-
-        .btn.secondary:hover {
-            background: var(--secondary);
-            color: var(--dark);
-            box-shadow: 0 10px 40px rgba(255, 0, 170, 0.4);
-        }
-
-        .btn.large {
-            padding: 25px 60px;
-            font-size: 1.5em;
-        }
-
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .stat-card {
-            background: var(--glass);
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2);
-        }
-
-        .stat-label {
-            font-size: 1em;
-            color: #8892b0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-        }
-
-        .stat-value {
-            font-size: 3em;
-            font-weight: bold;
-            color: var(--primary);
-            text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
-        }
-
-        .attempts-tracker {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .attempt-node {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2em;
-            position: relative;
-            transition: all 0.3s;
-        }
-
-        .attempt-node.completed {
-            background: var(--success);
-            border-color: var(--success);
-            color: var(--dark);
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
-        }
-
-        .attempt-node.active {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: var(--dark);
-            animation: pulse 2s infinite;
-        }
-
-        .attempt-node.pending {
-            background: rgba(255, 255, 255, 0.05);
-            color: #555;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(0, 240, 255, 0.5); }
-            50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(0, 240, 255, 0.8); }
-        }
-
-        .game-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            border: 1px solid rgba(0, 240, 255, 0.1);
-        }
-
-        .dimension-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px 30px;
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 170, 0.1));
-            border-radius: 50px;
-            border: 1px solid rgba(0, 240, 255, 0.3);
-        }
-
-        .progress-bar-container {
-            width: 100%;
-            height: 15px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 30px 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--tertiary));
-            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .game-stage {
-            min-height: 600px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        /* Enhanced 3D Cube */
         .hypercube-container {
-            width: 500px;
-            height: 500px;
-            perspective: 1200px;
-            margin: 40px auto;
+          width: 300px;
+          height: 300px;
         }
-
-        .hypercube {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
         .cube-face {
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            left: 175px;
-            top: 175px;
-            border: 3px solid var(--primary);
-            background: rgba(0, 20, 40, 0.9);
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            gap: 3px;
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
-            backface-visibility: visible;
+          width: 100px;
+          height: 100px;
+          left: 100px;
+          top: 100px;
         }
-
-        .cube-cell {
-            background: rgba(0, 240, 255, 0.1);
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2em;
-            border-radius: 4px;
-        }
-
-        .cube-cell:hover {
-            background: rgba(0, 240, 255, 0.4);
-            transform: scale(1.1);
-        }
-
-        .cube-cell.active {
-            background: var(--primary);
-            box-shadow: 0 0 15px var(--primary);
-            color: var(--dark);
-        }
-
-        .cube-cell.missing {
-            background: rgba(255, 0, 170, 0.2);
-            border: 2px dashed var(--secondary);
-            animation: blink 1.5s infinite;
-            color: var(--secondary);
-        }
-
-        .cube-cell.target {
-            background: var(--tertiary);
-            box-shadow: 0 0 20px var(--tertiary);
-            color: var(--dark);
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; border-color: var(--secondary); }
-            50% { opacity: 0.4; border-color: transparent; }
-        }
-
-        .face-front  { transform: rotateY(0deg) translateZ(75px); }
-        .face-back   { transform: rotateY(180deg) translateZ(75px); }
-        .face-right  { transform: rotateY(90deg) translateZ(75px); }
-        .face-left   { transform: rotateY(-90deg) translateZ(75px); }
-        .face-top    { transform: rotateX(90deg) translateZ(75px); }
-        .face-bottom { transform: rotateX(-90deg) translateZ(75px); }
-
-        .cube-controls {
-            display: flex;
-            gap: 20px;
-            margin-top: 30px;
-            justify-content: center;
-        }
-
-        .cube-btn {
-            width: 70px;
-            height: 70px;
-            border: 2px solid var(--primary);
-            background: rgba(0, 240, 255, 0.1);
-            color: var(--primary);
-            cursor: pointer;
-            border-radius: 15px;
-            font-size: 2em;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .cube-btn:hover {
-            background: var(--primary);
-            color: var(--dark);
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
-        }
-
-        /* Memory Grid Enhanced */
-        .memory-matrix {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 15px;
-            margin: 40px auto;
-            max-width: 700px;
-            padding: 30px;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 20px;
-            border: 2px solid rgba(255, 0, 170, 0.2);
-        }
-
-        .memory-node {
-            aspect-ratio: 1;
-            border: 2px solid rgba(255, 0, 170, 0.3);
-            background: rgba(255, 0, 170, 0.05);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .memory-node::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: radial-gradient(circle, var(--secondary), transparent);
-            transform: translate(-50%, -50%);
-            transition: all 0.4s;
-            border-radius: 50%;
-        }
-
-        .memory-node:hover {
-            transform: translateY(-5px);
-            border-color: var(--secondary);
-            box-shadow: 0 10px 30px rgba(255, 0, 170, 0.3);
-        }
-
-        .memory-node.active::before {
-            width: 150%;
-            height: 150%;
-        }
-
-        .memory-node.pattern {
-            background: var(--secondary);
-            box-shadow: 0 0 30px rgba(255, 0, 170, 0.6);
-            animation: patternPulse 2s infinite;
-        }
-
-        @keyframes patternPulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 170, 0.6); }
-            50% { box-shadow: 0 0 40px rgba(255, 0, 170, 0.9); }
-        }
-
-        .memory-node.selected {
-            background: var(--tertiary);
-            border-color: var(--tertiary);
-            transform: scale(0.95);
-        }
-
-        /* Stroop Challenge */
-        .strope-arena {
-            text-align: center;
-            padding: 50px;
-        }
-
-        .strope-word {
-            font-size: 6em;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 10px;
-            margin: 50px 0;
-            transition: all 0.3s;
-            text-shadow: 0 0 40px currentColor;
-            min-height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .color-palette {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 40px;
-        }
-
-        .color-orb {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 4px solid rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .color-orb::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.3), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .color-orb:hover {
-            transform: scale(1.15) translateY(-10px);
-            border-color: white;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-        }
-
-        .color-orb:hover::after {
-            opacity: 1;
-        }
-
-        .color-orb:active {
-            transform: scale(0.95);
-        }
-
-        .rule-indicator {
-            display: inline-block;
-            padding: 15px 30px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
-            margin: 20px 0;
-            font-size: 1.2em;
-            border: 2px solid;
-            transition: all 0.3s;
-        }
-
-        /* Speed Math */
-        .math-challenge {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .math-display {
-            font-size: 4em;
-            font-family: 'Courier New', monospace;
-            color: var(--primary);
-            margin: 40px 0;
-            text-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            letter-spacing: 5px;
-        }
-
-        .math-input-group {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
-            margin: 40px 0;
-        }
-
-        .math-input {
-            background: rgba(0, 0, 0, 0.6);
-            border: 3px solid var(--primary);
-            color: var(--primary);
-            font-size: 2.5em;
-            padding: 20px;
-            width: 250px;
-            text-align: center;
-            border-radius: 15px;
-            font-family: inherit;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .math-input:focus {
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
-            transform: scale(1.05);
-        }
-
-        .sequence-tracker {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-
-        .sequence-dot {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 3px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .sequence-dot.correct {
-            background: var(--success);
-            border-color: var(--success);
-            color: var(--dark);
-            animation: pop 0.3s;
-        }
-
-        @keyframes pop {
-            0% { transform: scale(0); }
-            50% { transform: scale(1.3); }
-            100% { transform: scale(1); }
-        }
-
-        /* Composite Test */
         .multitask-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            max-width: 1000px;
-            margin: 40px auto;
+          grid-template-columns: 1fr;
         }
-
-        .task-module {
-            background: rgba(0, 0, 0, 0.4);
-            border: 2px solid rgba(0, 240, 255, 0.2);
-            border-radius: 20px;
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
+        .strope-word {
+          font-size: 3em;
         }
-
-        .task-module::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        .color-orb {
+          width: 60px;
+          height: 60px;
         }
-
-        .task-title {
-            color: var(--primary);
-            font-size: 1.3em;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .tracking-field {
-            height: 250px;
-            background: rgba(0, 20, 40, 0.6);
-            border-radius: 15px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(0, 240, 255, 0.2);
-        }
-
-        .tracking-target {
-            width: 40px;
-            height: 40px;
-            background: radial-gradient(circle, var(--primary), transparent);
-            border-radius: 50%;
-            position: absolute;
-            cursor: pointer;
-            box-shadow: 0 0 30px var(--primary);
-            transition: transform 0.1s;
-        }
-
-        .tracking-target:hover {
-            transform: scale(1.2);
-        }
-
-        .mini-math {
-            font-size: 2em;
-            color: var(--secondary);
-            margin: 20px 0;
-            min-height: 50px;
-        }
-
-        /* Results Screen */
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
-        }
-
-        .result-card {
-            background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .result-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .result-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-        }
-
-        .result-title {
-            color: var(--primary);
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-
-        .result-score {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #fff;
-            margin: 15px 0;
-        }
-
-        .iq-circle {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: conic-gradient(var(--primary) 0deg, var(--secondary) 90deg, var(--tertiary) 180deg, var(--primary) 360deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 40px auto;
-            position: relative;
-            box-shadow: 0 0 60px rgba(0, 240, 255, 0.3);
-            animation: rotate 10s linear infinite;
-        }
-
-        .iq-circle::before {
-            content: '';
-            position: absolute;
-            width: 260px;
-            height: 260px;
-            background: var(--dark);
-            border-radius: 50%;
-        }
-
-        .iq-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-        }
-
-        .iq-number {
-            font-size: 5em;
-            font-weight: bold;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .iq-label {
-            color: #8892b0;
-            font-size: 1.2em;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .archetype-banner {
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 170, 0.1));
-            border: 2px solid;
-            border-image: linear-gradient(135deg, var(--primary), var(--secondary)) 1;
-            padding: 40px;
-            border-radius: 20px;
-            margin: 40px 0;
-            text-align: center;
-        }
-
-        .archetype-title {
-            font-size: 2.5em;
-            color: var(--tertiary);
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-        }
-
-        .history-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 30px 0;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-        .history-table th,
-        .history-table td {
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .history-table th {
-            background: rgba(0, 240, 255, 0.1);
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .history-table tr:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .comparison-chart {
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 40px;
-            height: 300px;
-            margin: 40px 0;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
-            border: 1px solid rgba(0, 240, 255, 0.1);
-        }
-
-        .chart-bar {
-            width: 80px;
-            background: linear-gradient(to top, var(--primary), var(--secondary));
-            border-radius: 10px 10px 0 0;
-            transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            min-height: 20px;
-        }
-
-        .chart-bar::after {
-            content: attr(data-value);
-            position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .chart-label {
-            position: absolute;
-            bottom: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            white-space: nowrap;
-            color: #8892b0;
-            font-size: 0.9em;
-        }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2em; }
-            .main-panel { padding: 20px; }
-            .hypercube-container { width: 300px; height: 300px; }
-            .cube-face { width: 100px; height: 100px; left: 100px; top: 100px; }
-            .multitask-grid { grid-template-columns: 1fr; }
-            .strope-word { font-size: 3em; }
-            .color-orb { width: 60px; height: 60px; }
-        }
+      }
     </style>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <div id="universe">
-        <canvas class="stars" id="starfield"></canvas>
+      <canvas class="stars" id="starfield"></canvas>
     </div>
 
     <div class="container">
-        <header>
-            <h1>Neural Architect</h1>
-            <div class="subtitle">Advanced Cognitive Assessment Protocol</div>
-        </header>
+      <header>
+        <h1>Neural Architect</h1>
+        <div class="subtitle">Advanced Cognitive Assessment Protocol</div>
+      </header>
 
-        <!-- Intro Screen -->
-        <div class="main-panel screen" id="introScreen">
-            <div style="text-align: center; padding: 60px 20px;">
-                <div style="font-size: 1.5em; line-height: 1.8; color: #8892b0; max-width: 900px; margin: 0 auto 40px;">
-                    <p style="margin-bottom: 30px; font-size: 1.3em; color: var(--primary);">
-                        Welcome to the next generation of cognitive assessment.
-                    </p>
-                    <p style="margin-bottom: 20px;">
-                        Unlike traditional IQ tests, Neural Architect evaluates your cognitive architecture across
-                        <strong>5 Dimensions</strong> of intelligence through adaptive, interactive challenges.
-                    </p>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 40px 0; text-align: left;">
-                        <div style="padding: 20px; background: rgba(0,0,0,0.3); border-radius: 15px; border-left: 3px solid var(--primary);">
-                            <strong style="color: var(--primary);">Spatial Reasoning</strong><br>
-                            3D pattern reconstruction & mental rotation
-                        </div>
-                        <div style="padding: 20px; background: rgba(0,0,0,0.3); border-radius: 15px; border-left: 3px solid var(--secondary);">
-                            <strong style="color: var(--secondary);">Working Memory</strong><br>
-                            Dynamic encoding under interference
-                        </div>
-                        <div style="padding: 20px; background: rgba(0,0,0,0.3); border-radius: 15px; border-left: 3px solid var(--tertiary);">
-                            <strong style="color: var(--tertiary);">Cognitive Flexibility</strong><br>
-                            Adaptive rule switching & inhibition
-                        </div>
-                        <div style="padding: 20px; background: rgba(0,0,0,0.3); border-radius: 15px; border-left: 3px solid var(--success);">
-                            <strong style="color: var(--success);">Processing Speed</strong><br>
-                            Temporal accuracy & pattern recognition
-                        </div>
-                        <div style="padding: 20px; background: rgba(0,0,0,0.3); border-radius: 15px; border-left: 3px solid #ff3366;">
-                            <strong style="color: #ff3366;">Fluid Intelligence</strong><br>
-                            Multi-variable synthesis & logic
-                        </div>
-                    </div>
-                    <p style="font-size: 1.1em; color: var(--tertiary); margin-top: 30px;">
-                        🧠 Complete all 5 attempts to generate your definitive Cognitive Profile
-                    </p>
-                </div>
-                <button class="btn large" onclick="initializeAssessment()">Begin Assessment</button>
+      <!-- Intro Screen -->
+      <div class="main-panel screen" id="introScreen">
+        <div style="text-align: center; padding: 60px 20px">
+          <div
+            style="
+              font-size: 1.5em;
+              line-height: 1.8;
+              color: #8892b0;
+              max-width: 900px;
+              margin: 0 auto 40px;
+            "
+          >
+            <p
+              style="
+                margin-bottom: 30px;
+                font-size: 1.3em;
+                color: var(--primary);
+              "
+            >
+              Welcome to the next generation of cognitive assessment.
+            </p>
+            <p style="margin-bottom: 20px">
+              Unlike traditional IQ tests, Neural Architect evaluates your
+              cognitive architecture across
+              <strong>5 Dimensions</strong> of intelligence through adaptive,
+              interactive challenges.
+            </p>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+                margin: 40px 0;
+                text-align: left;
+              "
+            >
+              <div
+                style="
+                  padding: 20px;
+                  background: rgba(0, 0, 0, 0.3);
+                  border-radius: 15px;
+                  border-left: 3px solid var(--primary);
+                "
+              >
+                <strong style="color: var(--primary)">Spatial Reasoning</strong
+                ><br />
+                3D pattern reconstruction & mental rotation
+              </div>
+              <div
+                style="
+                  padding: 20px;
+                  background: rgba(0, 0, 0, 0.3);
+                  border-radius: 15px;
+                  border-left: 3px solid var(--secondary);
+                "
+              >
+                <strong style="color: var(--secondary)">Working Memory</strong
+                ><br />
+                Dynamic encoding under interference
+              </div>
+              <div
+                style="
+                  padding: 20px;
+                  background: rgba(0, 0, 0, 0.3);
+                  border-radius: 15px;
+                  border-left: 3px solid var(--tertiary);
+                "
+              >
+                <strong style="color: var(--tertiary)"
+                  >Cognitive Flexibility</strong
+                ><br />
+                Adaptive rule switching & inhibition
+              </div>
+              <div
+                style="
+                  padding: 20px;
+                  background: rgba(0, 0, 0, 0.3);
+                  border-radius: 15px;
+                  border-left: 3px solid var(--success);
+                "
+              >
+                <strong style="color: var(--success)">Processing Speed</strong
+                ><br />
+                Temporal accuracy & pattern recognition
+              </div>
+              <div
+                style="
+                  padding: 20px;
+                  background: rgba(0, 0, 0, 0.3);
+                  border-radius: 15px;
+                  border-left: 3px solid #ff3366;
+                "
+              >
+                <strong style="color: #ff3366">Fluid Intelligence</strong><br />
+                Multi-variable synthesis & logic
+              </div>
             </div>
+            <p
+              style="font-size: 1.1em; color: var(--tertiary); margin-top: 30px"
+            >
+              🧠 Complete all 5 attempts to generate your definitive Cognitive
+              Profile
+            </p>
+          </div>
+          <button class="btn large" onclick="initializeAssessment()">
+            Begin Assessment
+          </button>
+        </div>
+      </div>
+
+      <!-- Dashboard Screen -->
+      <div class="main-panel screen hidden" id="dashboardScreen">
+        <div style="text-align: center; margin-bottom: 40px">
+          <h2
+            style="color: var(--primary); font-size: 2.5em; margin-bottom: 10px"
+          >
+            Assessment Dashboard
+          </h2>
+          <p style="color: #8892b0">
+            Track your cognitive evolution across attempts
+          </p>
         </div>
 
-        <!-- Dashboard Screen -->
-        <div class="main-panel screen hidden" id="dashboardScreen">
-            <div style="text-align: center; margin-bottom: 40px;">
-                <h2 style="color: var(--primary); font-size: 2.5em; margin-bottom: 10px;">Assessment Dashboard</h2>
-                <p style="color: #8892b0;">Track your cognitive evolution across attempts</p>
-            </div>
-
-            <div class="attempts-tracker" id="attemptsTracker">
-                <div class="attempt-node pending" data-attempt="1">1</div>
-                <div class="attempt-node pending" data-attempt="2">2</div>
-                <div class="attempt-node pending" data-attempt="3">3</div>
-                <div class="attempt-node pending" data-attempt="4">4</div>
-                <div class="attempt-node pending" data-attempt="5">5</div>
-            </div>
-
-            <div class="dashboard" id="statsDashboard">
-                <div class="stat-card">
-                    <div class="stat-label">Current CQ</div>
-                    <div class="stat-value" id="currentCQ">--</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Average CQ</div>
-                    <div class="stat-value" id="averageCQ">--</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Best Score</div>
-                    <div class="stat-value" id="bestCQ">--</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Attempts</div>
-                    <div class="stat-value" id="attemptsCount">0/5</div>
-                </div>
-            </div>
-
-            <div id="previousResults" style="margin: 40px 0; display: none;">
-                <h3 style="color: var(--secondary); margin-bottom: 20px; text-align: center;">Previous Attempts</h3>
-                <table class="history-table" id="historyTable">
-                    <thead>
-                        <tr>
-                            <th>Attempt</th>
-                            <th>CQ Score</th>
-                            <th>Spatial</th>
-                            <th>Memory</th>
-                            <th>Flexibility</th>
-                            <th>Speed</th>
-                            <th>Fluid</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody id="historyBody"></tbody>
-                </table>
-            </div>
-
-            <div style="text-align: center; margin-top: 50px;">
-                <button class="btn large" id="startAttemptBtn" onclick="startNewAttempt()">Start Attempt <span id="nextAttemptNum">1</span></button>
-                <button class="btn secondary hidden" id="finalReportBtn" onclick="generateFinalReport()">Generate Final Report</button>
-            </div>
+        <div class="attempts-tracker" id="attemptsTracker">
+          <div class="attempt-node pending" data-attempt="1">1</div>
+          <div class="attempt-node pending" data-attempt="2">2</div>
+          <div class="attempt-node pending" data-attempt="3">3</div>
+          <div class="attempt-node pending" data-attempt="4">4</div>
+          <div class="attempt-node pending" data-attempt="5">5</div>
         </div>
 
-        <!-- Game Screen -->
-        <div class="main-panel screen hidden" id="gameScreen">
-            <div class="game-header">
-                <div class="dimension-badge">
-                    <span style="font-size: 1.5em;">🧩</span>
-                    <div>
-                        <div style="font-size: 0.8em; color: #8892b0;">DIMENSION</div>
-                        <div style="font-size: 1.3em; font-weight: bold;" id="dimensionName">Spatial Reasoning</div>
-                    </div>
-                </div>
-                <div style="text-align: right;">
-                    <div style="font-size: 0.9em; color: #8892b0;">PROGRESS</div>
-                    <div style="font-size: 1.8em; color: var(--primary); font-weight: bold;" id="stageProgress">1/5</div>
-                </div>
-            </div>
-
-            <div class="progress-bar-container">
-                <div class="progress-fill" id="gameProgress" style="width: 0%"></div>
-            </div>
-
-            <div class="game-stage" id="gameStage">
-                <!-- Dynamic game content -->
-            </div>
-
-            <div style="text-align: center; margin-top: 30px; color: #8892b0;" id="gameInstructions">
-                Complete the challenge to proceed to the next dimension
-            </div>
+        <div class="dashboard" id="statsDashboard">
+          <div class="stat-card">
+            <div class="stat-label">Current CQ</div>
+            <div class="stat-value" id="currentCQ">--</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Average CQ</div>
+            <div class="stat-value" id="averageCQ">--</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Best Score</div>
+            <div class="stat-value" id="bestCQ">--</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Attempts</div>
+            <div class="stat-value" id="attemptsCount">0/5</div>
+          </div>
         </div>
 
-        <!-- Results Screen -->
-        <div class="main-panel screen hidden" id="resultScreen">
-            <div style="text-align: center;">
-                <h2 style="color: var(--primary); font-size: 2.5em; margin-bottom: 10px;">Attempt Complete</h2>
-                <p style="color: #8892b0; margin-bottom: 30px;">Cognitive Quotient Calculated</p>
-
-                <div class="iq-circle">
-                    <div class="iq-content">
-                        <div class="iq-number" id="resultCQ">0</div>
-                        <div class="iq-label">CQ Score</div>
-                    </div>
-                </div>
-
-                <div class="archetype-banner">
-                    <div class="archetype-title" id="archetypeName">Calculating...</div>
-                    <p style="color: #8892b0; font-size: 1.1em;" id="archetypeDesc">Analyzing neural patterns...</p>
-                </div>
-
-                <div class="results-grid" id="dimensionScores">
-                    <!-- Dimension scores injected here -->
-                </div>
-
-                <div style="margin-top: 50px;">
-                    <button class="btn" onclick="returnToDashboard()">Return to Dashboard</button>
-                    <button class="btn secondary" onclick="shareResults()">Share Results</button>
-                </div>
-            </div>
+        <div id="previousResults" style="margin: 40px 0; display: none">
+          <h3
+            style="
+              color: var(--secondary);
+              margin-bottom: 20px;
+              text-align: center;
+            "
+          >
+            Previous Attempts
+          </h3>
+          <table class="history-table" id="historyTable">
+            <thead>
+              <tr>
+                <th>Attempt</th>
+                <th>CQ Score</th>
+                <th>Spatial</th>
+                <th>Memory</th>
+                <th>Flexibility</th>
+                <th>Speed</th>
+                <th>Fluid</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="historyBody"></tbody>
+          </table>
         </div>
 
-        <!-- Final Report Screen -->
-        <div class="main-panel screen hidden" id="finalReportScreen">
-            <div style="text-align: center;">
-                <h2 style="color: var(--tertiary); font-size: 3em; margin-bottom: 20px;">Final Cognitive Profile</h2>
-
-                <div class="comparison-chart" id="comparisonChart">
-                    <!-- Chart bars -->
-                </div>
-
-                <div style="background: rgba(0,0,0,0.4); padding: 40px; border-radius: 20px; margin: 40px 0; text-align: left;">
-                    <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.5em;">Neural Consistency Analysis</h3>
-                    <p id="consistencyReport" style="line-height: 1.8; color: #8892b0; font-size: 1.1em;"></p>
-
-                    <h3 style="color: var(--secondary); margin: 30px 0 20px; font-size: 1.5em;">Cognitive Strengths</h3>
-                    <div id="strengthsList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;"></div>
-
-                    <h3 style="color: var(--tertiary); margin: 30px 0 20px; font-size: 1.5em;">Optimization Recommendations</h3>
-                    <ul id="recommendationsList" style="color: #8892b0; line-height: 2; margin-left: 20px;"></ul>
-                </div>
-
-                <button class="btn large" onclick="resetAll()">Begin New Assessment Cycle</button>
-            </div>
+        <div style="text-align: center; margin-top: 50px">
+          <button
+            class="btn large"
+            id="startAttemptBtn"
+            onclick="startNewAttempt()"
+          >
+            Start Attempt <span id="nextAttemptNum">1</span>
+          </button>
+          <button
+            class="btn secondary hidden"
+            id="finalReportBtn"
+            onclick="generateFinalReport()"
+          >
+            Generate Final Report
+          </button>
         </div>
+      </div>
+
+      <!-- Game Screen -->
+      <div class="main-panel screen hidden" id="gameScreen">
+        <div class="game-header">
+          <div class="dimension-badge">
+            <span style="font-size: 1.5em">🧩</span>
+            <div>
+              <div style="font-size: 0.8em; color: #8892b0">DIMENSION</div>
+              <div
+                style="font-size: 1.3em; font-weight: bold"
+                id="dimensionName"
+              >
+                Spatial Reasoning
+              </div>
+            </div>
+          </div>
+          <div style="text-align: right">
+            <div style="font-size: 0.9em; color: #8892b0">PROGRESS</div>
+            <div
+              style="font-size: 1.8em; color: var(--primary); font-weight: bold"
+              id="stageProgress"
+            >
+              1/5
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-bar-container">
+          <div class="progress-fill" id="gameProgress" style="width: 0%"></div>
+        </div>
+
+        <div class="game-stage" id="gameStage">
+          <!-- Dynamic game content -->
+        </div>
+
+        <div
+          style="text-align: center; margin-top: 30px; color: #8892b0"
+          id="gameInstructions"
+        >
+          Complete the challenge to proceed to the next dimension
+        </div>
+      </div>
+
+      <!-- Results Screen -->
+      <div class="main-panel screen hidden" id="resultScreen">
+        <div style="text-align: center">
+          <h2
+            style="color: var(--primary); font-size: 2.5em; margin-bottom: 10px"
+          >
+            Attempt Complete
+          </h2>
+          <p style="color: #8892b0; margin-bottom: 30px">
+            Cognitive Quotient Calculated
+          </p>
+
+          <div class="iq-circle">
+            <div class="iq-content">
+              <div class="iq-number" id="resultCQ">0</div>
+              <div class="iq-label">CQ Score</div>
+            </div>
+          </div>
+
+          <div class="archetype-banner">
+            <div class="archetype-title" id="archetypeName">Calculating...</div>
+            <p style="color: #8892b0; font-size: 1.1em" id="archetypeDesc">
+              Analyzing neural patterns...
+            </p>
+          </div>
+
+          <div class="results-grid" id="dimensionScores">
+            <!-- Dimension scores injected here -->
+          </div>
+
+          <div style="margin-top: 50px">
+            <button class="btn" onclick="returnToDashboard()">
+              Return to Dashboard
+            </button>
+            <button class="btn secondary" onclick="shareResults()">
+              Share Results
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Final Report Screen -->
+      <div class="main-panel screen hidden" id="finalReportScreen">
+        <div style="text-align: center">
+          <h2
+            style="color: var(--tertiary); font-size: 3em; margin-bottom: 20px"
+          >
+            Final Cognitive Profile
+          </h2>
+
+          <div class="comparison-chart" id="comparisonChart">
+            <!-- Chart bars -->
+          </div>
+
+          <div
+            style="
+              background: rgba(0, 0, 0, 0.4);
+              padding: 40px;
+              border-radius: 20px;
+              margin: 40px 0;
+              text-align: left;
+            "
+          >
+            <h3
+              style="
+                color: var(--primary);
+                margin-bottom: 20px;
+                font-size: 1.5em;
+              "
+            >
+              Neural Consistency Analysis
+            </h3>
+            <p
+              id="consistencyReport"
+              style="line-height: 1.8; color: #8892b0; font-size: 1.1em"
+            ></p>
+
+            <h3
+              style="
+                color: var(--secondary);
+                margin: 30px 0 20px;
+                font-size: 1.5em;
+              "
+            >
+              Cognitive Strengths
+            </h3>
+            <div
+              id="strengthsList"
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 15px;
+              "
+            ></div>
+
+            <h3
+              style="
+                color: var(--tertiary);
+                margin: 30px 0 20px;
+                font-size: 1.5em;
+              "
+            >
+              Optimization Recommendations
+            </h3>
+            <ul
+              id="recommendationsList"
+              style="color: #8892b0; line-height: 2; margin-left: 20px"
+            ></ul>
+          </div>
+
+          <button class="btn large" onclick="resetAll()">
+            Begin New Assessment Cycle
+          </button>
+        </div>
+      </div>
     </div>
 
     <script>
-        // Starfield Background
-        const canvas = document.getElementById('starfield');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        const stars = [];
+      // Starfield Background
+      const canvas = document.getElementById('starfield')
+      const ctx = canvas.getContext('2d')
+      let width, height
+      const stars = []
 
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
+      function resize() {
+        width = canvas.width = window.innerWidth
+        height = canvas.height = window.innerHeight
+      }
+      window.addEventListener('resize', resize)
+      resize()
+
+      class Star {
+        constructor() {
+          this.reset()
         }
-        window.addEventListener('resize', resize);
-        resize();
-
-        class Star {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.z = Math.random() * 2;
-                this.size = Math.random() * 2;
-                this.speed = Math.random() * 0.5 + 0.1;
-                this.opacity = Math.random();
-            }
-            update() {
-                this.y -= this.speed;
-                this.opacity += (Math.random() - 0.5) * 0.1;
-                this.opacity = Math.max(0.1, Math.min(1, this.opacity));
-                if (this.y < 0) this.reset();
-            }
-            draw() {
-                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+        reset() {
+          this.x = Math.random() * width
+          this.y = Math.random() * height
+          this.z = Math.random() * 2
+          this.size = Math.random() * 2
+          this.speed = Math.random() * 0.5 + 0.1
+          this.opacity = Math.random()
         }
-
-        for (let i = 0; i < 200; i++) stars.push(new Star());
-
-        function animateStars() {
-            ctx.clearRect(0, 0, width, height);
-            stars.forEach(star => {
-                star.update();
-                star.draw();
-            });
-            requestAnimationFrame(animateStars);
+        update() {
+          this.y -= this.speed
+          this.opacity += (Math.random() - 0.5) * 0.1
+          this.opacity = Math.max(0.1, Math.min(1, this.opacity))
+          if (this.y < 0) this.reset()
         }
-        animateStars();
+        draw() {
+          ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`
+          ctx.beginPath()
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+          ctx.fill()
+        }
+      }
 
-        // Game State Management
-        const GameState = {
-            attempts: [],
-            currentAttempt: 0,
-            currentDimension: 1,
-            dimensionScores: [],
-            totalScore: 0,
-            sessionData: {},
+      for (let i = 0; i < 200; i++) stars.push(new Star())
 
-            init() {
-                const saved = localStorage.getItem('neuralArchitectData');
-                if (saved) {
-                    this.attempts = JSON.parse(saved);
-                    this.updateDashboard();
-                }
-            },
+      function animateStars() {
+        ctx.clearRect(0, 0, width, height)
+        stars.forEach((star) => {
+          star.update()
+          star.draw()
+        })
+        requestAnimationFrame(animateStars)
+      }
+      animateStars()
 
-            save() {
-                localStorage.setItem('neuralArchitectData', JSON.stringify(this.attempts));
-            },
+      // Game State Management
+      const GameState = {
+        attempts: [],
+        currentAttempt: 0,
+        currentDimension: 1,
+        dimensionScores: [],
+        totalScore: 0,
+        sessionData: {},
 
-            addAttempt(scores, totalCQ) {
-                this.attempts.push({
-                    date: new Date().toLocaleDateString(),
-                    scores: scores,
-                    totalCQ: totalCQ,
-                    timestamp: Date.now()
-                });
-                this.save();
-                this.updateDashboard();
-            },
+        init() {
+          const saved = localStorage.getItem('neuralArchitectData')
+          if (saved) {
+            this.attempts = JSON.parse(saved)
+            this.updateDashboard()
+          }
+        },
 
-            updateDashboard() {
-                const attemptNodes = document.querySelectorAll('.attempt-node');
-                attemptNodes.forEach((node, idx) => {
-                    node.classList.remove('completed', 'active', 'pending');
-                    if (idx < this.attempts.length) {
-                        node.classList.add('completed');
-                        node.innerHTML = '✓';
-                    } else if (idx === this.attempts.length) {
-                        node.classList.add('active');
-                        node.innerHTML = idx + 1;
-                    } else {
-                        node.classList.add('pending');
-                        node.innerHTML = idx + 1;
-                    }
-                });
+        save() {
+          localStorage.setItem(
+            'neuralArchitectData',
+            JSON.stringify(this.attempts)
+          )
+        },
 
-                document.getElementById('attemptsCount').textContent = `${this.attempts.length}/5`;
+        addAttempt(scores, totalCQ) {
+          this.attempts.push({
+            date: new Date().toLocaleDateString(),
+            scores: scores,
+            totalCQ: totalCQ,
+            timestamp: Date.now(),
+          })
+          this.save()
+          this.updateDashboard()
+        },
 
-                if (this.attempts.length > 0) {
-                    const cqs = this.attempts.map(a => a.totalCQ);
-                    const avg = Math.round(cqs.reduce((a, b) => a + b, 0) / cqs.length);
-                    const max = Math.max(...cqs);
-                    const current = cqs[cqs.length - 1];
+        updateDashboard() {
+          const attemptNodes = document.querySelectorAll('.attempt-node')
+          attemptNodes.forEach((node, idx) => {
+            node.classList.remove('completed', 'active', 'pending')
+            if (idx < this.attempts.length) {
+              node.classList.add('completed')
+              node.innerHTML = '✓'
+            } else if (idx === this.attempts.length) {
+              node.classList.add('active')
+              node.innerHTML = idx + 1
+            } else {
+              node.classList.add('pending')
+              node.innerHTML = idx + 1
+            }
+          })
 
-                    document.getElementById('currentCQ').textContent = current;
-                    document.getElementById('averageCQ').textContent = avg;
-                    document.getElementById('bestCQ').textContent = max;
+          document.getElementById('attemptsCount').textContent =
+            `${this.attempts.length}/5`
 
-                    // Update history table
-                    const tbody = document.getElementById('historyBody');
-                    tbody.innerHTML = this.attempts.map((a, i) => `
+          if (this.attempts.length > 0) {
+            const cqs = this.attempts.map((a) => a.totalCQ)
+            const avg = Math.round(cqs.reduce((a, b) => a + b, 0) / cqs.length)
+            const max = Math.max(...cqs)
+            const current = cqs[cqs.length - 1]
+
+            document.getElementById('currentCQ').textContent = current
+            document.getElementById('averageCQ').textContent = avg
+            document.getElementById('bestCQ').textContent = max
+
+            // Update history table
+            const tbody = document.getElementById('historyBody')
+            tbody.innerHTML = this.attempts
+              .map(
+                (a, i) => `
                         <tr>
                             <td>${i + 1}</td>
                             <td style="color: var(--primary); font-weight: bold;">${a.totalCQ}</td>
@@ -1234,315 +1530,343 @@
                             <td>${a.scores[4]}</td>
                             <td>${a.date}</td>
                         </tr>
-                    `).join('');
-                    document.getElementById('previousResults').style.display = 'block';
-                }
+                    `
+              )
+              .join('')
+            document.getElementById('previousResults').style.display = 'block'
+          }
 
-                const nextAttempt = this.attempts.length + 1;
-                document.getElementById('nextAttemptNum').textContent = nextAttempt;
+          const nextAttempt = this.attempts.length + 1
+          document.getElementById('nextAttemptNum').textContent = nextAttempt
 
-                if (this.attempts.length >= 5) {
-                    document.getElementById('startAttemptBtn').classList.add('hidden');
-                    document.getElementById('finalReportBtn').classList.remove('hidden');
-                }
-            }
-        };
+          if (this.attempts.length >= 5) {
+            document.getElementById('startAttemptBtn').classList.add('hidden')
+            document.getElementById('finalReportBtn').classList.remove('hidden')
+          }
+        },
+      }
 
-        // Initialize
-        GameState.init();
+      // Initialize
+      GameState.init()
 
-        function initializeAssessment() {
-            document.getElementById('introScreen').classList.add('hidden');
-            document.getElementById('dashboardScreen').classList.remove('hidden');
-            GameState.updateDashboard();
+      function initializeAssessment() {
+        document.getElementById('introScreen').classList.add('hidden')
+        document.getElementById('dashboardScreen').classList.remove('hidden')
+        GameState.updateDashboard()
+      }
+
+      function returnToDashboard() {
+        document.getElementById('resultScreen').classList.add('hidden')
+        document.getElementById('gameScreen').classList.add('hidden')
+        document.getElementById('dashboardScreen').classList.remove('hidden')
+        GameState.updateDashboard()
+      }
+
+      function startNewAttempt() {
+        if (GameState.attempts.length >= 5) {
+          alert(
+            'You have completed all 5 attempts! Generate your final report.'
+          )
+          return
         }
 
-        function returnToDashboard() {
-            document.getElementById('resultScreen').classList.add('hidden');
-            document.getElementById('gameScreen').classList.add('hidden');
-            document.getElementById('dashboardScreen').classList.remove('hidden');
-            GameState.updateDashboard();
+        GameState.currentAttempt = GameState.attempts.length + 1
+        GameState.currentDimension = 1
+        GameState.dimensionScores = []
+        GameState.totalScore = 0
+
+        document.getElementById('dashboardScreen').classList.add('hidden')
+        document.getElementById('gameScreen').classList.remove('hidden')
+
+        loadDimension(1)
+      }
+
+      // Dimension Loader
+      function loadDimension(dim) {
+        GameState.currentDimension = dim
+        const progress = ((dim - 1) / 5) * 100
+        document.getElementById('gameProgress').style.width = progress + '%'
+        document.getElementById('stageProgress').textContent = `${dim}/5`
+
+        const stage = document.getElementById('gameStage')
+        stage.innerHTML = ''
+
+        const dimensions = [
+          { name: 'Spatial Reasoning', color: '#00f0ff', icon: '🧩' },
+          { name: 'Working Memory', color: '#ff00aa', icon: '🧠' },
+          { name: 'Cognitive Flexibility', color: '#f0ff00', icon: '🔄' },
+          { name: 'Processing Speed', color: '#00ff88', icon: '⚡' },
+          { name: 'Fluid Intelligence', color: '#ff3366', icon: '🌐' },
+        ]
+
+        const d = dimensions[dim - 1]
+        document.getElementById('dimensionName').textContent = d.name
+        document.querySelector('.dimension-badge span').textContent = d.icon
+        document.querySelector(
+          '.dimension-badge div div:first-child'
+        ).style.color = d.color
+
+        switch (dim) {
+          case 1:
+            loadSpatialTest(stage)
+            break
+          case 2:
+            loadMemoryTest(stage)
+            break
+          case 3:
+            loadFlexibilityTest(stage)
+            break
+          case 4:
+            loadSpeedTest(stage)
+            break
+          case 5:
+            loadFluidTest(stage)
+            break
+        }
+      }
+
+      // Dimension 1: Enhanced 3D Spatial
+      function loadSpatialTest(container) {
+        const patterns = ['◆', '●', '▲', '■', '★', '✦']
+        const targetPattern =
+          patterns[Math.floor(Math.random() * patterns.length)]
+        const missingCells = []
+
+        // Generate 2-3 missing cells
+        while (missingCells.length < 3) {
+          const pos = Math.floor(Math.random() * 54) // 6 faces * 9 cells
+          if (!missingCells.includes(pos)) missingCells.push(pos)
         }
 
-        function startNewAttempt() {
-            if (GameState.attempts.length >= 5) {
-                alert('You have completed all 5 attempts! Generate your final report.');
-                return;
+        const scene = document.createElement('div')
+        scene.className = 'hypercube-container'
+
+        const cube = document.createElement('div')
+        cube.className = 'hypercube'
+        cube.id = 'hypercube'
+
+        const faces = ['front', 'back', 'left', 'right', 'top', 'bottom']
+        let cellIndex = 0
+
+        faces.forEach((face, fIdx) => {
+          const faceDiv = document.createElement('div')
+          faceDiv.className = `cube-face face-${face}`
+
+          for (let i = 0; i < 9; i++) {
+            const cell = document.createElement('div')
+            cell.className = 'cube-cell'
+            cell.dataset.index = cellIndex
+
+            if (missingCells.includes(cellIndex)) {
+              cell.classList.add('missing')
+              cell.textContent = '?'
+              cell.dataset.correct = targetPattern
+            } else {
+              // 70% chance to show target pattern, 30% distractor
+              const showPattern =
+                Math.random() > 0.3
+                  ? targetPattern
+                  : patterns[Math.floor(Math.random() * patterns.length)]
+              cell.textContent = showPattern
+              if (showPattern === targetPattern) cell.classList.add('target')
             }
 
-            GameState.currentAttempt = GameState.attempts.length + 1;
-            GameState.currentDimension = 1;
-            GameState.dimensionScores = [];
-            GameState.totalScore = 0;
+            faceDiv.appendChild(cell)
+            cellIndex++
+          }
 
-            document.getElementById('dashboardScreen').classList.add('hidden');
-            document.getElementById('gameScreen').classList.remove('hidden');
+          cube.appendChild(faceDiv)
+        })
 
-            loadDimension(1);
-        }
+        scene.appendChild(cube)
+        container.appendChild(scene)
 
-        // Dimension Loader
-        function loadDimension(dim) {
-            GameState.currentDimension = dim;
-            const progress = ((dim - 1) / 5) * 100;
-            document.getElementById('gameProgress').style.width = progress + '%';
-            document.getElementById('stageProgress').textContent = `${dim}/5`;
-
-            const stage = document.getElementById('gameStage');
-            stage.innerHTML = '';
-
-            const dimensions = [
-                { name: 'Spatial Reasoning', color: '#00f0ff', icon: '🧩' },
-                { name: 'Working Memory', color: '#ff00aa', icon: '🧠' },
-                { name: 'Cognitive Flexibility', color: '#f0ff00', icon: '🔄' },
-                { name: 'Processing Speed', color: '#00ff88', icon: '⚡' },
-                { name: 'Fluid Intelligence', color: '#ff3366', icon: '🌐' }
-            ];
-
-            const d = dimensions[dim - 1];
-            document.getElementById('dimensionName').textContent = d.name;
-            document.querySelector('.dimension-badge span').textContent = d.icon;
-            document.querySelector('.dimension-badge div div:first-child').style.color = d.color;
-
-            switch(dim) {
-                case 1: loadSpatialTest(stage); break;
-                case 2: loadMemoryTest(stage); break;
-                case 3: loadFlexibilityTest(stage); break;
-                case 4: loadSpeedTest(stage); break;
-                case 5: loadFluidTest(stage); break;
-            }
-        }
-
-        // Dimension 1: Enhanced 3D Spatial
-        function loadSpatialTest(container) {
-            const patterns = ['◆', '●', '▲', '■', '★', '✦'];
-            const targetPattern = patterns[Math.floor(Math.random() * patterns.length)];
-            const missingCells = [];
-
-            // Generate 2-3 missing cells
-            while (missingCells.length < 3) {
-                const pos = Math.floor(Math.random() * 54); // 6 faces * 9 cells
-                if (!missingCells.includes(pos)) missingCells.push(pos);
-            }
-
-            const scene = document.createElement('div');
-            scene.className = 'hypercube-container';
-
-            const cube = document.createElement('div');
-            cube.className = 'hypercube';
-            cube.id = 'hypercube';
-
-            const faces = ['front', 'back', 'left', 'right', 'top', 'bottom'];
-            let cellIndex = 0;
-
-            faces.forEach((face, fIdx) => {
-                const faceDiv = document.createElement('div');
-                faceDiv.className = `cube-face face-${face}`;
-
-                for (let i = 0; i < 9; i++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'cube-cell';
-                    cell.dataset.index = cellIndex;
-
-                    if (missingCells.includes(cellIndex)) {
-                        cell.classList.add('missing');
-                        cell.textContent = '?';
-                        cell.dataset.correct = targetPattern;
-                    } else {
-                        // 70% chance to show target pattern, 30% distractor
-                        const showPattern = Math.random() > 0.3 ? targetPattern : patterns[Math.floor(Math.random() * patterns.length)];
-                        cell.textContent = showPattern;
-                        if (showPattern === targetPattern) cell.classList.add('target');
-                    }
-
-                    faceDiv.appendChild(cell);
-                    cellIndex++;
-                }
-
-                cube.appendChild(faceDiv);
-            });
-
-            scene.appendChild(cube);
-            container.appendChild(scene);
-
-            // Controls
-            const controls = document.createElement('div');
-            controls.className = 'cube-controls';
-            controls.innerHTML = `
+        // Controls
+        const controls = document.createElement('div')
+        controls.className = 'cube-controls'
+        controls.innerHTML = `
                 <button class="cube-btn" onclick="rotateHypercube(0, -90)">←</button>
                 <button class="cube-btn" onclick="rotateHypercube(-90, 0)">↑</button>
                 <button class="cube-btn" onclick="rotateHypercube(90, 0)">↓</button>
                 <button class="cube-btn" onclick="rotateHypercube(0, 90)">→</button>
-            `;
-            container.appendChild(controls);
+            `
+        container.appendChild(controls)
 
-            // Options
-            const options = document.createElement('div');
-            options.style.display = 'flex';
-            options.style.gap = '20px';
-            options.style.marginTop = '30px';
-            options.style.justifyContent = 'center';
-            options.style.flexWrap = 'wrap';
+        // Options
+        const options = document.createElement('div')
+        options.style.display = 'flex'
+        options.style.gap = '20px'
+        options.style.marginTop = '30px'
+        options.style.justifyContent = 'center'
+        options.style.flexWrap = 'wrap'
 
-            const shuffledPatterns = [...patterns].sort(() => Math.random() - 0.5);
-            shuffledPatterns.forEach(p => {
-                const btn = document.createElement('button');
-                btn.className = 'btn';
-                btn.style.fontSize = '2em';
-                btn.style.padding = '15px 30px';
-                btn.textContent = p;
-                btn.onclick = () => checkSpatialAnswer(p, targetPattern, missingCells.length * 50);
-                options.appendChild(btn);
-            });
+        const shuffledPatterns = [...patterns].sort(() => Math.random() - 0.5)
+        shuffledPatterns.forEach((p) => {
+          const btn = document.createElement('button')
+          btn.className = 'btn'
+          btn.style.fontSize = '2em'
+          btn.style.padding = '15px 30px'
+          btn.textContent = p
+          btn.onclick = () =>
+            checkSpatialAnswer(p, targetPattern, missingCells.length * 50)
+          options.appendChild(btn)
+        })
 
-            container.appendChild(options);
+        container.appendChild(options)
 
-            window.hypercubeRotation = { x: -25, y: 45 };
-            updateHypercube();
+        window.hypercubeRotation = { x: -25, y: 45 }
+        updateHypercube()
 
-            document.getElementById('gameInstructions').innerHTML =
-                `Identify the dominant pattern. The cube contains <strong>${missingCells.length} missing cells</strong> filled with the target pattern. Select the correct symbol.`;
+        document.getElementById('gameInstructions').innerHTML =
+          `Identify the dominant pattern. The cube contains <strong>${missingCells.length} missing cells</strong> filled with the target pattern. Select the correct symbol.`
+      }
+
+      window.hypercubeRotation = { x: -25, y: 45 }
+
+      function rotateHypercube(dx, dy) {
+        window.hypercubeRotation.x += dx
+        window.hypercubeRotation.y += dy
+        updateHypercube()
+      }
+
+      function updateHypercube() {
+        const cube = document.getElementById('hypercube')
+        if (cube) {
+          cube.style.transform = `rotateX(${window.hypercubeRotation.x}deg) rotateY(${window.hypercubeRotation.y}deg)`
         }
+      }
 
-        window.hypercubeRotation = { x: -25, y: 45 };
-
-        function rotateHypercube(dx, dy) {
-            window.hypercubeRotation.x += dx;
-            window.hypercubeRotation.y += dy;
-            updateHypercube();
+      function checkSpatialAnswer(selected, target, maxScore) {
+        if (selected === target) {
+          // Calculate score based on rotation inspection time could be added here
+          completeDimension(maxScore)
+        } else {
+          // Wrong answer - shake effect
+          const cube = document.getElementById('hypercube')
+          cube.style.animation = 'shake 0.5s'
+          setTimeout(() => (cube.style.animation = ''), 500)
         }
+      }
 
-        function updateHypercube() {
-            const cube = document.getElementById('hypercube');
-            if (cube) {
-                cube.style.transform = `rotateX(${window.hypercubeRotation.x}deg) rotateY(${window.hypercubeRotation.y}deg)`;
-            }
-        }
+      // Dimension 2: Enhanced Memory Matrix
+      function loadMemoryTest(container) {
+        const gridSize = 24 // 6x4 grid
+        const patternDuration = 4000 // 4 seconds to memorize
+        const decayRate = 50 // Cells disappear gradually
 
-        function checkSpatialAnswer(selected, target, maxScore) {
-            if (selected === target) {
-                // Calculate score based on rotation inspection time could be added here
-                completeDimension(maxScore);
-            } else {
-                // Wrong answer - shake effect
-                const cube = document.getElementById('hypercube');
-                cube.style.animation = 'shake 0.5s';
-                setTimeout(() => cube.style.animation = '', 500);
-            }
-        }
-
-        // Dimension 2: Enhanced Memory Matrix
-        function loadMemoryTest(container) {
-            const gridSize = 24; // 6x4 grid
-            const patternDuration = 4000; // 4 seconds to memorize
-            const decayRate = 50; // Cells disappear gradually
-
-            container.innerHTML = `
+        container.innerHTML = `
                 <div style="text-align: center; margin-bottom: 30px;">
                     <div style="font-size: 1.2em; color: var(--secondary); margin-bottom: 10px;">Memorize the pattern</div>
                     <div style="font-size: 3em; color: #fff; font-weight: bold;" id="memoryTimer">4.0s</div>
                 </div>
-            `;
+            `
 
-            const matrix = document.createElement('div');
-            matrix.className = 'memory-matrix';
+        const matrix = document.createElement('div')
+        matrix.className = 'memory-matrix'
 
-            const pattern = [];
-            const userPattern = new Array(gridSize).fill(false);
+        const pattern = []
+        const userPattern = new Array(gridSize).fill(false)
 
-            // Generate pattern (40% of cells)
-            for (let i = 0; i < gridSize; i++) {
-                pattern.push(Math.random() < 0.4);
-            }
-
-            // Create cells
-            const cells = [];
-            for (let i = 0; i < gridSize; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'memory-node';
-                cell.dataset.index = i;
-                if (pattern[i]) cell.classList.add('pattern');
-                matrix.appendChild(cell);
-                cells.push(cell);
-            }
-
-            container.appendChild(matrix);
-
-            // Countdown with decay
-            let timeLeft = patternDuration;
-            const timerInterval = setInterval(() => {
-                timeLeft -= 100;
-                document.getElementById('memoryTimer').textContent = (timeLeft / 1000).toFixed(1) + 's';
-
-                // Random decay
-                cells.forEach((cell, idx) => {
-                    if (pattern[idx] && !cell.classList.contains('selected') && Math.random() < 0.02) {
-                        cell.classList.remove('pattern');
-                    }
-                });
-
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    startMemoryInput(cells, pattern, userPattern);
-                }
-            }, 100);
-
-            document.getElementById('gameInstructions').innerHTML =
-                `Pattern will fade gradually. Reconstruct it from memory. <strong>Accuracy bonus available.</strong>`;
+        // Generate pattern (40% of cells)
+        for (let i = 0; i < gridSize; i++) {
+          pattern.push(Math.random() < 0.4)
         }
 
-        function startMemoryInput(cells, pattern, userPattern) {
-            document.getElementById('memoryTimer').parentElement.innerHTML =
-                '<div style="font-size: 1.5em; color: var(--tertiary);">Reconstruct the pattern</div>';
-
-            cells.forEach((cell, idx) => {
-                cell.classList.remove('pattern');
-                cell.onclick = () => {
-                    userPattern[idx] = !userPattern[idx];
-                    cell.classList.toggle('selected');
-
-                    // Check if complete
-                    const isComplete = userPattern.every((v, i) => v === pattern[i]);
-                    if (isComplete) {
-                        const accuracy = userPattern.filter((v, i) => v === pattern[i]).length / pattern.length;
-                        const score = Math.floor(accuracy * 150);
-                        completeDimension(score);
-                    }
-                };
-            });
-
-            // Auto-check after delay
-            setTimeout(() => {
-                const correct = userPattern.filter((v, i) => v === pattern[i]).length;
-                const accuracy = correct / pattern.length;
-                if (accuracy >= 0.8) {
-                    completeDimension(Math.floor(accuracy * 120));
-                } else {
-                    // Fail - restart dimension with new pattern
-                    loadMemoryTest(document.getElementById('gameStage'));
-                }
-            }, 15000);
+        // Create cells
+        const cells = []
+        for (let i = 0; i < gridSize; i++) {
+          const cell = document.createElement('div')
+          cell.className = 'memory-node'
+          cell.dataset.index = i
+          if (pattern[i]) cell.classList.add('pattern')
+          matrix.appendChild(cell)
+          cells.push(cell)
         }
 
-        // Dimension 3: Stroop with Rule Switching
-        function loadFlexibilityTest(container) {
-            const colors = [
-                { name: 'RED', hex: '#ff0000', id: 'red' },
-                { name: 'BLUE', hex: '#0000ff', id: 'blue' },
-                { name: 'GREEN', hex: '#00ff00', id: 'green' },
-                { name: 'YELLOW', hex: '#ffff00', id: 'yellow' },
-                { name: 'PURPLE', hex: '#ff00ff', id: 'purple' }
-            ];
+        container.appendChild(matrix)
 
-            let round = 0;
-            let correct = 0;
-            let currentRule = 'color'; // 'color' or 'word'
-            let streak = 0;
+        // Countdown with decay
+        let timeLeft = patternDuration
+        const timerInterval = setInterval(() => {
+          timeLeft -= 100
+          document.getElementById('memoryTimer').textContent =
+            (timeLeft / 1000).toFixed(1) + 's'
 
-            const arena = document.createElement('div');
-            arena.className = 'strope-arena';
+          // Random decay
+          cells.forEach((cell, idx) => {
+            if (
+              pattern[idx] &&
+              !cell.classList.contains('selected') &&
+              Math.random() < 0.02
+            ) {
+              cell.classList.remove('pattern')
+            }
+          })
 
-            arena.innerHTML = `
+          if (timeLeft <= 0) {
+            clearInterval(timerInterval)
+            startMemoryInput(cells, pattern, userPattern)
+          }
+        }, 100)
+
+        document.getElementById('gameInstructions').innerHTML =
+          `Pattern will fade gradually. Reconstruct it from memory. <strong>Accuracy bonus available.</strong>`
+      }
+
+      function startMemoryInput(cells, pattern, userPattern) {
+        document.getElementById('memoryTimer').parentElement.innerHTML =
+          '<div style="font-size: 1.5em; color: var(--tertiary);">Reconstruct the pattern</div>'
+
+        cells.forEach((cell, idx) => {
+          cell.classList.remove('pattern')
+          cell.onclick = () => {
+            userPattern[idx] = !userPattern[idx]
+            cell.classList.toggle('selected')
+
+            // Check if complete
+            const isComplete = userPattern.every((v, i) => v === pattern[i])
+            if (isComplete) {
+              const accuracy =
+                userPattern.filter((v, i) => v === pattern[i]).length /
+                pattern.length
+              const score = Math.floor(accuracy * 150)
+              completeDimension(score)
+            }
+          }
+        })
+
+        // Auto-check after delay
+        setTimeout(() => {
+          const correct = userPattern.filter((v, i) => v === pattern[i]).length
+          const accuracy = correct / pattern.length
+          if (accuracy >= 0.8) {
+            completeDimension(Math.floor(accuracy * 120))
+          } else {
+            // Fail - restart dimension with new pattern
+            loadMemoryTest(document.getElementById('gameStage'))
+          }
+        }, 15000)
+      }
+
+      // Dimension 3: Stroop with Rule Switching
+      function loadFlexibilityTest(container) {
+        const colors = [
+          { name: 'RED', hex: '#ff0000', id: 'red' },
+          { name: 'BLUE', hex: '#0000ff', id: 'blue' },
+          { name: 'GREEN', hex: '#00ff00', id: 'green' },
+          { name: 'YELLOW', hex: '#ffff00', id: 'yellow' },
+          { name: 'PURPLE', hex: '#ff00ff', id: 'purple' },
+        ]
+
+        let round = 0
+        let correct = 0
+        let currentRule = 'color' // 'color' or 'word'
+        let streak = 0
+
+        const arena = document.createElement('div')
+        arena.className = 'strope-arena'
+
+        arena.innerHTML = `
                 <div class="rule-indicator" id="ruleIndicator" style="border-color: var(--tertiary); color: var(--tertiary);">
                     Current Rule: Match the <strong>COLOR</strong> of the text
                 </div>
@@ -1552,128 +1876,131 @@
                     Round: <span id="roundNum" style="color: var(--primary); font-weight: bold;">1</span>/10 |
                     Streak: <span id="streakCount" style="color: var(--tertiary); font-weight: bold;">0</span>
                 </div>
-            `;
+            `
 
-            container.appendChild(arena);
+        container.appendChild(arena)
 
-            function nextRound() {
-                if (round >= 10) {
-                    const score = correct * 15 + streak * 5;
-                    completeDimension(Math.min(150, score));
-                    return;
-                }
+        function nextRound() {
+          if (round >= 10) {
+            const score = correct * 15 + streak * 5
+            completeDimension(Math.min(150, score))
+            return
+          }
 
-                round++;
-                document.getElementById('roundNum').textContent = round;
+          round++
+          document.getElementById('roundNum').textContent = round
 
-                // Switch rules every 3 rounds
-                if (round % 3 === 1 && round > 1) {
-                    currentRule = currentRule === 'color' ? 'word' : 'color';
-                    const ruleText = currentRule === 'color' ? 'COLOR' : 'WORD';
-                    const indicator = document.getElementById('ruleIndicator');
-                    indicator.innerHTML = `Current Rule: Match the <strong>${ruleText}</strong> of the text`;
-                    indicator.style.animation = 'pulse 1s';
-                    setTimeout(() => indicator.style.animation = '', 1000);
-                }
+          // Switch rules every 3 rounds
+          if (round % 3 === 1 && round > 1) {
+            currentRule = currentRule === 'color' ? 'word' : 'color'
+            const ruleText = currentRule === 'color' ? 'COLOR' : 'WORD'
+            const indicator = document.getElementById('ruleIndicator')
+            indicator.innerHTML = `Current Rule: Match the <strong>${ruleText}</strong> of the text`
+            indicator.style.animation = 'pulse 1s'
+            setTimeout(() => (indicator.style.animation = ''), 1000)
+          }
 
-                const wordColor = colors[Math.floor(Math.random() * colors.length)];
-                const fontColor = colors[Math.floor(Math.random() * colors.length)];
+          const wordColor = colors[Math.floor(Math.random() * colors.length)]
+          const fontColor = colors[Math.floor(Math.random() * colors.length)]
 
-                const word = document.getElementById('stropeWord');
-                word.textContent = wordColor.name;
-                word.style.color = fontColor.hex;
-                word.style.textShadow = `0 0 40px ${fontColor.hex}`;
+          const word = document.getElementById('stropeWord')
+          word.textContent = wordColor.name
+          word.style.color = fontColor.hex
+          word.style.textShadow = `0 0 40px ${fontColor.hex}`
 
-                // Create color buttons
-                const palette = document.getElementById('colorPalette');
-                palette.innerHTML = '';
+          // Create color buttons
+          const palette = document.getElementById('colorPalette')
+          palette.innerHTML = ''
 
-                colors.forEach(c => {
-                    const orb = document.createElement('div');
-                    orb.className = 'color-orb';
-                    orb.style.background = c.hex;
-                    orb.onclick = () => {
-                        const isCorrect = currentRule === 'color' ? c.id === fontColor.id : c.id === wordColor.id;
+          colors.forEach((c) => {
+            const orb = document.createElement('div')
+            orb.className = 'color-orb'
+            orb.style.background = c.hex
+            orb.onclick = () => {
+              const isCorrect =
+                currentRule === 'color'
+                  ? c.id === fontColor.id
+                  : c.id === wordColor.id
 
-                        if (isCorrect) {
-                            correct++;
-                            streak++;
-                            word.style.transform = 'scale(1.3)';
-                            word.style.color = '#00ff00';
-                            setTimeout(() => {
-                                word.style.transform = 'scale(1)';
-                                nextRound();
-                            }, 300);
-                        } else {
-                            streak = 0;
-                            word.style.transform = 'translateX(-20px)';
-                            word.style.color = '#ff0000';
-                            setTimeout(() => {
-                                word.style.transform = 'translateX(0)';
-                                word.style.color = fontColor.hex;
-                            }, 300);
-                        }
-                        document.getElementById('streakCount').textContent = streak;
-                    };
-                    palette.appendChild(orb);
-                });
+              if (isCorrect) {
+                correct++
+                streak++
+                word.style.transform = 'scale(1.3)'
+                word.style.color = '#00ff00'
+                setTimeout(() => {
+                  word.style.transform = 'scale(1)'
+                  nextRound()
+                }, 300)
+              } else {
+                streak = 0
+                word.style.transform = 'translateX(-20px)'
+                word.style.color = '#ff0000'
+                setTimeout(() => {
+                  word.style.transform = 'translateX(0)'
+                  word.style.color = fontColor.hex
+                }, 300)
+              }
+              document.getElementById('streakCount').textContent = streak
             }
-
-            setTimeout(nextRound, 1000);
-
-            document.getElementById('gameInstructions').innerHTML =
-                `Click the color that matches the <strong>current rule</strong>. Rules change every 3 rounds! Build streaks for bonus points.`;
+            palette.appendChild(orb)
+          })
         }
 
-        // Dimension 4: Speed Processing
-        function loadSpeedTest(container) {
-            const challenges = [];
-            const results = [];
-            let current = 0;
+        setTimeout(nextRound, 1000)
 
-            // Generate 5 challenges
-            for (let i = 0; i < 5; i++) {
-                const type = Math.floor(Math.random() * 3);
-                let challenge = {};
+        document.getElementById('gameInstructions').innerHTML =
+          `Click the color that matches the <strong>current rule</strong>. Rules change every 3 rounds! Build streaks for bonus points.`
+      }
 
-                if (type === 0) {
-                    // Fibonacci-like
-                    const a = Math.floor(Math.random() * 10) + 5;
-                    const b = Math.floor(Math.random() * 10) + 5;
-                    challenge = {
-                        type: 'sequence',
-                        display: `${a} → ${b} → ${a+b} → ${b+(a+b)} → ?`,
-                        answer: (a+b) + (b+(a+b)),
-                        time: 8000 - (i * 1000) // Gets faster
-                    };
-                } else if (type === 1) {
-                    // Geometric
-                    const r = Math.floor(Math.random() * 3) + 2;
-                    challenge = {
-                        type: 'geo',
-                        display: `${r} × ${r} = ${r*r} | ${r*r} × ${r} = ?`,
-                        answer: r * r * r,
-                        time: 8000 - (i * 1000)
-                    };
-                } else {
-                    // Pattern recognition
-                    const base = Math.floor(Math.random() * 50) + 10;
-                    challenge = {
-                        type: 'pattern',
-                        display: `${base} + ${base+2} + ${base+4} = ?`,
-                        answer: base + (base+2) + (base+4),
-                        time: 8000 - (i * 1000)
-                    };
-                }
-                challenges.push(challenge);
+      // Dimension 4: Speed Processing
+      function loadSpeedTest(container) {
+        const challenges = []
+        const results = []
+        let current = 0
+
+        // Generate 5 challenges
+        for (let i = 0; i < 5; i++) {
+          const type = Math.floor(Math.random() * 3)
+          let challenge = {}
+
+          if (type === 0) {
+            // Fibonacci-like
+            const a = Math.floor(Math.random() * 10) + 5
+            const b = Math.floor(Math.random() * 10) + 5
+            challenge = {
+              type: 'sequence',
+              display: `${a} → ${b} → ${a + b} → ${b + (a + b)} → ?`,
+              answer: a + b + (b + (a + b)),
+              time: 8000 - i * 1000, // Gets faster
             }
+          } else if (type === 1) {
+            // Geometric
+            const r = Math.floor(Math.random() * 3) + 2
+            challenge = {
+              type: 'geo',
+              display: `${r} × ${r} = ${r * r} | ${r * r} × ${r} = ?`,
+              answer: r * r * r,
+              time: 8000 - i * 1000,
+            }
+          } else {
+            // Pattern recognition
+            const base = Math.floor(Math.random() * 50) + 10
+            challenge = {
+              type: 'pattern',
+              display: `${base} + ${base + 2} + ${base + 4} = ?`,
+              answer: base + (base + 2) + (base + 4),
+              time: 8000 - i * 1000,
+            }
+          }
+          challenges.push(challenge)
+        }
 
-            const arena = document.createElement('div');
-            arena.className = 'math-challenge';
+        const arena = document.createElement('div')
+        arena.className = 'math-challenge'
 
-            arena.innerHTML = `
+        arena.innerHTML = `
                 <div class="sequence-tracker" id="seqTracker">
-                    ${challenges.map((_, i) => `<div class="sequence-dot" id="dot${i}">${i+1}</div>`).join('')}
+                    ${challenges.map((_, i) => `<div class="sequence-dot" id="dot${i}">${i + 1}</div>`).join('')}
                 </div>
                 <div class="math-display" id="mathDisplay">Prepare...</div>
                 <div class="math-input-group">
@@ -1681,105 +2008,123 @@
                     <button class="btn" onclick="checkSpeedAnswer()">Submit</button>
                 </div>
                 <div style="margin-top: 20px; color: #8892b0;" id="speedTimer">Next in: --</div>
-            `;
+            `
 
-            container.appendChild(arena);
+        container.appendChild(arena)
 
-            window.currentSpeedChallenge = challenges[0];
-            window.speedResults = [];
-            window.currentSpeedIndex = 0;
+        window.currentSpeedChallenge = challenges[0]
+        window.speedResults = []
+        window.currentSpeedIndex = 0
 
-            setTimeout(() => showSpeedChallenge(0), 1500);
+        setTimeout(() => showSpeedChallenge(0), 1500)
 
-            document.getElementById('gameInstructions').innerHTML =
-                `Solve <strong>5 sequential challenges</strong>. Time decreases with each correct answer. Wrong answers deduct time.`;
+        document.getElementById('gameInstructions').innerHTML =
+          `Solve <strong>5 sequential challenges</strong>. Time decreases with each correct answer. Wrong answers deduct time.`
+      }
+
+      function showSpeedChallenge(idx) {
+        if (idx >= 5) {
+          const totalScore = window.speedResults.reduce((a, b) => a + b, 0)
+          completeDimension(totalScore)
+          return
         }
 
-        function showSpeedChallenge(idx) {
-            if (idx >= 5) {
-                const totalScore = window.speedResults.reduce((a, b) => a + b, 0);
-                completeDimension(totalScore);
-                return;
-            }
-
-            window.currentSpeedIndex = idx;
-            window.currentSpeedChallenge = {
-                ...window.challenges?.[idx] || {},
-                display: document.getElementById('mathDisplay').textContent
-            };
-
-            const challenge = {
-                display: [
-                    `${Math.floor(Math.random()*20)+10} → ${Math.floor(Math.random()*20)+10}`,
-                    `${Math.floor(Math.random()*5)+2}³ = ?`,
-                    `${Math.floor(Math.random()*30)+10} + ${Math.floor(Math.random()*30)+10}`
-                ][Math.floor(Math.random()*3)]
-            };
-
-            // Actually set the display
-            const displays = [
-                (() => { const a=Math.floor(Math.random()*15)+5, b=Math.floor(Math.random()*15)+5; window.speedAnswer=a+b; return `${a} + ${b} = ?`; })(),
-                (() => { const n=Math.floor(Math.random()*5)+2; window.speedAnswer=n*n; return `${n}² = ?`; })(),
-                (() => { const a=Math.floor(Math.random()*10)+1, d=Math.floor(Math.random()*5)+2; window.speedAnswer=a+(a+d)+(a+2*d); return `${a}, ${a+d}, ${a+2*d}, ?`; })()
-            ];
-
-            const selected = displays[Math.floor(Math.random() * displays.length)];
-            document.getElementById('mathDisplay').textContent = selected;
-
-            let timeLeft = Math.max(3000, 8000 - (idx * 1200));
-            document.getElementById('speedTimer').textContent = `Time: ${(timeLeft/1000).toFixed(1)}s`;
-
-            const input = document.getElementById('mathInput');
-            input.value = '';
-            input.focus();
-
-            window.speedTimeLeft = timeLeft;
-            window.speedTimerInterval = setInterval(() => {
-                window.speedTimeLeft -= 100;
-                document.getElementById('speedTimer').textContent = `Time: ${(window.speedTimeLeft/1000).toFixed(1)}s`;
-
-                if (window.speedTimeLeft <= 0) {
-                    clearInterval(window.speedTimerInterval);
-                    window.speedResults.push(0);
-                    document.getElementById(`dot${idx}`).style.borderColor = '#ff0000';
-                    showSpeedChallenge(idx + 1);
-                }
-            }, 100);
-
-            // Store check function globally
-            window.checkSpeedAnswer = () => {
-                const input = document.getElementById('mathInput');
-                const val = parseInt(input.value);
-                clearInterval(window.speedTimerInterval);
-
-                if (val === window.speedAnswer) {
-                    const bonus = Math.floor(window.speedTimeLeft / 1000) * 10;
-                    const points = 30 + bonus;
-                    window.speedResults.push(points);
-                    document.getElementById(`dot${idx}`).classList.add('correct');
-                } else {
-                    window.speedResults.push(10); // Partial credit
-                    document.getElementById(`dot${idx}`).style.borderColor = '#ffaa00';
-                }
-
-                showSpeedChallenge(idx + 1);
-            };
-
-            input.onkeypress = (e) => { if (e.key === 'Enter') window.checkSpeedAnswer(); };
+        window.currentSpeedIndex = idx
+        window.currentSpeedChallenge = {
+          ...(window.challenges?.[idx] || {}),
+          display: document.getElementById('mathDisplay').textContent,
         }
 
-        // Dimension 5: Fluid Intelligence (Multi-tasking)
-        function loadFluidTest(container) {
-            let score = 0;
-            let timeLeft = 45;
-            let targetsClicked = 0;
-            let mathSolved = 0;
+        const challenge = {
+          display: [
+            `${Math.floor(Math.random() * 20) + 10} → ${Math.floor(Math.random() * 20) + 10}`,
+            `${Math.floor(Math.random() * 5) + 2}³ = ?`,
+            `${Math.floor(Math.random() * 30) + 10} + ${Math.floor(Math.random() * 30) + 10}`,
+          ][Math.floor(Math.random() * 3)],
+        }
 
-            const grid = document.createElement('div');
-            grid.className = 'multitask-grid';
+        // Actually set the display
+        const displays = [
+          (() => {
+            const a = Math.floor(Math.random() * 15) + 5,
+              b = Math.floor(Math.random() * 15) + 5
+            window.speedAnswer = a + b
+            return `${a} + ${b} = ?`
+          })(),
+          (() => {
+            const n = Math.floor(Math.random() * 5) + 2
+            window.speedAnswer = n * n
+            return `${n}² = ?`
+          })(),
+          (() => {
+            const a = Math.floor(Math.random() * 10) + 1,
+              d = Math.floor(Math.random() * 5) + 2
+            window.speedAnswer = a + (a + d) + (a + 2 * d)
+            return `${a}, ${a + d}, ${a + 2 * d}, ?`
+          })(),
+        ]
 
-            // Task 1: Target Tracking
-            grid.innerHTML = `
+        const selected = displays[Math.floor(Math.random() * displays.length)]
+        document.getElementById('mathDisplay').textContent = selected
+
+        let timeLeft = Math.max(3000, 8000 - idx * 1200)
+        document.getElementById('speedTimer').textContent =
+          `Time: ${(timeLeft / 1000).toFixed(1)}s`
+
+        const input = document.getElementById('mathInput')
+        input.value = ''
+        input.focus()
+
+        window.speedTimeLeft = timeLeft
+        window.speedTimerInterval = setInterval(() => {
+          window.speedTimeLeft -= 100
+          document.getElementById('speedTimer').textContent =
+            `Time: ${(window.speedTimeLeft / 1000).toFixed(1)}s`
+
+          if (window.speedTimeLeft <= 0) {
+            clearInterval(window.speedTimerInterval)
+            window.speedResults.push(0)
+            document.getElementById(`dot${idx}`).style.borderColor = '#ff0000'
+            showSpeedChallenge(idx + 1)
+          }
+        }, 100)
+
+        // Store check function globally
+        window.checkSpeedAnswer = () => {
+          const input = document.getElementById('mathInput')
+          const val = parseInt(input.value)
+          clearInterval(window.speedTimerInterval)
+
+          if (val === window.speedAnswer) {
+            const bonus = Math.floor(window.speedTimeLeft / 1000) * 10
+            const points = 30 + bonus
+            window.speedResults.push(points)
+            document.getElementById(`dot${idx}`).classList.add('correct')
+          } else {
+            window.speedResults.push(10) // Partial credit
+            document.getElementById(`dot${idx}`).style.borderColor = '#ffaa00'
+          }
+
+          showSpeedChallenge(idx + 1)
+        }
+
+        input.onkeypress = (e) => {
+          if (e.key === 'Enter') window.checkSpeedAnswer()
+        }
+      }
+
+      // Dimension 5: Fluid Intelligence (Multi-tasking)
+      function loadFluidTest(container) {
+        let score = 0
+        let timeLeft = 45
+        let targetsClicked = 0
+        let mathSolved = 0
+
+        const grid = document.createElement('div')
+        grid.className = 'multitask-grid'
+
+        // Task 1: Target Tracking
+        grid.innerHTML = `
                 <div class="task-module">
                     <div class="task-title">⚡ Target Acquisition</div>
                     <div class="tracking-field" id="trackField">
@@ -1794,253 +2139,334 @@
                     <button class="btn" style="margin-top: 15px;" onclick="checkFluidMath()">Solve</button>
                     <div style="margin-top: 15px; color: #8892b0;">Solved: <span id="solveCount" style="color: var(--secondary); font-weight: bold;">0</span></div>
                 </div>
-            `;
+            `
 
-            container.appendChild(grid);
+        container.appendChild(grid)
 
-            // Moving target
-            const field = document.getElementById('trackField');
-            const target = document.getElementById('moveTarget');
-            let x = 50, y = 50, vx = 3, vy = 3;
+        // Moving target
+        const field = document.getElementById('trackField')
+        const target = document.getElementById('moveTarget')
+        let x = 50,
+          y = 50,
+          vx = 3,
+          vy = 3
 
-            function moveTarget() {
-                x += vx;
-                y += vy;
-                if (x <= 0 || x >= 210) vx *= -1;
-                if (y <= 0 || y >= 210) vy *= -1;
-                target.style.left = x + 'px';
-                target.style.top = y + 'px';
-            }
-
-            window.fluidTargetInterval = setInterval(moveTarget, 50);
-
-            target.onclick = () => {
-                targetsClicked++;
-                document.getElementById('clickCount').textContent = targetsClicked;
-                score += 5;
-                vx *= 1.1;
-                vy *= 1.1;
-                x = Math.random() * 200;
-                y = Math.random() * 200;
-            };
-
-            // Math problems
-            let currentMath = 0;
-            function newMath() {
-                const ops = ['+', '-', '*'];
-                const op = ops[Math.floor(Math.random() * 3)];
-                const a = Math.floor(Math.random() * 20) + 5;
-                const b = Math.floor(Math.random() * 10) + 2;
-
-                let text = `${a} ${op} ${b} = ?`;
-                if (op === '+') currentMath = a + b;
-                else if (op === '-') currentMath = a - b;
-                else currentMath = a * b;
-
-                document.getElementById('miniMath').textContent = text;
-                document.getElementById('miniInput').value = '';
-            }
-            newMath();
-
-            window.checkFluidMath = () => {
-                const val = parseInt(document.getElementById('miniInput').value);
-                if (val === currentMath) {
-                    mathSolved++;
-                    document.getElementById('solveCount').textContent = mathSolved;
-                    score += 15;
-                    newMath();
-                } else {
-                    document.getElementById('miniInput').style.borderColor = 'red';
-                    setTimeout(() => document.getElementById('miniInput').style.borderColor = 'var(--secondary)', 500);
-                }
-            };
-
-            document.getElementById('miniInput').onkeypress = (e) => {
-                if (e.key === 'Enter') window.checkFluidMath();
-            };
-
-            // Global timer
-            window.fluidTimer = setInterval(() => {
-                timeLeft--;
-                document.getElementById('gameProgress').style.width = ((45-timeLeft)/45*100) + '%';
-
-                if (timeLeft <= 0) {
-                    clearInterval(window.fluidTargetInterval);
-                    clearInterval(window.fluidTimer);
-                    completeDimension(Math.min(200, score + targetsClicked * 5 + mathSolved * 15));
-                }
-            }, 1000);
-
-            document.getElementById('gameInstructions').innerHTML =
-                `Multiple systems active! Click moving targets <strong>AND</strong> solve math problems simultaneously. 45 seconds.`;
+        function moveTarget() {
+          x += vx
+          y += vy
+          if (x <= 0 || x >= 210) vx *= -1
+          if (y <= 0 || y >= 210) vy *= -1
+          target.style.left = x + 'px'
+          target.style.top = y + 'px'
         }
 
-        function completeDimension(score) {
-            // Clear any intervals
-            if (window.speedTimerInterval) clearInterval(window.speedTimerInterval);
-            if (window.fluidTargetInterval) clearInterval(window.fluidTargetInterval);
-            if (window.fluidTimer) clearInterval(window.fluidTimer);
+        window.fluidTargetInterval = setInterval(moveTarget, 50)
 
-            GameState.dimensionScores.push(score);
+        target.onclick = () => {
+          targetsClicked++
+          document.getElementById('clickCount').textContent = targetsClicked
+          score += 5
+          vx *= 1.1
+          vy *= 1.1
+          x = Math.random() * 200
+          y = Math.random() * 200
+        }
 
-            if (GameState.currentDimension < 5) {
-                // Show transition
-                const stage = document.getElementById('gameStage');
-                stage.innerHTML = `
+        // Math problems
+        let currentMath = 0
+        function newMath() {
+          const ops = ['+', '-', '*']
+          const op = ops[Math.floor(Math.random() * 3)]
+          const a = Math.floor(Math.random() * 20) + 5
+          const b = Math.floor(Math.random() * 10) + 2
+
+          let text = `${a} ${op} ${b} = ?`
+          if (op === '+') currentMath = a + b
+          else if (op === '-') currentMath = a - b
+          else currentMath = a * b
+
+          document.getElementById('miniMath').textContent = text
+          document.getElementById('miniInput').value = ''
+        }
+        newMath()
+
+        window.checkFluidMath = () => {
+          const val = parseInt(document.getElementById('miniInput').value)
+          if (val === currentMath) {
+            mathSolved++
+            document.getElementById('solveCount').textContent = mathSolved
+            score += 15
+            newMath()
+          } else {
+            document.getElementById('miniInput').style.borderColor = 'red'
+            setTimeout(
+              () =>
+                (document.getElementById('miniInput').style.borderColor =
+                  'var(--secondary)'),
+              500
+            )
+          }
+        }
+
+        document.getElementById('miniInput').onkeypress = (e) => {
+          if (e.key === 'Enter') window.checkFluidMath()
+        }
+
+        // Global timer
+        window.fluidTimer = setInterval(() => {
+          timeLeft--
+          document.getElementById('gameProgress').style.width =
+            ((45 - timeLeft) / 45) * 100 + '%'
+
+          if (timeLeft <= 0) {
+            clearInterval(window.fluidTargetInterval)
+            clearInterval(window.fluidTimer)
+            completeDimension(
+              Math.min(200, score + targetsClicked * 5 + mathSolved * 15)
+            )
+          }
+        }, 1000)
+
+        document.getElementById('gameInstructions').innerHTML =
+          `Multiple systems active! Click moving targets <strong>AND</strong> solve math problems simultaneously. 45 seconds.`
+      }
+
+      function completeDimension(score) {
+        // Clear any intervals
+        if (window.speedTimerInterval) clearInterval(window.speedTimerInterval)
+        if (window.fluidTargetInterval)
+          clearInterval(window.fluidTargetInterval)
+        if (window.fluidTimer) clearInterval(window.fluidTimer)
+
+        GameState.dimensionScores.push(score)
+
+        if (GameState.currentDimension < 5) {
+          // Show transition
+          const stage = document.getElementById('gameStage')
+          stage.innerHTML = `
                     <div style="text-align: center; animation: glow 1s;">
                         <div style="font-size: 5em; margin-bottom: 20px;">✓</div>
                         <div style="font-size: 2em; color: var(--success); margin-bottom: 10px;">Dimension Complete</div>
                         <div style="font-size: 1.5em; color: #8892b0;">Score: ${score}</div>
                         <div style="margin-top: 30px; color: #555;">Next dimension loading...</div>
                     </div>
-                `;
-                setTimeout(() => loadDimension(GameState.currentDimension + 1), 2000);
-            } else {
-                showAttemptResults();
-            }
+                `
+          setTimeout(() => loadDimension(GameState.currentDimension + 1), 2000)
+        } else {
+          showAttemptResults()
         }
+      }
 
-        function showAttemptResults() {
-            document.getElementById('gameScreen').classList.add('hidden');
-            document.getElementById('resultScreen').classList.remove('hidden');
+      function showAttemptResults() {
+        document.getElementById('gameScreen').classList.add('hidden')
+        document.getElementById('resultScreen').classList.remove('hidden')
 
-            const totalRaw = GameState.dimensionScores.reduce((a, b) => a + b, 0);
-            const cq = Math.floor(85 + (totalRaw / 650) * 60); // Scale to 85-145 range
+        const totalRaw = GameState.dimensionScores.reduce((a, b) => a + b, 0)
+        const cq = Math.floor(85 + (totalRaw / 650) * 60) // Scale to 85-145 range
 
-            GameState.addAttempt(GameState.dimensionScores, cq);
+        GameState.addAttempt(GameState.dimensionScores, cq)
 
-            // Animate number
-            let displayCQ = 0;
-            const interval = setInterval(() => {
-                displayCQ += 2;
-                document.getElementById('resultCQ').textContent = displayCQ;
-                if (displayCQ >= cq) {
-                    clearInterval(interval);
-                    document.getElementById('resultCQ').textContent = cq;
-                }
-            }, 20);
+        // Animate number
+        let displayCQ = 0
+        const interval = setInterval(() => {
+          displayCQ += 2
+          document.getElementById('resultCQ').textContent = displayCQ
+          if (displayCQ >= cq) {
+            clearInterval(interval)
+            document.getElementById('resultCQ').textContent = cq
+          }
+        }, 20)
 
-            // Determine archetype
-            const archetypes = [
-                { min: 0, max: 95, name: "Emergent Pattern", desc: "Your cognitive foundation shows potential. Neural pathways are establishing." },
-                { min: 96, max: 110, name: "Neural Scout", desc: "Balanced cognitive abilities. Standard pattern recognition and processing." },
-                { min: 111, max: 125, name: "Logic Weaver", desc: "Strong analytical capabilities. Enhanced pattern recognition detected." },
-                { min: 126, max: 135, name: "Quantum Mind", desc: "Exceptional cognitive flexibility. Top percentile processing speed." },
-                { min: 136, max: 145, name: "Singularity Class", desc: "Transcendent cognitive architecture. Multi-dimensional problem solving." },
-                { min: 146, max: 200, name: "Neural Architect", desc: "God-tier pattern synthesis. Your cognition operates at theoretical limits." }
-            ];
+        // Determine archetype
+        const archetypes = [
+          {
+            min: 0,
+            max: 95,
+            name: 'Emergent Pattern',
+            desc: 'Your cognitive foundation shows potential. Neural pathways are establishing.',
+          },
+          {
+            min: 96,
+            max: 110,
+            name: 'Neural Scout',
+            desc: 'Balanced cognitive abilities. Standard pattern recognition and processing.',
+          },
+          {
+            min: 111,
+            max: 125,
+            name: 'Logic Weaver',
+            desc: 'Strong analytical capabilities. Enhanced pattern recognition detected.',
+          },
+          {
+            min: 126,
+            max: 135,
+            name: 'Quantum Mind',
+            desc: 'Exceptional cognitive flexibility. Top percentile processing speed.',
+          },
+          {
+            min: 136,
+            max: 145,
+            name: 'Singularity Class',
+            desc: 'Transcendent cognitive architecture. Multi-dimensional problem solving.',
+          },
+          {
+            min: 146,
+            max: 200,
+            name: 'Neural Architect',
+            desc: 'God-tier pattern synthesis. Your cognition operates at theoretical limits.',
+          },
+        ]
 
-            const arch = archetypes.find(a => cq >= a.min && cq <= a.max) || archetypes[5];
-            document.getElementById('archetypeName').textContent = arch.name;
-            document.getElementById('archetypeDesc').textContent = arch.desc;
+        const arch =
+          archetypes.find((a) => cq >= a.min && cq <= a.max) || archetypes[5]
+        document.getElementById('archetypeName').textContent = arch.name
+        document.getElementById('archetypeDesc').textContent = arch.desc
 
-            // Dimension breakdown
-            const dimNames = ['Spatial', 'Memory', 'Flexibility', 'Speed', 'Fluid'];
-            const dimColors = ['#00f0ff', '#ff00aa', '#f0ff00', '#00ff88', '#ff3366'];
+        // Dimension breakdown
+        const dimNames = ['Spatial', 'Memory', 'Flexibility', 'Speed', 'Fluid']
+        const dimColors = [
+          '#00f0ff',
+          '#ff00aa',
+          '#f0ff00',
+          '#00ff88',
+          '#ff3366',
+        ]
 
-            document.getElementById('dimensionScores').innerHTML = GameState.dimensionScores.map((s, i) => `
+        document.getElementById('dimensionScores').innerHTML =
+          GameState.dimensionScores
+            .map(
+              (s, i) => `
                 <div class="result-card">
-                    <div class="result-icon" style="color: ${dimColors[i]}">${['🧩','🧠','🔄','⚡','🌐'][i]}</div>
+                    <div class="result-icon" style="color: ${dimColors[i]}">${['🧩', '🧠', '🔄', '⚡', '🌐'][i]}</div>
                     <div class="result-title">${dimNames[i]}</div>
                     <div class="result-score" style="color: ${dimColors[i]}">${s}/150</div>
                     <div style="margin-top: 10px; background: rgba(0,0,0,0.3); height: 10px; border-radius: 5px; overflow: hidden;">
-                        <div style="width: ${(s/150)*100}%; height: 100%; background: ${dimColors[i]}; transition: width 1s;"></div>
+                        <div style="width: ${(s / 150) * 100}%; height: 100%; background: ${dimColors[i]}; transition: width 1s;"></div>
                     </div>
                 </div>
-            `).join('');
+            `
+            )
+            .join('')
+      }
+
+      function shareResults() {
+        const cq = document.getElementById('resultCQ').textContent
+        const arch = document.getElementById('archetypeName').textContent
+        const text = `Neural Architect Assessment: ${cq} CQ - Classified as ${arch}. Test your cognitive abilities!`
+
+        if (navigator.share) {
+          navigator.share({ title: 'My Neural Architect Results', text: text })
+        } else {
+          navigator.clipboard.writeText(text)
+          alert('Results copied to clipboard!')
         }
+      }
 
-        function shareResults() {
-            const cq = document.getElementById('resultCQ').textContent;
-            const arch = document.getElementById('archetypeName').textContent;
-            const text = `Neural Architect Assessment: ${cq} CQ - Classified as ${arch}. Test your cognitive abilities!`;
+      function generateFinalReport() {
+        document.getElementById('dashboardScreen').classList.add('hidden')
+        document.getElementById('finalReportScreen').classList.remove('hidden')
 
-            if (navigator.share) {
-                navigator.share({ title: 'My Neural Architect Results', text: text });
-            } else {
-                navigator.clipboard.writeText(text);
-                alert('Results copied to clipboard!');
-            }
-        }
+        const attempts = GameState.attempts
+        const cqs = attempts.map((a) => a.totalCQ)
+        const avg = Math.round(cqs.reduce((a, b) => a + b, 0) / cqs.length)
 
-        function generateFinalReport() {
-            document.getElementById('dashboardScreen').classList.add('hidden');
-            document.getElementById('finalReportScreen').classList.remove('hidden');
-
-            const attempts = GameState.attempts;
-            const cqs = attempts.map(a => a.totalCQ);
-            const avg = Math.round(cqs.reduce((a,b) => a+b, 0) / cqs.length);
-
-            // Chart
-            const chart = document.getElementById('comparisonChart');
-            chart.innerHTML = attempts.map((a, i) => `
+        // Chart
+        const chart = document.getElementById('comparisonChart')
+        chart.innerHTML = attempts
+          .map(
+            (a, i) => `
                 <div style="display: flex; flex-direction: column; align-items: center;">
-                    <div class="chart-bar" style="height: ${(a.totalCQ/150)*250}px;" data-value="${a.totalCQ}"></div>
-                    <div class="chart-label">Attempt ${i+1}</div>
+                    <div class="chart-bar" style="height: ${(a.totalCQ / 150) * 250}px;" data-value="${a.totalCQ}"></div>
+                    <div class="chart-label">Attempt ${i + 1}</div>
                 </div>
-            `).join('');
+            `
+          )
+          .join('')
 
-            // Consistency analysis
-            const variance = Math.sqrt(cqs.reduce((sum, cq) => sum + Math.pow(cq - avg, 2), 0) / cqs.length);
-            let consistencyText = '';
-            if (variance < 5) consistencyText = 'Exceptional neural stability. Your cognitive performance is remarkably consistent across sessions.';
-            else if (variance < 10) consistencyText = 'Good cognitive reliability. Minor variations suggest adaptability to task difficulty.';
-            else consistencyText = 'High cognitive variability. You show significant potential for growth and state-dependent performance.';
+        // Consistency analysis
+        const variance = Math.sqrt(
+          cqs.reduce((sum, cq) => sum + Math.pow(cq - avg, 2), 0) / cqs.length
+        )
+        let consistencyText = ''
+        if (variance < 5)
+          consistencyText =
+            'Exceptional neural stability. Your cognitive performance is remarkably consistent across sessions.'
+        else if (variance < 10)
+          consistencyText =
+            'Good cognitive reliability. Minor variations suggest adaptability to task difficulty.'
+        else
+          consistencyText =
+            'High cognitive variability. You show significant potential for growth and state-dependent performance.'
 
-            document.getElementById('consistencyReport').textContent =
-                `Across 5 attempts, your average CQ is ${avg} with a variance of ${variance.toFixed(1)}. ${consistencyText}`;
+        document.getElementById('consistencyReport').textContent =
+          `Across 5 attempts, your average CQ is ${avg} with a variance of ${variance.toFixed(1)}. ${consistencyText}`
 
-            // Strengths
-            const dimTotals = [0,0,0,0,0];
-            attempts.forEach(a => {
-                a.scores.forEach((s, i) => dimTotals[i] += s);
-            });
-            const dimAvgs = dimTotals.map(t => t / attempts.length);
-            const maxDim = dimAvgs.indexOf(Math.max(...dimAvgs));
-            const strengths = ['Spatial Reasoning', 'Working Memory', 'Cognitive Flexibility', 'Processing Speed', 'Fluid Intelligence'];
+        // Strengths
+        const dimTotals = [0, 0, 0, 0, 0]
+        attempts.forEach((a) => {
+          a.scores.forEach((s, i) => (dimTotals[i] += s))
+        })
+        const dimAvgs = dimTotals.map((t) => t / attempts.length)
+        const maxDim = dimAvgs.indexOf(Math.max(...dimAvgs))
+        const strengths = [
+          'Spatial Reasoning',
+          'Working Memory',
+          'Cognitive Flexibility',
+          'Processing Speed',
+          'Fluid Intelligence',
+        ]
 
-            document.getElementById('strengthsList').innerHTML = `
+        document.getElementById('strengthsList').innerHTML = `
                 <div style="padding: 20px; background: rgba(0,240,255,0.1); border-radius: 15px; border-left: 4px solid var(--primary);">
                     <strong style="color: var(--primary);">Primary Strength: ${strengths[maxDim]}</strong><br>
                     Average score: ${Math.round(dimAvgs[maxDim])}/150
                 </div>
                 <div style="padding: 20px; background: rgba(255,255,255,0.05); border-radius: 15px;">
                     <strong>Secondary Profile:</strong><br>
-                    ${strengths.filter((_,i) => i !== maxDim).map((s,i) => `${s}: ${Math.round(dimAvgs[i])}`).join('<br>')}
+                    ${strengths
+                      .filter((_, i) => i !== maxDim)
+                      .map((s, i) => `${s}: ${Math.round(dimAvgs[i])}`)
+                      .join('<br>')}
                 </div>
-            `;
+            `
 
-            // Recommendations
-            const minDim = dimAvgs.indexOf(Math.min(...dimAvgs));
-            const recs = [
-                "Practice 3D rotation puzzles and mental mapping exercises.",
-                "Try dual n-back training and memory palace techniques.",
-                "Engage in task-switching exercises and Stroop variant games.",
-                "Work on rapid calculation and pattern recognition drills.",
-                "Solve logic puzzles and abstract reasoning problems."
-            ];
+        // Recommendations
+        const minDim = dimAvgs.indexOf(Math.min(...dimAvgs))
+        const recs = [
+          'Practice 3D rotation puzzles and mental mapping exercises.',
+          'Try dual n-back training and memory palace techniques.',
+          'Engage in task-switching exercises and Stroop variant games.',
+          'Work on rapid calculation and pattern recognition drills.',
+          'Solve logic puzzles and abstract reasoning problems.',
+        ]
 
-            document.getElementById('recommendationsList').innerHTML = `
+        document.getElementById('recommendationsList').innerHTML = `
                 <li><strong>Development Area:</strong> ${strengths[minDim]} - ${recs[minDim]}</li>
                 <li>Maintain consistent sleep schedule to optimize cognitive stability.</li>
                 <li>Practice mindfulness meditation to improve working memory capacity.</li>
                 <li>Engage in regular cardiovascular exercise to enhance processing speed.</li>
-            `;
-        }
+            `
+      }
 
-        function resetAll() {
-            if (confirm('Start a new assessment cycle? This will clear all 5 previous attempts.')) {
-                localStorage.removeItem('neuralArchitectData');
-                location.reload();
-            }
+      function resetAll() {
+        if (
+          confirm(
+            'Start a new assessment cycle? This will clear all 5 previous attempts.'
+          )
+        ) {
+          localStorage.removeItem('neuralArchitectData')
+          location.reload()
         }
+      }
 
-        // Prevent accidental navigation during test
-        window.onbeforeunload = function() {
-            if (!document.getElementById('gameScreen').classList.contains('hidden')) {
-                return "Assessment in progress. Are you sure you want to leave?";
-            }
-        };
+      // Prevent accidental navigation during test
+      window.onbeforeunload = function () {
+        if (
+          !document.getElementById('gameScreen').classList.contains('hidden')
+        ) {
+          return 'Assessment in progress. Are you sure you want to leave?'
+        }
+      }
     </script>
-</body>
+  </body>
 </html>

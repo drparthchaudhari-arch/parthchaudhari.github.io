@@ -1,167 +1,449 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
-    <title>Veterinary Calculator Tools: Drug, Dog, Cat, and Clinic Math | VetLudics</title>
-    <meta name="description" content="Browse veterinary calculator tools for drug dosing, dog/cat CRI math, fluids, blood gas, toxicity, transfusion, and emergency clinic workflows.">
-    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Veterinary Calculator Tools: Drug, Dog, Cat, and Clinic Math | VetLudics">
-    <meta property="og:description" content="Professional veterinary calculators for drugs, dog and cat dosing, ICU math, and emergency workflow support.">
-    <meta property="og:url" content="https://parthchaudhari.com/tools/">
-    <link rel="canonical" href="https://parthchaudhari.com/tools/">
-    <link rel="preload" href="/assets/css/tokens.css" as="style">
-    <link rel="preload" href="/assets/css/portal.css" as="style">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
+    <title>
+      Veterinary Calculator Tools: Drug, Dog, Cat, and Clinic Math | VetLudics
+    </title>
+    <meta
+      name="description"
+      content="Browse veterinary calculator tools for drug dosing, dog/cat CRI math, fluids, blood gas, toxicity, transfusion, and emergency clinic workflows."
+    />
+    <meta
+      name="robots"
+      content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Veterinary Calculator Tools: Drug, Dog, Cat, and Clinic Math | VetLudics"
+    />
+    <meta
+      property="og:description"
+      content="Professional veterinary calculators for drugs, dog and cat dosing, ICU math, and emergency workflow support."
+    />
+    <meta property="og:url" content="https://parthchaudhari.com/tools/" />
+    <link rel="canonical" href="https://parthchaudhari.com/tools/" />
+    <link rel="preload" href="/assets/css/tokens.css" as="style" />
+    <link rel="preload" href="/assets/css/portal.css" as="style" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "name": "Veterinary Calculator Tools",
-      "url": "https://parthchaudhari.com/tools/",
-      "description": "Veterinary drug calculators and clinical tools for dog/cat dosing, CRI setup, blood gas interpretation, toxicity triage, transfusion planning, and emergency workflows.",
-      "mainEntity": {
-        "@type": "ItemList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Dose Calculator", "url": "https://parthchaudhari.com/tools/dose-calculator.html" },
-          { "@type": "ListItem", "position": 2, "name": "Advanced CRI Calculator", "url": "https://parthchaudhari.com/tools/cri-calculator.html" },
-          { "@type": "ListItem", "position": 3, "name": "Blood Gas + Acid-Base Analyzer", "url": "https://parthchaudhari.com/tools/acid-base-electrolyte.html" },
-          { "@type": "ListItem", "position": 4, "name": "Transfusion + Component Planner", "url": "https://parthchaudhari.com/tools/transfusion-helper.html" },
-          { "@type": "ListItem", "position": 5, "name": "Toxicity Calculator Suite", "url": "https://parthchaudhari.com/tools/toxin-decontamination-planner.html" },
-          { "@type": "ListItem", "position": 6, "name": "Glucose Curve Generator", "url": "https://parthchaudhari.com/tools/glucose-curve-generator.html" }
-        ]
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Veterinary Calculator Tools",
+        "url": "https://parthchaudhari.com/tools/",
+        "description": "Veterinary drug calculators and clinical tools for dog/cat dosing, CRI setup, blood gas interpretation, toxicity triage, transfusion planning, and emergency workflows.",
+        "mainEntity": {
+          "@type": "ItemList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Dose Calculator",
+              "url": "https://parthchaudhari.com/tools/dose-calculator.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Advanced CRI Calculator",
+              "url": "https://parthchaudhari.com/tools/cri-calculator.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Blood Gas + Acid-Base Analyzer",
+              "url": "https://parthchaudhari.com/tools/acid-base-electrolyte.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Transfusion + Component Planner",
+              "url": "https://parthchaudhari.com/tools/transfusion-helper.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "name": "Toxicity Calculator Suite",
+              "url": "https://parthchaudhari.com/tools/toxin-decontamination-planner.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 6,
+              "name": "Glucose Curve Generator",
+              "url": "https://parthchaudhari.com/tools/glucose-curve-generator.html"
+            }
+          ]
+        }
       }
-    }
     </script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Free Forever</p>
-            <h1 class="pc-fork-title">Clinical Tools</h1>
-            <p class="pc-fork-copy">No login required. Use these calculators during study blocks, case reviews, and on-call simulation drills.</p>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Free Forever</p>
+        <h1 class="pc-fork-title">Clinical Tools</h1>
+        <p class="pc-fork-copy">
+          No login required. Use these calculators during study blocks, case
+          reviews, and on-call simulation drills.
+        </p>
+      </section>
 
-        <section class="pc-bridge-section" aria-label="Popular calculator intents">
-            <h2 class="pc-bridge-title">Popular Veterinary Calculator Searches</h2>
-            <p class="pc-tool-subtitle">Common intents covered here include veterinary calculator, veterinary drug calculator, dog dose calculator, cat dose calculator, clinic calculator, CRI calculator, fluid calculator, blood gas calculator, toxicity calculator, and transfusion calculator.</p>
-            <ul class="pc-link-list">
-                <li><a href="/tools/dose-calculator.html">Veterinary Drug Dose Calculator</a></li>
-                <li><a href="/tools/cri-calculator.html">Dog and Cat CRI Calculator</a></li>
-                <li><a href="/tools/fluid-calculator.html">Veterinary Fluid Therapy Calculator</a></li>
-                <li><a href="/tools/ckd-aki-proteinuria-planner.html">CKD/AKI + Proteinuria Planner</a></li>
-                <li><a href="/tools/acid-base-electrolyte.html">Veterinary Blood Gas Calculator</a></li>
-                <li><a href="/tools/toxin-decontamination-planner.html">Dog and Cat Toxicity Calculator</a></li>
-            </ul>
-        </section>
+      <section
+        class="pc-bridge-section"
+        aria-label="Popular calculator intents"
+      >
+        <h2 class="pc-bridge-title">Popular Veterinary Calculator Searches</h2>
+        <p class="pc-tool-subtitle">
+          Common intents covered here include veterinary calculator, veterinary
+          drug calculator, dog dose calculator, cat dose calculator, clinic
+          calculator, CRI calculator, fluid calculator, blood gas calculator,
+          toxicity calculator, and transfusion calculator.
+        </p>
+        <ul class="pc-link-list">
+          <li>
+            <a href="/tools/dose-calculator.html"
+              >Veterinary Drug Dose Calculator</a
+            >
+          </li>
+          <li>
+            <a href="/tools/cri-calculator.html">Dog and Cat CRI Calculator</a>
+          </li>
+          <li>
+            <a href="/tools/fluid-calculator.html"
+              >Veterinary Fluid Therapy Calculator</a
+            >
+          </li>
+          <li>
+            <a href="/tools/ckd-aki-proteinuria-planner.html"
+              >CKD/AKI + Proteinuria Planner</a
+            >
+          </li>
+          <li>
+            <a href="/tools/acid-base-electrolyte.html"
+              >Veterinary Blood Gas Calculator</a
+            >
+          </li>
+          <li>
+            <a href="/tools/toxin-decontamination-planner.html"
+              >Dog and Cat Toxicity Calculator</a
+            >
+          </li>
+        </ul>
+      </section>
 
-        <section id="all-tools" class="pc-bridge-section" aria-label="All clinical tools">
-            <h2 class="pc-bridge-title">All Tools (Most Used First)</h2>
-            <p class="pc-tool-subtitle">Top entries are most used, followed by the full clinical support suite.</p>
-            <div class="pc-tools-launch-grid">
-                <a class="pc-tool-launch pc-tool-launch--mint pc-tool-launch--priority" href="/tools/dose-calculator.html"><span>Dose Calculator</span><small>mg/kg to mg/mL</small></a>
-                <a class="pc-tool-launch pc-tool-launch--amber pc-tool-launch--priority" href="/tools/unit-converter.html"><span>Unit Converter</span><small>Chemistry and CBC conversions</small></a>
-                <a class="pc-tool-launch pc-tool-launch--coral pc-tool-launch--priority" href="/tools/emergency-drug-chart.html"><span>Emergency Drug Chart</span><small>Rapid critical doses + print</small></a>
-                <a class="pc-tool-launch pc-tool-launch--rose pc-tool-launch--priority" href="/tools/cri-calculator.html"><span>Advanced CRI Calculator</span><small>Dilution prep + verification workflow</small></a>
-                <a class="pc-tool-launch pc-tool-launch--teal" href="/tools/fluid-calculator.html"><span>Fluid Calculator</span><small>Deficit + maintenance</small></a>
-                <a class="pc-tool-launch pc-tool-launch--sky" href="/tools/dose-label-generator.html"><span>Dose Label Generator</span><small>Printable medication labels</small></a>
-                <a class="pc-tool-launch pc-tool-launch--indigo" href="/tools/er-algorithms.html"><span>ER Algorithms</span><small>1-minute emergency workflows</small></a>
-                <a class="pc-tool-launch pc-tool-launch--violet" href="/tools/phone-triage.html"><span>Phone Triage</span><small>Reception + tech scripts</small></a>
-                <a class="pc-tool-launch pc-tool-launch--cobalt" href="/tools/acid-base-electrolyte.html"><span>Blood Gas + Acid-Base Analyzer</span><small>Primary disorder + compensation support</small></a>
-                <a class="pc-tool-launch pc-tool-launch--emerald" href="/tools/transfusion-helper.html"><span>Transfusion + Component Planner</span><small>Volume, rise estimate, crossmatch checks</small></a>
-                <a class="pc-tool-launch pc-tool-launch--teal" href="/tools/glucose-curve-generator.html"><span>Glucose Curve Generator</span><small>Nadir timing + control grade</small></a>
-                <a class="pc-tool-launch pc-tool-launch--sunset" href="/tools/discharge-generator.html"><span>Discharge Generator</span><small>Client-ready instructions</small></a>
-                <a class="pc-tool-launch pc-tool-launch--lime" href="/tools/parasite-control-reference.html"><span>Parasite Control Reference</span><small>Deworming and prevention cadence</small></a>
-                <a class="pc-tool-launch pc-tool-launch--cobalt" href="/tools/insulin-cri-planner.html"><span>Insulin CRI Planner</span><small>DKA infusion concentration and rate support</small></a>
-                <a class="pc-tool-launch pc-tool-launch--indigo" href="/tools/anesthesia-risk-checklist.html"><span>Anesthesia Risk Checklist</span><small>Weighted pre-op risk tier and checklist</small></a>
-                <a class="pc-tool-launch pc-tool-launch--emerald" href="/tools/renal-dose-adjuster.html"><span>Renal Dose Adjuster</span><small>Renal-stage interval adjustment support</small></a>
-                <a class="pc-tool-launch pc-tool-launch--amber" href="/tools/ckd-aki-proteinuria-planner.html"><span>CKD/AKI + Proteinuria Planner</span><small>IRIS stage, UPC substage, and BP risk</small></a>
-                <a class="pc-tool-launch pc-tool-launch--sunset" href="/tools/sepsis-bundle-planner.html"><span>Sepsis Bundle Planner</span><small>Hour-1 perfusion and source-control prompts</small></a>
-                <a class="pc-tool-launch pc-tool-launch--coral" href="/tools/toxin-decontamination-planner.html"><span>Toxicity Calculator Suite</span><small>Chocolate, xylitol, and rodenticide risk</small></a>
-                <a class="pc-tool-launch pc-tool-launch--rose" href="/tools/chf-staging-planner.html"><span>CHF Staging Planner</span><small>Stage-pattern guidance and follow-up timing</small></a>
-                <a class="pc-tool-launch pc-tool-launch--mint" href="/tools/nutrition-rer-mer-calculator.html"><span>Nutrition RER/MER Calculator</span><small>Daily calorie targets and cups/day estimate</small></a>
-                <a class="pc-tool-launch pc-tool-launch--amber" href="/tools/electrolyte-replacement-planner.html"><span>Electrolyte Replacement Planner</span><small>Potassium correction planning support</small></a>
-            </div>
-        </section>
+      <section
+        id="all-tools"
+        class="pc-bridge-section"
+        aria-label="All clinical tools"
+      >
+        <h2 class="pc-bridge-title">All Tools (Most Used First)</h2>
+        <p class="pc-tool-subtitle">
+          Top entries are most used, followed by the full clinical support
+          suite.
+        </p>
+        <div class="pc-tools-launch-grid">
+          <a
+            class="pc-tool-launch pc-tool-launch--mint pc-tool-launch--priority"
+            href="/tools/dose-calculator.html"
+            ><span>Dose Calculator</span><small>mg/kg to mg/mL</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--amber pc-tool-launch--priority"
+            href="/tools/unit-converter.html"
+            ><span>Unit Converter</span
+            ><small>Chemistry and CBC conversions</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--coral pc-tool-launch--priority"
+            href="/tools/emergency-drug-chart.html"
+            ><span>Emergency Drug Chart</span
+            ><small>Rapid critical doses + print</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--rose pc-tool-launch--priority"
+            href="/tools/cri-calculator.html"
+            ><span>Advanced CRI Calculator</span
+            ><small>Dilution prep + verification workflow</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--teal"
+            href="/tools/fluid-calculator.html"
+            ><span>Fluid Calculator</span
+            ><small>Deficit + maintenance</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--sky"
+            href="/tools/dose-label-generator.html"
+            ><span>Dose Label Generator</span
+            ><small>Printable medication labels</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--indigo"
+            href="/tools/er-algorithms.html"
+            ><span>ER Algorithms</span
+            ><small>1-minute emergency workflows</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--violet"
+            href="/tools/phone-triage.html"
+            ><span>Phone Triage</span><small>Reception + tech scripts</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--cobalt"
+            href="/tools/acid-base-electrolyte.html"
+            ><span>Blood Gas + Acid-Base Analyzer</span
+            ><small>Primary disorder + compensation support</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--emerald"
+            href="/tools/transfusion-helper.html"
+            ><span>Transfusion + Component Planner</span
+            ><small>Volume, rise estimate, crossmatch checks</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--teal"
+            href="/tools/glucose-curve-generator.html"
+            ><span>Glucose Curve Generator</span
+            ><small>Nadir timing + control grade</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--sunset"
+            href="/tools/discharge-generator.html"
+            ><span>Discharge Generator</span
+            ><small>Client-ready instructions</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--lime"
+            href="/tools/parasite-control-reference.html"
+            ><span>Parasite Control Reference</span
+            ><small>Deworming and prevention cadence</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--cobalt"
+            href="/tools/insulin-cri-planner.html"
+            ><span>Insulin CRI Planner</span
+            ><small>DKA infusion concentration and rate support</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--indigo"
+            href="/tools/anesthesia-risk-checklist.html"
+            ><span>Anesthesia Risk Checklist</span
+            ><small>Weighted pre-op risk tier and checklist</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--emerald"
+            href="/tools/renal-dose-adjuster.html"
+            ><span>Renal Dose Adjuster</span
+            ><small>Renal-stage interval adjustment support</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--amber"
+            href="/tools/ckd-aki-proteinuria-planner.html"
+            ><span>CKD/AKI + Proteinuria Planner</span
+            ><small>IRIS stage, UPC substage, and BP risk</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--sunset"
+            href="/tools/sepsis-bundle-planner.html"
+            ><span>Sepsis Bundle Planner</span
+            ><small>Hour-1 perfusion and source-control prompts</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--coral"
+            href="/tools/toxin-decontamination-planner.html"
+            ><span>Toxicity Calculator Suite</span
+            ><small>Chocolate, xylitol, and rodenticide risk</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--rose"
+            href="/tools/chf-staging-planner.html"
+            ><span>CHF Staging Planner</span
+            ><small>Stage-pattern guidance and follow-up timing</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--mint"
+            href="/tools/nutrition-rer-mer-calculator.html"
+            ><span>Nutrition RER/MER Calculator</span
+            ><small>Daily calorie targets and cups/day estimate</small></a
+          >
+          <a
+            class="pc-tool-launch pc-tool-launch--amber"
+            href="/tools/electrolyte-replacement-planner.html"
+            ><span>Electrolyte Replacement Planner</span
+            ><small>Potassium correction planning support</small></a
+          >
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-label="Tool landing pages">
-            <h2 class="pc-bridge-title">Tool Landing Pages</h2>
-            <div class="pc-panel-actions">
-                <a class="pc-link-chip pc-link-chip--primary" href="/veterinary-calculators/">Veterinary Calculators Hub</a>
-                <a class="pc-link-chip pc-link-chip--primary" href="/veterinary-calculators-guide/">Veterinary Calculators Guide</a>
-                <a class="pc-link-chip pc-link-chip--primary" href="/emergency-triage-algorithms/">Emergency Triage Algorithms</a>
-                <a class="pc-link-chip pc-link-chip--primary" href="/reference/clinical-validation.html">Clinical Validation Matrix</a>
-                <a class="pc-link-chip" href="/study/navle/practice/">Try 5 Free Practice Questions</a>
-                <a class="pc-link-chip" href="/pricing/">Unlock Unlimited Practice (Premium)</a>
-            </div>
-        </section>
+      <section class="pc-bridge-section" aria-label="Tool landing pages">
+        <h2 class="pc-bridge-title">Tool Landing Pages</h2>
+        <div class="pc-panel-actions">
+          <a
+            class="pc-link-chip pc-link-chip--primary"
+            href="/veterinary-calculators/"
+            >Veterinary Calculators Hub</a
+          >
+          <a
+            class="pc-link-chip pc-link-chip--primary"
+            href="/veterinary-calculators-guide/"
+            >Veterinary Calculators Guide</a
+          >
+          <a
+            class="pc-link-chip pc-link-chip--primary"
+            href="/emergency-triage-algorithms/"
+            >Emergency Triage Algorithms</a
+          >
+          <a
+            class="pc-link-chip pc-link-chip--primary"
+            href="/reference/clinical-validation.html"
+            >Clinical Validation Matrix</a
+          >
+          <a class="pc-link-chip" href="/study/navle/practice/"
+            >Try 5 Free Practice Questions</a
+          >
+          <a class="pc-link-chip" href="/pricing/"
+            >Unlock Unlimited Practice (Premium)</a
+          >
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-label="Tools and references architecture">
-            <h2 class="pc-bridge-title">Tools and References (Same Menu)</h2>
-            <p class="pc-tool-subtitle">Primary path stays in <code>/tools/*</code>, with references routed in <code>/reference/*</code>. This prevents overlap with NAVLE-only routes.</p>
-            <div class="pc-bridge-card-grid">
-                <article class="pc-bridge-card">
-                    <h3>Available Tools</h3>
-                    <p>Fast-access calculators and emergency support tools.</p>
-                    <a class="pc-btn pc-btn--secondary" href="/tools/">Open Tools Menu</a>
-                </article>
-                <article class="pc-bridge-card">
-                    <h3>Advanced Tools</h3>
-                    <p>Expanded calculators for ICU, endocrinology, cardiology, renal, and peri-op workflows.</p>
-                    <a class="pc-btn pc-btn--secondary" href="/tools/#all-tools">View Full Tool Suite</a>
-                </article>
-                <article class="pc-bridge-card">
-                    <h3>References Submenu</h3>
-                    <p>Citation and guideline references are centralized in one reference library.</p>
-                    <a class="pc-btn pc-btn--secondary" href="/reference/">Open References</a>
-                </article>
-            </div>
-            <ul class="pc-link-list">
-                <li><a href="/reference/#drug-label-search-dailymed">Drug Label Search (DailyMed)</a></li>
-                <li><a href="/reference/#iris-stages">IRIS Stages</a></li>
-                <li><a href="/reference/#normal-lab-values">Normal Lab Values</a></li>
-                <li><a href="/reference/#heartworm-treatment-protocol">Heartworm Treatment Protocol</a></li>
-                <li><a href="/reference/#lab-test-protocols">Lab Test Protocols</a></li>
-                <li><a href="/reference/#microchip-lookup">Microchip Lookup</a></li>
-                <li><a href="/reference/#vertebral-heart-score">Vertebral Heart Score</a></li>
-                <li><a href="/reference/#bcs-charts">BCS Charts</a></li>
-                <li><a href="/reference/#acvim-cardiology-consensus-guideline-references">ACVIM Cardiology Consensus Guideline References</a></li>
-                <li><a href="/reference/#dental-charts">Dental Charts</a></li>
-                <li><a href="/reference/#aaha-vaccination-guidelines">AAHA Vaccination Guidelines</a></li>
-                <li><a href="/reference/#flea-tick-product-info">Flea/Tick Product Info</a></li>
-                <li><a href="/reference/#dog-cat-breed-search">Dog/Cat Breed Search</a></li>
-                <li><a href="/reference/#recover-cpr-guidelines">RECOVER CPR Guidelines</a></li>
-            </ul>
-        </section>
-
-        <p class="pc-disclaimer">
-                Approved reference baseline (reviewed February 13, 2026):
-                <a href="/reference/">open full citation map in Reference Library</a> for Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
+      <section
+        class="pc-bridge-section"
+        aria-label="Tools and references architecture"
+      >
+        <h2 class="pc-bridge-title">Tools and References (Same Menu)</h2>
+        <p class="pc-tool-subtitle">
+          Primary path stays in <code>/tools/*</code>, with references routed in
+          <code>/reference/*</code>. This prevents overlap with NAVLE-only
+          routes.
+        </p>
+        <div class="pc-bridge-card-grid">
+          <article class="pc-bridge-card">
+            <h3>Available Tools</h3>
+            <p>Fast-access calculators and emergency support tools.</p>
+            <a class="pc-btn pc-btn--secondary" href="/tools/"
+              >Open Tools Menu</a
+            >
+          </article>
+          <article class="pc-bridge-card">
+            <h3>Advanced Tools</h3>
+            <p>
+              Expanded calculators for ICU, endocrinology, cardiology, renal,
+              and peri-op workflows.
             </p>
+            <a class="pc-btn pc-btn--secondary" href="/tools/#all-tools"
+              >View Full Tool Suite</a
+            >
+          </article>
+          <article class="pc-bridge-card">
+            <h3>References Submenu</h3>
+            <p>
+              Citation and guideline references are centralized in one reference
+              library.
+            </p>
+            <a class="pc-btn pc-btn--secondary" href="/reference/"
+              >Open References</a
+            >
+          </article>
+        </div>
+        <ul class="pc-link-list">
+          <li>
+            <a href="/reference/#drug-label-search-dailymed"
+              >Drug Label Search (DailyMed)</a
+            >
+          </li>
+          <li><a href="/reference/#iris-stages">IRIS Stages</a></li>
+          <li><a href="/reference/#normal-lab-values">Normal Lab Values</a></li>
+          <li>
+            <a href="/reference/#heartworm-treatment-protocol"
+              >Heartworm Treatment Protocol</a
+            >
+          </li>
+          <li>
+            <a href="/reference/#lab-test-protocols">Lab Test Protocols</a>
+          </li>
+          <li><a href="/reference/#microchip-lookup">Microchip Lookup</a></li>
+          <li>
+            <a href="/reference/#vertebral-heart-score"
+              >Vertebral Heart Score</a
+            >
+          </li>
+          <li><a href="/reference/#bcs-charts">BCS Charts</a></li>
+          <li>
+            <a
+              href="/reference/#acvim-cardiology-consensus-guideline-references"
+              >ACVIM Cardiology Consensus Guideline References</a
+            >
+          </li>
+          <li><a href="/reference/#dental-charts">Dental Charts</a></li>
+          <li>
+            <a href="/reference/#aaha-vaccination-guidelines"
+              >AAHA Vaccination Guidelines</a
+            >
+          </li>
+          <li>
+            <a href="/reference/#flea-tick-product-info"
+              >Flea/Tick Product Info</a
+            >
+          </li>
+          <li>
+            <a href="/reference/#dog-cat-breed-search">Dog/Cat Breed Search</a>
+          </li>
+          <li>
+            <a href="/reference/#recover-cpr-guidelines"
+              >RECOVER CPR Guidelines</a
+            >
+          </li>
+        </ul>
+      </section>
 
+      <p class="pc-disclaimer">
+        Approved reference baseline (reviewed February 13, 2026):
+        <a href="/reference/">open full citation map in Reference Library</a>
+        for Drug label search (DailyMed), IRIS stages, Normal lab values,
+        Heartworm treatment protocol, Lab test protocols, Microchip lookup,
+        Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline
+        references, Dental charts, AAHA vaccination guidelines, Flea/tick
+        product info, Dog/cat breed search, and RECOVER CPR guidelines.
+      </p>
     </main>
-</body>
+  </body>
 </html>

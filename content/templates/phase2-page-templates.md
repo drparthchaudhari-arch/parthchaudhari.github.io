@@ -1,6 +1,7 @@
 # Phase 2 Page Templates
 
 ## Tool Template
+
 - What it does: 2-3 sentence utility summary.
 - Inputs and outputs definitions: clear table format.
 - Formula summary: high-level only, not protocol replacement.
@@ -10,6 +11,7 @@
 - Related links: pillar + sibling + study CTA + pricing CTA.
 
 ## Topic Guide Template (NAVLE)
+
 - Rapid algorithm bullets.
 - Diagnostic flow.
 - Treatment flow.
@@ -18,12 +20,14 @@
 - Related content block linking pillar, siblings, tool, and pricing.
 
 ## Reference Template
+
 - Table and how to use it.
 - Species differences and variability warnings.
 - Escalation red flags.
 - Sources, limitations, and last-reviewed line.
 
 ## Case Template
+
 - Signalment and presenting complaint.
 - Problem list.
 - Differentials.

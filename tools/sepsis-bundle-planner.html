@@ -1,108 +1,181 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Sepsis Bundle Planner | VetLudics Tools</title>
-    <meta name="description" content="Hour-1 sepsis bundle planner with initial fluid range, reassessment cadence, and source control reminders.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Sepsis Bundle Planner | VetLudics Tools">
-    <meta property="og:description" content="Create a practical first-hour sepsis stabilization checklist.">
-    <meta property="og:url" content="https://parthchaudhari.com/tools/sepsis-bundle-planner.html">
-    <link rel="canonical" href="https://parthchaudhari.com/tools/sepsis-bundle-planner.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Hour-1 sepsis bundle planner with initial fluid range, reassessment cadence, and source control reminders."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Sepsis Bundle Planner | VetLudics Tools"
+    />
+    <meta
+      property="og:description"
+      content="Create a practical first-hour sepsis stabilization checklist."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/tools/sepsis-bundle-planner.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/tools/sepsis-bundle-planner.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/sepsis-bundle-planner.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Live Module</p>
-            <h1 class="pc-fork-title">Sepsis Bundle Planner</h1>
-            <p class="pc-fork-copy">Build a first-hour stabilization outline with perfusion-driven fluid planning, reassessment cadence, and source control prompts.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Live Module</p>
+        <h1 class="pc-fork-title">Sepsis Bundle Planner</h1>
+        <p class="pc-fork-copy">
+          Build a first-hour stabilization outline with perfusion-driven fluid
+          planning, reassessment cadence, and source control prompts.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="sbp-form-title">
-            <h2 id="sbp-form-title" class="pc-bridge-title">Sepsis Inputs</h2>
-            <form id="sbp-form" class="pc-calculator-grid" novalidate>
-                <label class="pc-calculator-field" for="sbp-species">
-                    <span>Species</span>
-                    <select id="sbp-species" class="pc-input">
-                        <option value="dog">Dog</option>
-                        <option value="cat">Cat</option>
-                    </select>
-                </label>
+      <section class="pc-bridge-section" aria-labelledby="sbp-form-title">
+        <h2 id="sbp-form-title" class="pc-bridge-title">Sepsis Inputs</h2>
+        <form id="sbp-form" class="pc-calculator-grid" novalidate>
+          <label class="pc-calculator-field" for="sbp-species">
+            <span>Species</span>
+            <select id="sbp-species" class="pc-input">
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+            </select>
+          </label>
 
-                <label class="pc-calculator-field" for="sbp-weight">
-                    <span>Weight (kg)</span>
-                    <input id="sbp-weight" class="pc-input" type="number" min="0.5" step="0.1" value="10" required>
-                </label>
+          <label class="pc-calculator-field" for="sbp-weight">
+            <span>Weight (kg)</span>
+            <input
+              id="sbp-weight"
+              class="pc-input"
+              type="number"
+              min="0.5"
+              step="0.1"
+              value="10"
+              required
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="sbp-lactate">
-                    <span>Lactate (mmol/L, optional)</span>
-                    <input id="sbp-lactate" class="pc-input" type="number" min="0" step="0.1" placeholder="e.g. 5.2">
-                </label>
+          <label class="pc-calculator-field" for="sbp-lactate">
+            <span>Lactate (mmol/L, optional)</span>
+            <input
+              id="sbp-lactate"
+              class="pc-input"
+              type="number"
+              min="0"
+              step="0.1"
+              placeholder="e.g. 5.2"
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="sbp-map">
-                    <span>MAP (mmHg, optional)</span>
-                    <input id="sbp-map" class="pc-input" type="number" min="20" step="1" placeholder="e.g. 55">
-                </label>
+          <label class="pc-calculator-field" for="sbp-map">
+            <span>MAP (mmHg, optional)</span>
+            <input
+              id="sbp-map"
+              class="pc-input"
+              type="number"
+              min="20"
+              step="1"
+              placeholder="e.g. 55"
+            />
+          </label>
 
-                <div class="pc-calculator-actions">
-                    <button type="submit" class="pc-btn pc-btn--primary">Build Bundle</button>
-                </div>
-            </form>
-        </section>
+          <div class="pc-calculator-actions">
+            <button type="submit" class="pc-btn pc-btn--primary">
+              Build Bundle
+            </button>
+          </div>
+        </form>
+      </section>
 
-        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="sbp-output-title">
-            <h2 id="sbp-output-title" class="pc-bridge-title">Hour-1 Bundle Output</h2>
-            <div class="pc-stat-grid pc-stat-grid--results">
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Initial Fluid Target</p>
-                    <p id="sbp-fluid" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Reassessment Cadence</p>
-                    <p id="sbp-reassess" class="pc-stat-number">-</p>
-                </article>
-            </div>
-            <article class="pc-tool-module">
-                <h3>Priority Actions</h3>
-                <p><strong>Antimicrobials:</strong> <span id="sbp-antimicrobials">-</span></p>
-                <p><strong>Source Control:</strong> <span id="sbp-source">-</span></p>
-            </article>
-            <p id="sbp-note" class="pc-calculator-note">Enter patient data to generate a perfusion-focused bundle.</p>
-            <p class="pc-disclaimer">Educational support only. Apply local sepsis protocol and attending clinician judgment for all diagnostics and interventions.</p>
-            <p class="pc-disclaimer">
-                Approved reference baseline (reviewed February 13, 2026):
-                Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
-            </p>
-
-        </section>
+      <section
+        class="pc-bridge-section"
+        aria-live="polite"
+        aria-labelledby="sbp-output-title"
+      >
+        <h2 id="sbp-output-title" class="pc-bridge-title">
+          Hour-1 Bundle Output
+        </h2>
+        <div class="pc-stat-grid pc-stat-grid--results">
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Initial Fluid Target</p>
+            <p id="sbp-fluid" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Reassessment Cadence</p>
+            <p id="sbp-reassess" class="pc-stat-number">-</p>
+          </article>
+        </div>
+        <article class="pc-tool-module">
+          <h3>Priority Actions</h3>
+          <p>
+            <strong>Antimicrobials:</strong>
+            <span id="sbp-antimicrobials">-</span>
+          </p>
+          <p><strong>Source Control:</strong> <span id="sbp-source">-</span></p>
+        </article>
+        <p id="sbp-note" class="pc-calculator-note">
+          Enter patient data to generate a perfusion-focused bundle.
+        </p>
+        <p class="pc-disclaimer">
+          Educational support only. Apply local sepsis protocol and attending
+          clinician judgment for all diagnostics and interventions.
+        </p>
+        <p class="pc-disclaimer">
+          Approved reference baseline (reviewed February 13, 2026): Drug label
+          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
+          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
+          BCS charts, ACVIM cardiology consensus guideline references, Dental
+          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
+          breed search, and RECOVER CPR guidelines.
+        </p>
+      </section>
     </main>
-</body>
+  </body>
 </html>

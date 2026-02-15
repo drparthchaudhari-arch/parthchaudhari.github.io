@@ -1,81 +1,126 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Phone Triage Scripts | VetLudics Tools</title>
-    <meta name="description" content="Reception and technician phone triage scripts for common emergency calls.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Phone Triage Scripts | VetLudics Tools">
-    <meta property="og:description" content="Structured call scripts with ER-now triggers for common veterinary presentations.">
-    <meta property="og:url" content="https://parthchaudhari.com/tools/phone-triage.html">
-    <link rel="canonical" href="https://parthchaudhari.com/tools/phone-triage.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Reception and technician phone triage scripts for common emergency calls."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Phone Triage Scripts | VetLudics Tools"
+    />
+    <meta
+      property="og:description"
+      content="Structured call scripts with ER-now triggers for common veterinary presentations."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/tools/phone-triage.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/tools/phone-triage.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/phone-triage.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Live Module</p>
-            <h1 class="pc-fork-title">Phone Triage Decision Trees</h1>
-            <p class="pc-fork-copy">Choose a common call type and get a tech-friendly script with immediate ER escalation triggers.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Live Module</p>
+        <h1 class="pc-fork-title">Phone Triage Decision Trees</h1>
+        <p class="pc-fork-copy">
+          Choose a common call type and get a tech-friendly script with
+          immediate ER escalation triggers.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="triage-script-title" aria-live="polite">
-            <h2 id="triage-script-title" class="pc-bridge-title">Script Builder</h2>
-            <form id="triage-form" class="pc-calculator-grid" novalidate>
-                <label class="pc-calculator-field" for="triage-type">
-                    <span>Call Type</span>
-                    <select id="triage-type" class="pc-input"></select>
-                </label>
-                <div class="pc-calculator-actions">
-                    <button id="triage-copy" type="button" class="pc-btn pc-btn--secondary">Copy Script</button>
-                </div>
-            </form>
+      <section
+        class="pc-bridge-section"
+        aria-labelledby="triage-script-title"
+        aria-live="polite"
+      >
+        <h2 id="triage-script-title" class="pc-bridge-title">Script Builder</h2>
+        <form id="triage-form" class="pc-calculator-grid" novalidate>
+          <label class="pc-calculator-field" for="triage-type">
+            <span>Call Type</span>
+            <select id="triage-type" class="pc-input"></select>
+          </label>
+          <div class="pc-calculator-actions">
+            <button
+              id="triage-copy"
+              type="button"
+              class="pc-btn pc-btn--secondary"
+            >
+              Copy Script
+            </button>
+          </div>
+        </form>
 
-            <article class="pc-tool-module">
-                <h3>Opening Script</h3>
-                <p id="triage-opening" class="pc-calculator-note">-</p>
-                <h3>Key Questions</h3>
-                <p id="triage-questions" class="pc-calculator-note">-</p>
-                <h3>ER Now If...</h3>
-                <p id="triage-er" class="pc-calculator-note">-</p>
-                <h3>Safe Interim Guidance</h3>
-                <p id="triage-guidance" class="pc-calculator-note">-</p>
-                <h3>Appointment Window</h3>
-                <p id="triage-window" class="pc-calculator-note">-</p>
-            </article>
-            <p class="pc-disclaimer">
-                Approved reference baseline (reviewed February 13, 2026):
-                Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
-            </p>
-
-        </section>
+        <article class="pc-tool-module">
+          <h3>Opening Script</h3>
+          <p id="triage-opening" class="pc-calculator-note">-</p>
+          <h3>Key Questions</h3>
+          <p id="triage-questions" class="pc-calculator-note">-</p>
+          <h3>ER Now If...</h3>
+          <p id="triage-er" class="pc-calculator-note">-</p>
+          <h3>Safe Interim Guidance</h3>
+          <p id="triage-guidance" class="pc-calculator-note">-</p>
+          <h3>Appointment Window</h3>
+          <p id="triage-window" class="pc-calculator-note">-</p>
+        </article>
+        <p class="pc-disclaimer">
+          Approved reference baseline (reviewed February 13, 2026): Drug label
+          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
+          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
+          BCS charts, ACVIM cardiology consensus guideline references, Dental
+          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
+          breed search, and RECOVER CPR guidelines.
+        </p>
+      </section>
     </main>
-</body>
+  </body>
 </html>

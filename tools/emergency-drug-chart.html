@@ -1,99 +1,168 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Emergency Drug Dose Chart | VetLudics Tools</title>
-    <meta name="description" content="Grab-and-go emergency drug chart for CPR, anaphylaxis, hyperkalemia, hypoglycemia, and seizures.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Emergency Drug Dose Chart | VetLudics Tools">
-    <meta property="og:description" content="Weight-based emergency dose reference with quick calculated amounts.">
-    <meta property="og:url" content="https://parthchaudhari.com/tools/emergency-drug-chart.html">
-    <link rel="canonical" href="https://parthchaudhari.com/tools/emergency-drug-chart.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Grab-and-go emergency drug chart for CPR, anaphylaxis, hyperkalemia, hypoglycemia, and seizures."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Emergency Drug Dose Chart | VetLudics Tools"
+    />
+    <meta
+      property="og:description"
+      content="Weight-based emergency dose reference with quick calculated amounts."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/tools/emergency-drug-chart.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/tools/emergency-drug-chart.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/emergency-drug-chart.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Live Module</p>
-            <h1 class="pc-fork-title">Emergency Drug Dose Chart</h1>
-            <p class="pc-fork-copy">Fast dosing aid for critical emergencies. Enter weight once and get immediate per-dose estimates.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Live Module</p>
+        <h1 class="pc-fork-title">Emergency Drug Dose Chart</h1>
+        <p class="pc-fork-copy">
+          Fast dosing aid for critical emergencies. Enter weight once and get
+          immediate per-dose estimates.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="er-dose-title">
-            <h2 id="er-dose-title" class="pc-bridge-title">Patient Inputs</h2>
-            <form id="er-dose-form" class="pc-calculator-grid" novalidate>
-                <label class="pc-calculator-field" for="er-weight">
-                    <span>Weight (kg)</span>
-                    <input id="er-weight" class="pc-input" type="number" min="0.2" step="0.1" placeholder="e.g. 22" required>
-                </label>
-                <label class="pc-calculator-field" for="er-species">
-                    <span>Species</span>
-                    <select id="er-species" class="pc-input">
-                        <option value="dog">Dog</option>
-                        <option value="cat">Cat</option>
-                    </select>
-                </label>
-                <div class="pc-calculator-actions">
-                    <button type="submit" class="pc-btn pc-btn--primary">Update Doses</button>
-                    <button id="er-print" type="button" class="pc-btn pc-btn--secondary">Print Chart</button>
-                    <button id="er-reset-concentration" type="button" class="pc-btn pc-btn--secondary">Reset Concentrations</button>
-                </div>
-            </form>
-            <p class="pc-calculator-note">Doses are educational estimates. Chart auto-filters by dog/cat selection and you can adjust concentration values for your stocked formulations.</p>
-        </section>
+      <section class="pc-bridge-section" aria-labelledby="er-dose-title">
+        <h2 id="er-dose-title" class="pc-bridge-title">Patient Inputs</h2>
+        <form id="er-dose-form" class="pc-calculator-grid" novalidate>
+          <label class="pc-calculator-field" for="er-weight">
+            <span>Weight (kg)</span>
+            <input
+              id="er-weight"
+              class="pc-input"
+              type="number"
+              min="0.2"
+              step="0.1"
+              placeholder="e.g. 22"
+              required
+            />
+          </label>
+          <label class="pc-calculator-field" for="er-species">
+            <span>Species</span>
+            <select id="er-species" class="pc-input">
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+            </select>
+          </label>
+          <div class="pc-calculator-actions">
+            <button type="submit" class="pc-btn pc-btn--primary">
+              Update Doses
+            </button>
+            <button
+              id="er-print"
+              type="button"
+              class="pc-btn pc-btn--secondary"
+            >
+              Print Chart
+            </button>
+            <button
+              id="er-reset-concentration"
+              type="button"
+              class="pc-btn pc-btn--secondary"
+            >
+              Reset Concentrations
+            </button>
+          </div>
+        </form>
+        <p class="pc-calculator-note">
+          Doses are educational estimates. Chart auto-filters by dog/cat
+          selection and you can adjust concentration values for your stocked
+          formulations.
+        </p>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="er-chart-title" aria-live="polite">
-            <h2 id="er-chart-title" class="pc-bridge-title">Grab-and-Go Dose Chart</h2>
-            <div class="pc-table-wrap">
-                <table class="pc-table">
-                    <thead>
-                        <tr>
-                            <th>Use Case</th>
-                            <th>Drug</th>
-                            <th>Standard Dose</th>
-                            <th>Concentration</th>
-                            <th>Calculated Dose</th>
-                            <th>Approx Volume</th>
-                            <th>Route</th>
-                        </tr>
-                    </thead>
-                    <tbody id="er-drug-rows"></tbody>
-                </table>
-            </div>
-            <p id="er-drug-note" class="pc-calculator-note">Enter weight and update to render doses.</p>
-            <p class="pc-disclaimer">
-                Approved reference baseline (reviewed February 13, 2026):
-                Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
-            </p>
-
-        </section>
+      <section
+        class="pc-bridge-section"
+        aria-labelledby="er-chart-title"
+        aria-live="polite"
+      >
+        <h2 id="er-chart-title" class="pc-bridge-title">
+          Grab-and-Go Dose Chart
+        </h2>
+        <div class="pc-table-wrap">
+          <table class="pc-table">
+            <thead>
+              <tr>
+                <th>Use Case</th>
+                <th>Drug</th>
+                <th>Standard Dose</th>
+                <th>Concentration</th>
+                <th>Calculated Dose</th>
+                <th>Approx Volume</th>
+                <th>Route</th>
+              </tr>
+            </thead>
+            <tbody id="er-drug-rows"></tbody>
+          </table>
+        </div>
+        <p id="er-drug-note" class="pc-calculator-note">
+          Enter weight and update to render doses.
+        </p>
+        <p class="pc-disclaimer">
+          Approved reference baseline (reviewed February 13, 2026): Drug label
+          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
+          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
+          BCS charts, ACVIM cardiology consensus guideline references, Dental
+          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
+          breed search, and RECOVER CPR guidelines.
+        </p>
+      </section>
     </main>
-</body>
+  </body>
 </html>

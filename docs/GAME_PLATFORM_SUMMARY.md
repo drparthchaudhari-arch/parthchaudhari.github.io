@@ -40,23 +40,24 @@ game-platform/
 
 ## 🎮 Games Included
 
-| Game | Levels | Features | Difficulty |
-|------|--------|----------|------------|
-| **WordVet** | 15+ | Drag word finding, 200+ vet terms, hints | Easy→Hard |
-| **Sudoku** | 15+ | 4 difficulties, notes mode, 4x4→9x9 | Easy→Expert |
-| **Tic Tac Toe** | 15+ | vs AI (3 levels), Local 2P, Online MP | Easy→Hard |
-| **Memory Match** | 15+ | Emoji cards, flip animations | Easy→Hard |
-| **Snake** | 15+ | Speed increases, obstacles | Easy→Hard |
-| **2048** | 15+ | 4x4→6x6 grids, target 2048→8192 | Easy→Hard |
-| **Hangman** | 15+ | 6 categories, ASCII art | Easy→Hard |
-| **Word Guess** | 15+ | Wordle-style, 4-7 letters | Easy→Hard |
-| **IQ Challenge** | 15+ | Math, Logic, Patterns, Vet questions | Easy→Hard |
+| Game             | Levels | Features                                 | Difficulty  |
+| ---------------- | ------ | ---------------------------------------- | ----------- |
+| **WordVet**      | 15+    | Drag word finding, 200+ vet terms, hints | Easy→Hard   |
+| **Sudoku**       | 15+    | 4 difficulties, notes mode, 4x4→9x9      | Easy→Expert |
+| **Tic Tac Toe**  | 15+    | vs AI (3 levels), Local 2P, Online MP    | Easy→Hard   |
+| **Memory Match** | 15+    | Emoji cards, flip animations             | Easy→Hard   |
+| **Snake**        | 15+    | Speed increases, obstacles               | Easy→Hard   |
+| **2048**         | 15+    | 4x4→6x6 grids, target 2048→8192          | Easy→Hard   |
+| **Hangman**      | 15+    | 6 categories, ASCII art                  | Easy→Hard   |
+| **Word Guess**   | 15+    | Wordle-style, 4-7 letters                | Easy→Hard   |
+| **IQ Challenge** | 15+    | Math, Logic, Patterns, Vet questions     | Easy→Hard   |
 
 ---
 
 ## ✨ Features
 
 ### Common Features (All Games)
+
 - ✅ **Pause Menu** - Resume, Restart, Exit
 - ✅ **Timer** - Tracks time per level
 - ✅ **Score System** - Points + streak bonus
@@ -67,6 +68,7 @@ game-platform/
 - ✅ **Mobile Responsive** - Touch controls
 
 ### Multiplayer Features
+
 - ✅ Create lobby with 6-digit code
 - ✅ Join lobby by code
 - ✅ Player ready system
@@ -74,6 +76,7 @@ game-platform/
 - ✅ Works with Tic Tac Toe
 
 ### Ad Integration
+
 - ✅ Top banner ad (728x90)
 - ✅ Mid-page ad (336x280)
 - ✅ Inline game card ads (300x250)
@@ -86,6 +89,7 @@ game-platform/
 ## 💰 Ad Revenue Potential
 
 ### Google AdSense Setup
+
 1. Sign up at [Google AdSense](https://www.google.com/adsense)
 2. Add your website
 3. Get your Publisher ID: `ca-pub-XXXXXXXXXXXXXXXX`
@@ -95,14 +99,15 @@ game-platform/
 ### Expected Earnings
 
 | Monthly Visitors | Estimated Revenue |
-|-----------------|-------------------|
-| 1,000 | $10-30 |
-| 5,000 | $50-150 |
-| 10,000 | $100-300 |
-| 50,000 | $500-1500 |
-| 100,000 | $1000-3000 |
+| ---------------- | ----------------- |
+| 1,000            | $10-30            |
+| 5,000            | $50-150           |
+| 10,000           | $100-300          |
+| 50,000           | $500-1500         |
+| 100,000          | $1000-3000        |
 
 **Factors:**
+
 - US/UK traffic = higher CPM
 - Gaming niche = medium CPM ($2-5)
 - Ad placement = affects CTR
@@ -113,6 +118,7 @@ game-platform/
 ## 🔍 SEO Features
 
 ### Already Implemented
+
 - ✅ Meta tags (title, description, keywords)
 - ✅ Open Graph tags (Facebook sharing)
 - ✅ Twitter Card tags
@@ -123,6 +129,7 @@ game-platform/
 - ✅ Fast loading optimized
 
 ### To Implement
+
 - [ ] Create `sitemap.xml`
 - [ ] Create `robots.txt`
 - [ ] Submit to Google Search Console
@@ -172,21 +179,19 @@ Edit your existing `games.html`:
 ```html
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Games | Parth Chaudhari</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Welcome to Parth Games</h1>
     <p>Play amazing games with 15+ levels each!</p>
-    
-    <a href="games/index.html" class="big-button">
-        🎮 Launch Game Platform
-    </a>
-    
+
+    <a href="games/index.html" class="big-button"> 🎮 Launch Game Platform </a>
+
     <div class="game-previews">
-        <!-- Add preview cards -->
+      <!-- Add preview cards -->
     </div>
-</body>
+  </body>
 </html>
 ```
 
@@ -203,6 +208,7 @@ Visit `https://parthchaudhari.com/games/` and test all games.
 ## 🎯 How to Rank #1 on Google
 
 ### Quick Wins (Do First)
+
 1. ✅ Submit sitemap to Google Search Console
 2. ✅ Add Google Analytics tracking
 3. ✅ Compress all images
@@ -212,12 +218,14 @@ Visit `https://parthchaudhari.com/games/` and test all games.
 7. ✅ Add share buttons
 
 ### Content Strategy
+
 - Write blog posts about your games
 - Create YouTube tutorials
 - Post on social media daily
 - Engage with gaming communities
 
 ### Link Building
+
 - Submit to game directories
 - Guest post on gaming blogs
 - Answer Quora questions
@@ -230,26 +238,32 @@ Visit `https://parthchaudhari.com/games/` and test all games.
 ## 🛠️ Customization
 
 ### Change Colors
+
 Edit `styles/main.css`:
+
 ```css
 :root {
-    --primary: #6366f1;      /* Change this */
-    --secondary: #ec4899;    /* Change this */
-    --accent: #f59e0b;       /* Change this */
+  --primary: #6366f1; /* Change this */
+  --secondary: #ec4899; /* Change this */
+  --accent: #f59e0b; /* Change this */
 }
 ```
 
 ### Add More Words to WordVet
+
 Edit `js/games/wordvet.js`:
+
 ```javascript
 normalWords: ['NEW', 'WORDS', 'HERE'],
 vetWords: ['VET', 'TERMS', 'HERE']
 ```
 
 ### Change Number of Levels
+
 Edit any game file, find `setDifficulty()` function.
 
 ### Add New Game
+
 1. Create `js/games/newgame.js`
 2. Add to `index.html` scripts
 3. Add case in `main.js` switch
@@ -259,6 +273,7 @@ Edit any game file, find `setDifficulty()` function.
 ## 📊 Analytics to Track
 
 ### Key Metrics
+
 - Daily active users
 - Time per session
 - Games played per user
@@ -267,6 +282,7 @@ Edit any game file, find `setDifficulty()` function.
 - Revenue per 1000 visitors (RPM)
 
 ### Tools
+
 - Google Analytics 4 (free)
 - Google Search Console (free)
 - AdSense dashboard (free)
@@ -276,16 +292,19 @@ Edit any game file, find `setDifficulty()` function.
 ## 🐛 Troubleshooting
 
 ### Game Not Loading
+
 - Check browser console for errors
 - Verify all JS files are loaded
 - Check file paths are correct
 
 ### Ads Not Showing
+
 - AdSense needs 24-48 hours to approve
 - Replace placeholder IDs with real ones
 - Check ad blocker isn't active
 
 ### Mobile Issues
+
 - Test on real devices
 - Check touch event handlers
 - Verify viewport meta tag
@@ -295,11 +314,13 @@ Edit any game file, find `setDifficulty()` function.
 ## 📞 Support Resources
 
 ### Documentation
+
 - [Google AdSense Help](https://support.google.com/adsense)
 - [Google Search Console Help](https://support.google.com/webmasters)
 - [Schema.org](https://schema.org)
 
 ### Communities
+
 - r/WebGames (Reddit)
 - r/SEO (Reddit)
 - r/AdSense (Reddit)
@@ -332,4 +353,4 @@ Edit any game file, find `setDifficulty()` function.
 
 **Good luck with your gaming empire! 🎮💰**
 
-*Questions? Check the integration instructions or SEO guide for more details.*
+_Questions? Check the integration instructions or SEO guide for more details._

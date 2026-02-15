@@ -1,107 +1,163 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Parasite Control Reference | VetLudics Tools</title>
-    <meta name="description" content="Species and risk-based parasite control reference for deworming cadence, heartworm checks, and flea/tick prevention.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Parasite Control Reference | VetLudics Tools">
-    <meta property="og:description" content="Generate a quick parasite prevention protocol by species, life stage, and exposure risk.">
-    <meta property="og:url" content="https://parthchaudhari.com/tools/parasite-control-reference.html">
-    <link rel="canonical" href="https://parthchaudhari.com/tools/parasite-control-reference.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Species and risk-based parasite control reference for deworming cadence, heartworm checks, and flea/tick prevention."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Parasite Control Reference | VetLudics Tools"
+    />
+    <meta
+      property="og:description"
+      content="Generate a quick parasite prevention protocol by species, life stage, and exposure risk."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/tools/parasite-control-reference.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/tools/parasite-control-reference.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/parasite-control-reference.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Live Module</p>
-            <h1 class="pc-fork-title">Parasite Control Reference</h1>
-            <p class="pc-fork-copy">Create a practical parasite prevention protocol by species, life stage, and exposure risk profile.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Live Module</p>
+        <h1 class="pc-fork-title">Parasite Control Reference</h1>
+        <p class="pc-fork-copy">
+          Create a practical parasite prevention protocol by species, life
+          stage, and exposure risk profile.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="parasite-input-title">
-            <h2 id="parasite-input-title" class="pc-bridge-title">Protocol Inputs</h2>
-            <form id="parasite-form" class="pc-calculator-grid" novalidate>
-                <label class="pc-calculator-field" for="parasite-species">
-                    <span>Species</span>
-                    <select id="parasite-species" class="pc-input">
-                        <option value="dog">Dog</option>
-                        <option value="cat">Cat</option>
-                    </select>
-                </label>
-                <label class="pc-calculator-field" for="parasite-stage">
-                    <span>Life Stage</span>
-                    <select id="parasite-stage" class="pc-input"></select>
-                </label>
-                <label class="pc-calculator-field" for="parasite-risk">
-                    <span>Exposure Risk</span>
-                    <select id="parasite-risk" class="pc-input">
-                        <option value="low">Indoor / Low Exposure</option>
-                        <option value="moderate">Typical Household Exposure</option>
-                        <option value="high">Outdoor / High Exposure</option>
-                    </select>
-                </label>
-                <div class="pc-calculator-actions">
-                    <button type="submit" class="pc-btn pc-btn--primary">Generate Protocol</button>
-                    <button id="parasite-copy" type="button" class="pc-btn pc-btn--secondary">Copy Plan</button>
-                </div>
-            </form>
-            <p class="pc-calculator-note">Educational reference only. Always verify with local parasite prevalence, approved product labels, and clinic protocols.</p>
-        </section>
+      <section class="pc-bridge-section" aria-labelledby="parasite-input-title">
+        <h2 id="parasite-input-title" class="pc-bridge-title">
+          Protocol Inputs
+        </h2>
+        <form id="parasite-form" class="pc-calculator-grid" novalidate>
+          <label class="pc-calculator-field" for="parasite-species">
+            <span>Species</span>
+            <select id="parasite-species" class="pc-input">
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+            </select>
+          </label>
+          <label class="pc-calculator-field" for="parasite-stage">
+            <span>Life Stage</span>
+            <select id="parasite-stage" class="pc-input"></select>
+          </label>
+          <label class="pc-calculator-field" for="parasite-risk">
+            <span>Exposure Risk</span>
+            <select id="parasite-risk" class="pc-input">
+              <option value="low">Indoor / Low Exposure</option>
+              <option value="moderate">Typical Household Exposure</option>
+              <option value="high">Outdoor / High Exposure</option>
+            </select>
+          </label>
+          <div class="pc-calculator-actions">
+            <button type="submit" class="pc-btn pc-btn--primary">
+              Generate Protocol
+            </button>
+            <button
+              id="parasite-copy"
+              type="button"
+              class="pc-btn pc-btn--secondary"
+            >
+              Copy Plan
+            </button>
+          </div>
+        </form>
+        <p class="pc-calculator-note">
+          Educational reference only. Always verify with local parasite
+          prevalence, approved product labels, and clinic protocols.
+        </p>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="parasite-output-title" aria-live="polite">
-            <h2 id="parasite-output-title" class="pc-bridge-title">Recommended Protocol</h2>
-            <article class="pc-tool-module">
-                <h3>Life Stage Priority</h3>
-                <p id="parasite-stage-note" class="pc-calculator-note">-</p>
-                <div class="pc-table-wrap">
-                    <table class="pc-table">
-                        <thead>
-                            <tr>
-                                <th>Focus</th>
-                                <th>Baseline</th>
-                                <th>This Plan</th>
-                                <th>Key Reminder</th>
-                            </tr>
-                        </thead>
-                        <tbody id="parasite-rows"></tbody>
-                    </table>
-                </div>
-                <p id="parasite-note" class="pc-calculator-note">Choose profile details to render your protocol.</p>
-            </article>
-            <p class="pc-disclaimer">
-                Approved reference baseline (reviewed February 13, 2026):
-                Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
-            </p>
-
-        </section>
+      <section
+        class="pc-bridge-section"
+        aria-labelledby="parasite-output-title"
+        aria-live="polite"
+      >
+        <h2 id="parasite-output-title" class="pc-bridge-title">
+          Recommended Protocol
+        </h2>
+        <article class="pc-tool-module">
+          <h3>Life Stage Priority</h3>
+          <p id="parasite-stage-note" class="pc-calculator-note">-</p>
+          <div class="pc-table-wrap">
+            <table class="pc-table">
+              <thead>
+                <tr>
+                  <th>Focus</th>
+                  <th>Baseline</th>
+                  <th>This Plan</th>
+                  <th>Key Reminder</th>
+                </tr>
+              </thead>
+              <tbody id="parasite-rows"></tbody>
+            </table>
+          </div>
+          <p id="parasite-note" class="pc-calculator-note">
+            Choose profile details to render your protocol.
+          </p>
+        </article>
+        <p class="pc-disclaimer">
+          Approved reference baseline (reviewed February 13, 2026): Drug label
+          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
+          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
+          BCS charts, ACVIM cardiology consensus guideline references, Dental
+          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
+          breed search, and RECOVER CPR guidelines.
+        </p>
+      </section>
     </main>
-</body>
+  </body>
 </html>

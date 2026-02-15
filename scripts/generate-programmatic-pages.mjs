@@ -1,8 +1,8 @@
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 
-const BASE_URL = 'https://parthchaudhari.com';
-const CONFIG_PATH = 'content/programmatic/phase3-pages.json';
-const MANIFEST_PATH = 'content/programmatic/manifest.phase3.json';
+const BASE_URL = 'https://parthchaudhari.com'
+const CONFIG_PATH = 'content/programmatic/phase3-pages.json'
+const MANIFEST_PATH = 'content/programmatic/manifest.phase3.json'
 
 function slugify(input) {
   return String(input || '')
@@ -11,19 +11,22 @@ function slugify(input) {
     .replace(/[^a-z0-9\s-]/g, '')
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
+    .replace(/^-|-$/g, '')
 }
 
 function stripHtml(text) {
-  return String(text || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  return String(text || '')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
 }
 
 function wordCount(text) {
-  const cleaned = stripHtml(text);
+  const cleaned = stripHtml(text)
   if (!cleaned) {
-    return 0;
+    return 0
   }
-  return cleaned.split(/\s+/).filter(Boolean).length;
+  return cleaned.split(/\s+/).filter(Boolean).length
 }
 
 function escapeHtml(value) {
@@ -32,54 +35,69 @@ function escapeHtml(value) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+    .replace(/'/g, '&#39;')
 }
 
 function listItems(items) {
-  return (items || []).map((item) => `                <li>${escapeHtml(item)}</li>`).join('\n');
+  return (items || [])
+    .map((item) => `                <li>${escapeHtml(item)}</li>`)
+    .join('\n')
 }
 
 function linkList(items) {
   return (items || [])
-    .map((item) => `                <li><a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a></li>`)
-    .join('\n');
+    .map(
+      (item) =>
+        `                <li><a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a></li>`
+    )
+    .join('\n')
 }
 
 function tableRows(rows) {
   return (rows || [])
     .map((row) => {
-      const colA = escapeHtml(row[0] || '');
-      const colB = escapeHtml(row[1] || '');
-      const colC = escapeHtml(row[2] || '');
-      return `                        <tr><td>${colA}</td><td>${colB}</td><td>${colC}</td></tr>`;
+      const colA = escapeHtml(row[0] || '')
+      const colB = escapeHtml(row[1] || '')
+      const colC = escapeHtml(row[2] || '')
+      return `                        <tr><td>${colA}</td><td>${colB}</td><td>${colC}</td></tr>`
     })
-    .join('\n');
+    .join('\n')
 }
 
 function sourceList(sources) {
   return (sources || [])
     .map((source) => {
-      const label = escapeHtml(source.label || '');
-      const href = source.href ? escapeHtml(source.href) : '';
+      const label = escapeHtml(source.label || '')
+      const href = source.href ? escapeHtml(source.href) : ''
       if (!href) {
-        return `                <li>${label}</li>`;
+        return `                <li>${label}</li>`
       }
-      return `                <li><a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a></li>`;
+      return `                <li><a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a></li>`
     })
-    .join('\n');
+    .join('\n')
 }
 
 function renderPage(page, route, noindex) {
-  const canonical = `${BASE_URL}${route}`;
-  const robots = noindex ? '\n    <meta name="robots" content="noindex,follow">' : '';
+  const canonical = `${BASE_URL}${route}`
+  const robots = noindex
+    ? '\n    <meta name="robots" content="noindex,follow">'
+    : ''
 
-  const table = page.table || { columns: ['', '', ''], rows: [] };
-  const col1 = escapeHtml((table.columns || [])[0] || 'Parameter');
-  const col2 = escapeHtml((table.columns || [])[1] || 'Range');
-  const col3 = escapeHtml((table.columns || [])[2] || 'Use note');
+  const table = page.table || { columns: ['', '', ''], rows: [] }
+  const col1 = escapeHtml((table.columns || [])[0] || 'Parameter')
+  const col2 = escapeHtml((table.columns || [])[1] || 'Range')
+  const col3 = escapeHtml((table.columns || [])[2] || 'Use note')
 
-  const intro = (page.intro || []).map((line) => `            <p class="pc-fork-copy">${escapeHtml(line)}</p>`).join('\n');
-  const howToUse = (page.howToUse || []).map((line) => `            <p class="pc-fork-copy">${escapeHtml(line)}</p>`).join('\n');
+  const intro = (page.intro || [])
+    .map(
+      (line) => `            <p class="pc-fork-copy">${escapeHtml(line)}</p>`
+    )
+    .join('\n')
+  const howToUse = (page.howToUse || [])
+    .map(
+      (line) => `            <p class="pc-fork-copy">${escapeHtml(line)}</p>`
+    )
+    .join('\n')
 
   return `<!DOCTYPE html>
 <html lang="en" data-mode="pro" data-theme="light">
@@ -95,18 +113,22 @@ function renderPage(page, route, noindex) {
     <meta property="og:url" content="${canonical}">
     <link rel="canonical" href="${canonical}">
     <script type="application/ld+json">
-${JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: page.h1,
-  description: page.metaDescription,
-  dateModified: '2026-02-13',
-  datePublished: '2026-02-13',
-  author: {
-    '@type': 'Person',
-    name: 'Parth Chaudhari'
-  }
-}, null, 4)}
+${JSON.stringify(
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: page.h1,
+    description: page.metaDescription,
+    dateModified: '2026-02-13',
+    datePublished: '2026-02-13',
+    author: {
+      '@type': 'Person',
+      name: 'Parth Chaudhari',
+    },
+  },
+  null,
+  4
+)}
     </script>
     <link rel="preload" href="/assets/css/tokens.css" as="style">
     <link rel="preload" href="/assets/css/portal.css" as="style">
@@ -205,37 +227,38 @@ ${sourceList(page.sources)}
     </main>
 </body>
 </html>
-`;
+`
 }
 
 function routeToDir(route) {
-  return route.replace(/^\//, '').replace(/\/$/, '');
+  return route.replace(/^\//, '').replace(/\/$/, '')
 }
 
-const config = JSON.parse(readFileSync(CONFIG_PATH, 'utf8'));
-const killSwitch = process.env.PROGRAMMATIC_NOINDEX_ALL === '1' || config.killSwitch === true;
-const minWordCount = Number(config.minWordCount) || 420;
-const pages = Array.isArray(config.pages) ? config.pages : [];
+const config = JSON.parse(readFileSync(CONFIG_PATH, 'utf8'))
+const killSwitch =
+  process.env.PROGRAMMATIC_NOINDEX_ALL === '1' || config.killSwitch === true
+const minWordCount = Number(config.minWordCount) || 420
+const pages = Array.isArray(config.pages) ? config.pages : []
 
-const manifest = [];
+const manifest = []
 
 for (const page of pages) {
-  const slug = slugify(page.slug || page.primaryQuery);
+  const slug = slugify(page.slug || page.primaryQuery)
   if (!slug) {
-    continue;
+    continue
   }
 
-  const route = `/reference/programmatic/${slug}/`;
-  const candidateHtml = renderPage(page, route, false);
-  const words = wordCount(candidateHtml);
-  const forceNoindex = page.forceNoindex === true;
-  const lowValue = words < minWordCount;
-  const noindex = killSwitch || forceNoindex || lowValue;
-  const finalHtml = renderPage(page, route, noindex);
+  const route = `/reference/programmatic/${slug}/`
+  const candidateHtml = renderPage(page, route, false)
+  const words = wordCount(candidateHtml)
+  const forceNoindex = page.forceNoindex === true
+  const lowValue = words < minWordCount
+  const noindex = killSwitch || forceNoindex || lowValue
+  const finalHtml = renderPage(page, route, noindex)
 
-  const outDir = routeToDir(route);
-  mkdirSync(outDir, { recursive: true });
-  writeFileSync(`${outDir}/index.html`, finalHtml, 'utf8');
+  const outDir = routeToDir(route)
+  mkdirSync(outDir, { recursive: true })
+  writeFileSync(`${outDir}/index.html`, finalHtml, 'utf8')
 
   manifest.push({
     route,
@@ -243,11 +266,30 @@ for (const page of pages) {
     words,
     noindex,
     indexable: !noindex,
-    noindexReason: killSwitch ? 'kill_switch' : forceNoindex ? 'forced' : lowValue ? 'below_min_word_count' : ''
-  });
+    noindexReason: killSwitch
+      ? 'kill_switch'
+      : forceNoindex
+        ? 'forced'
+        : lowValue
+          ? 'below_min_word_count'
+          : '',
+  })
 }
 
-mkdirSync('content/programmatic', { recursive: true });
-writeFileSync(MANIFEST_PATH, JSON.stringify({ generatedAt: new Date().toISOString(), killSwitch, minWordCount, pages: manifest }, null, 2) + '\n', 'utf8');
+mkdirSync('content/programmatic', { recursive: true })
+writeFileSync(
+  MANIFEST_PATH,
+  JSON.stringify(
+    {
+      generatedAt: new Date().toISOString(),
+      killSwitch,
+      minWordCount,
+      pages: manifest,
+    },
+    null,
+    2
+  ) + '\n',
+  'utf8'
+)
 
-console.log(`Generated ${manifest.length} programmatic pages.`);
+console.log(`Generated ${manifest.length} programmatic pages.`)

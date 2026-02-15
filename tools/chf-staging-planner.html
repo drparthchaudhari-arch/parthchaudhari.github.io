@@ -1,103 +1,173 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Canine CHF Staging Planner – VetLudics</title>
-    <meta name="description" content="Use the canine CHF staging planner for educational triage support, follow-up timing prompts, and stage-pattern review in cardiology study workflows.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Canine CHF Staging Planner – VetLudics">
-    <meta property="og:description" content="Educational stage-pattern guidance for CHF cardiology study scenarios.">
-    <meta property="og:url" content="https://parthchaudhari.com/tools/chf-staging-planner.html">
-    <link rel="canonical" href="https://parthchaudhari.com/tools/chf-staging-planner.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Use the canine CHF staging planner for educational triage support, follow-up timing prompts, and stage-pattern review in cardiology study workflows."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Canine CHF Staging Planner – VetLudics"
+    />
+    <meta
+      property="og:description"
+      content="Educational stage-pattern guidance for CHF cardiology study scenarios."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/tools/chf-staging-planner.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/tools/chf-staging-planner.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/integration-core.js" defer></script>
     <script src="/assets/js/chf-staging-planner.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Live Module</p>
-            <h1 class="pc-fork-title">CHF Staging Planner</h1>
-            <p class="pc-fork-copy">Use major exam pattern cues to stage likely CHF trajectory and map near-term follow-up timing.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
-                <a class="pc-btn pc-btn--secondary" href="/cardiology-chf-algorithm/">CHF Algorithm Overview</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Live Module</p>
+        <h1 class="pc-fork-title">CHF Staging Planner</h1>
+        <p class="pc-fork-copy">
+          Use major exam pattern cues to stage likely CHF trajectory and map
+          near-term follow-up timing.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+          <a class="pc-btn pc-btn--secondary" href="/cardiology-chf-algorithm/"
+            >CHF Algorithm Overview</a
+          >
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="chf-form-title">
-            <h2 id="chf-form-title" class="pc-bridge-title">Clinical Pattern Inputs</h2>
-            <form id="chf-form" class="pc-calculator-grid" novalidate>
-                <div class="pc-calculator-field">
-                    <span>Observed Findings</span>
-                    <label><input id="chf-signs" type="checkbox"> Active CHF-compatible clinical signs (tachypnea/dyspnea, exercise intolerance)</label><br>
-                    <label><input id="chf-edema" type="checkbox"> Pulmonary edema or clear congestion concern</label><br>
-                    <label><input id="chf-remodeling" type="checkbox"> Cardiac remodeling documented on imaging</label>
-                </div>
+      <section class="pc-bridge-section" aria-labelledby="chf-form-title">
+        <h2 id="chf-form-title" class="pc-bridge-title">
+          Clinical Pattern Inputs
+        </h2>
+        <form id="chf-form" class="pc-calculator-grid" novalidate>
+          <div class="pc-calculator-field">
+            <span>Observed Findings</span>
+            <label
+              ><input id="chf-signs" type="checkbox" /> Active CHF-compatible
+              clinical signs (tachypnea/dyspnea, exercise intolerance)</label
+            ><br />
+            <label
+              ><input id="chf-edema" type="checkbox" /> Pulmonary edema or clear
+              congestion concern</label
+            ><br />
+            <label
+              ><input id="chf-remodeling" type="checkbox" /> Cardiac remodeling
+              documented on imaging</label
+            >
+          </div>
 
-                <label class="pc-calculator-field" for="chf-override">
-                    <span>User override applied?</span>
-                    <input id="chf-override" type="checkbox">
-                </label>
+          <label class="pc-calculator-field" for="chf-override">
+            <span>User override applied?</span>
+            <input id="chf-override" type="checkbox" />
+          </label>
 
-                <label class="pc-calculator-field" for="chf-override-reason">
-                    <span>Override reason (required if checked)</span>
-                    <input id="chf-override-reason" class="pc-input" type="text" placeholder="e.g. case-specific imaging interpretation">
-                </label>
+          <label class="pc-calculator-field" for="chf-override-reason">
+            <span>Override reason (required if checked)</span>
+            <input
+              id="chf-override-reason"
+              class="pc-input"
+              type="text"
+              placeholder="e.g. case-specific imaging interpretation"
+            />
+          </label>
 
-                <div class="pc-calculator-actions">
-                    <button type="submit" class="pc-btn pc-btn--primary">Update Stage Pattern</button>
-                </div>
-            </form>
-        </section>
+          <div class="pc-calculator-actions">
+            <button type="submit" class="pc-btn pc-btn--primary">
+              Update Stage Pattern
+            </button>
+          </div>
+        </form>
+      </section>
 
-        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="chf-output-title">
-            <h2 id="chf-output-title" class="pc-bridge-title">Stage Pattern Output</h2>
-            <p id="chf-context-note" class="pc-calculator-note pc-context-note" hidden></p>
-            <div class="pc-stat-grid pc-stat-grid--results">
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Likely Stage Pattern</p>
-                    <p id="chf-stage" class="pc-stat-number">-</p>
-                </article>
-            </div>
-            <article class="pc-tool-module">
-                <h3>Immediate Next Step</h3>
-                <p id="chf-next">-</p>
-                <h3>Recheck Timing</h3>
-                <p id="chf-recheck">-</p>
-            </article>
-            <p id="chf-note" class="pc-calculator-note">Choose findings to generate stage-pattern guidance.</p>
-            <p id="chf-override-note" class="pc-calculator-note" hidden></p>
-            <p class="pc-disclaimer">Educational stage support only. Final staging requires complete cardiology interpretation and clinician judgment.</p>
-            <p class="pc-disclaimer">
-                Approved reference baseline (reviewed February 13, 2026):
-                Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
-            </p>
-
-        </section>
+      <section
+        class="pc-bridge-section"
+        aria-live="polite"
+        aria-labelledby="chf-output-title"
+      >
+        <h2 id="chf-output-title" class="pc-bridge-title">
+          Stage Pattern Output
+        </h2>
+        <p
+          id="chf-context-note"
+          class="pc-calculator-note pc-context-note"
+          hidden
+        ></p>
+        <div class="pc-stat-grid pc-stat-grid--results">
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Likely Stage Pattern</p>
+            <p id="chf-stage" class="pc-stat-number">-</p>
+          </article>
+        </div>
+        <article class="pc-tool-module">
+          <h3>Immediate Next Step</h3>
+          <p id="chf-next">-</p>
+          <h3>Recheck Timing</h3>
+          <p id="chf-recheck">-</p>
+        </article>
+        <p id="chf-note" class="pc-calculator-note">
+          Choose findings to generate stage-pattern guidance.
+        </p>
+        <p id="chf-override-note" class="pc-calculator-note" hidden></p>
+        <p class="pc-disclaimer">
+          Educational stage support only. Final staging requires complete
+          cardiology interpretation and clinician judgment.
+        </p>
+        <p class="pc-disclaimer">
+          Approved reference baseline (reviewed February 13, 2026): Drug label
+          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
+          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
+          BCS charts, ACVIM cardiology consensus guideline references, Dental
+          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
+          breed search, and RECOVER CPR guidelines.
+        </p>
+      </section>
     </main>
-</body>
+  </body>
 </html>

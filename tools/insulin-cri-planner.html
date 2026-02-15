@@ -1,138 +1,229 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Insulin CRI Planner | VetLudics Tools</title>
-    <meta name="description" content="Insulin CRI planner for DKA workflow: dilution, infusion rate, and glucose-coupled monitoring prompts.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Insulin CRI Planner | VetLudics Tools">
-    <meta property="og:description" content="Calculate insulin concentration, units/hour, pump rate, and dextrose support range.">
-    <meta property="og:url" content="https://parthchaudhari.com/tools/insulin-cri-planner.html">
-    <link rel="canonical" href="https://parthchaudhari.com/tools/insulin-cri-planner.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Insulin CRI planner for DKA workflow: dilution, infusion rate, and glucose-coupled monitoring prompts."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Insulin CRI Planner | VetLudics Tools" />
+    <meta
+      property="og:description"
+      content="Calculate insulin concentration, units/hour, pump rate, and dextrose support range."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/tools/insulin-cri-planner.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/tools/insulin-cri-planner.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/integration-core.js" defer></script>
     <script src="/assets/js/insulin-cri-planner.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Live Module</p>
-            <h1 class="pc-fork-title">Insulin CRI Planner</h1>
-            <p class="pc-fork-copy">Plan DKA insulin infusion setup with quick concentration and pump-rate math, then pair with serial glucose and electrolyte reassessment.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Live Module</p>
+        <h1 class="pc-fork-title">Insulin CRI Planner</h1>
+        <p class="pc-fork-copy">
+          Plan DKA insulin infusion setup with quick concentration and pump-rate
+          math, then pair with serial glucose and electrolyte reassessment.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="icp-form-title">
-            <h2 id="icp-form-title" class="pc-bridge-title">Insulin CRI Inputs</h2>
-            <form id="icp-form" class="pc-calculator-grid" novalidate>
-                <label class="pc-calculator-field" for="icp-species">
-                    <span>Species</span>
-                    <select id="icp-species" class="pc-input">
-                        <option value="dog" selected>Dog</option>
-                        <option value="cat">Cat</option>
-                    </select>
-                </label>
+      <section class="pc-bridge-section" aria-labelledby="icp-form-title">
+        <h2 id="icp-form-title" class="pc-bridge-title">Insulin CRI Inputs</h2>
+        <form id="icp-form" class="pc-calculator-grid" novalidate>
+          <label class="pc-calculator-field" for="icp-species">
+            <span>Species</span>
+            <select id="icp-species" class="pc-input">
+              <option value="dog" selected>Dog</option>
+              <option value="cat">Cat</option>
+            </select>
+          </label>
 
-                <label class="pc-calculator-field" for="icp-weight">
-                    <span>Weight (kg)</span>
-                    <input id="icp-weight" class="pc-input" type="number" min="0.5" step="0.1" value="5" required>
-                </label>
+          <label class="pc-calculator-field" for="icp-weight">
+            <span>Weight (kg)</span>
+            <input
+              id="icp-weight"
+              class="pc-input"
+              type="number"
+              min="0.5"
+              step="0.1"
+              value="5"
+              required
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="icp-dose">
-                    <span>Insulin Dose (U/kg/hr)</span>
-                    <input id="icp-dose" class="pc-input" type="number" min="0.01" step="0.01" value="0.05" required>
-                </label>
+          <label class="pc-calculator-field" for="icp-dose">
+            <span>Insulin Dose (U/kg/hr)</span>
+            <input
+              id="icp-dose"
+              class="pc-input"
+              type="number"
+              min="0.01"
+              step="0.01"
+              value="0.05"
+              required
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="icp-bag-volume">
-                    <span>Fluid Bag Volume (mL)</span>
-                    <input id="icp-bag-volume" class="pc-input" type="number" min="50" step="10" value="250" required>
-                </label>
+          <label class="pc-calculator-field" for="icp-bag-volume">
+            <span>Fluid Bag Volume (mL)</span>
+            <input
+              id="icp-bag-volume"
+              class="pc-input"
+              type="number"
+              min="50"
+              step="10"
+              value="250"
+              required
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="icp-insulin-units">
-                    <span>Total Insulin Added (U)</span>
-                    <input id="icp-insulin-units" class="pc-input" type="number" min="0.5" step="0.5" value="2.5" required>
-                </label>
+          <label class="pc-calculator-field" for="icp-insulin-units">
+            <span>Total Insulin Added (U)</span>
+            <input
+              id="icp-insulin-units"
+              class="pc-input"
+              type="number"
+              min="0.5"
+              step="0.5"
+              value="2.5"
+              required
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="icp-bg">
-                    <span>Current BG (mg/dL, optional)</span>
-                    <input id="icp-bg" class="pc-input" type="number" min="20" step="1" placeholder="e.g. 320">
-                </label>
+          <label class="pc-calculator-field" for="icp-bg">
+            <span>Current BG (mg/dL, optional)</span>
+            <input
+              id="icp-bg"
+              class="pc-input"
+              type="number"
+              min="20"
+              step="1"
+              placeholder="e.g. 320"
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="icp-override">
-                    <span>User override applied?</span>
-                    <input id="icp-override" type="checkbox">
-                </label>
+          <label class="pc-calculator-field" for="icp-override">
+            <span>User override applied?</span>
+            <input id="icp-override" type="checkbox" />
+          </label>
 
-                <label class="pc-calculator-field" for="icp-override-reason">
-                    <span>Override reason (required if checked)</span>
-                    <input id="icp-override-reason" class="pc-input" type="text" placeholder="e.g. protocol adjustment for unstable patient">
-                </label>
+          <label class="pc-calculator-field" for="icp-override-reason">
+            <span>Override reason (required if checked)</span>
+            <input
+              id="icp-override-reason"
+              class="pc-input"
+              type="text"
+              placeholder="e.g. protocol adjustment for unstable patient"
+            />
+          </label>
 
-                <div class="pc-calculator-actions">
-                    <button type="submit" class="pc-btn pc-btn--primary">Calculate CRI</button>
-                </div>
-            </form>
-        </section>
+          <div class="pc-calculator-actions">
+            <button type="submit" class="pc-btn pc-btn--primary">
+              Calculate CRI
+            </button>
+          </div>
+        </form>
+      </section>
 
-        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="icp-output-title">
-            <h2 id="icp-output-title" class="pc-bridge-title">Infusion Output</h2>
-            <p id="icp-context-note" class="pc-calculator-note pc-context-note" hidden></p>
-            <div class="pc-stat-grid pc-stat-grid--results">
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Insulin Concentration</p>
-                    <p id="icp-conc" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Required Units / Hour</p>
-                    <p id="icp-uhr" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Infusion Rate</p>
-                    <p id="icp-rate" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Dextrose Support Range</p>
-                    <p id="icp-dextrose" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Reference Bag Mix Check</p>
-                    <p id="icp-ref-bag" class="pc-stat-number">-</p>
-                </article>
-            </div>
-            <p id="icp-note" class="pc-calculator-note">Run the calculator to generate CRI planning notes.</p>
-            <p id="icp-override-note" class="pc-calculator-note" hidden></p>
-            <p class="pc-disclaimer">Educational support tool only. Final insulin and dextrose changes must follow clinician protocol and frequent bedside reassessment.</p>
-            <p class="pc-disclaimer">
-                Approved reference baseline (reviewed February 13, 2026):
-                Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
-            </p>
-
-        </section>
+      <section
+        class="pc-bridge-section"
+        aria-live="polite"
+        aria-labelledby="icp-output-title"
+      >
+        <h2 id="icp-output-title" class="pc-bridge-title">Infusion Output</h2>
+        <p
+          id="icp-context-note"
+          class="pc-calculator-note pc-context-note"
+          hidden
+        ></p>
+        <div class="pc-stat-grid pc-stat-grid--results">
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Insulin Concentration</p>
+            <p id="icp-conc" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Required Units / Hour</p>
+            <p id="icp-uhr" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Infusion Rate</p>
+            <p id="icp-rate" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Dextrose Support Range</p>
+            <p id="icp-dextrose" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Reference Bag Mix Check</p>
+            <p id="icp-ref-bag" class="pc-stat-number">-</p>
+          </article>
+        </div>
+        <p id="icp-note" class="pc-calculator-note">
+          Run the calculator to generate CRI planning notes.
+        </p>
+        <p id="icp-override-note" class="pc-calculator-note" hidden></p>
+        <p class="pc-disclaimer">
+          Educational support tool only. Final insulin and dextrose changes must
+          follow clinician protocol and frequent bedside reassessment.
+        </p>
+        <p class="pc-disclaimer">
+          Approved reference baseline (reviewed February 13, 2026): Drug label
+          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
+          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
+          BCS charts, ACVIM cardiology consensus guideline references, Dental
+          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
+          breed search, and RECOVER CPR guidelines.
+        </p>
+      </section>
     </main>
-</body>
+  </body>
 </html>

@@ -1,141 +1,235 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>CKD/AKI + Proteinuria Planner | VetLudics Tools</title>
-    <meta name="description" content="Estimate creatinine-based IRIS stage, UPC proteinuria substage, blood pressure risk tier, and CKD-vs-AKI pattern flags in one veterinary workflow.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="CKD/AKI + Proteinuria Planner | VetLudics Tools">
-    <meta property="og:description" content="Combined renal workflow planner for CKD stage context, UPC interpretation, and blood pressure escalation prompts.">
-    <meta property="og:url" content="https://parthchaudhari.com/tools/ckd-aki-proteinuria-planner.html">
-    <link rel="canonical" href="https://parthchaudhari.com/tools/ckd-aki-proteinuria-planner.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Estimate creatinine-based IRIS stage, UPC proteinuria substage, blood pressure risk tier, and CKD-vs-AKI pattern flags in one veterinary workflow."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="CKD/AKI + Proteinuria Planner | VetLudics Tools"
+    />
+    <meta
+      property="og:description"
+      content="Combined renal workflow planner for CKD stage context, UPC interpretation, and blood pressure escalation prompts."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/tools/ckd-aki-proteinuria-planner.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/tools/ckd-aki-proteinuria-planner.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/ckd-aki-proteinuria-planner.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Live Module</p>
-            <h1 class="pc-fork-title">CKD/AKI + Proteinuria Planner</h1>
-            <p class="pc-fork-copy">Use one workflow to combine creatinine stage context, UPC substage, blood pressure risk, and CKD-vs-AKI pattern flags.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
-                <a class="pc-btn pc-btn--secondary" href="/tools/renal-dose-adjuster.html">Renal Dose Adjuster</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Live Module</p>
+        <h1 class="pc-fork-title">CKD/AKI + Proteinuria Planner</h1>
+        <p class="pc-fork-copy">
+          Use one workflow to combine creatinine stage context, UPC substage,
+          blood pressure risk, and CKD-vs-AKI pattern flags.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+          <a
+            class="pc-btn pc-btn--secondary"
+            href="/tools/renal-dose-adjuster.html"
+            >Renal Dose Adjuster</a
+          >
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="kap-form-title">
-            <h2 id="kap-form-title" class="pc-bridge-title">Renal Inputs</h2>
-            <form id="kap-form" class="pc-calculator-grid" novalidate>
-                <label class="pc-calculator-field" for="kap-species">
-                    <span>Species</span>
-                    <select id="kap-species" class="pc-input">
-                        <option value="dog">Dog</option>
-                        <option value="cat">Cat</option>
-                    </select>
-                </label>
+      <section class="pc-bridge-section" aria-labelledby="kap-form-title">
+        <h2 id="kap-form-title" class="pc-bridge-title">Renal Inputs</h2>
+        <form id="kap-form" class="pc-calculator-grid" novalidate>
+          <label class="pc-calculator-field" for="kap-species">
+            <span>Species</span>
+            <select id="kap-species" class="pc-input">
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+            </select>
+          </label>
 
-                <label class="pc-calculator-field" for="kap-creatinine">
-                    <span>Creatinine (mg/dL)</span>
-                    <input id="kap-creatinine" class="pc-input" type="number" min="0.1" step="0.1" value="2.1" required>
-                </label>
+          <label class="pc-calculator-field" for="kap-creatinine">
+            <span>Creatinine (mg/dL)</span>
+            <input
+              id="kap-creatinine"
+              class="pc-input"
+              type="number"
+              min="0.1"
+              step="0.1"
+              value="2.1"
+              required
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="kap-sdma">
-                    <span>SDMA (mcg/dL, optional)</span>
-                    <input id="kap-sdma" class="pc-input" type="number" min="0" step="1" placeholder="e.g. 22">
-                </label>
+          <label class="pc-calculator-field" for="kap-sdma">
+            <span>SDMA (mcg/dL, optional)</span>
+            <input
+              id="kap-sdma"
+              class="pc-input"
+              type="number"
+              min="0"
+              step="1"
+              placeholder="e.g. 22"
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="kap-upc">
-                    <span>UPC Ratio (optional)</span>
-                    <input id="kap-upc" class="pc-input" type="number" min="0" step="0.01" placeholder="e.g. 0.62">
-                </label>
+          <label class="pc-calculator-field" for="kap-upc">
+            <span>UPC Ratio (optional)</span>
+            <input
+              id="kap-upc"
+              class="pc-input"
+              type="number"
+              min="0"
+              step="0.01"
+              placeholder="e.g. 0.62"
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="kap-sbp">
-                    <span>Systolic BP (mmHg, optional)</span>
-                    <input id="kap-sbp" class="pc-input" type="number" min="60" step="1" placeholder="e.g. 172">
-                </label>
+          <label class="pc-calculator-field" for="kap-sbp">
+            <span>Systolic BP (mmHg, optional)</span>
+            <input
+              id="kap-sbp"
+              class="pc-input"
+              type="number"
+              min="60"
+              step="1"
+              placeholder="e.g. 172"
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="kap-bp-repeats">
-                    <span>BP Reading Count</span>
-                    <select id="kap-bp-repeats" class="pc-input">
-                        <option value="1">1 reading</option>
-                        <option value="2">2 readings</option>
-                        <option value="3" selected>3+ readings</option>
-                    </select>
-                </label>
+          <label class="pc-calculator-field" for="kap-bp-repeats">
+            <span>BP Reading Count</span>
+            <select id="kap-bp-repeats" class="pc-input">
+              <option value="1">1 reading</option>
+              <option value="2">2 readings</option>
+              <option value="3" selected>3+ readings</option>
+            </select>
+          </label>
 
-                <div class="pc-calculator-field">
-                    <span>Pattern Flags</span>
-                    <label><input id="kap-chronic" type="checkbox"> Azotemia pattern persistent for at least 3 months</label><br>
-                    <label><input id="kap-acute-trigger" type="checkbox"> Recent acute insult concern (toxin, shock, obstruction, severe dehydration)</label><br>
-                    <label><input id="kap-oliguria" type="checkbox"> Current oliguria/anuria concern</label><br>
-                    <label><input id="kap-rapid-rise" type="checkbox"> Creatinine rising rapidly over 24-48h trend</label><br>
-                    <label><input id="kap-tod" type="checkbox"> Hypertensive target-organ-damage concern (ocular/CNS/renal/cardiac)</label>
-                </div>
+          <div class="pc-calculator-field">
+            <span>Pattern Flags</span>
+            <label
+              ><input id="kap-chronic" type="checkbox" /> Azotemia pattern
+              persistent for at least 3 months</label
+            ><br />
+            <label
+              ><input id="kap-acute-trigger" type="checkbox" /> Recent acute
+              insult concern (toxin, shock, obstruction, severe
+              dehydration)</label
+            ><br />
+            <label
+              ><input id="kap-oliguria" type="checkbox" /> Current
+              oliguria/anuria concern</label
+            ><br />
+            <label
+              ><input id="kap-rapid-rise" type="checkbox" /> Creatinine rising
+              rapidly over 24-48h trend</label
+            ><br />
+            <label
+              ><input id="kap-tod" type="checkbox" /> Hypertensive
+              target-organ-damage concern (ocular/CNS/renal/cardiac)</label
+            >
+          </div>
 
-                <div class="pc-calculator-actions">
-                    <button type="submit" class="pc-btn pc-btn--primary">Generate Renal Plan</button>
-                </div>
-            </form>
-        </section>
+          <div class="pc-calculator-actions">
+            <button type="submit" class="pc-btn pc-btn--primary">
+              Generate Renal Plan
+            </button>
+          </div>
+        </form>
+      </section>
 
-        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="kap-output-title">
-            <h2 id="kap-output-title" class="pc-bridge-title">Renal Summary</h2>
-            <div class="pc-stat-grid pc-stat-grid--results">
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">IRIS Stage Estimate</p>
-                    <p id="kap-stage" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Proteinuria Substage</p>
-                    <p id="kap-proteinuria" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">BP Risk Class</p>
-                    <p id="kap-bp-class" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Renal Pattern</p>
-                    <p id="kap-pattern" class="pc-stat-number">-</p>
-                </article>
-            </div>
-            <article class="pc-tool-module">
-                <h3>Priority Actions</h3>
-                <ul id="kap-actions" class="pc-link-list"></ul>
-                <h3>Recheck / Escalation Timing</h3>
-                <p id="kap-recheck">-</p>
-                <h3>Context Notes</h3>
-                <p id="kap-note">Enter core renal values to generate guidance.</p>
-            </article>
-            <p class="pc-disclaimer">Educational support only. Final diagnosis, staging, and treatment plans require full patient context and supervising clinician judgment.</p>
-            <p class="pc-disclaimer">
-                Approved reference baseline (reviewed February 13, 2026):
-                Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
-            </p>
-        </section>
+      <section
+        class="pc-bridge-section"
+        aria-live="polite"
+        aria-labelledby="kap-output-title"
+      >
+        <h2 id="kap-output-title" class="pc-bridge-title">Renal Summary</h2>
+        <div class="pc-stat-grid pc-stat-grid--results">
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">IRIS Stage Estimate</p>
+            <p id="kap-stage" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Proteinuria Substage</p>
+            <p id="kap-proteinuria" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">BP Risk Class</p>
+            <p id="kap-bp-class" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Renal Pattern</p>
+            <p id="kap-pattern" class="pc-stat-number">-</p>
+          </article>
+        </div>
+        <article class="pc-tool-module">
+          <h3>Priority Actions</h3>
+          <ul id="kap-actions" class="pc-link-list"></ul>
+          <h3>Recheck / Escalation Timing</h3>
+          <p id="kap-recheck">-</p>
+          <h3>Context Notes</h3>
+          <p id="kap-note">Enter core renal values to generate guidance.</p>
+        </article>
+        <p class="pc-disclaimer">
+          Educational support only. Final diagnosis, staging, and treatment
+          plans require full patient context and supervising clinician judgment.
+        </p>
+        <p class="pc-disclaimer">
+          Approved reference baseline (reviewed February 13, 2026): Drug label
+          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
+          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
+          BCS charts, ACVIM cardiology consensus guideline references, Dental
+          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
+          breed search, and RECOVER CPR guidelines.
+        </p>
+      </section>
     </main>
-</body>
+  </body>
 </html>

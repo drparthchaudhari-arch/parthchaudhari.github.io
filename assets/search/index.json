@@ -87,70 +87,144 @@
     "title": "CKD/AKI + Proteinuria Planner",
     "url": "/tools/ckd-aki-proteinuria-planner.html",
     "type": "resource",
-    "tags": ["ckd", "aki", "iris", "proteinuria", "upc", "blood pressure", "renal", "dog", "cat"],
+    "tags": [
+      "ckd",
+      "aki",
+      "iris",
+      "proteinuria",
+      "upc",
+      "blood pressure",
+      "renal",
+      "dog",
+      "cat"
+    ],
     "date": "2026-02-13"
   },
   {
     "title": "Unit Converter",
     "url": "/tools/unit-converter.html",
     "type": "resource",
-    "tags": ["unit converter", "glucose", "creatinine", "bun", "temperature", "weight", "cbc"],
+    "tags": [
+      "unit converter",
+      "glucose",
+      "creatinine",
+      "bun",
+      "temperature",
+      "weight",
+      "cbc"
+    ],
     "date": "2026-02-13"
   },
   {
     "title": "Emergency Drug Dose Chart",
     "url": "/tools/emergency-drug-chart.html",
     "type": "resource",
-    "tags": ["emergency", "drug dose", "cpr", "anaphylaxis", "hyperkalemia", "seizure"],
+    "tags": [
+      "emergency",
+      "drug dose",
+      "cpr",
+      "anaphylaxis",
+      "hyperkalemia",
+      "seizure"
+    ],
     "date": "2026-02-13"
   },
   {
     "title": "ER Algorithms Library",
     "url": "/tools/er-algorithms.html",
     "type": "resource",
-    "tags": ["gdv", "dka", "status epilepticus", "shock", "chf", "sepsis", "urethral obstruction"],
+    "tags": [
+      "gdv",
+      "dka",
+      "status epilepticus",
+      "shock",
+      "chf",
+      "sepsis",
+      "urethral obstruction"
+    ],
     "date": "2026-02-13"
   },
   {
     "title": "Phone Triage Decision Trees",
     "url": "/tools/phone-triage.html",
     "type": "resource",
-    "tags": ["phone triage", "reception scripts", "tech scripts", "er now", "call workflow"],
+    "tags": [
+      "phone triage",
+      "reception scripts",
+      "tech scripts",
+      "er now",
+      "call workflow"
+    ],
     "date": "2026-02-13"
   },
   {
     "title": "Advanced CRI Calculator",
     "url": "/tools/cri-calculator.html",
     "type": "resource",
-    "tags": ["cri", "infusion", "veterinary calculator", "dog calculator", "cat calculator", "drug dilution", "ml per hour"],
+    "tags": [
+      "cri",
+      "infusion",
+      "veterinary calculator",
+      "dog calculator",
+      "cat calculator",
+      "drug dilution",
+      "ml per hour"
+    ],
     "date": "2026-02-13"
   },
   {
     "title": "Blood Gas + Acid-Base Analyzer",
     "url": "/tools/acid-base-electrolyte.html",
     "type": "resource",
-    "tags": ["blood gas calculator", "anion gap", "acid base", "electrolyte", "clinic calculator", "dog cat"],
+    "tags": [
+      "blood gas calculator",
+      "anion gap",
+      "acid base",
+      "electrolyte",
+      "clinic calculator",
+      "dog cat"
+    ],
     "date": "2026-02-13"
   },
   {
     "title": "Transfusion + Component Planner",
     "url": "/tools/transfusion-helper.html",
     "type": "resource",
-    "tags": ["transfusion calculator", "pcv rise", "component therapy", "clinic calculator", "dog cat"],
+    "tags": [
+      "transfusion calculator",
+      "pcv rise",
+      "component therapy",
+      "clinic calculator",
+      "dog cat"
+    ],
     "date": "2026-02-13"
   },
   {
     "title": "Toxicity Calculator Suite",
     "url": "/tools/toxin-decontamination-planner.html",
     "type": "resource",
-    "tags": ["toxicity calculator", "chocolate toxicity", "xylitol calculator", "rodenticide", "dog", "cat"],
+    "tags": [
+      "toxicity calculator",
+      "chocolate toxicity",
+      "xylitol calculator",
+      "rodenticide",
+      "dog",
+      "cat"
+    ],
     "date": "2026-02-13"
   },
   {
     "title": "Glucose Curve Generator",
     "url": "/tools/glucose-curve-generator.html",
     "type": "resource",
-    "tags": ["glucose curve calculator", "diabetes", "insulin", "dog", "cat", "clinic calculator"],
+    "tags": [
+      "glucose curve calculator",
+      "diabetes",
+      "insulin",
+      "dog",
+      "cat",
+      "clinic calculator"
+    ],
     "date": "2026-02-13"
   },
   {
@@ -164,7 +238,12 @@
     "title": "Dose Label Generator",
     "url": "/tools/dose-label-generator.html",
     "type": "resource",
-    "tags": ["label generator", "dose label", "print instructions", "medication label"],
+    "tags": [
+      "label generator",
+      "dose label",
+      "print instructions",
+      "medication label"
+    ],
     "date": "2026-02-13"
   },
   {

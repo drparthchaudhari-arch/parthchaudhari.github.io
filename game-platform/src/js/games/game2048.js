@@ -3,12 +3,12 @@
    ============================================ */
 
 const Game2048 = {
-    iframe: null,
+  iframe: null,
 
-    init(container, level) {
-        this.cleanup();
-        const safeLevel = Number.isFinite(level) ? level : 1;
-        container.innerHTML = `
+  init(container, level) {
+    this.cleanup()
+    const safeLevel = Number.isFinite(level) ? level : 1
+    container.innerHTML = `
             <div class="embedded-game-shell" style="background:#0f0f1a;">
                 <iframe
                     title="2048"
@@ -18,21 +18,24 @@ const Game2048 = {
                     referrerpolicy="no-referrer"
                 ></iframe>
             </div>
-        `;
+        `
 
-        this.iframe = container.querySelector('iframe');
-    },
+    this.iframe = container.querySelector('iframe')
+  },
 
-    showHint() {
-        if (this.iframe && this.iframe.contentWindow) {
-            this.iframe.contentWindow.postMessage({ type: 'game-hint', game: '2048' }, '*');
-        }
-    },
-
-    cleanup() {
-        if (this.iframe) {
-            this.iframe.src = 'about:blank';
-            this.iframe = null;
-        }
+  showHint() {
+    if (this.iframe && this.iframe.contentWindow) {
+      this.iframe.contentWindow.postMessage(
+        { type: 'game-hint', game: '2048' },
+        '*'
+      )
     }
-};
+  },
+
+  cleanup() {
+    if (this.iframe) {
+      this.iframe.src = 'about:blank'
+      this.iframe = null
+    }
+  },
+}

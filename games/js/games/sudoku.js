@@ -3,12 +3,12 @@
    ============================================ */
 
 const Sudoku = {
-    iframe: null,
+  iframe: null,
 
-    init(container, level) {
-        this.cleanup();
-        const safeLevel = Number.isFinite(level) ? level : 1;
-        container.innerHTML = `
+  init(container, level) {
+    this.cleanup()
+    const safeLevel = Number.isFinite(level) ? level : 1
+    container.innerHTML = `
             <div class="embedded-game-shell" style="background:#0f172a;">
                 <iframe
                     title="Sudoku"
@@ -18,21 +18,24 @@ const Sudoku = {
                     referrerpolicy="no-referrer"
                 ></iframe>
             </div>
-        `;
+        `
 
-        this.iframe = container.querySelector('iframe');
-    },
+    this.iframe = container.querySelector('iframe')
+  },
 
-    showHint() {
-        if (this.iframe && this.iframe.contentWindow) {
-            this.iframe.contentWindow.postMessage({ type: 'game-hint', game: 'sudoku' }, '*');
-        }
-    },
-
-    cleanup() {
-        if (this.iframe) {
-            this.iframe.src = 'about:blank';
-            this.iframe = null;
-        }
+  showHint() {
+    if (this.iframe && this.iframe.contentWindow) {
+      this.iframe.contentWindow.postMessage(
+        { type: 'game-hint', game: 'sudoku' },
+        '*'
+      )
     }
-};
+  },
+
+  cleanup() {
+    if (this.iframe) {
+      this.iframe.src = 'about:blank'
+      this.iframe = null
+    }
+  },
+}

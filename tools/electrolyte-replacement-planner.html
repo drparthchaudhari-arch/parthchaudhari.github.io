@@ -1,104 +1,184 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Electrolyte Replacement Planner | VetLudics Tools</title>
-    <meta name="description" content="Electrolyte replacement planning tool for potassium correction estimates in fluid therapy workflows.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Electrolyte Replacement Planner | VetLudics Tools">
-    <meta property="og:description" content="Estimate potassium gap, additive guidance, and hourly delivery for correction planning.">
-    <meta property="og:url" content="https://parthchaudhari.com/tools/electrolyte-replacement-planner.html">
-    <link rel="canonical" href="https://parthchaudhari.com/tools/electrolyte-replacement-planner.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Electrolyte replacement planning tool for potassium correction estimates in fluid therapy workflows."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Electrolyte Replacement Planner | VetLudics Tools"
+    />
+    <meta
+      property="og:description"
+      content="Estimate potassium gap, additive guidance, and hourly delivery for correction planning."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/tools/electrolyte-replacement-planner.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/tools/electrolyte-replacement-planner.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/electrolyte-replacement-planner.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Live Module</p>
-            <h1 class="pc-fork-title">Electrolyte Replacement Planner</h1>
-            <p class="pc-fork-copy">Estimate potassium correction parameters from current values, target value, and fluid rate to support safer replacement planning.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Live Module</p>
+        <h1 class="pc-fork-title">Electrolyte Replacement Planner</h1>
+        <p class="pc-fork-copy">
+          Estimate potassium correction parameters from current values, target
+          value, and fluid rate to support safer replacement planning.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="erp-form-title">
-            <h2 id="erp-form-title" class="pc-bridge-title">Correction Inputs</h2>
-            <form id="erp-form" class="pc-calculator-grid" novalidate>
-                <label class="pc-calculator-field" for="erp-weight">
-                    <span>Weight (kg)</span>
-                    <input id="erp-weight" class="pc-input" type="number" min="0.5" step="0.1" value="10" required>
-                </label>
+      <section class="pc-bridge-section" aria-labelledby="erp-form-title">
+        <h2 id="erp-form-title" class="pc-bridge-title">Correction Inputs</h2>
+        <form id="erp-form" class="pc-calculator-grid" novalidate>
+          <label class="pc-calculator-field" for="erp-weight">
+            <span>Weight (kg)</span>
+            <input
+              id="erp-weight"
+              class="pc-input"
+              type="number"
+              min="0.5"
+              step="0.1"
+              value="10"
+              required
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="erp-current-k">
-                    <span>Current Potassium (mEq/L)</span>
-                    <input id="erp-current-k" class="pc-input" type="number" min="1" step="0.1" value="2.8" required>
-                </label>
+          <label class="pc-calculator-field" for="erp-current-k">
+            <span>Current Potassium (mEq/L)</span>
+            <input
+              id="erp-current-k"
+              class="pc-input"
+              type="number"
+              min="1"
+              step="0.1"
+              value="2.8"
+              required
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="erp-target-k">
-                    <span>Target Potassium (mEq/L)</span>
-                    <input id="erp-target-k" class="pc-input" type="number" min="1" step="0.1" value="3.8" required>
-                </label>
+          <label class="pc-calculator-field" for="erp-target-k">
+            <span>Target Potassium (mEq/L)</span>
+            <input
+              id="erp-target-k"
+              class="pc-input"
+              type="number"
+              min="1"
+              step="0.1"
+              value="3.8"
+              required
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="erp-fluid-rate">
-                    <span>Fluid Rate (mL/hr)</span>
-                    <input id="erp-fluid-rate" class="pc-input" type="number" min="1" step="1" value="40" required>
-                </label>
+          <label class="pc-calculator-field" for="erp-fluid-rate">
+            <span>Fluid Rate (mL/hr)</span>
+            <input
+              id="erp-fluid-rate"
+              class="pc-input"
+              type="number"
+              min="1"
+              step="1"
+              value="40"
+              required
+            />
+          </label>
 
-                <div class="pc-calculator-actions">
-                    <button type="submit" class="pc-btn pc-btn--primary">Calculate Replacement Plan</button>
-                </div>
-            </form>
-        </section>
+          <div class="pc-calculator-actions">
+            <button type="submit" class="pc-btn pc-btn--primary">
+              Calculate Replacement Plan
+            </button>
+          </div>
+        </form>
+      </section>
 
-        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="erp-output-title">
-            <h2 id="erp-output-title" class="pc-bridge-title">Replacement Output</h2>
-            <div class="pc-stat-grid pc-stat-grid--results">
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Potassium Gap</p>
-                    <p id="erp-deficit" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Suggested Additive</p>
-                    <p id="erp-additive" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Estimated Hourly Delivery</p>
-                    <p id="erp-hourly" class="pc-stat-number">-</p>
-                </article>
-            </div>
-            <p id="erp-note" class="pc-calculator-note">Enter values to estimate electrolyte replacement support.</p>
-            <p class="pc-disclaimer">Educational estimate only. Validate additive concentration, infusion pump settings, and ECG/serum trends before treatment changes.</p>
-            <p class="pc-disclaimer">
-                Approved reference baseline (reviewed February 13, 2026):
-                Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
-            </p>
-
-        </section>
+      <section
+        class="pc-bridge-section"
+        aria-live="polite"
+        aria-labelledby="erp-output-title"
+      >
+        <h2 id="erp-output-title" class="pc-bridge-title">
+          Replacement Output
+        </h2>
+        <div class="pc-stat-grid pc-stat-grid--results">
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Potassium Gap</p>
+            <p id="erp-deficit" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Suggested Additive</p>
+            <p id="erp-additive" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Estimated Hourly Delivery</p>
+            <p id="erp-hourly" class="pc-stat-number">-</p>
+          </article>
+        </div>
+        <p id="erp-note" class="pc-calculator-note">
+          Enter values to estimate electrolyte replacement support.
+        </p>
+        <p class="pc-disclaimer">
+          Educational estimate only. Validate additive concentration, infusion
+          pump settings, and ECG/serum trends before treatment changes.
+        </p>
+        <p class="pc-disclaimer">
+          Approved reference baseline (reviewed February 13, 2026): Drug label
+          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
+          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
+          BCS charts, ACVIM cardiology consensus guideline references, Dental
+          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
+          breed search, and RECOVER CPR guidelines.
+        </p>
+      </section>
     </main>
-</body>
+  </body>
 </html>

@@ -1,106 +1,173 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Anesthesia Risk Checklist | VetLudics Tools</title>
-    <meta name="description" content="Pre-op anesthesia risk checklist with weighted factors and checklist output for monitoring intensity planning.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Anesthesia Risk Checklist | VetLudics Tools">
-    <meta property="og:description" content="Generate a peri-anesthetic risk tier and practical monitoring checklist.">
-    <meta property="og:url" content="https://parthchaudhari.com/tools/anesthesia-risk-checklist.html">
-    <link rel="canonical" href="https://parthchaudhari.com/tools/anesthesia-risk-checklist.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Pre-op anesthesia risk checklist with weighted factors and checklist output for monitoring intensity planning."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Anesthesia Risk Checklist | VetLudics Tools"
+    />
+    <meta
+      property="og:description"
+      content="Generate a peri-anesthetic risk tier and practical monitoring checklist."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/tools/anesthesia-risk-checklist.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/tools/anesthesia-risk-checklist.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/anesthesia-risk-checklist.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Live Module</p>
-            <h1 class="pc-fork-title">Anesthesia Risk Checklist</h1>
-            <p class="pc-fork-copy">Combine ASA baseline and major risk factors to stage peri-anesthetic risk and prep monitoring intensity before induction.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Live Module</p>
+        <h1 class="pc-fork-title">Anesthesia Risk Checklist</h1>
+        <p class="pc-fork-copy">
+          Combine ASA baseline and major risk factors to stage peri-anesthetic
+          risk and prep monitoring intensity before induction.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="ars-form-title">
-            <h2 id="ars-form-title" class="pc-bridge-title">Pre-op Inputs</h2>
-            <form id="ars-form" class="pc-calculator-grid" novalidate>
-                <label class="pc-calculator-field" for="ars-asa">
-                    <span>ASA Baseline</span>
-                    <select id="ars-asa" class="pc-input">
-                        <option value="1">ASA I</option>
-                        <option value="2">ASA II</option>
-                        <option value="3">ASA III</option>
-                        <option value="4">ASA IV</option>
-                        <option value="5">ASA V</option>
-                    </select>
-                </label>
+      <section class="pc-bridge-section" aria-labelledby="ars-form-title">
+        <h2 id="ars-form-title" class="pc-bridge-title">Pre-op Inputs</h2>
+        <form id="ars-form" class="pc-calculator-grid" novalidate>
+          <label class="pc-calculator-field" for="ars-asa">
+            <span>ASA Baseline</span>
+            <select id="ars-asa" class="pc-input">
+              <option value="1">ASA I</option>
+              <option value="2">ASA II</option>
+              <option value="3">ASA III</option>
+              <option value="4">ASA IV</option>
+              <option value="5">ASA V</option>
+            </select>
+          </label>
 
-                <div class="pc-calculator-field">
-                    <span>Weighted Risk Factors</span>
-                    <label><input id="ars-age" type="checkbox"> Advanced age / frailty</label><br>
-                    <label><input id="ars-cardiac" type="checkbox"> Significant cardiac disease</label><br>
-                    <label><input id="ars-respiratory" type="checkbox"> Respiratory compromise</label><br>
-                    <label><input id="ars-renal-hepatic" type="checkbox"> Renal or hepatic compromise</label><br>
-                    <label><input id="ars-anemia" type="checkbox"> Moderate-severe anemia</label><br>
-                    <label><input id="ars-hypotension-history" type="checkbox"> Prior hypotension under anesthesia</label><br>
-                    <label><input id="ars-emergency-procedure" type="checkbox"> Emergency procedure context</label>
-                </div>
+          <div class="pc-calculator-field">
+            <span>Weighted Risk Factors</span>
+            <label
+              ><input id="ars-age" type="checkbox" /> Advanced age /
+              frailty</label
+            ><br />
+            <label
+              ><input id="ars-cardiac" type="checkbox" /> Significant cardiac
+              disease</label
+            ><br />
+            <label
+              ><input id="ars-respiratory" type="checkbox" /> Respiratory
+              compromise</label
+            ><br />
+            <label
+              ><input id="ars-renal-hepatic" type="checkbox" /> Renal or hepatic
+              compromise</label
+            ><br />
+            <label
+              ><input id="ars-anemia" type="checkbox" /> Moderate-severe
+              anemia</label
+            ><br />
+            <label
+              ><input id="ars-hypotension-history" type="checkbox" /> Prior
+              hypotension under anesthesia</label
+            ><br />
+            <label
+              ><input id="ars-emergency-procedure" type="checkbox" /> Emergency
+              procedure context</label
+            >
+          </div>
 
-                <div class="pc-calculator-actions">
-                    <button type="submit" class="pc-btn pc-btn--primary">Update Risk Tier</button>
-                </div>
-            </form>
-        </section>
+          <div class="pc-calculator-actions">
+            <button type="submit" class="pc-btn pc-btn--primary">
+              Update Risk Tier
+            </button>
+          </div>
+        </form>
+      </section>
 
-        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="ars-output-title">
-            <h2 id="ars-output-title" class="pc-bridge-title">Checklist Output</h2>
-            <div class="pc-stat-grid pc-stat-grid--results">
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Composite Score</p>
-                    <p id="ars-score" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Risk Tier</p>
-                    <p id="ars-tier" class="pc-stat-number">-</p>
-                </article>
-            </div>
-            <article class="pc-tool-module">
-                <h3>Monitoring Checklist</h3>
-                <p id="ars-checklist">Select risk factors to generate a checklist.</p>
-            </article>
-            <p id="ars-note" class="pc-calculator-note">Checklist output will update automatically after selections.</p>
-            <p class="pc-disclaimer">Educational triage support only. This does not replace full anesthetic planning, diagnostics, or patient-specific protocol decisions.</p>
-            <p class="pc-disclaimer">
-                Approved reference baseline (reviewed February 13, 2026):
-                Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
-            </p>
-
-        </section>
+      <section
+        class="pc-bridge-section"
+        aria-live="polite"
+        aria-labelledby="ars-output-title"
+      >
+        <h2 id="ars-output-title" class="pc-bridge-title">Checklist Output</h2>
+        <div class="pc-stat-grid pc-stat-grid--results">
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Composite Score</p>
+            <p id="ars-score" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Risk Tier</p>
+            <p id="ars-tier" class="pc-stat-number">-</p>
+          </article>
+        </div>
+        <article class="pc-tool-module">
+          <h3>Monitoring Checklist</h3>
+          <p id="ars-checklist">Select risk factors to generate a checklist.</p>
+        </article>
+        <p id="ars-note" class="pc-calculator-note">
+          Checklist output will update automatically after selections.
+        </p>
+        <p class="pc-disclaimer">
+          Educational triage support only. This does not replace full anesthetic
+          planning, diagnostics, or patient-specific protocol decisions.
+        </p>
+        <p class="pc-disclaimer">
+          Approved reference baseline (reviewed February 13, 2026): Drug label
+          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
+          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
+          BCS charts, ACVIM cardiology consensus guideline references, Dental
+          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
+          breed search, and RECOVER CPR guidelines.
+        </p>
+      </section>
     </main>
-</body>
+  </body>
 </html>

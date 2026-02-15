@@ -1,101 +1,240 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Transfusion + Component Planner | VetLudics Tools</title>
-    <meta name="description" content="Veterinary transfusion planner for packed cells, plasma, platelets, and cryo with crossmatch safety prompts.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Transfusion + Component Planner | VetLudics Tools">
-    <meta property="og:description" content="Estimate transfusion volume, expected PCV change, and component-specific rate guidance.">
-    <meta property="og:url" content="https://parthchaudhari.com/tools/transfusion-helper.html">
-    <link rel="canonical" href="https://parthchaudhari.com/tools/transfusion-helper.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Veterinary transfusion planner for packed cells, plasma, platelets, and cryo with crossmatch safety prompts."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Transfusion + Component Planner | VetLudics Tools"
+    />
+    <meta
+      property="og:description"
+      content="Estimate transfusion volume, expected PCV change, and component-specific rate guidance."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/tools/transfusion-helper.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/tools/transfusion-helper.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/transfusion-helper.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Phase 2 Clinical</p>
-            <h1 class="pc-fork-title">Transfusion + Component Planner</h1>
-            <p class="pc-fork-copy">Plan component therapy volume and rates, estimate PCV response, and screen crossmatch safety before administration.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Phase 2 Clinical</p>
+        <h1 class="pc-fork-title">Transfusion + Component Planner</h1>
+        <p class="pc-fork-copy">
+          Plan component therapy volume and rates, estimate PCV response, and
+          screen crossmatch safety before administration.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="transfusion-title">
-            <h2 id="transfusion-title" class="pc-bridge-title">Transfusion Inputs</h2>
-            <form id="transfusion-form" class="pc-calculator-grid" novalidate>
-                <label class="pc-calculator-field" for="tx-species"><span>Species</span><select id="tx-species" class="pc-input"><option value="dog">Dog</option><option value="cat">Cat</option></select></label>
-                <label class="pc-calculator-field" for="tx-component">
-                    <span>Component</span>
-                    <select id="tx-component" class="pc-input">
-                        <option value="prbc">Packed RBC</option>
-                        <option value="ffp">Fresh Frozen Plasma</option>
-                        <option value="platelet">Platelet-Rich Product</option>
-                        <option value="cryo">Cryoprecipitate</option>
-                    </select>
-                </label>
-                <label class="pc-calculator-field" for="tx-weight"><span>Weight (kg)</span><input id="tx-weight" class="pc-input" type="number" min="0.2" step="0.1" value="20" required></label>
-                <label class="pc-calculator-field" for="tx-current"><span>Current PCV (%)</span><input id="tx-current" class="pc-input" type="number" min="0" max="80" step="0.1" value="15" required></label>
-                <label class="pc-calculator-field" for="tx-target"><span>Target PCV (%)</span><input id="tx-target" class="pc-input" type="number" min="0" max="80" step="0.1" value="25" required></label>
-                <label class="pc-calculator-field" for="tx-donor"><span>Donor PCV (%)</span><input id="tx-donor" class="pc-input" type="number" min="10" max="90" step="0.1" value="60" required></label>
-                <label class="pc-calculator-field" for="tx-planned"><span>Planned Volume (mL)</span><input id="tx-planned" class="pc-input" type="number" min="0" step="0.1" placeholder="Optional"></label>
-                <div class="pc-calculator-field">
-                    <span>Compatibility Safety</span>
-                    <label><input id="tx-prev" type="checkbox"> Previous transfusion history</label><br>
-                    <label><input id="tx-crossmatch" type="checkbox"> Crossmatch performed</label>
-                </div>
-                <div class="pc-calculator-actions"><button type="submit" class="pc-btn pc-btn--primary">Build Plan</button></div>
-            </form>
-        </section>
+      <section class="pc-bridge-section" aria-labelledby="transfusion-title">
+        <h2 id="transfusion-title" class="pc-bridge-title">
+          Transfusion Inputs
+        </h2>
+        <form id="transfusion-form" class="pc-calculator-grid" novalidate>
+          <label class="pc-calculator-field" for="tx-species"
+            ><span>Species</span
+            ><select id="tx-species" class="pc-input">
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+            </select></label
+          >
+          <label class="pc-calculator-field" for="tx-component">
+            <span>Component</span>
+            <select id="tx-component" class="pc-input">
+              <option value="prbc">Packed RBC</option>
+              <option value="ffp">Fresh Frozen Plasma</option>
+              <option value="platelet">Platelet-Rich Product</option>
+              <option value="cryo">Cryoprecipitate</option>
+            </select>
+          </label>
+          <label class="pc-calculator-field" for="tx-weight"
+            ><span>Weight (kg)</span
+            ><input
+              id="tx-weight"
+              class="pc-input"
+              type="number"
+              min="0.2"
+              step="0.1"
+              value="20"
+              required
+          /></label>
+          <label class="pc-calculator-field" for="tx-current"
+            ><span>Current PCV (%)</span
+            ><input
+              id="tx-current"
+              class="pc-input"
+              type="number"
+              min="0"
+              max="80"
+              step="0.1"
+              value="15"
+              required
+          /></label>
+          <label class="pc-calculator-field" for="tx-target"
+            ><span>Target PCV (%)</span
+            ><input
+              id="tx-target"
+              class="pc-input"
+              type="number"
+              min="0"
+              max="80"
+              step="0.1"
+              value="25"
+              required
+          /></label>
+          <label class="pc-calculator-field" for="tx-donor"
+            ><span>Donor PCV (%)</span
+            ><input
+              id="tx-donor"
+              class="pc-input"
+              type="number"
+              min="10"
+              max="90"
+              step="0.1"
+              value="60"
+              required
+          /></label>
+          <label class="pc-calculator-field" for="tx-planned"
+            ><span>Planned Volume (mL)</span
+            ><input
+              id="tx-planned"
+              class="pc-input"
+              type="number"
+              min="0"
+              step="0.1"
+              placeholder="Optional"
+          /></label>
+          <div class="pc-calculator-field">
+            <span>Compatibility Safety</span>
+            <label
+              ><input id="tx-prev" type="checkbox" /> Previous transfusion
+              history</label
+            ><br />
+            <label
+              ><input id="tx-crossmatch" type="checkbox" /> Crossmatch
+              performed</label
+            >
+          </div>
+          <div class="pc-calculator-actions">
+            <button type="submit" class="pc-btn pc-btn--primary">
+              Build Plan
+            </button>
+          </div>
+        </form>
+      </section>
 
-        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="tx-result-title">
-            <h2 id="tx-result-title" class="pc-bridge-title">Transfusion Plan</h2>
-            <div class="pc-stat-grid pc-stat-grid--results">
-                <article class="pc-stat-card"><p class="pc-stat-label">Volume Needed</p><p id="tx-volume" class="pc-stat-number">-</p></article>
-                <article class="pc-stat-card"><p class="pc-stat-label">Expected PCV Rise</p><p id="tx-rise" class="pc-stat-number">-</p></article>
-                <article class="pc-stat-card"><p class="pc-stat-label">Initial 15-min Rate</p><p id="tx-initial" class="pc-stat-number">-</p></article>
-                <article class="pc-stat-card"><p class="pc-stat-label">4-hour Avg Rate</p><p id="tx-maint" class="pc-stat-number">-</p></article>
-                <article class="pc-stat-card"><p class="pc-stat-label">Component Dose Range</p><p id="tx-component-dose" class="pc-stat-number">-</p></article>
-                <article class="pc-stat-card"><p class="pc-stat-label">Crossmatch Status</p><p id="tx-compat" class="pc-stat-number">-</p></article>
-            </div>
-            <div id="tx-alert" class="pc-calculator-warning" hidden></div>
-            <p id="tx-note" class="pc-calculator-note">Enter values to generate a transfusion estimate.</p>
-            <article class="pc-tool-module">
-                <h3>Reaction First Response</h3>
-                <p>Stop transfusion, maintain IV line with saline, and reassess temperature/HR/RR/BP immediately.</p>
-                <p>Watch for fever, vomiting, urticaria, dyspnea, hypotension, facial swelling, or pigmenturia.</p>
-            </article>
-            <p class="pc-disclaimer">Transfusion support only. Component selection and compatibility decisions remain clinician-led.</p>
-            <p class="pc-disclaimer">
-                Approved reference baseline (reviewed February 13, 2026):
-                Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
-            </p>
-        </section>
+      <section
+        class="pc-bridge-section"
+        aria-live="polite"
+        aria-labelledby="tx-result-title"
+      >
+        <h2 id="tx-result-title" class="pc-bridge-title">Transfusion Plan</h2>
+        <div class="pc-stat-grid pc-stat-grid--results">
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Volume Needed</p>
+            <p id="tx-volume" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Expected PCV Rise</p>
+            <p id="tx-rise" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Initial 15-min Rate</p>
+            <p id="tx-initial" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">4-hour Avg Rate</p>
+            <p id="tx-maint" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Component Dose Range</p>
+            <p id="tx-component-dose" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Crossmatch Status</p>
+            <p id="tx-compat" class="pc-stat-number">-</p>
+          </article>
+        </div>
+        <div id="tx-alert" class="pc-calculator-warning" hidden></div>
+        <p id="tx-note" class="pc-calculator-note">
+          Enter values to generate a transfusion estimate.
+        </p>
+        <article class="pc-tool-module">
+          <h3>Reaction First Response</h3>
+          <p>
+            Stop transfusion, maintain IV line with saline, and reassess
+            temperature/HR/RR/BP immediately.
+          </p>
+          <p>
+            Watch for fever, vomiting, urticaria, dyspnea, hypotension, facial
+            swelling, or pigmenturia.
+          </p>
+        </article>
+        <p class="pc-disclaimer">
+          Transfusion support only. Component selection and compatibility
+          decisions remain clinician-led.
+        </p>
+        <p class="pc-disclaimer">
+          Approved reference baseline (reviewed February 13, 2026): Drug label
+          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
+          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
+          BCS charts, ACVIM cardiology consensus guideline references, Dental
+          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
+          breed search, and RECOVER CPR guidelines.
+        </p>
+      </section>
     </main>
-</body>
+  </body>
 </html>

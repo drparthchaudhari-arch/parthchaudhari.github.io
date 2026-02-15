@@ -1,106 +1,194 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Toxicity Triage Guide | VetLudics Reference</title>
-    <meta name="description" content="Fast toxicity triage guide for chocolate, xylitol, lilies, grapes, and NSAIDs with emergency decision support.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Toxicity Triage Guide | VetLudics Reference">
-    <meta property="og:description" content="Emergency yes/no triage and high-yield toxin reference for NAVLE prep.">
-    <meta property="og:url" content="https://parthchaudhari.com/reference/toxicities.html">
-    <link rel="canonical" href="https://parthchaudhari.com/reference/toxicities.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Fast toxicity triage guide for chocolate, xylitol, lilies, grapes, and NSAIDs with emergency decision support."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Toxicity Triage Guide | VetLudics Reference"
+    />
+    <meta
+      property="og:description"
+      content="Emergency yes/no triage and high-yield toxin reference for NAVLE prep."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/reference/toxicities.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/reference/toxicities.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/toxicities.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Reference</p>
-            <h1 class="pc-fork-title">Toxicity Triage Quick Guide</h1>
-            <p class="pc-fork-copy">Use this fast framework for first-pass urgency assessment while preparing your full diagnostic and decontamination plan.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/reference/">Back to Reference</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Reference</p>
+        <h1 class="pc-fork-title">Toxicity Triage Quick Guide</h1>
+        <p class="pc-fork-copy">
+          Use this fast framework for first-pass urgency assessment while
+          preparing your full diagnostic and decontamination plan.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/reference/"
+            >Back to Reference</a
+          >
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="tox-tree-title">
-            <h2 id="tox-tree-title" class="pc-bridge-title">Is This an Emergency?</h2>
-            <article class="pc-triage-tree" aria-live="polite">
-                <p id="tox-question" class="pc-triage-question">Known or suspected toxin exposure within the last 6 hours?</p>
-                <div id="tox-options" class="pc-triage-options">
-                    <button type="button" class="pc-btn" data-tox-choice="yes">Yes</button>
-                    <button type="button" class="pc-btn pc-btn--secondary" data-tox-choice="no">No</button>
-                </div>
-                <p id="tox-result" class="pc-triage-result" hidden></p>
-                <button id="tox-reset" type="button" class="pc-btn pc-btn--secondary" hidden>Restart Tree</button>
-            </article>
-        </section>
+      <section class="pc-bridge-section" aria-labelledby="tox-tree-title">
+        <h2 id="tox-tree-title" class="pc-bridge-title">
+          Is This an Emergency?
+        </h2>
+        <article class="pc-triage-tree" aria-live="polite">
+          <p id="tox-question" class="pc-triage-question">
+            Known or suspected toxin exposure within the last 6 hours?
+          </p>
+          <div id="tox-options" class="pc-triage-options">
+            <button type="button" class="pc-btn" data-tox-choice="yes">
+              Yes
+            </button>
+            <button
+              type="button"
+              class="pc-btn pc-btn--secondary"
+              data-tox-choice="no"
+            >
+              No
+            </button>
+          </div>
+          <p id="tox-result" class="pc-triage-result" hidden></p>
+          <button
+            id="tox-reset"
+            type="button"
+            class="pc-btn pc-btn--secondary"
+            hidden
+          >
+            Restart Tree
+          </button>
+        </article>
+      </section>
 
-        <section class="pc-bridge-section" aria-label="Toxin guide cards">
-            <h2 class="pc-bridge-title">High-Yield Toxins</h2>
-            <div class="pc-topic-cards">
-                <article class="pc-topic-card">
-                    <h3>Chocolate (Theobromine)</h3>
-                    <p><strong>Species:</strong> Dog</p>
-                    <p><strong>Red flags:</strong> Tremors, tachycardia, seizures</p>
-                    <p><strong>Urgent threshold:</strong> Dark/baking chocolate or symptomatic patient</p>
-                    <p><strong>Initial actions:</strong> Emesis if appropriate, charcoal, ECG monitoring</p>
-                </article>
-                <article class="pc-topic-card">
-                    <h3>Xylitol</h3>
-                    <p><strong>Species:</strong> Dog</p>
-                    <p><strong>Red flags:</strong> Hypoglycemia within 30-60 min, acute liver injury</p>
-                    <p><strong>Urgent threshold:</strong> Any known ingestion</p>
-                    <p><strong>Initial actions:</strong> Blood glucose checks, dextrose support, LFT monitoring</p>
-                </article>
-                <article class="pc-topic-card">
-                    <h3>Lilies</h3>
-                    <p><strong>Species:</strong> Cat</p>
-                    <p><strong>Red flags:</strong> Vomiting, depression, rising creatinine within 12-24 hr</p>
-                    <p><strong>Urgent threshold:</strong> Any true lily exposure</p>
-                    <p><strong>Initial actions:</strong> Immediate decontamination, aggressive IV fluids, renal panel</p>
-                </article>
-                <article class="pc-topic-card">
-                    <h3>Grapes / Raisins</h3>
-                    <p><strong>Species:</strong> Dog</p>
-                    <p><strong>Red flags:</strong> Vomiting, lethargy, azotemia</p>
-                    <p><strong>Urgent threshold:</strong> Unknown dose or symptomatic</p>
-                    <p><strong>Initial actions:</strong> Emesis/charcoal early, 48-hour renal monitoring</p>
-                </article>
-                <article class="pc-topic-card">
-                    <h3>NSAIDs (Ibuprofen, Naproxen)</h3>
-                    <p><strong>Species:</strong> Dog/Cat</p>
-                    <p><strong>Red flags:</strong> GI bleeding, AKI, neurologic signs at high doses</p>
-                    <p><strong>Urgent threshold:</strong> Any cat exposure or moderate/high dog ingestion</p>
-                    <p><strong>Initial actions:</strong> Decontamination, GI protectants, renal perfusion support</p>
-                </article>
-            </div>
-        </section>
+      <section class="pc-bridge-section" aria-label="Toxin guide cards">
+        <h2 class="pc-bridge-title">High-Yield Toxins</h2>
+        <div class="pc-topic-cards">
+          <article class="pc-topic-card">
+            <h3>Chocolate (Theobromine)</h3>
+            <p><strong>Species:</strong> Dog</p>
+            <p><strong>Red flags:</strong> Tremors, tachycardia, seizures</p>
+            <p>
+              <strong>Urgent threshold:</strong> Dark/baking chocolate or
+              symptomatic patient
+            </p>
+            <p>
+              <strong>Initial actions:</strong> Emesis if appropriate, charcoal,
+              ECG monitoring
+            </p>
+          </article>
+          <article class="pc-topic-card">
+            <h3>Xylitol</h3>
+            <p><strong>Species:</strong> Dog</p>
+            <p>
+              <strong>Red flags:</strong> Hypoglycemia within 30-60 min, acute
+              liver injury
+            </p>
+            <p><strong>Urgent threshold:</strong> Any known ingestion</p>
+            <p>
+              <strong>Initial actions:</strong> Blood glucose checks, dextrose
+              support, LFT monitoring
+            </p>
+          </article>
+          <article class="pc-topic-card">
+            <h3>Lilies</h3>
+            <p><strong>Species:</strong> Cat</p>
+            <p>
+              <strong>Red flags:</strong> Vomiting, depression, rising
+              creatinine within 12-24 hr
+            </p>
+            <p><strong>Urgent threshold:</strong> Any true lily exposure</p>
+            <p>
+              <strong>Initial actions:</strong> Immediate decontamination,
+              aggressive IV fluids, renal panel
+            </p>
+          </article>
+          <article class="pc-topic-card">
+            <h3>Grapes / Raisins</h3>
+            <p><strong>Species:</strong> Dog</p>
+            <p><strong>Red flags:</strong> Vomiting, lethargy, azotemia</p>
+            <p>
+              <strong>Urgent threshold:</strong> Unknown dose or symptomatic
+            </p>
+            <p>
+              <strong>Initial actions:</strong> Emesis/charcoal early, 48-hour
+              renal monitoring
+            </p>
+          </article>
+          <article class="pc-topic-card">
+            <h3>NSAIDs (Ibuprofen, Naproxen)</h3>
+            <p><strong>Species:</strong> Dog/Cat</p>
+            <p>
+              <strong>Red flags:</strong> GI bleeding, AKI, neurologic signs at
+              high doses
+            </p>
+            <p>
+              <strong>Urgent threshold:</strong> Any cat exposure or
+              moderate/high dog ingestion
+            </p>
+            <p>
+              <strong>Initial actions:</strong> Decontamination, GI protectants,
+              renal perfusion support
+            </p>
+          </article>
+        </div>
+      </section>
 
-        <p class="pc-disclaimer">Emergency pathways here are educational and not a substitute for poison control or direct veterinary supervision.</p>
+      <p class="pc-disclaimer">
+        Emergency pathways here are educational and not a substitute for poison
+        control or direct veterinary supervision.
+      </p>
     </main>
-</body>
+  </body>
 </html>

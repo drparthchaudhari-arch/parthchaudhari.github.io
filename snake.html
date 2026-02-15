@@ -1,497 +1,561 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Snake | VetLudics</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        :root {
-            --primary: #0d7377;
-            --primary-light: #14a085;
-            --secondary: #32e0c4;
-            --dark: #1a1a2e;
-            --darker: #16213e;
-            --white: #ffffff;
-            --transition: all 0.25s ease;
-        }
+      :root {
+        --primary: #0d7377;
+        --primary-light: #14a085;
+        --secondary: #32e0c4;
+        --dark: #1a1a2e;
+        --darker: #16213e;
+        --white: #ffffff;
+        --transition: all 0.25s ease;
+      }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            min-height: 100vh;
-            font-family: 'Inter', sans-serif;
-            color: var(--white);
-            background: radial-gradient(circle at 12% 10%, #1e3859 0%, transparent 42%),
-                        radial-gradient(circle at 82% 85%, #1c2747 0%, transparent 44%),
-                        linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
-            padding: 1rem;
-        }
+      body {
+        min-height: 100vh;
+        font-family: 'Inter', sans-serif;
+        color: var(--white);
+        background:
+          radial-gradient(circle at 12% 10%, #1e3859 0%, transparent 42%),
+          radial-gradient(circle at 82% 85%, #1c2747 0%, transparent 44%),
+          linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+        padding: 1rem;
+      }
 
-        .page-wrap {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+      .page-wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
 
+      .top-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-bottom: 1rem;
+      }
+
+      .top-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        text-decoration: none;
+        color: var(--secondary);
+        font-weight: 600;
+      }
+
+      .panel {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 16px;
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        margin-bottom: 0.35rem;
+      }
+
+      .subtitle {
+        color: rgba(255, 255, 255, 0.74);
+        margin-bottom: 1rem;
+      }
+
+      .control-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .control-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+
+      .control-item label {
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.75);
+        font-weight: 600;
+      }
+
+      .control-item select {
+        width: 100%;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        background: rgba(0, 0, 0, 0.3);
+        color: var(--white);
+        padding: 0.55rem;
+        font-size: 0.92rem;
+      }
+
+      .btn-game {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-light) 100%
+        );
+        color: var(--white);
+        border: none;
+        padding: 0.8rem 1.1rem;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        width: 100%;
+        margin-top: 0.25rem;
+      }
+
+      .btn-game:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px rgba(13, 115, 119, 0.35);
+      }
+
+      .game-panel {
+        margin-top: 0.9rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 12px;
+        padding: 0.8rem;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+      }
+
+      .snake-container {
+        text-align: center;
+      }
+
+      #snakeCanvas {
+        width: 100%;
+        max-width: 460px;
+        background: rgba(0, 0, 0, 0.45);
+        border-radius: 10px;
+        border: 2px solid var(--primary);
+        display: block;
+        margin: 0 auto;
+      }
+
+      .snake-controls {
+        margin-top: 0.65rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.45rem;
+      }
+
+      .snake-score {
+        font-size: 1.15rem;
+        color: var(--secondary);
+        font-weight: 700;
+      }
+
+      .snake-dpad {
+        display: grid;
+        grid-template-columns: repeat(3, 48px);
+        gap: 5px;
+        margin-top: 0.25rem;
+      }
+
+      .snake-btn {
+        width: 48px;
+        height: 48px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid var(--primary);
+        border-radius: 10px;
+        color: var(--white);
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .snake-btn:hover {
+        background: var(--primary);
+      }
+
+      .snake-btn:active {
+        transform: scale(0.95);
+      }
+
+      .micro-text {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.82rem;
+        margin-top: 0.55rem;
+      }
+
+      @media (max-width: 700px) {
         .top-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .top-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            text-decoration: none;
-            color: var(--secondary);
-            font-weight: 600;
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 0.45rem;
         }
 
         .panel {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 16px;
-            padding: 1rem;
-        }
-
-        h1 {
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            margin-bottom: 0.35rem;
-        }
-
-        .subtitle {
-            color: rgba(255, 255, 255, 0.74);
-            margin-bottom: 1rem;
-        }
-
-        .control-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .control-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-        }
-
-        .control-item label {
-            font-size: 0.82rem;
-            color: rgba(255, 255, 255, 0.75);
-            font-weight: 600;
-        }
-
-        .control-item select {
-            width: 100%;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.24);
-            background: rgba(0, 0, 0, 0.3);
-            color: var(--white);
-            padding: 0.55rem;
-            font-size: 0.92rem;
-        }
-
-        .btn-game {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: var(--white);
-            border: none;
-            padding: 0.8rem 1.1rem;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-            margin-top: 0.25rem;
-        }
-
-        .btn-game:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 24px rgba(13, 115, 119, 0.35);
-        }
-
-        .game-panel {
-            margin-top: 0.9rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
-            padding: 0.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.09);
-        }
-
-        .snake-container {
-            text-align: center;
+          padding: 0.85rem;
         }
 
         #snakeCanvas {
-            width: 100%;
-            max-width: 460px;
-            background: rgba(0, 0, 0, 0.45);
-            border-radius: 10px;
-            border: 2px solid var(--primary);
-            display: block;
-            margin: 0 auto;
+          max-width: min(100%, 380px);
+        }
+      }
+
+      @media (max-width: 520px) {
+        body {
+          padding: 0.75rem;
         }
 
-        .snake-controls {
-            margin-top: 0.65rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.45rem;
-        }
-
-        .snake-score {
-            font-size: 1.15rem;
-            color: var(--secondary);
-            font-weight: 700;
+        #snakeCanvas {
+          max-width: min(100%, 320px);
         }
 
         .snake-dpad {
-            display: grid;
-            grid-template-columns: repeat(3, 48px);
-            gap: 5px;
-            margin-top: 0.25rem;
+          grid-template-columns: repeat(3, 44px);
+          gap: 4px;
         }
 
         .snake-btn {
-            width: 48px;
-            height: 48px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid var(--primary);
-            border-radius: 10px;
-            color: var(--white);
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: var(--transition);
+          width: 44px;
+          height: 44px;
+          font-size: 1rem;
         }
-
-        .snake-btn:hover {
-            background: var(--primary);
-        }
-
-        .snake-btn:active {
-            transform: scale(0.95);
-        }
-
-        .micro-text {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.82rem;
-            margin-top: 0.55rem;
-        }
-
-        @media (max-width: 700px) {
-            .top-links {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 0.45rem;
-            }
-
-            .panel {
-                padding: 0.85rem;
-            }
-
-            #snakeCanvas {
-                max-width: min(100%, 380px);
-            }
-        }
-
-        @media (max-width: 520px) {
-            body {
-                padding: 0.75rem;
-            }
-
-            #snakeCanvas {
-                max-width: min(100%, 320px);
-            }
-
-            .snake-dpad {
-                grid-template-columns: repeat(3, 44px);
-                gap: 4px;
-            }
-
-            .snake-btn {
-                width: 44px;
-                height: 44px;
-                font-size: 1rem;
-            }
-        }
+      }
     </style>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="page-wrap">
-        <div class="top-links">
-            <a class="top-link" href="games.html"><i class="fas fa-arrow-left"></i> Back to Games</a>
-            <a class="top-link" href="index.html"><i class="fas fa-house"></i> Home</a>
+      <div class="top-links">
+        <a class="top-link" href="games.html"
+          ><i class="fas fa-arrow-left"></i> Back to Games</a
+        >
+        <a class="top-link" href="index.html"
+          ><i class="fas fa-house"></i> Home</a
+        >
+      </div>
+
+      <section class="panel">
+        <h1>Snake</h1>
+        <p class="subtitle">
+          Select snake color and mode, then start the game.
+        </p>
+
+        <div class="control-row">
+          <div class="control-item">
+            <label for="snakeColorSelect">Snake Color</label>
+            <select id="snakeColorSelect">
+              <option value="teal">Teal</option>
+              <option value="lime">Lime</option>
+              <option value="sunset">Sunset</option>
+              <option value="violet">Violet</option>
+              <option value="rainbow">Rainbow</option>
+            </select>
+          </div>
+          <div class="control-item">
+            <label for="snakeTypeSelect">Game Type</label>
+            <select id="snakeTypeSelect">
+              <option value="classic">Classic</option>
+              <option value="wrap">Wraparound</option>
+              <option value="speed">Speedster</option>
+              <option value="zen">Zen</option>
+            </select>
+          </div>
         </div>
 
-        <section class="panel">
-            <h1>Snake</h1>
-            <p class="subtitle">Select snake color and mode, then start the game.</p>
+        <button class="btn-game" id="snakeStartBtn">Start Snake</button>
 
-            <div class="control-row">
-                <div class="control-item">
-                    <label for="snakeColorSelect">Snake Color</label>
-                    <select id="snakeColorSelect">
-                        <option value="teal">Teal</option>
-                        <option value="lime">Lime</option>
-                        <option value="sunset">Sunset</option>
-                        <option value="violet">Violet</option>
-                        <option value="rainbow">Rainbow</option>
-                    </select>
-                </div>
-                <div class="control-item">
-                    <label for="snakeTypeSelect">Game Type</label>
-                    <select id="snakeTypeSelect">
-                        <option value="classic">Classic</option>
-                        <option value="wrap">Wraparound</option>
-                        <option value="speed">Speedster</option>
-                        <option value="zen">Zen</option>
-                    </select>
-                </div>
+        <div class="game-panel">
+          <div class="snake-container">
+            <canvas id="snakeCanvas" width="420" height="420"></canvas>
+            <div class="snake-controls">
+              <div class="snake-score">
+                Score: <span id="snakeScore">0</span>
+              </div>
+              <div class="snake-dpad">
+                <div></div>
+                <button class="snake-btn" id="snakeUpBtn">
+                  <i class="fas fa-arrow-up"></i>
+                </button>
+                <div></div>
+                <button class="snake-btn" id="snakeLeftBtn">
+                  <i class="fas fa-arrow-left"></i>
+                </button>
+                <button class="snake-btn" id="snakePauseBtn">
+                  <i class="fas fa-pause"></i>
+                </button>
+                <button class="snake-btn" id="snakeRightBtn">
+                  <i class="fas fa-arrow-right"></i>
+                </button>
+                <div></div>
+                <button class="snake-btn" id="snakeDownBtn">
+                  <i class="fas fa-arrow-down"></i>
+                </button>
+                <div></div>
+              </div>
+              <p class="micro-text">
+                Use keyboard arrow keys or the on-screen controls.
+              </p>
             </div>
-
-            <button class="btn-game" id="snakeStartBtn">Start Snake</button>
-
-            <div class="game-panel">
-                <div class="snake-container">
-                    <canvas id="snakeCanvas" width="420" height="420"></canvas>
-                    <div class="snake-controls">
-                        <div class="snake-score">Score: <span id="snakeScore">0</span></div>
-                        <div class="snake-dpad">
-                            <div></div>
-                            <button class="snake-btn" id="snakeUpBtn"><i class="fas fa-arrow-up"></i></button>
-                            <div></div>
-                            <button class="snake-btn" id="snakeLeftBtn"><i class="fas fa-arrow-left"></i></button>
-                            <button class="snake-btn" id="snakePauseBtn"><i class="fas fa-pause"></i></button>
-                            <button class="snake-btn" id="snakeRightBtn"><i class="fas fa-arrow-right"></i></button>
-                            <div></div>
-                            <button class="snake-btn" id="snakeDownBtn"><i class="fas fa-arrow-down"></i></button>
-                            <div></div>
-                        </div>
-                        <p class="micro-text">Use keyboard arrow keys or the on-screen controls.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+          </div>
+        </div>
+      </section>
     </div>
 
     <script>
-        function randomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
+      function randomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min
+      }
+
+      const snakeCanvas = document.getElementById('snakeCanvas')
+      const snakeCtx = snakeCanvas.getContext('2d')
+      const snakeScoreEl = document.getElementById('snakeScore')
+      const snakeStartBtn = document.getElementById('snakeStartBtn')
+      const snakeColorSelect = document.getElementById('snakeColorSelect')
+      const snakeTypeSelect = document.getElementById('snakeTypeSelect')
+
+      const snakeUpBtn = document.getElementById('snakeUpBtn')
+      const snakeDownBtn = document.getElementById('snakeDownBtn')
+      const snakeLeftBtn = document.getElementById('snakeLeftBtn')
+      const snakeRightBtn = document.getElementById('snakeRightBtn')
+      const snakePauseBtn = document.getElementById('snakePauseBtn')
+
+      const snakeModes = {
+        classic: { speed: 110, wrap: false },
+        wrap: { speed: 110, wrap: true },
+        speed: { speed: 75, wrap: false },
+        zen: { speed: 140, wrap: true },
+      }
+
+      const snakeColorMap = {
+        teal: ['#32e0c4'],
+        lime: ['#b6ff5c'],
+        sunset: ['#ff7f50'],
+        violet: ['#c084fc'],
+        rainbow: [
+          '#22d3ee',
+          '#60a5fa',
+          '#a78bfa',
+          '#f472b6',
+          '#f59e0b',
+          '#34d399',
+        ],
+      }
+
+      const snakeGridSize = 21
+      const snakeTiles = snakeCanvas.width / snakeGridSize
+      let snakeBody = [{ x: 10, y: 10 }]
+      let snakeFood = { x: 6, y: 6 }
+      let snakeDirection = { x: 1, y: 0 }
+      let nextSnakeDirection = { x: 1, y: 0 }
+      let snakeScore = 0
+      let snakeLoop = null
+      let snakePaused = false
+      let currentSnakeMode = snakeModes.classic
+      let currentSnakeColor = 'teal'
+
+      function stopSnakeLoop() {
+        if (snakeLoop) {
+          clearInterval(snakeLoop)
+          snakeLoop = null
+        }
+      }
+
+      function snakePositionTaken(x, y) {
+        return snakeBody.some((part) => part.x === x && part.y === y)
+      }
+
+      function spawnSnakeFood() {
+        let x
+        let y
+        do {
+          x = randomInt(0, snakeTiles - 1)
+          y = randomInt(0, snakeTiles - 1)
+        } while (snakePositionTaken(x, y))
+        snakeFood = { x, y }
+      }
+
+      function setSnakeDirection(x, y) {
+        if (
+          snakeBody.length > 1 &&
+          x === -snakeDirection.x &&
+          y === -snakeDirection.y
+        ) {
+          return
+        }
+        nextSnakeDirection = { x, y }
+      }
+
+      function drawSnakeBoard() {
+        snakeCtx.fillStyle = 'rgba(0, 0, 0, 0.86)'
+        snakeCtx.fillRect(0, 0, snakeCanvas.width, snakeCanvas.height)
+
+        snakeCtx.strokeStyle = 'rgba(255, 255, 255, 0.06)'
+        for (let i = 0; i <= snakeTiles; i++) {
+          const p = i * snakeGridSize
+          snakeCtx.beginPath()
+          snakeCtx.moveTo(p, 0)
+          snakeCtx.lineTo(p, snakeCanvas.height)
+          snakeCtx.stroke()
+          snakeCtx.beginPath()
+          snakeCtx.moveTo(0, p)
+          snakeCtx.lineTo(snakeCanvas.width, p)
+          snakeCtx.stroke()
         }
 
-        const snakeCanvas = document.getElementById('snakeCanvas');
-        const snakeCtx = snakeCanvas.getContext('2d');
-        const snakeScoreEl = document.getElementById('snakeScore');
-        const snakeStartBtn = document.getElementById('snakeStartBtn');
-        const snakeColorSelect = document.getElementById('snakeColorSelect');
-        const snakeTypeSelect = document.getElementById('snakeTypeSelect');
+        snakeBody.forEach((segment, index) => {
+          const palette = snakeColorMap[currentSnakeColor] || snakeColorMap.teal
+          const color =
+            palette.length === 1 ? palette[0] : palette[index % palette.length]
 
-        const snakeUpBtn = document.getElementById('snakeUpBtn');
-        const snakeDownBtn = document.getElementById('snakeDownBtn');
-        const snakeLeftBtn = document.getElementById('snakeLeftBtn');
-        const snakeRightBtn = document.getElementById('snakeRightBtn');
-        const snakePauseBtn = document.getElementById('snakePauseBtn');
+          snakeCtx.fillStyle = color
+          snakeCtx.fillRect(
+            segment.x * snakeGridSize + 1,
+            segment.y * snakeGridSize + 1,
+            snakeGridSize - 2,
+            snakeGridSize - 2
+          )
 
-        const snakeModes = {
-            classic: { speed: 110, wrap: false },
-            wrap: { speed: 110, wrap: true },
-            speed: { speed: 75, wrap: false },
-            zen: { speed: 140, wrap: true }
-        };
+          if (index === 0) {
+            snakeCtx.fillStyle = '#ffffff'
+            snakeCtx.fillRect(
+              segment.x * snakeGridSize + 6,
+              segment.y * snakeGridSize + 6,
+              3,
+              3
+            )
+          }
+        })
 
-        const snakeColorMap = {
-            teal: ['#32e0c4'],
-            lime: ['#b6ff5c'],
-            sunset: ['#ff7f50'],
-            violet: ['#c084fc'],
-            rainbow: ['#22d3ee', '#60a5fa', '#a78bfa', '#f472b6', '#f59e0b', '#34d399']
-        };
+        snakeCtx.fillStyle = '#f39c12'
+        snakeCtx.beginPath()
+        snakeCtx.arc(
+          snakeFood.x * snakeGridSize + snakeGridSize / 2,
+          snakeFood.y * snakeGridSize + snakeGridSize / 2,
+          snakeGridSize * 0.33,
+          0,
+          Math.PI * 2
+        )
+        snakeCtx.fill()
+      }
 
-        const snakeGridSize = 21;
-        const snakeTiles = snakeCanvas.width / snakeGridSize;
-        let snakeBody = [{ x: 10, y: 10 }];
-        let snakeFood = { x: 6, y: 6 };
-        let snakeDirection = { x: 1, y: 0 };
-        let nextSnakeDirection = { x: 1, y: 0 };
-        let snakeScore = 0;
-        let snakeLoop = null;
-        let snakePaused = false;
-        let currentSnakeMode = snakeModes.classic;
-        let currentSnakeColor = 'teal';
+      function endSnakeGame() {
+        stopSnakeLoop()
+        alert(`Snake game over. Score: ${snakeScore}`)
+      }
 
-        function stopSnakeLoop() {
-            if (snakeLoop) {
-                clearInterval(snakeLoop);
-                snakeLoop = null;
-            }
+      function updateSnakeGame() {
+        if (snakePaused) {
+          return
         }
 
-        function snakePositionTaken(x, y) {
-            return snakeBody.some(part => part.x === x && part.y === y);
+        snakeDirection = nextSnakeDirection
+        const head = {
+          x: snakeBody[0].x + snakeDirection.x,
+          y: snakeBody[0].y + snakeDirection.y,
         }
 
-        function spawnSnakeFood() {
-            let x;
-            let y;
-            do {
-                x = randomInt(0, snakeTiles - 1);
-                y = randomInt(0, snakeTiles - 1);
-            } while (snakePositionTaken(x, y));
-            snakeFood = { x, y };
+        if (currentSnakeMode.wrap) {
+          head.x = (head.x + snakeTiles) % snakeTiles
+          head.y = (head.y + snakeTiles) % snakeTiles
+        } else if (
+          head.x < 0 ||
+          head.y < 0 ||
+          head.x >= snakeTiles ||
+          head.y >= snakeTiles
+        ) {
+          endSnakeGame()
+          return
         }
 
-        function setSnakeDirection(x, y) {
-            if (snakeBody.length > 1 && x === -snakeDirection.x && y === -snakeDirection.y) {
-                return;
-            }
-            nextSnakeDirection = { x, y };
+        if (snakeBody.some((part) => part.x === head.x && part.y === head.y)) {
+          endSnakeGame()
+          return
         }
 
-        function drawSnakeBoard() {
-            snakeCtx.fillStyle = 'rgba(0, 0, 0, 0.86)';
-            snakeCtx.fillRect(0, 0, snakeCanvas.width, snakeCanvas.height);
+        snakeBody.unshift(head)
 
-            snakeCtx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
-            for (let i = 0; i <= snakeTiles; i++) {
-                const p = i * snakeGridSize;
-                snakeCtx.beginPath();
-                snakeCtx.moveTo(p, 0);
-                snakeCtx.lineTo(p, snakeCanvas.height);
-                snakeCtx.stroke();
-                snakeCtx.beginPath();
-                snakeCtx.moveTo(0, p);
-                snakeCtx.lineTo(snakeCanvas.width, p);
-                snakeCtx.stroke();
-            }
-
-            snakeBody.forEach((segment, index) => {
-                const palette = snakeColorMap[currentSnakeColor] || snakeColorMap.teal;
-                const color = palette.length === 1 ? palette[0] : palette[index % palette.length];
-
-                snakeCtx.fillStyle = color;
-                snakeCtx.fillRect(
-                    segment.x * snakeGridSize + 1,
-                    segment.y * snakeGridSize + 1,
-                    snakeGridSize - 2,
-                    snakeGridSize - 2
-                );
-
-                if (index === 0) {
-                    snakeCtx.fillStyle = '#ffffff';
-                    snakeCtx.fillRect(segment.x * snakeGridSize + 6, segment.y * snakeGridSize + 6, 3, 3);
-                }
-            });
-
-            snakeCtx.fillStyle = '#f39c12';
-            snakeCtx.beginPath();
-            snakeCtx.arc(
-                snakeFood.x * snakeGridSize + snakeGridSize / 2,
-                snakeFood.y * snakeGridSize + snakeGridSize / 2,
-                snakeGridSize * 0.33,
-                0,
-                Math.PI * 2
-            );
-            snakeCtx.fill();
+        if (head.x === snakeFood.x && head.y === snakeFood.y) {
+          snakeScore++
+          snakeScoreEl.textContent = String(snakeScore)
+          spawnSnakeFood()
+        } else {
+          snakeBody.pop()
         }
 
-        function endSnakeGame() {
-            stopSnakeLoop();
-            alert(`Snake game over. Score: ${snakeScore}`);
+        drawSnakeBoard()
+      }
+
+      function startSnakeGame() {
+        currentSnakeMode =
+          snakeModes[snakeTypeSelect.value] || snakeModes.classic
+        currentSnakeColor = snakeColorSelect.value
+
+        snakeBody = [
+          { x: 10, y: 10 },
+          { x: 9, y: 10 },
+          { x: 8, y: 10 },
+        ]
+        snakeDirection = { x: 1, y: 0 }
+        nextSnakeDirection = { x: 1, y: 0 }
+        snakeScore = 0
+        snakePaused = false
+        snakePauseBtn.innerHTML = '<i class="fas fa-pause"></i>'
+        snakeScoreEl.textContent = '0'
+        spawnSnakeFood()
+        drawSnakeBoard()
+
+        stopSnakeLoop()
+        snakeLoop = setInterval(updateSnakeGame, currentSnakeMode.speed)
+      }
+
+      snakeStartBtn.addEventListener('click', startSnakeGame)
+      snakeUpBtn.addEventListener('click', () => setSnakeDirection(0, -1))
+      snakeDownBtn.addEventListener('click', () => setSnakeDirection(0, 1))
+      snakeLeftBtn.addEventListener('click', () => setSnakeDirection(-1, 0))
+      snakeRightBtn.addEventListener('click', () => setSnakeDirection(1, 0))
+      snakePauseBtn.addEventListener('click', () => {
+        snakePaused = !snakePaused
+        snakePauseBtn.innerHTML = snakePaused
+          ? '<i class="fas fa-play"></i>'
+          : '<i class="fas fa-pause"></i>'
+      })
+
+      document.addEventListener('keydown', (event) => {
+        if (
+          !['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(
+            event.key
+          )
+        ) {
+          return
         }
 
-        function updateSnakeGame() {
-            if (snakePaused) {
-                return;
-            }
+        event.preventDefault()
+        if (event.key === 'ArrowUp') setSnakeDirection(0, -1)
+        if (event.key === 'ArrowDown') setSnakeDirection(0, 1)
+        if (event.key === 'ArrowLeft') setSnakeDirection(-1, 0)
+        if (event.key === 'ArrowRight') setSnakeDirection(1, 0)
+      })
 
-            snakeDirection = nextSnakeDirection;
-            const head = {
-                x: snakeBody[0].x + snakeDirection.x,
-                y: snakeBody[0].y + snakeDirection.y
-            };
-
-            if (currentSnakeMode.wrap) {
-                head.x = (head.x + snakeTiles) % snakeTiles;
-                head.y = (head.y + snakeTiles) % snakeTiles;
-            } else if (head.x < 0 || head.y < 0 || head.x >= snakeTiles || head.y >= snakeTiles) {
-                endSnakeGame();
-                return;
-            }
-
-            if (snakeBody.some(part => part.x === head.x && part.y === head.y)) {
-                endSnakeGame();
-                return;
-            }
-
-            snakeBody.unshift(head);
-
-            if (head.x === snakeFood.x && head.y === snakeFood.y) {
-                snakeScore++;
-                snakeScoreEl.textContent = String(snakeScore);
-                spawnSnakeFood();
-            } else {
-                snakeBody.pop();
-            }
-
-            drawSnakeBoard();
-        }
-
-        function startSnakeGame() {
-            currentSnakeMode = snakeModes[snakeTypeSelect.value] || snakeModes.classic;
-            currentSnakeColor = snakeColorSelect.value;
-
-            snakeBody = [{ x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 }];
-            snakeDirection = { x: 1, y: 0 };
-            nextSnakeDirection = { x: 1, y: 0 };
-            snakeScore = 0;
-            snakePaused = false;
-            snakePauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-            snakeScoreEl.textContent = '0';
-            spawnSnakeFood();
-            drawSnakeBoard();
-
-            stopSnakeLoop();
-            snakeLoop = setInterval(updateSnakeGame, currentSnakeMode.speed);
-        }
-
-        snakeStartBtn.addEventListener('click', startSnakeGame);
-        snakeUpBtn.addEventListener('click', () => setSnakeDirection(0, -1));
-        snakeDownBtn.addEventListener('click', () => setSnakeDirection(0, 1));
-        snakeLeftBtn.addEventListener('click', () => setSnakeDirection(-1, 0));
-        snakeRightBtn.addEventListener('click', () => setSnakeDirection(1, 0));
-        snakePauseBtn.addEventListener('click', () => {
-            snakePaused = !snakePaused;
-            snakePauseBtn.innerHTML = snakePaused ? '<i class="fas fa-play"></i>' : '<i class="fas fa-pause"></i>';
-        });
-
-        document.addEventListener('keydown', (event) => {
-            if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
-                return;
-            }
-
-            event.preventDefault();
-            if (event.key === 'ArrowUp') setSnakeDirection(0, -1);
-            if (event.key === 'ArrowDown') setSnakeDirection(0, 1);
-            if (event.key === 'ArrowLeft') setSnakeDirection(-1, 0);
-            if (event.key === 'ArrowRight') setSnakeDirection(1, 0);
-        });
-
-        drawSnakeBoard();
+      drawSnakeBoard()
     </script>
-</body>
+  </body>
 </html>

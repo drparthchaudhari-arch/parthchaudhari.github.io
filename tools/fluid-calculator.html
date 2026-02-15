@@ -1,116 +1,195 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-mode="pro" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author-status" content="NAVLE-candidate-unlicensed">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Fluid Calculator | VetLudics Tools</title>
-    <meta name="description" content="Free veterinary fluid calculator for dehydration deficit, maintenance, 24-hour total, and hourly rates.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Fluid Calculator | VetLudics Tools">
-    <meta property="og:description" content="Compute deficit and maintenance plans quickly for NAVLE-style emergency scenarios.">
-    <meta property="og:url" content="https://parthchaudhari.com/tools/fluid-calculator.html">
-    <link rel="canonical" href="https://parthchaudhari.com/tools/fluid-calculator.html">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
+    <meta
+      name="description"
+      content="Free veterinary fluid calculator for dehydration deficit, maintenance, 24-hour total, and hourly rates."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Fluid Calculator | VetLudics Tools" />
+    <meta
+      property="og:description"
+      content="Compute deficit and maintenance plans quickly for NAVLE-style emergency scenarios."
+    />
+    <meta
+      property="og:url"
+      content="https://parthchaudhari.com/tools/fluid-calculator.html"
+    />
+    <link
+      rel="canonical"
+      href="https://parthchaudhari.com/tools/fluid-calculator.html"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/integration-core.js" defer></script>
     <script src="/assets/js/fluid-calculator.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-</head>
-<body class="pc-page pc-page--study">
+  </head>
+  <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
-        <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
-            <div class="pc-nav-group">
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
-                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
-                </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
-                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
-                </button>
-            </div>
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">VetLudics</a>
+        <div class="pc-nav-group">
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-mode-toggle
+            aria-label="Toggle professional or play mode"
+          >
+            <span class="pc-nav-toggle__label" data-pc-mode-label
+              >Mode: Professional</span
+            >
+          </button>
+          <button
+            type="button"
+            class="pc-nav-toggle"
+            data-pc-theme-toggle
+            aria-label="Toggle day or night theme"
+          >
+            <span class="pc-nav-toggle__label" data-pc-theme-label
+              >Theme: Day</span
+            >
+          </button>
         </div>
+      </div>
     </nav>
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
-        <section class="pc-bridge-hero">
-            <p class="pc-kicker">Free Tool</p>
-            <h1 class="pc-fork-title">Fluid Calculator</h1>
-            <p class="pc-fork-copy">Estimate dehydration deficit and maintenance needs, then convert to 24-hour and hourly delivery targets.</p>
-            <div class="pc-panel-actions">
-                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
-            </div>
-        </section>
+      <section class="pc-bridge-hero">
+        <p class="pc-kicker">Free Tool</p>
+        <h1 class="pc-fork-title">Fluid Calculator</h1>
+        <p class="pc-fork-copy">
+          Estimate dehydration deficit and maintenance needs, then convert to
+          24-hour and hourly delivery targets.
+        </p>
+        <div class="pc-panel-actions">
+          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+        </div>
+      </section>
 
-        <section class="pc-bridge-section" aria-labelledby="fluid-form-title">
-            <h2 id="fluid-form-title" class="pc-bridge-title">Calculate Fluids</h2>
-            <form id="fluid-form" class="pc-calculator-grid" novalidate>
-                <label class="pc-calculator-field" for="fluid-weight">
-                    <span>Weight (kg)</span>
-                    <input id="fluid-weight" class="pc-input" type="number" min="0.2" step="0.1" value="25" required>
-                </label>
+      <section class="pc-bridge-section" aria-labelledby="fluid-form-title">
+        <h2 id="fluid-form-title" class="pc-bridge-title">Calculate Fluids</h2>
+        <form id="fluid-form" class="pc-calculator-grid" novalidate>
+          <label class="pc-calculator-field" for="fluid-weight">
+            <span>Weight (kg)</span>
+            <input
+              id="fluid-weight"
+              class="pc-input"
+              type="number"
+              min="0.2"
+              step="0.1"
+              value="25"
+              required
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="fluid-dehydration">
-                    <span>Dehydration (%)</span>
-                    <input id="fluid-dehydration" class="pc-input" type="number" min="0" max="15" step="0.5" value="8" required>
-                </label>
+          <label class="pc-calculator-field" for="fluid-dehydration">
+            <span>Dehydration (%)</span>
+            <input
+              id="fluid-dehydration"
+              class="pc-input"
+              type="number"
+              min="0"
+              max="15"
+              step="0.5"
+              value="8"
+              required
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="fluid-maintenance">
-                    <span>Maintenance (mL/kg/day)</span>
-                    <input id="fluid-maintenance" class="pc-input" type="number" min="20" max="120" step="1" value="60" required>
-                </label>
+          <label class="pc-calculator-field" for="fluid-maintenance">
+            <span>Maintenance (mL/kg/day)</span>
+            <input
+              id="fluid-maintenance"
+              class="pc-input"
+              type="number"
+              min="20"
+              max="120"
+              step="1"
+              value="60"
+              required
+            />
+          </label>
 
-                <label class="pc-calculator-field" for="fluid-override">
-                    <span>User override applied?</span>
-                    <input id="fluid-override" type="checkbox">
-                </label>
+          <label class="pc-calculator-field" for="fluid-override">
+            <span>User override applied?</span>
+            <input id="fluid-override" type="checkbox" />
+          </label>
 
-                <label class="pc-calculator-field" for="fluid-override-reason">
-                    <span>Override reason (required if checked)</span>
-                    <input id="fluid-override-reason" class="pc-input" type="text" placeholder="e.g. concurrent renal compromise">
-                </label>
+          <label class="pc-calculator-field" for="fluid-override-reason">
+            <span>Override reason (required if checked)</span>
+            <input
+              id="fluid-override-reason"
+              class="pc-input"
+              type="text"
+              placeholder="e.g. concurrent renal compromise"
+            />
+          </label>
 
-                <div class="pc-calculator-actions">
-                    <button type="submit" class="pc-btn pc-btn--primary">Calculate</button>
-                </div>
-            </form>
-        </section>
+          <div class="pc-calculator-actions">
+            <button type="submit" class="pc-btn pc-btn--primary">
+              Calculate
+            </button>
+          </div>
+        </form>
+      </section>
 
-        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="fluid-result-title">
-            <h2 id="fluid-result-title" class="pc-bridge-title">Result</h2>
-            <p id="fluid-context-note" class="pc-calculator-note pc-context-note" hidden></p>
-            <div class="pc-stat-grid pc-stat-grid--results">
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Deficit Volume</p>
-                    <p id="fluid-deficit" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Maintenance / day</p>
-                    <p id="fluid-maint" class="pc-stat-number">-</p>
-                </article>
-                <article class="pc-stat-card">
-                    <p class="pc-stat-label">Total 24h Volume</p>
-                    <p id="fluid-total" class="pc-stat-number">-</p>
-                </article>
-            </div>
-            <article class="pc-bridge-card pc-bridge-card--inline">
-                <h3>Hourly Rate</h3>
-                <p id="fluid-hourly" class="pc-calculator-highlight">-</p>
-                <p id="fluid-shock" class="pc-calculator-note">Shock bolus reminder: dogs 10-20 mL/kg aliquots; cats 5-10 mL/kg aliquots, then reassess perfusion.</p>
-            </article>
-            <p id="fluid-override-note" class="pc-calculator-note" hidden></p>
-            <p class="pc-disclaimer">Use this as an educational estimate. Adjust for ongoing losses, comorbidities, and serial reassessment.</p>
-            <p class="pc-disclaimer">
-                Approved reference baseline (reviewed February 13, 2026):
-                Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
-            </p>
-
-        </section>
+      <section
+        class="pc-bridge-section"
+        aria-live="polite"
+        aria-labelledby="fluid-result-title"
+      >
+        <h2 id="fluid-result-title" class="pc-bridge-title">Result</h2>
+        <p
+          id="fluid-context-note"
+          class="pc-calculator-note pc-context-note"
+          hidden
+        ></p>
+        <div class="pc-stat-grid pc-stat-grid--results">
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Deficit Volume</p>
+            <p id="fluid-deficit" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Maintenance / day</p>
+            <p id="fluid-maint" class="pc-stat-number">-</p>
+          </article>
+          <article class="pc-stat-card">
+            <p class="pc-stat-label">Total 24h Volume</p>
+            <p id="fluid-total" class="pc-stat-number">-</p>
+          </article>
+        </div>
+        <article class="pc-bridge-card pc-bridge-card--inline">
+          <h3>Hourly Rate</h3>
+          <p id="fluid-hourly" class="pc-calculator-highlight">-</p>
+          <p id="fluid-shock" class="pc-calculator-note">
+            Shock bolus reminder: dogs 10-20 mL/kg aliquots; cats 5-10 mL/kg
+            aliquots, then reassess perfusion.
+          </p>
+        </article>
+        <p id="fluid-override-note" class="pc-calculator-note" hidden></p>
+        <p class="pc-disclaimer">
+          Use this as an educational estimate. Adjust for ongoing losses,
+          comorbidities, and serial reassessment.
+        </p>
+        <p class="pc-disclaimer">
+          Approved reference baseline (reviewed February 13, 2026): Drug label
+          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
+          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
+          BCS charts, ACVIM cardiology consensus guideline references, Dental
+          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
+          breed search, and RECOVER CPR guidelines.
+        </p>
+      </section>
     </main>
-</body>
+  </body>
 </html>
